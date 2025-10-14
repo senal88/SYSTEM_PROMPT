@@ -1,0 +1,27 @@
+# =====================================================================
+# LS-EDIA Dotfiles Git Ignore List
+# =====================================================================
+
+/Workspaces/
+/Agents/
+/Containers/
+/DataVault/
+/Backups/
+/Secrets/
+/Documentation/logs/
+/Tools/bin/
+
+.DS_Store
+.venv/
+__pycache__/
+*.log
+*.swp
+*.bak
+*.tmp
+
+# Local overrides (uncomment if needed)
+# .zshrc.local
+# .gitconfig.local
+# vscode/extensions.local.json
+
+# =====================================================================
