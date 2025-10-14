@@ -1,102 +1,81 @@
-# ls-edia-config: Repositorio de Configuracoes Core do LS-EDIA
+# ls-edia-config - Dotfiles oficiais LS-EDIA
 
-[![Repository Link](https://github.com/senal88/ls-edia-config)](https://github.com/senal88/ls-edia-config){target="_blank"}
+[Repositorio GitHub](https://github.com/senal88/ls-edia-config)
 
-## 1. Visao Geral
+## Visao Geral
 
-Este repositorio versiona apenas os dotfiles e artefatos de configuracao que definem o comportamento base do ambiente LS-EDIA no macOS Tahoe 26.0.1. Ele nao inclui projetos, dados, backups ou segredos; esses itens vivem em diretorios dedicados diretamente sob `~/` conforme a arquitetura LS-EDIA.
+Este repositorio versiona **apenas os dotfiles** que configuram o ambiente LS-EDIA no macOS Tahoe (Apple Silicon). Toda a arquitetura operacional vive diretamente em `~/` (`~/SystemBlueprint`, `~/Tools`, `~/Workspaces`, etc.) e nao e rastreada aqui; os scripts `setup_ls-edia.sh` e `correct_ls_edia_structure.sh` cuidaram da migracao.
 
-**Objetivos principais**
-- Preservar historico de ajustes em shell, Git, VS Code e ferramentas.
-- Permitir reproducao rapida das configuracoes em novas maquinas.
-- Servir como referencia para agentes de IA sobre o estado das configuracoes.
-- Manter o escopo do repositorio focado em dotfiles, mantendo outros dominios modulares.
+### Objetivos
+- Sincronizar shell, Git e VS Code entre maquinas.
+- Servir de fonte da verdade para ajustes rapidos e para agentes de IA.
+- Manter o repositorio enxuto, sem dados, projetos ou segredos.
 
-## 2. Estrutura do Repositorio
+## Layout Atual
 
 ```
 Dotfiles/
-├── .gitconfig
-├── .gitignore
-├── .gitignore_global
-├── .zprofile
-├── .zshrc
-├── README.md (este arquivo)
-├── Tools/            # Scripts e snippets utilitarios versionados
-├── SystemBlueprint/  # Documentacao constitucional
-├── macOS_AgentKit_Stack/
-├── vscode/           # Configuracoes VS Code
-├── correct_ls_edia_structure.sh
-└── setup_ls-edia.sh
+|-- .editorconfig
+|-- .gitconfig
+|-- .gitignore
+|-- .gitignore_global
+|-- .npmrc
+|-- .zprofile
+|-- .zshrc
+|-- README.md
+`-- vscode/
+    |-- extensions.json
+    `-- settings.json
 ```
 
-**Pastas chave**
-- Dotfiles principais (`.zshrc`, `.gitconfig`, `.zprofile`, `.npmrc`, `.editorconfig`).
-- `vscode/` com `settings.json` e `extensions.json`.
-- `Tools/scripts/` para automacoes manuais (validacao, tagging, instalacao).
-- `Tools/snippets/` como biblioteca oficial de snippets e checklists.
-- `SystemBlueprint/` contendo architecture.md, gpt-expert-profile.md e classification-guide.yaml.
+> As pastas `SystemBlueprint/`, `Tools/`, `Backups/`, etc. continuam existindo no sistema, mas agora residem em `~/` e sao sincronizadas fora deste repositorio.
 
-## 3. Como aplicar as configuracoes em uma nova maquina
+## Aplicando os Dotfiles em uma maquina nova
 
-1. **Clonar o repositorio:**
+1. Clonar:
    ```bash
    cd ~
    git clone https://github.com/senal88/ls-edia-config Dotfiles
    ```
-2. **Criar links simbolicos:**
+2. Criar links simbolicos:
    ```bash
-   cd ~
    ln -sf ~/Dotfiles/.zshrc ~/.zshrc
+   ln -sf ~/Dotfiles/.zprofile ~/.zprofile
    ln -sf ~/Dotfiles/.gitconfig ~/.gitconfig
+   ln -sf ~/Dotfiles/.gitignore_global ~/.gitignore_global
    ln -sf ~/Dotfiles/.npmrc ~/.npmrc
    ln -sf ~/Dotfiles/.editorconfig ~/.editorconfig
-   ln -sf ~/Dotfiles/vscode ~/.vscode
+   ln -sfn ~/Dotfiles/vscode ~/.vscode
    ```
-3. **Opcional:** executar `./setup_ls-edia.sh` para montar a estrutura LS-EDIA se ainda nao existir em `~/`.
-4. **Recarregar o shell:**
+3. Recarregar o shell:
    ```bash
    source ~/.zshrc
    ```
 
-## 4. Scripts utilitarios inclusos
+## Diretorios LS-EDIA (fora do repo)
 
-- `correct_ls_edia_structure.sh`: move para `~/` as pastas de alto nivel que por engano estejam dentro deste repositorio.
-- `setup_ls-edia.sh`: cria a estrutura base LS-EDIA (SystemBlueprint, Workspaces, Tools, DataVault, Backups, Secrets, Documentation).
-- `Tools/scripts/validacao_final.sh`: auditoria completa do ambiente.
-- `Tools/scripts/apply_ls_edia_tags.sh`: aplica tags LS-EDIA no Finder, incluindo `Tools/snippets`.
+| Pasta              | Papel                                                                | Observacoes                                           |
+|--------------------|----------------------------------------------------------------------|-------------------------------------------------------|
+| `~/SystemBlueprint`| Constituicao do ambiente (arquitetura, guias, perfis)                | Atualizar manualmente apos cada mudanca relevante.    |
+| `~/Tools`          | Scripts operacionais, snippets, binarios auxiliares                  | Scripts auditados (`apply_ls_edia_tags.sh`, `validacao_final.sh`) vivem aqui. |
+| `~/Workspaces`     | Projetos ativos                                                       | Subpastas por dominio (`Finance`, `Legal`, `Infra`...).|
+| `~/DataVault`      | Dados brutos/processados/seguros                                     | Respeitar classificacao do blueprint.                 |
+| `~/Backups`        | Snapshots e copias versionadas                                       | Registrar atividades em `~/Documentation/logs/`.      |
+| `~/Documentation`  | Logs, notas de migracao, relatorios                                  | Garantir registros apos rodar validacoes e migracoes. |
 
-> Conceda permissao de execucao apos o clone: `chmod +x *.sh Tools/scripts/*.sh`.
+## Guardrails
+- Nunca versionar conteudo de `~/Secrets/`.
+- Rodar `~/Tools/scripts/validacao_final.sh` apos alteracoes estruturais.
+- Registrar migracoes relevantes em `~/Documentation/migration_notes/`.
+- Evitar sobrescrever arquivos existentes sem backup previo.
 
-## 5. Snippets e checklists
-
-A biblioteca foi consolidada em `Tools/snippets/`. Exemplos:
-- `COMMANDS.md`: comandos frequentes.
-- `SNIPPET_API_CALL.py`: chamada basica para o AgentKit.
-- `CHECKLIST.md`: checklist rapido para revisao de dotfiles.
-
-Mantenha os snippets enxutos, sem credenciais, e atualize `Tools/snippets/README.md` quando adicionar novos itens.
-
-## 6. Guardrails
-
-- Nunca versionar segredos; utilize `~/Secrets/`.
-- Execute `Tools/scripts/validacao_final.sh` apos ajustes significativos.
-- Atualize `SystemBlueprint/` quando houver mudancas de arquitetura ou fluxo.
-- Revise `Tools/snippets/` periodicamente para retirar entradas obsoletas.
-
-## 7. Favoritos e tags sugeridos
-
-- Adicione ao Finder: `~/Dotfiles`, `~/SystemBlueprint`, `~/Tools`, `~/Workspaces`, `~/DataVault`, `~/Backups`.
-- Rode `Tools/scripts/apply_ls_edia_tags.sh` para aplicar as tags `LS-EDIA-CORE`, `LS-EDIA-WORK`, `LS-EDIA-DATA`, `LS-EDIA-INFO` e `LS-EDIA-SENSITIVE`.
-
-## 8. Fluxo de contribuicao
-
-1. Ajustar arquivos.
-2. Rodar `Tools/scripts/validacao_final.sh`.
-3. Conferir `git status` e `git diff`.
-4. Commitar com mensagem clara (`docs:`, `chore:`, `fix:` etc).
-5. `git push` para sincronizar com o remoto.
+## Fluxo de Contribuicao
+1. Ajustar o dotfile necessario.
+2. Executar `~/Tools/scripts/validacao_final.sh` para garantir consistencia.
+3. Revisar `git status` e `git diff`.
+4. Commitar com mensagem clara (`feat:`, `chore:`, `docs:` etc).
+5. `git push` para atualizar o repositorio remoto.
 
 ---
 
-Manter este README alinhado ao estado atual do ambiente garante onboarding rapido para voce e para os agentes LS-EDIA.
+Em caso de duvidas sobre a arquitetura global, consulte `~/SystemBlueprint/architecture.md` e o perfil LS-EDIA Architect Gem configurado no Gemini/GPT.

@@ -2,14 +2,15 @@
 # LS-EDIA Dotfiles Git Ignore List
 # =====================================================================
 
+/SystemBlueprint/
+/Tools/
 /Workspaces/
 /Agents/
 /Containers/
 /DataVault/
 /Backups/
 /Secrets/
-/Documentation/logs/
-/Tools/bin/
+/Documentation/
 
 .DS_Store
 .venv/

@@ -1,1 +1,7 @@
-{\n  "recommendations": []\n}\n
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "ms-python.python"
+  ]
+}
