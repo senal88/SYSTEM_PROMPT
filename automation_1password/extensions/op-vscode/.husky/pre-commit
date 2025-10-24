@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Check for changelog files in staged changes
+./scripts/check-changelog.sh
+
+npx lint-staged

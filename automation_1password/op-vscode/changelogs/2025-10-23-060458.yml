@@ -1,0 +1,6 @@
+type: Changed
+issues: []
+description: Update Node to version 22.18.0
+public: true
+tags:
+  - None

@@ -1,0 +1,302 @@
+#!/bin/bash
+
+################################################################################
+# 🔐 init_1password_macos.sh
+# Script de Inicialização do 1Password CLI para macOS Silicon
+# Propósito: Configurar o 1Password CLI com autenticação biométrica
+# Autor: Manus AI
+# Data: 2025-10-22
+################################################################################
+
+set -euo pipefail
+
+# ============================================================================
+# CORES PARA OUTPUT
+# ============================================================================
+
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# ============================================================================
+# FUNÇÕES AUXILIARES
+# ============================================================================
+
+log_info() {
+    echo -e "${BLUE}ℹ️  $1${NC}"
+}
+
+log_success() {
+    echo -e "${GREEN}✅ $1${NC}"
+}
+
+log_warning() {
+    echo -e "${YELLOW}⚠️  $1${NC}"
+}
+
+log_error() {
+    echo -e "${RED}❌ $1${NC}"
+}
+
+# ============================================================================
+# VERIFICAÇÃO DE PRÉ-REQUISITOS
+# ============================================================================
+
+check_prerequisites() {
+    log_info "Verificando pré-requisitos..."
+
+    # Verificar se está no macOS
+    if [[ "$OSTYPE" != "darwin"* ]]; then
+        log_error "Este script é específico para macOS. Seu sistema operacional é: $OSTYPE"
+        exit 1
+    fi
+
+    # Verificar se é Apple Silicon
+    ARCH=$(uname -m)
+    if [[ "$ARCH" != "arm64" ]]; then
+        log_warning "Este script foi otimizado para Apple Silicon (arm64). Sua arquitetura é: $ARCH"
+    fi
+
+    # Verificar se Homebrew está instalado
+    if ! command -v brew &> /dev/null; then
+        log_error "Homebrew não está instalado. Instale em: https://brew.sh"
+        exit 1
+    fi
+
+    log_success "Pré-requisitos verificados."
+}
+
+# ============================================================================
+# INSTALAÇÃO DO 1PASSWORD CLI
+# ============================================================================
+
+install_1password_cli() {
+    log_info "Verificando instalação do 1Password CLI..."
+
+    if command -v op &> /dev/null; then
+        OP_VERSION=$(op --version)
+        log_success "1Password CLI já está instalado: $OP_VERSION"
+        return 0
+    fi
+
+    log_info "Instalando 1Password CLI via Homebrew..."
+    brew install 1password-cli
+
+    if command -v op &> /dev/null; then
+        log_success "1Password CLI instalado com sucesso: $(op --version)"
+    else
+        log_error "Falha ao instalar 1Password CLI."
+        exit 1
+    fi
+}
+
+# ============================================================================
+# VERIFICAÇÃO DO 1PASSWORD DESKTOP APP
+# ============================================================================
+
+check_1password_desktop_app() {
+    log_info "Verificando 1Password Desktop App..."
+
+    if [[ -d "/Applications/1Password 7.app" ]] || [[ -d "/Applications/1Password.app" ]]; then
+        log_success "1Password Desktop App encontrado."
+        return 0
+    else
+        log_warning "1Password Desktop App não encontrado em /Applications."
+        log_info "Você pode baixar em: https://1password.com/downloads/mac/"
+        return 1
+    fi
+}
+
+# ============================================================================
+# AUTENTICAÇÃO BIOMÉTRICA
+# ============================================================================
+
+configure_biometric_auth() {
+    log_info "Configurando autenticação biométrica..."
+
+    # Verificar se Touch ID está disponível
+    if system_profiler SPBiometricInformation 2>/dev/null | grep -q "Touch ID"; then
+        log_success "Touch ID está disponível no sistema."
+    elif system_profiler SPBiometricInformation 2>/dev/null | grep -q "Face ID"; then
+        log_success "Face ID está disponível no sistema."
+    else
+        log_warning "Nenhum sensor biométrico detectado. Você pode usar Apple Watch para desbloqueio."
+    fi
+
+    log_info "Para ativar a autenticação biométrica:"
+    log_info "1. Abra o 1Password Desktop App"
+    log_info "2. Vá para Settings > Security"
+    log_info "3. Habilite 'Unlock with Touch ID' ou 'Unlock with Apple Watch'"
+}
+
+# ============================================================================
+# TESTE DE CONECTIVIDADE
+# ============================================================================
+
+test_connectivity() {
+    log_info "Testando conectividade com 1Password..."
+
+    # Tentar listar vaults
+    if op vault list &>/dev/null; then
+        log_success "Conectividade com 1Password estabelecida."
+        return 0
+    else
+        log_warning "Não foi possível conectar ao 1Password. Você pode precisar fazer login."
+        log_info "Execute: eval \$(op signin)"
+        return 1
+    fi
+}
+
+# ============================================================================
+# CONFIGURAÇÃO DO SHELL (ZSH)
+# ============================================================================
+
+configure_shell() {
+    log_info "Configurando shell (Zsh)..."
+
+    ZSHRC="$HOME/.zshrc"
+
+    # Verificar se .zshrc existe
+    if [[ ! -f "$ZSHRC" ]]; then
+        log_warning "Arquivo .zshrc não encontrado. Criando..."
+        touch "$ZSHRC"
+    fi
+
+    # Adicionar configuração do 1Password se não existir
+    if ! grep -q "# 1Password CLI Configuration" "$ZSHRC"; then
+        log_info "Adicionando configuração do 1Password ao .zshrc..."
+
+        cat >> "$ZSHRC" << 'EOF'
+
+# ============================================================================
+# 1Password CLI Configuration
+# ============================================================================
+
+# Função para fazer signin com biometria
+op_signin() {
+    eval $(op signin)
+    log_success "Autenticado no 1Password com sucesso."
+}
+
+# Função para verificar status da sessão
+op_status() {
+    if op whoami &>/dev/null; then
+        echo "✅ Conectado ao 1Password"
+        op whoami
+    else
+        echo "❌ Não conectado ao 1Password"
+        echo "Execute: op_signin"
+    fi
+}
+
+# Alias para leitura rápida de segredos
+alias op_read='op read'
+alias op_list='op item list'
+
+# Função para injetar segredos em um arquivo .env.op
+op_inject_env() {
+    if [[ -z "$1" ]]; then
+        echo "Uso: op_inject_env <arquivo.env.op>"
+        return 1
+    fi
+    op inject -i "$1" -o .env
+    echo "✅ Arquivo .env gerado a partir de $1"
+}
+
+EOF
+
+        log_success "Configuração do 1Password adicionada ao .zshrc."
+    else
+        log_success "Configuração do 1Password já existe no .zshrc."
+    fi
+
+    # Recarregar .zshrc
+    source "$ZSHRC"
+}
+
+# ============================================================================
+# CRIAÇÃO DE ESTRUTURA DE DIRETÓRIOS
+# ============================================================================
+
+create_directory_structure() {
+    log_info "Criando estrutura de diretórios..."
+
+    DOTFILES_DIR="$HOME/Dotfiles"
+    OP_SCRIPTS_DIR="$DOTFILES_DIR/1password_automation"
+    OP_ENV_DIR="$HOME/.config/1password"
+
+    # Criar diretórios se não existirem
+    mkdir -p "$OP_SCRIPTS_DIR"
+    mkdir -p "$OP_ENV_DIR"
+
+    log_success "Estrutura de diretórios criada:"
+    log_info "  - Scripts: $OP_SCRIPTS_DIR"
+    log_info "  - Configuração: $OP_ENV_DIR"
+}
+
+# ============================================================================
+# TESTE DE FUNCIONAMENTO
+# ============================================================================
+
+test_functionality() {
+    log_info "Testando funcionalidade do 1Password CLI..."
+
+    # Tentar executar um comando simples
+    if op --version &>/dev/null; then
+        log_success "1Password CLI está funcionando corretamente."
+    else
+        log_error "Falha ao executar 1Password CLI."
+        return 1
+    fi
+
+    # Tentar listar vaults
+    if op vault list &>/dev/null; then
+        log_success "Acesso aos vaults está funcionando."
+        log_info "Vaults disponíveis:"
+        op vault list --format json | jq -r '.[] | "  - \(.name)"'
+    else
+        log_warning "Não foi possível listar os vaults. Você pode precisar fazer login."
+    fi
+}
+
+# ============================================================================
+# FUNÇÃO PRINCIPAL
+# ============================================================================
+
+main() {
+    echo ""
+    echo -e "${BLUE}╔════════════════════════════════════════════════════════════════╗${NC}"
+    echo -e "${BLUE}║  🔐 Inicialização do 1Password CLI para macOS Silicon          ║${NC}"
+    echo -e "${BLUE}╚════════════════════════════════════════════════════════════════╝${NC}"
+    echo ""
+
+    check_prerequisites
+    install_1password_cli
+    check_1password_desktop_app || log_warning "Desktop App não encontrado, mas CLI pode funcionar com Service Account Token."
+    configure_biometric_auth
+    configure_shell
+    create_directory_structure
+    test_functionality
+
+    echo ""
+    echo -e "${GREEN}╔════════════════════════════════════════════════════════════════╗${NC}"
+    echo -e "${GREEN}║  ✅ Inicialização Concluída!                                   ║${NC}"
+    echo -e "${GREEN}╚════════════════════════════════════════════════════════════════╝${NC}"
+    echo ""
+
+    log_info "Próximos passos:"
+    log_info "1. Abra uma nova janela de terminal para carregar as configurações"
+    log_info "2. Execute: op_signin (para autenticar com biometria)"
+    log_info "3. Execute: op_status (para verificar a conexão)"
+    log_info "4. Crie vaults e itens no 1Password conforme necessário"
+    echo ""
+}
+
+# ============================================================================
+# EXECUÇÃO
+# ============================================================================
+
+main "$@"
+

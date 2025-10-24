@@ -1,0 +1,133 @@
+;;
+;; Domain:     senamfo.com.br.
+;; Exported:   2025-10-22 23:55:15
+;;
+;; This file is intended for use for informational and archival
+;; purposes ONLY and MUST be edited before use on a production
+;; DNS server.  In particular, you must:
+;;   -- update the SOA record with the correct authoritative name server
+;;   -- update the SOA record with the contact e-mail address information
+;;   -- update the NS record(s) with the authoritative name servers for this domain.
+;;
+;; For further information, please consult the BIND documentation
+;; located on the following website:
+;;
+;; http://www.isc.org/
+;;
+;; And RFC 1035:
+;;
+;; http://www.ietf.org/rfc/rfc1035.txt
+;;
+;; Please note that we do NOT offer technical support for any use
+;; of this zone data, the BIND name server, or any other third-party
+;; DNS software.
+;;
+;; Use at your own risk.
+;; SOA Record
+senamfo.com.br	3600	IN	SOA	aisha.ns.cloudflare.com. dns.cloudflare.com. 2051284391 10000 2400 604800 3600
+
+;; NS Records
+senamfo.com.br.	86400	IN	NS	aisha.ns.cloudflare.com.
+senamfo.com.br.	86400	IN	NS	kellen.ns.cloudflare.com.
+
+;; A Records
+manager.senamfo.com.br.	1	IN	A	147.79.81.59 ; Apontamento único para o IP principal cf_tags=cf-proxied:true
+
+;; CNAME Records
+activepieces.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+agent-api.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+agent-app.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+agent-ui.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+agno-playground.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+anythingllm.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+api.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:true
+app-contabil.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+appsmith.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+auto.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+autowebhook.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+baserow.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+bookstack.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+budibase.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+chat.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+chromadb.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+cloudflare.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+dashboards.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+dash-default.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+datasources.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+dify-api.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+dify.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+dify-web.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+dillinger.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+directus.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+doc-contabil.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+doc_contabil.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+docusaurus.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+easypanel.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; easy cf_tags=cf-proxied:false
+edge.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+evolutionapi.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+fastapi.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+flask-api.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+flask.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+flowise.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+frontend.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+google.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+goose.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+grafana.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+huggingface.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+jina.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+lens.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+librechat.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+lmstudio.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+logseq.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+loki.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+minio.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+mkdocs-material.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+mongodb.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+mongo-express.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+mpt_streamlit.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+msql.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+my.n8n.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+n8n.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+nextcloud.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+nextjs.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+nginx.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+nocodb.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+node-red.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+ollama.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+pgvector.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+portainer.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+postgres.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+postman.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+prometheus.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+promtail-config.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+rabbitmq.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+redis.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+s3.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+stack.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+streamlit.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+supabase.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+terraform.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+traefik.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; Traefik com proxy ativada. cf_tags=cf-proxied:true
+vault.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+vectorstore.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+vpc.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+webgpt.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+webwook.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+whatsapp.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+worker.senamfo.com.br.	1	IN	CNAME	manager.senamfo.com.br. ; cf_tags=cf-proxied:false
+
+;; DNSKEY Records
+senamfo.com.br.	1	IN	DNSKEY	257 3 13 mdsswUyr3DPW132mOi8V9xESWE8jTo0dxCjjnopKl+GqJxpVXckHAeF+KkxLbxILfDLUT0rAK9iUzy1L53eKGQ== ; Registro CDNSKEY para DNSSEC - senamfo.com.br
+
+;; MX Records
+senamfo.com.br.	1	IN	MX	10 alt4.aspmx.l.google.com.
+senamfo.com.br.	1	IN	MX	10 alt3.aspmx.l.google.com.
+senamfo.com.br.	1	IN	MX	5 alt2.aspmx.l.google.com.
+senamfo.com.br.	1	IN	MX	5 alt1.aspmx.l.google.com.
+senamfo.com.br.	1	IN	MX	1 aspmx.l.google.com.
+
+;; TXT Records
+_acme-challenge.portainer.senamfo.com.br.	120	IN	TXT	"cHE9_xUNR52DdNHUsMe92Bqly0aFuvmCPMYLN6Z4Wus"
+_dmarc.senamfo.com.br.	1	IN	TXT	"v=DMARC1; p=quarantine; rua=mailto:luizfernandomoreirasena@gmail.com; ruf=mailto:luizfernandomoreirasena@gmail.com; adkim=s; aspf=s; pct=100" ; Política DMARC personalizada
+senamfo.com.br.	1	IN	TXT	"openai-domain-verification=dv-WfPJr7K3VpAGVlhVXCFZjyY0"
+senamfo.com.br.	1	IN	TXT	"v=spf1 include:_spf.google.com ip4:147.79.81.59 ~all" ; SPF para Gmail + IP VPS
