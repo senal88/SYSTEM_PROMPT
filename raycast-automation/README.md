@@ -1,0 +1,104 @@
+# 🚀 Raycast Automation - Instalação Completa
+
+Automação completa do Raycast com integração 1Password para macOS Silicon e VPS Ubuntu.
+
+## ⚡ Instalação Rápida
+
+```bash
+# Clone o repositório
+git clone https://github.com/senal88/ls-edia-config.git
+cd ls-edia-config/raycast-automation
+
+# Execute a instalação completa
+./install.sh
+```
+
+## 🎯 O que é Instalado
+
+### Raycast Core
+- ✅ Instalação automática via Homebrew
+- ✅ Configuração do atalho ⌘ Space
+- ✅ Window Management com 50+ comandos
+- ✅ Integração com 1Password
+
+### Scripts de Desenvolvimento
+- ✅ **Git Status** - Status do repositório
+- ✅ **Docker PS** - Lista containers
+- ✅ **1Password Tokens** - Gerenciamento de tokens
+- ✅ **Copy Tokens** - Copia tokens para clipboard
+
+### Quicklinks
+- ✅ **GitHub Issues** (`ghi`) - Busca no GitHub
+- ✅ **Google Translate** (`tr`) - Tradução
+- ✅ **Docker Hub** (`dh`) - Busca no Docker Hub
+
+### Snippets
+- ✅ **Email Signature** (`sig`) - Assinatura de email
+- ✅ **Code Templates** - Templates de código
+
+## 🔧 Configuração
+
+### 1Password CLI
+```bash
+# Configure o 1Password CLI
+op signin
+
+# Teste a conexão
+op item list
+```
+
+### Permissões Necessárias
+1. **Acessibilidade** - Para Window Management
+2. **Automação** - Para controle de apps
+3. **Full Disk Access** - Para busca avançada
+
+## 📁 Estrutura
+
+```
+raycast-automation/
+├── install.sh              # Instalador principal
+├── scripts/                # Scripts do Raycast
+├── quicklinks/             # Links rápidos
+├── snippets/               # Textos expandidos
+├── configs/                # Configurações
+└── docs/                   # Documentação
+```
+
+## 🚀 Uso
+
+### Comandos Principais
+- **⌘ Space** - Abrir Raycast
+- **⌘ K** - Action Panel
+- **esc** - Voltar
+
+### Scripts Disponíveis
+- `git status` - Status do Git
+- `docker ps` - Containers Docker
+- `test tokens` - Testar 1Password
+- `copy github` - Copiar token GitHub
+
+## 🔐 Segurança
+
+- ✅ Tokens armazenados no 1Password
+- ✅ Nenhum secret no código
+- ✅ Configurações locais apenas
+- ✅ Backup automático
+
+## 📚 Documentação
+
+- [Raycast Manual](https://manual.raycast.com)
+- [1Password CLI Docs](https://developer.1password.com/docs/cli)
+- [Scripts Personalizados](./docs/custom-scripts.md)
+
+## 🆘 Suporte
+
+Se encontrar problemas:
+
+1. Verifique as permissões do sistema
+2. Execute `./test-installation.sh`
+3. Consulte a documentação
+4. Abra uma issue no GitHub
+
+---
+
+**Desenvolvido com ❤️ para produtividade máxima**
