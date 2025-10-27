@@ -39,6 +39,9 @@ show_help() {
     echo -e "${YELLOW}  restore${NC}           Restaurar backup do Raycast"
     echo -e "${YELLOW}  sync${NC}              Sincronizar Raycast ↔ Backup"
     echo ""
+    echo -e "${PURPLE}  replace-spotlight${NC} Substituir Spotlight pelo Raycast"
+    echo -e "${PURPLE}  verify-spotlight${NC}  Verificar substituição Spotlight"
+    echo ""
     echo -e "${BLUE}  status${NC}             Mostrar status atual"
     echo -e "${BLUE}  clean${NC}              Limpar arquivos temporários"
     echo -e "${BLUE}  help${NC}               Mostrar esta ajuda"
@@ -147,6 +150,14 @@ main() {
         "sync")
             log "Sincronizando Raycast..."
             "$SCRIPT_DIR/sync-raycast.sh" "${@:2}"
+            ;;
+        "replace-spotlight")
+            log "Substituindo Spotlight pelo Raycast..."
+            "$SCRIPT_DIR/replace-spotlight.sh"
+            ;;
+        "verify-spotlight")
+            log "Verificando substituição Spotlight..."
+            "$SCRIPT_DIR/verify-spotlight-replacement.sh"
             ;;
         "status")
             show_status

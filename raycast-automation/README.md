@@ -18,6 +18,19 @@ cd ls-edia-config/raycast-automation
 ./raycast-manager.sh status           # Ver status
 ```
 
+## 📍 **Localização dos Scripts**
+
+```bash
+# Diretório principal
+~/Dotfiles/raycast-automation/
+
+# Caminho completo
+/Users/luiz.sena88/Dotfiles/raycast-automation/
+
+# Navegar para o diretório
+cd ~/Dotfiles/raycast-automation/
+```
+
 ## 🎯 O que é Instalado
 
 ### Raycast Core
@@ -76,31 +89,40 @@ raycast-automation/
 ### Backup Automático
 ```bash
 # Fazer backup completo
-./raycast-manager.sh backup
+~/Dotfiles/raycast-automation/raycast-manager.sh backup
 
 # Backup sem arquivos SQLite (economiza espaço)
-./backup-raycast.sh ~/Dotfiles/raycast-profile true
+~/Dotfiles/raycast-automation/backup-raycast.sh ~/Dotfiles/raycast-profile true
 ```
 
 ### Restore
 ```bash
 # Restaurar backup
-./raycast-manager.sh restore
+~/Dotfiles/raycast-automation/raycast-manager.sh restore
 
 # Restore forçado (sobrescreve atual)
-./restore-raycast.sh ~/Dotfiles/raycast-profile --force
+~/Dotfiles/raycast-automation/restore-raycast.sh ~/Dotfiles/raycast-profile --force
 ```
 
 ### Sincronização
 ```bash
 # Sincronização bidirecional
-./raycast-manager.sh sync
+~/Dotfiles/raycast-automation/raycast-manager.sh sync
 
 # Sincronizar apenas para backup
-./sync-raycast.sh to-backup
+~/Dotfiles/raycast-automation/sync-raycast.sh to-backup
 
 # Sincronizar apenas para Raycast
-./sync-raycast.sh to-raycast
+~/Dotfiles/raycast-automation/sync-raycast.sh to-raycast
+```
+
+### 🆕 **Substituição Spotlight**
+```bash
+# Substituir Spotlight pelo Raycast como principal
+~/Dotfiles/raycast-automation/replace-spotlight.sh
+
+# Verificar se a substituição funcionou
+~/Dotfiles/raycast-automation/verify-spotlight-replacement.sh
 ```
 
 ## 🚀 Uso
