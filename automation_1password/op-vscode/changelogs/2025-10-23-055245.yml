@@ -1,6 +1,0 @@
-type: Added
-issues: []
-description: Add workflow to verify that all commits in a PR are signed
-public: true
-tags:
-  - None

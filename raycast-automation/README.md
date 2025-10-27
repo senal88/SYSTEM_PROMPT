@@ -10,7 +10,12 @@ git clone https://github.com/senal88/ls-edia-config.git
 cd ls-edia-config/raycast-automation
 
 # Execute a instalação completa
-./install.sh
+./raycast-manager.sh install
+
+# Ou use comandos específicos
+./raycast-manager.sh setup-1password  # Configurar 1Password
+./raycast-manager.sh test             # Testar instalação
+./raycast-manager.sh status           # Ver status
 ```
 
 ## 🎯 O que é Instalado
@@ -56,12 +61,46 @@ op item list
 
 ```
 raycast-automation/
-├── install.sh              # Instalador principal
-├── scripts/                # Scripts do Raycast
-├── quicklinks/             # Links rápidos
-├── snippets/               # Textos expandidos
-├── configs/                # Configurações
-└── docs/                   # Documentação
+├── raycast-manager.sh      # Gerenciador principal
+├── install.sh              # Instalador completo
+├── setup-1password.sh      # Configuração 1Password
+├── test-installation.sh    # Teste de instalação
+├── backup-raycast.sh       # Backup do Raycast
+├── restore-raycast.sh      # Restore do Raycast
+├── sync-raycast.sh         # Sincronização bidirecional
+└── README.md               # Esta documentação
+```
+
+## 🔄 Backup e Restore
+
+### Backup Automático
+```bash
+# Fazer backup completo
+./raycast-manager.sh backup
+
+# Backup sem arquivos SQLite (economiza espaço)
+./backup-raycast.sh ~/Dotfiles/raycast-profile true
+```
+
+### Restore
+```bash
+# Restaurar backup
+./raycast-manager.sh restore
+
+# Restore forçado (sobrescreve atual)
+./restore-raycast.sh ~/Dotfiles/raycast-profile --force
+```
+
+### Sincronização
+```bash
+# Sincronização bidirecional
+./raycast-manager.sh sync
+
+# Sincronizar apenas para backup
+./sync-raycast.sh to-backup
+
+# Sincronizar apenas para Raycast
+./sync-raycast.sh to-raycast
 ```
 
 ## 🚀 Uso
