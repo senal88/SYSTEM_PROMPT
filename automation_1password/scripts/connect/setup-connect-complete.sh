@@ -1,0 +1,120 @@
+#!/bin/bash
+# ============================================================================
+# 🚀 Setup Completo - 1Password Connect Server (macOS Silicon)
+# Arquivo: scripts/setup-connect-complete.sh
+# Propósito: Configuração completa para produção
+# Data: 27 de Janeiro de 2025
+# ============================================================================
+
+set -e
+
+echo "🚀 Configurando 1Password Connect Server completo (macOS Silicon)..."
+
+# 1. Verificar pré-requisitos
+echo "🔍 Verificando pré-requisitos..."
+command -v docker >/dev/null 2>&1 || { echo "❌ Docker não encontrado"; exit 1; }
+command -v curl >/dev/null 2>&1 || { echo "❌ curl não encontrado"; exit 1; }
+
+# 2. Carregar variáveis de ambiente
+echo "📋 Carregando variáveis de ambiente..."
+source ~/.1password/.env
+
+if [[ -z "$OP_CONNECT_TOKEN" ]]; then
+  echo "❌ OP_CONNECT_TOKEN não encontrado"
+  exit 1
+fi
+
+echo "✅ Token carregado: ${OP_CONNECT_TOKEN:0:20}..."
+
+# 3. Criar estrutura de diretórios
+echo "📁 Criando estrutura de diretórios..."
+mkdir -p ~/Dotfiles/automation_1password/connect/{data,certs}
+mkdir -p ~/Dotfiles/automation_1password/logs
+
+# 4. Configurar credenciais
+echo "🔑 Configurando credenciais..."
+if [[ ! -f ~/Dotfiles/automation_1password/connect/credentials.json ]]; then
+  echo "❌ Arquivo credentials.json não encontrado"
+  echo "   Copie o arquivo de credenciais para:"
+  echo "   ~/Dotfiles/automation_1password/connect/credentials.json"
+  exit 1
+fi
+
+# 5. Gerar certificados TLS (opcional)
+echo "🔐 Configurando certificados TLS..."
+if [[ ! -f ~/Dotfiles/automation_1password/connect/certs/tls.key ]]; then
+  echo "📜 Gerando certificados self-signed..."
+  mkdir -p ~/Dotfiles/automation_1password/connect/certs
+  openssl genrsa -out ~/Dotfiles/automation_1password/connect/certs/tls.key 2048
+  openssl req -new -x509 -key ~/Dotfiles/automation_1password/connect/certs/tls.key \
+    -out ~/Dotfiles/automation_1password/connect/certs/tls.crt -days 365 \
+    -subj "/C=BR/ST=SP/L=São Paulo/O=Senamfo/CN=localhost"
+  echo "✅ Certificados gerados"
+fi
+
+# 6. Parar containers existentes
+echo "🛑 Parando containers existentes..."
+cd ~/Dotfiles/automation_1password/connect
+docker compose down 2>/dev/null || true
+
+# 7. Iniciar containers
+echo "🐳 Iniciando containers 1Password Connect..."
+docker compose up -d
+
+# 8. Aguardar inicialização
+echo "⏳ Aguardando inicialização (60 segundos)..."
+sleep 60
+
+# 9. Verificar saúde dos containers
+echo "🔍 Verificando saúde dos containers..."
+if ! docker ps --filter "name=op-connect" --format "table {{.Names}}\t{{.Status}}" | grep -q "Up"; then
+  echo "❌ Containers não estão rodando"
+  docker compose logs
+  exit 1
+fi
+
+echo "✅ Containers estão rodando:"
+docker ps --filter "name=op-connect" --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"
+
+# 10. Testar conectividade
+echo "🧪 Testando conectividade..."
+for i in {1..10}; do
+  if curl -s http://localhost:8080/health >/dev/null; then
+    echo "✅ API Connect respondendo"
+    break
+  else
+    echo "⏳ Aguardando API Connect... ($i/10)"
+    sleep 10
+  fi
+done
+
+# 11. Testar autenticação
+echo "🔐 Testando autenticação..."
+if curl -s -H "Authorization: Bearer $OP_CONNECT_TOKEN" http://localhost:8080/v1/vaults >/dev/null; then
+  echo "✅ Autenticação com 1Password confirmada"
+else
+  echo "❌ Falha na autenticação"
+  echo "   Verifique se o token está correto e se o servidor está sincronizado"
+  exit 1
+fi
+
+# 12. Listar vaults disponíveis
+echo "🏦 Vaults disponíveis:"
+curl -s -H "Authorization: Bearer $OP_CONNECT_TOKEN" http://localhost:8080/v1/vaults | jq -r '.[] | "  - \(.name) (\(.id))"'
+
+# 13. Log da operação
+echo "$(date): Setup completo executado com sucesso" >> ~/Dotfiles/automation_1password/logs/automation.log
+
+echo ""
+echo "🎉 1Password Connect Server configurado com sucesso!"
+echo "🌐 API: http://localhost:8080"
+echo "🔐 HTTPS: https://localhost:8443"
+echo "📊 Status: Verifique no painel 1Password se aparece 'Sincronizado recentemente'"
+echo ""
+echo "🔧 Comandos úteis:"
+echo "  - Parar: cd ~/Dotfiles/automation_1password/connect && docker compose down"
+echo "  - Logs: docker compose logs -f"
+echo "  - Status: docker ps --filter name=op-connect"
+echo ""
+echo "🧪 Teste a API:"
+echo "  curl -H \"Authorization: Bearer \$OP_CONNECT_TOKEN\" http://localhost:8080/v1/vaults"

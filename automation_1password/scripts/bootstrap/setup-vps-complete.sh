@@ -1,0 +1,356 @@
+#!/bin/bash
+#
+# Complete VPS Setup for 1Password Connect Server
+# Ubuntu 24.04 LTS optimized
+#
+
+set -euo pipefail
+
+# Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m'
+
+# Configuration
+VPS_USER="luiz.sena88"
+VPS_HOST="vps"
+VPS_PATH="/home/$VPS_USER/Dotfiles/automation_1password"
+
+print_header() {
+    echo ""
+    echo -e "${BLUE}═══════════════════════════════════════════════════${NC}"
+    echo -e "${BLUE}  $1${NC}"
+    echo -e "${BLUE}═══════════════════════════════════════════════════${NC}"
+    echo ""
+}
+
+print_success() {
+    echo -e "${GREEN}✅ $1${NC}"
+}
+
+print_error() {
+    echo -e "${RED}❌ $1${NC}"
+}
+
+print_info() {
+    echo -e "${YELLOW}ℹ️  $1${NC}"
+}
+
+# Step 1: Install prerequisites
+install_prerequisites() {
+    print_header "Installing Prerequisites on VPS"
+    
+    ssh "$VPS_USER@$VPS_HOST" << 'EOF'
+        echo "Updating system packages..."
+        sudo apt update -y
+        
+        echo "Installing essential tools..."
+        sudo apt install -y curl wget git jq openssl ca-certificates gnupg lsb-release
+        
+        echo "Installing Docker..."
+        if ! command -v docker >/dev/null 2>&1; then
+            # Remove old Docker versions
+            sudo apt remove -y docker docker-engine docker.io containerd runc 2>/dev/null || true
+            
+            # Add Docker's official GPG key
+            sudo mkdir -p /etc/apt/keyrings
+            curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+            
+            # Add Docker repository
+            echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+            
+            # Install Docker
+            sudo apt update
+            sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+            
+            # Add user to docker group
+            sudo usermod -aG docker $USER
+            
+            echo "Docker installed successfully"
+        else
+            echo "Docker already installed"
+        fi
+        
+        echo "Installing 1Password CLI..."
+        if ! command -v op >/dev/null 2>&1; then
+            # Add 1Password repository
+            curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
+            echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/amd64 stable main' | sudo tee /etc/apt/sources.list.d/1password.list
+            
+            # Install 1Password CLI
+            sudo apt update
+            sudo apt install -y 1password-cli
+            
+            echo "1Password CLI installed successfully"
+        else
+            echo "1Password CLI already installed"
+        fi
+        
+        echo "Prerequisites installation complete"
+EOF
+    
+    print_success "Prerequisites installed on VPS"
+}
+
+# Step 2: Create directory structure
+create_directories() {
+    print_header "Creating Directory Structure"
+    
+    ssh "$VPS_USER@$VPS_HOST" << EOF
+        echo "Creating directory structure..."
+        mkdir -p $VPS_PATH/{connect,scripts,env,tokens,logs}
+        mkdir -p $VPS_PATH/connect/{certs,data}
+        
+        echo "Setting permissions..."
+        chmod 700 $VPS_PATH/tokens
+        chmod 755 $VPS_PATH/{connect,scripts,env,logs}
+        
+        echo "Directory structure created"
+EOF
+    
+    print_success "Directory structure created"
+}
+
+# Step 3: Transfer configuration files
+transfer_configs() {
+    print_header "Transferring Configuration Files"
+    
+    # Transfer docker-compose.yml
+    print_info "Transferring docker-compose.yml..."
+    scp /Users/luiz.sena88/Dotfiles/automation_1password/connect/docker-compose.yml "$VPS_USER@$VPS_HOST:$VPS_PATH/connect/"
+    
+    # Transfer validate-and-deploy.sh
+    print_info "Transferring validate-and-deploy.sh..."
+    scp /Users/luiz.sena88/Dotfiles/automation_1password/connect/validate-and-deploy.sh "$VPS_USER@$VPS_HOST:$VPS_PATH/connect/"
+    ssh "$VPS_USER@$VPS_HOST" "chmod +x $VPS_PATH/connect/validate-and-deploy.sh"
+    
+    # Transfer Makefile
+    print_info "Transferring Makefile..."
+    scp /Users/luiz.sena88/Dotfiles/automation_1password/connect/Makefile "$VPS_USER@$VPS_HOST:$VPS_PATH/connect/"
+    
+    # Transfer .cursorrules
+    print_info "Transferring .cursorrules..."
+    scp /Users/luiz.sena88/Dotfiles/automation_1password/connect/.cursorrules "$VPS_USER@$VPS_HOST:$VPS_PATH/connect/"
+    
+    # Transfer .gitignore
+    print_info "Transferring .gitignore..."
+    scp /Users/luiz.sena88/Dotfiles/automation_1password/connect/.gitignore "$VPS_USER@$VPS_HOST:$VPS_PATH/connect/"
+    
+    print_success "Configuration files transferred"
+}
+
+# Step 4: Create VPS-specific environment files
+create_environment_files() {
+    print_header "Creating Environment Files"
+    
+    ssh "$VPS_USER@$VPS_HOST" << 'EOF'
+        # Create .env file for VPS
+        cat > ~/Dotfiles/automation_1password/connect/.env << 'ENVEOF'
+# 1Password Connect – VPS Ubuntu
+OP_CONNECT_TOKEN=${OP_CONNECT_TOKEN_VPS}
+OP_CONNECT_HOST=http://localhost:8080
+OP_VAULT=1p_vps
+ENVEOF
+        
+        # Create vps.env file
+        cat > ~/Dotfiles/automation_1password/env/vps.env << 'VPSENVEOF'
+# 1Password Connect – VPS Production
+export OP_VAULT="1p_vps"
+export OP_CONNECT_HOST="http://localhost:8080"
+export OP_CONNECT_TOKEN=\$(cat ~/Dotfiles/automation_1password/tokens/vps_token.txt)
+
+# Paths
+export OP_AUTOMATION_ROOT="~/Dotfiles/automation_1password"
+export PATH="\$OP_AUTOMATION_ROOT/scripts:\$PATH"
+VPSENVEOF
+        
+        # Create shared.env file
+        cat > ~/Dotfiles/automation_1password/env/shared.env << 'SHAREDEOF'
+# Shared environment variables for 1Password Connect
+export OP_CONNECT_API_VERSION="v1"
+export OP_CONNECT_TIMEOUT="30"
+export OP_CONNECT_RETRY_ATTEMPTS="3"
+SHAREDEOF
+        
+        # Set secure permissions
+        chmod 600 ~/Dotfiles/automation_1password/connect/.env
+        chmod 644 ~/Dotfiles/automation_1password/env/*.env
+        
+        echo "Environment files created"
+EOF
+    
+    print_success "Environment files created"
+}
+
+# Step 5: Create helper scripts
+create_helper_scripts() {
+    print_header "Creating Helper Scripts"
+    
+    ssh "$VPS_USER@$VPS_HOST" << 'EOF'
+        # Create start-connect.sh
+        cat > ~/Dotfiles/automation_1password/scripts/start-connect.sh << 'STARTEOF'
+#!/bin/bash
+set -e
+source ~/Dotfiles/automation_1password/env/vps.env
+
+echo "🐳 Starting 1Password Connect Server on VPS..."
+cd ~/Dotfiles/automation_1password/connect
+docker compose up -d
+
+echo "⏳ Waiting for services to start..."
+sleep 10
+
+echo "🔍 Checking service health..."
+curl -s http://localhost:8080/health | jq . || echo "Service not ready yet"
+STARTEOF
+        
+        # Create validate-setup.sh
+        cat > ~/Dotfiles/automation_1password/scripts/validate-setup.sh << 'VALIDATEEOF'
+#!/bin/bash
+set -e
+source ~/Dotfiles/automation_1password/env/vps.env
+
+echo "🔍 Validating 1Password Connect setup on VPS..."
+cd ~/Dotfiles/automation_1password/connect
+
+# Check if containers are running
+echo "Checking container status..."
+docker compose ps
+
+# Test health endpoint
+echo "Testing health endpoint..."
+curl -s http://localhost:8080/health | jq .
+
+# Test API authentication
+if [ -n "$OP_CONNECT_TOKEN" ]; then
+    echo "Testing API authentication..."
+    curl -s -H "Authorization: Bearer $OP_CONNECT_TOKEN" http://localhost:8080/v1/vaults | jq .
+else
+    echo "No token available for API testing"
+fi
+VALIDATEEOF
+        
+        # Create setup-vps.sh
+        cat > ~/Dotfiles/automation_1password/scripts/setup-vps.sh << 'SETUPEOF'
+#!/bin/bash
+set -e
+
+echo "🚀 Setting up 1Password Connect on VPS..."
+
+# Load environment
+source ~/Dotfiles/automation_1password/env/vps.env
+
+# Check if token exists
+if [ ! -f ~/Dotfiles/automation_1password/tokens/vps_token.txt ]; then
+    echo "❌ VPS token not found. Please create it first:"
+    echo "   op connect token create --name vps_connect_token --expiry 90d > ~/Dotfiles/automation_1password/tokens/vps_token.txt"
+    echo "   chmod 600 ~/Dotfiles/automation_1password/tokens/vps_token.txt"
+    exit 1
+fi
+
+# Start services
+cd ~/Dotfiles/automation_1password/connect
+docker compose up -d
+
+echo "✅ 1Password Connect Server started on VPS"
+echo "🔗 Access at: http://localhost:8080"
+SETUPEOF
+        
+        # Make scripts executable
+        chmod +x ~/Dotfiles/automation_1password/scripts/*.sh
+        
+        echo "Helper scripts created"
+EOF
+    
+    print_success "Helper scripts created"
+}
+
+# Step 6: Setup 1Password authentication
+setup_1password_auth() {
+    print_header "Setting up 1Password Authentication"
+    
+    print_info "You need to authenticate with 1Password on the VPS"
+    print_info "Please run the following commands on the VPS:"
+    echo ""
+    echo "  ssh $VPS_USER@$VPS_HOST"
+    echo "  eval \$(op signin)"
+    echo "  op connect token create --name vps_connect_token --expiry 90d > ~/Dotfiles/automation_1password/tokens/vps_token.txt"
+    echo "  chmod 600 ~/Dotfiles/automation_1password/tokens/vps_token.txt"
+    echo ""
+    
+    read -p "Press Enter when you've completed the 1Password authentication..."
+}
+
+# Step 7: Test the complete setup
+test_setup() {
+    print_header "Testing Complete Setup"
+    
+    ssh "$VPS_USER@$VPS_HOST" << 'EOF'
+        echo "Testing VPS setup..."
+        cd ~/Dotfiles/automation_1password/connect
+        
+        echo "1. Testing Docker..."
+        docker --version
+        docker compose version
+        
+        echo "2. Testing 1Password CLI..."
+        op --version
+        
+        echo "3. Testing file structure..."
+        ls -la
+        
+        echo "4. Testing environment files..."
+        if [ -f .env ]; then
+            echo "   ✅ .env file exists"
+        else
+            echo "   ❌ .env file missing"
+        fi
+        
+        echo "5. Testing docker-compose syntax..."
+        if docker compose config >/dev/null 2>&1; then
+            echo "   ✅ Docker Compose syntax OK"
+        else
+            echo "   ❌ Docker Compose syntax error"
+        fi
+        
+        echo "6. Testing scripts..."
+        if [ -x ../scripts/start-connect.sh ]; then
+            echo "   ✅ Scripts are executable"
+        else
+            echo "   ❌ Scripts not executable"
+        fi
+        
+        echo "VPS setup test completed"
+EOF
+    
+    print_success "VPS setup test completed"
+}
+
+# Main execution
+main() {
+    print_header "1Password Connect VPS Complete Setup"
+    
+    install_prerequisites
+    create_directories
+    transfer_configs
+    create_environment_files
+    create_helper_scripts
+    setup_1password_auth
+    test_setup
+    
+    print_header "VPS Setup Complete! 🎉"
+    print_success "VPS setup completed successfully"
+    print_info "Next steps:"
+    echo "  1. SSH to VPS: ssh $VPS_USER@$VPS_HOST"
+    echo "  2. Navigate to: cd ~/Dotfiles/automation_1password/connect"
+    echo "  3. Run validation: ./validate-and-deploy.sh"
+    echo "  4. Or use Makefile: make validate"
+    echo "  5. Start services: make start"
+    echo ""
+    print_info "The VPS is now ready for 1Password Connect Server deployment!"
+}
+
+# Run main function
+main "$@"

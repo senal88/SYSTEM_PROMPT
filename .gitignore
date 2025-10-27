@@ -26,3 +26,10 @@ __pycache__/
 # vscode/extensions.local.json
 
 # =====================================================================
+raycast-profile/NodeJS/
+credentials/
+configs/api_keys.json
+configs/zshrc_updated
+env/global.env
+scripts/setup_cli_configs.sh
+_backup_2025-10-24-1524/

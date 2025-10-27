@@ -35,6 +35,9 @@
 - **bashrc_1password_config.sh** - Configuração do bashrc
 - **zshrc_1password_config.sh** - Configuração do zshrc
 - **validate_environment_macos.sh** - Validação do ambiente macOS
+- **convert_md_to_html.py** - Conversão de Markdown para HTML
+- **script.py** - Script Python principal da automação
+- **validate_organization.sh** - Verificação rápida da organização do repositório
 
 ### 🔌 `extensions/` - Extensões
 - **op-vscode/** - Extensão do 1Password para VSCode
@@ -46,12 +49,12 @@
 - **1passwoard.senamfo.com.br.zip** - Arquivo do projeto senamfo
 - **automacao_1password.zip** - Arquivo da automação
 - **doc_automacao_alternativas.docx** - Documento de alternativas
+- **exported-assets-1password-framwork-perplexity/** - Assets de referência anteriores
+- **exported-assets-1password-framwork-perplexity.zip** - Snapshot compactado dos assets
 
 ### 🛠️ Arquivos Utilitários
-- **App.tsx** - Componente React
-- **convert_md_to_html.py** - Conversor de Markdown para HTML
-- **index.html** - Página HTML
-- **script.py** - Script Python principal
+- **App.tsx** - Componente React de redirecionamento
+- **index.html** - Landing page HTML das documentações
 
 ## 🎯 Como Usar
 

@@ -1,0 +1,51 @@
+🔍 RELATÓRIO DETALHADO DE PERMISSÕES
+====================================
+Data/Hora: Thu Oct 23 21:26:01 -03 2025
+Diretório: /Users/luiz.sena88/Dotfiles/automacao_1password
+Usuário: luiz.sena88
+
+LEGENDA:
+📁 = Diretório  📄 = Arquivo  ⚡ = Executável
+R W X = Leitura Escrita Execução (✅ = Permitido, ❌ = Negado)
+Formato: [Tipo] Nome (Tamanho) Permissões | R W X | Data Modificação | Caminho
+
+RESULTADOS:
+-----------
+📁 automacao_1password (20 items) rwx------ luiz.sena88:GID:20 700 | R W X: ✅ ✅ ✅ | 2025-10-23 20:15 | 
+  📄 .DS_Store (8KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:15 | /.DS_Store
+  📕 1password-automacao-completa.pdf (388KB) rw------- luiz.sena88:GID:20 600 | R W X: ✅ ✅ ❌ | 2025-10-22 22:13 | /1password-automacao-completa.pdf
+  📕 APIs e referência  _  Identity and Access Management (IAM)  _  Google Cloud.pdf (565KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-22 20:40 | /APIs e referência  _  Identity and Access Management (IAM)  _  Google Cloud.pdf
+  📄 App.tsx (1KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:14 | /App.tsx
+  📁 archives (3 items) rwxr-xr-x luiz.sena88:GID:20 755 | R W X: ✅ ✅ ✅ | 2025-10-23 20:14 | /archives
+    📦 1passwoard.senamfo.com.br.zip (941KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:14 | /archives/1passwoard.senamfo.com.br.zip
+    📦 automacao_1password.zip (171KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:14 | /archives/automacao_1password.zip
+    📄 doc_automacao_alternativas.docx (10KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:14 | /archives/doc_automacao_alternativas.docx
+  📝 cloud.google.com_22nd_Oct_2025.txt (30KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-22 20:42 | /cloud.google.com_22nd_Oct_2025.txt
+  📁 configs (4 items) rwxr-xr-x luiz.sena88:GID:20 755 | R W X: ✅ ✅ ✅ | 2025-10-23 20:13 | /configs
+    📄 1password_automation_complete.json (11KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:13 | /configs/1password_automation_complete.json
+    📄 1password-credentials.json (1KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:13 | /configs/1password-credentials.json
+    📄 template.env.op (4KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:13 | /configs/template.env.op
+    📝 vps_registros_dns_cloudflare.txt (9KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:13 | /configs/vps_registros_dns_cloudflare.txt
+  📄 convert_md_to_html.py (2KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:14 | /convert_md_to_html.py
+  📄 doc_automacao_alternativas.docx (10KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-22 20:29 | /doc_automacao_alternativas.docx
+  📁 docs (14 items) rwxr-xr-x luiz.sena88:GID:20 755 | R W X: ✅ ✅ ✅ | 2025-10-23 20:15 | /docs
+    📝 1. Visão Geral.md (6KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:13 | /docs/1. Visão Geral.md
+    📕 1password-automacao-completa.pdf (388KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:14 | /docs/1password-automacao-completa.pdf
+    📝 AGENT_EXPERT_1PASSWORD.md (13KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:13 | /docs/AGENT_EXPERT_1PASSWORD.md
+    📕 APIs e referência  _  Identity and Access Management (IAM)  _  Google Cloud.pdf (565KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:14 | /docs/APIs e referência  _  Identity and Access Management (IAM)  _  Google Cloud.pdf
+    📝 Automação Completa do 1Password para macOS Silicon.md (19KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:13 | /docs/Automação Completa do 1Password para macOS Silicon.md
+    📝 Automação Completa do 1Password para VPS Ubuntu.md (12KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:13 | /docs/Automação Completa do 1Password para VPS Ubuntu.md
+    📝 Automação Completa do 1Password: macOS Silicon e VPS Ubuntu.md (14KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:13 | /docs/Automação Completa do 1Password: macOS Silicon e VPS Ubuntu.md
+    📝 cloud.google.com_22nd_Oct_2025.txt (30KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:14 | /docs/cloud.google.com_22nd_Oct_2025.txt
+    📕 Funções e permissões do Gemini Cloud Assist _ Gerenciamento de Identidade e Acesso (IAM) _ Google Cloud.pdf (2MB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:14 | /docs/Funções e permissões do Gemini Cloud Assist _ Gerenciamento de Identidade e Acesso (IAM) _ Google Cloud.pdf
+    📝 GUIA_INTEGRACAO_DOCKER_TRAEFIK.md (15KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:13 | /docs/GUIA_INTEGRACAO_DOCKER_TRAEFIK.md
+    📕 PROCESSO ÚNICO DE IMPLANTAÇÃO - Automação CLI, Biometria e Gestão de Ambientes_Secrets via 1Password para MacOS Silicon e VPS Ubuntu.pdf (139KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:14 | /docs/PROCESSO ÚNICO DE IMPLANTAÇÃO - Automação CLI, Biometria e Gestão de Ambientes_Secrets via 1Password para MacOS Silicon e VPS Ubuntu.pdf
+    📕 PROCESSOÚNICODEIMPLANTAÇÃO-AutomaçãoCLI,BiometriaeGestãodeAmbientes_Secretsvia1PasswordparaMacOSSiliconeVPSUbuntu.pdf (139KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:14 | /docs/PROCESSOÚNICODEIMPLANTAÇÃO-AutomaçãoCLI,BiometriaeGestãodeAmbientes_Secretsvia1PasswordparaMacOSSiliconeVPSUbuntu.pdf
+    📝 readme_parcial_v1.md (22KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:14 | /docs/readme_parcial_v1.md
+    📝 README.md (4KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:14 | /docs/README.md
+  📁 extensions (1 items) rwxr-xr-x luiz.sena88:GID:20 755 | R W X: ✅ ✅ ✅ | 2025-10-23 20:13 | /extensions
+    📁 op-vscode (27 items) rwxr-xr-x luiz.sena88:GID:20 755 | R W X: ✅ ✅ ✅ | 2025-10-23 20:13 | /extensions/op-vscode
+      📄 .changelogs.yml (116B) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:13 | /extensions/op-vscode/.changelogs.yml
+      📄 .DS_Store (8KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:13 | /extensions/op-vscode/.DS_Store
+      📄 .eslintrc.json (1KB) rw-r--r-- luiz.sena88:GID:20 644 | R W X: ✅ ✅ ❌ | 2025-10-23 20:13 | /extensions/op-vscode/.eslintrc.json
+      📁 .git (10 items) rwxr-xr-x luiz.sena88:GID:20 755 | R W X: ✅ ✅ ✅ | 2025-10-23 20:13 | /extensions/op-vscode/.git

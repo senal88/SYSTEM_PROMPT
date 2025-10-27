@@ -1,0 +1,260 @@
+{
+  "income_statement_template": {
+    "version": "1.0.0",
+    "description": "Template para Demonstração do Resultado do Exercício (DRE) estruturado para NotebookLM",
+    "company": "{{company_name}}",
+    "period": "{{period}}",
+    "currency": "BRL",
+    "format": "standard_brazilian",
+    "structure": {
+      "revenue": {
+        "gross_revenue": {
+          "product_sales": {
+            "code": "4.1.1",
+            "description": "Vendas de Produtos",
+            "current_period": 0,
+            "previous_period": 0,
+            "variation": 0,
+            "variation_percent": 0,
+            "breakdown": {
+              "domestic_sales": 0,
+              "export_sales": 0,
+              "online_sales": 0
+            }
+          },
+          "service_revenue": {
+            "code": "4.1.2",
+            "description": "Prestação de Serviços",
+            "current_period": 0,
+            "previous_period": 0,
+            "variation": 0,
+            "variation_percent": 0
+          },
+          "other_revenue": {
+            "code": "4.1.3",
+            "description": "Outras Receitas",
+            "current_period": 0,
+            "previous_period": 0,
+            "variation": 0,
+            "variation_percent": 0
+          }
+        },
+        "revenue_deductions": {
+          "sales_taxes": {
+            "code": "4.2.1",
+            "description": "Impostos sobre Vendas",
+            "current_period": 0,
+            "previous_period": 0,
+            "variation": 0,
+            "variation_percent": 0,
+            "breakdown": {
+              "icms": 0,
+              "ipi": 0,
+              "pis": 0,
+              "cofins": 0,
+              "iss": 0
+            }
+          },
+          "returns_and_cancellations": {
+            "code": "4.2.2",
+            "description": "Devoluções e Cancelamentos",
+            "current_period": 0,
+            "previous_period": 0,
+            "variation": 0,
+            "variation_percent": 0
+          },
+          "discounts": {
+            "code": "4.2.3",
+            "description": "Descontos Incondicionais",
+            "current_period": 0,
+            "previous_period": 0,
+            "variation": 0,
+            "variation_percent": 0
+          }
+        }
+      },
+      "costs_and_expenses": {
+        "cost_of_sales": {
+          "cost_of_goods_sold": {
+            "code": "5.1.1",
+            "description": "Custo das Mercadorias Vendidas",
+            "current_period": 0,
+            "previous_period": 0,
+            "variation": 0,
+            "variation_percent": 0,
+            "breakdown": {
+              "purchase_cost": 0,
+              "freight": 0,
+              "insurance": 0,
+              "other_costs": 0
+            }
+          },
+          "cost_of_services": {
+            "code": "5.1.2",
+            "description": "Custo dos Serviços Prestados",
+            "current_period": 0,
+            "previous_period": 0,
+            "variation": 0,
+            "variation_percent": 0
+          }
+        },
+        "operating_expenses": {
+          "administrative_expenses": {
+            "code": "5.2.1",
+            "description": "Despesas Administrativas",
+            "current_period": 0,
+            "previous_period": 0,
+            "variation": 0,
+            "variation_percent": 0,
+            "breakdown": {
+              "personnel": 0,
+              "rent": 0,
+              "utilities": 0,
+              "communications": 0,
+              "professional_services": 0,
+              "depreciation": 0,
+              "other_administrative": 0
+            }
+          },
+          "selling_expenses": {
+            "code": "5.2.2",
+            "description": "Despesas com Vendas",
+            "current_period": 0,
+            "previous_period": 0,
+            "variation": 0,
+            "variation_percent": 0,
+            "breakdown": {
+              "sales_commissions": 0,
+              "advertising": 0,
+              "marketing": 0,
+              "sales_personnel": 0,
+              "transportation": 0,
+              "other_selling": 0
+            }
+          }
+        },
+        "financial_expenses": {
+          "code": "5.3",
+          "description": "Despesas Financeiras",
+          "current_period": 0,
+          "previous_period": 0,
+          "variation": 0,
+          "variation_percent": 0,
+          "breakdown": {
+            "interest_expense": 0,
+            "bank_fees": 0,
+            "exchange_losses": 0,
+            "other_financial": 0
+          }
+        },
+        "other_expenses": {
+          "code": "5.4",
+          "description": "Outras Despesas",
+          "current_period": 0,
+          "previous_period": 0,
+          "variation": 0,
+          "variation_percent": 0
+        }
+      },
+      "financial_income": {
+        "interest_income": {
+          "code": "6.1",
+          "description": "Receitas Financeiras",
+          "current_period": 0,
+          "previous_period": 0,
+          "variation": 0,
+          "variation_percent": 0
+        },
+        "other_financial_income": {
+          "code": "6.2",
+          "description": "Outras Receitas Financeiras",
+          "current_period": 0,
+          "previous_period": 0,
+          "variation": 0,
+          "variation_percent": 0
+        }
+      }
+    },
+    "calculated_totals": {
+      "net_revenue": {
+        "current_period": 0,
+        "previous_period": 0,
+        "variation": 0,
+        "variation_percent": 0
+      },
+      "gross_profit": {
+        "current_period": 0,
+        "previous_period": 0,
+        "variation": 0,
+        "variation_percent": 0
+      },
+      "operating_income": {
+        "current_period": 0,
+        "previous_period": 0,
+        "variation": 0,
+        "variation_percent": 0
+      },
+      "financial_result": {
+        "current_period": 0,
+        "previous_period": 0,
+        "variation": 0,
+        "variation_percent": 0
+      },
+      "income_before_taxes": {
+        "current_period": 0,
+        "previous_period": 0,
+        "variation": 0,
+        "variation_percent": 0
+      },
+      "income_tax": {
+        "current_period": 0,
+        "previous_period": 0,
+        "variation": 0,
+        "variation_percent": 0
+      },
+      "net_income": {
+        "current_period": 0,
+        "previous_period": 0,
+        "variation": 0,
+        "variation_percent": 0
+      }
+    },
+    "analysis_metrics": {
+      "profitability_ratios": {
+        "gross_margin": 0,
+        "operating_margin": 0,
+        "net_margin": 0,
+        "ebitda_margin": 0
+      },
+      "growth_metrics": {
+        "revenue_growth": 0,
+        "profit_growth": 0,
+        "operating_income_growth": 0
+      },
+      "efficiency_metrics": {
+        "cost_of_sales_ratio": 0,
+        "administrative_expense_ratio": 0,
+        "selling_expense_ratio": 0
+      }
+    },
+    "variance_analysis": {
+      "revenue_variance": {
+        "volume_impact": 0,
+        "price_impact": 0,
+        "mix_impact": 0
+      },
+      "cost_variance": {
+        "volume_impact": 0,
+        "price_impact": 0,
+        "efficiency_impact": 0
+      }
+    },
+    "metadata": {
+      "created_date": "2024-01-01",
+      "template_version": "1.0.0",
+      "description": "Template para DRE compatível com NotebookLM",
+      "standards": ["BR-GAAP", "IFRS"],
+      "language": "pt-BR"
+    }
+  }
+}

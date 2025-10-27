@@ -1,0 +1,144 @@
+{
+  "sample_accounting_data": {
+    "company": "Empresa Exemplo Ltda",
+    "period": "2024-01",
+    "currency": "BRL",
+    "data_type": "sample",
+    "balance_sheet": {
+      "assets": {
+        "current_assets": {
+          "cash_and_equivalents": {
+            "cash": 15000.00,
+            "bank_accounts": 125000.00,
+            "financial_investments": 50000.00
+          },
+          "receivables": {
+            "customers": 85000.00,
+            "notes_receivable": 25000.00
+          },
+          "inventory": {
+            "merchandise": 120000.00,
+            "raw_materials": 35000.00
+          },
+          "other_current_assets": {
+            "prepaid_expenses": 12000.00,
+            "advances_to_suppliers": 8000.00
+          }
+        },
+        "non_current_assets": {
+          "long_term_receivables": 15000.00,
+          "investments": 30000.00,
+          "fixed_assets": {
+            "real_estate": 200000.00,
+            "machinery": 150000.00,
+            "vehicles": 80000.00,
+            "accumulated_depreciation": -45000.00
+          },
+          "intangible_assets": 25000.00
+        }
+      },
+      "liabilities": {
+        "current_liabilities": {
+          "suppliers": 45000.00,
+          "loans_and_financing": 30000.00,
+          "tax_and_labor_obligations": 18000.00
+        },
+        "non_current_liabilities": {
+          "long_term_loans": 80000.00,
+          "provisions": 10000.00
+        }
+      },
+      "equity": {
+        "share_capital": 200000.00,
+        "capital_reserves": 25000.00,
+        "retained_earnings": 150000.00,
+        "accumulated_profits_losses": 125000.00
+      }
+    },
+    "income_statement": {
+      "revenue": {
+        "gross_revenue": {
+          "product_sales": 450000.00,
+          "service_revenue": 75000.00,
+          "other_revenue": 5000.00
+        },
+        "revenue_deductions": {
+          "sales_taxes": 45000.00,
+          "returns_and_cancellations": 2000.00,
+          "discounts": 3000.00
+        }
+      },
+      "costs_and_expenses": {
+        "cost_of_sales": {
+          "cost_of_goods_sold": 180000.00,
+          "cost_of_services": 25000.00
+        },
+        "operating_expenses": {
+          "administrative_expenses": 85000.00,
+          "selling_expenses": 45000.00
+        },
+        "financial_expenses": 8000.00,
+        "other_expenses": 2000.00
+      },
+      "financial_income": {
+        "interest_income": 3000.00,
+        "other_financial_income": 1000.00
+      }
+    },
+    "cash_flow": {
+      "operating_activities": {
+        "net_income": 125000.00,
+        "depreciation": 15000.00,
+        "changes_in_working_capital": -10000.00,
+        "other_operating": 5000.00
+      },
+      "investing_activities": {
+        "capital_expenditures": -25000.00,
+        "investments": -10000.00,
+        "other_investing": 2000.00
+      },
+      "financing_activities": {
+        "debt_issuance": 0.00,
+        "debt_repayment": -15000.00,
+        "dividends_paid": -20000.00,
+        "other_financing": 0.00
+      }
+    },
+    "key_metrics": {
+      "liquidity_ratios": {
+        "current_ratio": 1.85,
+        "quick_ratio": 1.25,
+        "cash_ratio": 0.45
+      },
+      "profitability_ratios": {
+        "gross_margin": 0.35,
+        "operating_margin": 0.18,
+        "net_margin": 0.12,
+        "roa": 0.08,
+        "roe": 0.15
+      },
+      "leverage_ratios": {
+        "debt_to_equity": 0.45,
+        "debt_to_assets": 0.28,
+        "equity_ratio": 0.72
+      },
+      "efficiency_ratios": {
+        "asset_turnover": 0.65,
+        "inventory_turnover": 2.8,
+        "receivables_turnover": 4.2
+      }
+    },
+    "trend_analysis": {
+      "revenue_growth": 0.15,
+      "profit_growth": 0.22,
+      "asset_growth": 0.08,
+      "equity_growth": 0.12
+    },
+    "metadata": {
+      "created_date": "2024-01-01",
+      "data_source": "sample",
+      "description": "Dados de exemplo para demonstração da estrutura contábil",
+      "language": "pt-BR"
+    }
+  }
+}

@@ -1,0 +1,41 @@
+# ============================================================================
+# 🔐 1Password Connect - Gitignore
+# Arquivo: .gitignore
+# Propósito: Ignorar arquivos sensíveis
+# ============================================================================
+
+# Tokens de acesso - NUNCA commitar
+tokens/
+!tokens/.gitkeep
+
+# Logs locais
+logs/
+!logs/.gitkeep
+*.log
+
+# Arquivos de ambiente seguros
+~/.1password/.env
+.env
+.env.local
+.env.production
+
+# Credenciais e artefatos sensíveis
+connect/credentials.json
+connect/data/
+!connect/data/.gitkeep
+connect/certs/
+!connect/certs/.gitkeep
+connect/letsencrypt/
+
+# Metadados de SO
+.DS_Store
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Docker volumes
+data/
+volumes/

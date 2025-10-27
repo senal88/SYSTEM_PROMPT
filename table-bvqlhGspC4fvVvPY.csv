@@ -1,0 +1,10 @@
+Cenário,Modelo,GPU,learning_rate,batch_size,gradient_accumulation,mixed_precision,gradient_checkpointing,maxsequencelength,Tempo Est.,VRAM Est.
+"Prototipagem Rápida","1B","RTX 3060 (12GB)","5e-5","8","1","fp16","false","512","30min","8GB"
+"Desenvolvimento Local","3B","RTX 3090 (24GB)","2e-5","4","4","bf16","true","1024","2h","18GB"
+"Produção Padrão","7B","RTX 4090 (24GB)","1e-5","2","8","bf16","true","2048","4h","22GB"
+"Pesquisa Avançada","13B","2x A100 (80GB)","5e-6","1","16","bf16","true","4096","6h","60GB"
+"Recursos Limitados","1B","CPU","1e-4","1","32","no","false","256","8h","4GB"
+"Edge/Mobile","0.5B","CPU/Mobile","1e-4","1","16","no","false","128","4h","2GB"
+"LoRA Eficiente","7B","RTX 3060 (12GB)","2e-4","1","8","fp16","true","1024","3h","10GB"
+"QLoRA Ultra","13B","RTX 3060 (12GB)","2e-4","1","16","fp16","true","512","5h","11GB"
+"Distribuído","70B","8x A100 (80GB)","1e-6","1","32","bf16","true","2048","12h","480GB"

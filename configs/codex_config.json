@@ -1,0 +1,18 @@
+{
+  "codex": {
+    "cli_path": "/Users/luiz.sena88/Dotfiles/codex/codex-cli/bin/codex.js",
+    "rust_path": "/Users/luiz.sena88/Dotfiles/codex/codex-rs",
+    "config_path": "/Users/luiz.sena88/Dotfiles/codex",
+    "extensions": {
+      "openai_chatgpt": "/Users/luiz.sena88/.cursor/extensions/openai.chatgpt-0.4.21-universal",
+      "bin_paths": [
+        "/Users/luiz.sena88/.cursor/extensions/openai.chatgpt-0.4.21-universal/bin/macos-aarch64/codex",
+        "/Users/luiz.sena88/.cursor/extensions/openai.chatgpt-0.4.21-universal/bin/linux-x86_64/codex",
+        "/Users/luiz.sena88/.cursor/extensions/openai.chatgpt-0.4.21-universal/bin/linux-aarch64/codex",
+        "/Users/luiz.sena88/.cursor/extensions/openai.chatgpt-0.4.21-universal/bin/windows-aarch64/codex.exe",
+        "/Users/luiz.sena88/.cursor/extensions/openai.chatgpt-0.4.21-universal/bin/macos-x86_64/codex",
+        "/Users/luiz.sena88/.cursor/extensions/openai.chatgpt-0.4.21-universal/bin/windows-x86_64/codex.exe"
+      ]
+    }
+  }
+}

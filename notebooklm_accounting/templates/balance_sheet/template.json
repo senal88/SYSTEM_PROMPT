@@ -1,0 +1,291 @@
+{
+  "balance_sheet_template": {
+    "version": "1.0.0",
+    "description": "Template para Balanço Patrimonial estruturado para NotebookLM",
+    "company": "{{company_name}}",
+    "period": "{{period}}",
+    "currency": "BRL",
+    "format": "standard_brazilian",
+    "structure": {
+      "assets": {
+        "current_assets": {
+          "cash_and_equivalents": {
+            "cash": {
+              "code": "1.1.1.1",
+              "description": "Caixa",
+              "current_period": 0,
+              "previous_period": 0,
+              "variation": 0,
+              "variation_percent": 0
+            },
+            "bank_accounts": {
+              "code": "1.1.1.2", 
+              "description": "Bancos Conta Movimento",
+              "current_period": 0,
+              "previous_period": 0,
+              "variation": 0,
+              "variation_percent": 0
+            },
+            "financial_investments": {
+              "code": "1.1.2.1",
+              "description": "Aplicações Financeiras - Curto Prazo",
+              "current_period": 0,
+              "previous_period": 0,
+              "variation": 0,
+              "variation_percent": 0
+            }
+          },
+          "receivables": {
+            "customers": {
+              "code": "1.1.3.1",
+              "description": "Clientes",
+              "current_period": 0,
+              "previous_period": 0,
+              "variation": 0,
+              "variation_percent": 0,
+              "aging": {
+                "0_30_days": 0,
+                "31_60_days": 0,
+                "61_90_days": 0,
+                "over_90_days": 0
+              }
+            },
+            "notes_receivable": {
+              "code": "1.1.3.2",
+              "description": "Duplicatas a Receber",
+              "current_period": 0,
+              "previous_period": 0,
+              "variation": 0,
+              "variation_percent": 0
+            }
+          },
+          "inventory": {
+            "merchandise": {
+              "code": "1.1.4.1",
+              "description": "Mercadorias para Revenda",
+              "current_period": 0,
+              "previous_period": 0,
+              "variation": 0,
+              "variation_percent": 0
+            },
+            "raw_materials": {
+              "code": "1.1.4.2",
+              "description": "Matérias-Primas",
+              "current_period": 0,
+              "previous_period": 0,
+              "variation": 0,
+              "variation_percent": 0
+            }
+          },
+          "other_current_assets": {
+            "prepaid_expenses": {
+              "code": "1.1.5.1",
+              "description": "Despesas Antecipadas",
+              "current_period": 0,
+              "previous_period": 0,
+              "variation": 0,
+              "variation_percent": 0
+            },
+            "advances_to_suppliers": {
+              "code": "1.1.5.2",
+              "description": "Adiantamentos a Fornecedores",
+              "current_period": 0,
+              "previous_period": 0,
+              "variation": 0,
+              "variation_percent": 0
+            }
+          }
+        },
+        "non_current_assets": {
+          "long_term_receivables": {
+            "code": "1.2.1",
+            "description": "Ativo Realizável a Longo Prazo",
+            "current_period": 0,
+            "previous_period": 0,
+            "variation": 0,
+            "variation_percent": 0
+          },
+          "investments": {
+            "code": "1.2.2",
+            "description": "Investimentos",
+            "current_period": 0,
+            "previous_period": 0,
+            "variation": 0,
+            "variation_percent": 0
+          },
+          "fixed_assets": {
+            "real_estate": {
+              "code": "1.2.3.1",
+              "description": "Imóveis",
+              "current_period": 0,
+              "previous_period": 0,
+              "variation": 0,
+              "variation_percent": 0,
+              "accumulated_depreciation": 0
+            },
+            "machinery": {
+              "code": "1.2.3.2",
+              "description": "Máquinas e Equipamentos",
+              "current_period": 0,
+              "previous_period": 0,
+              "variation": 0,
+              "variation_percent": 0,
+              "accumulated_depreciation": 0
+            },
+            "vehicles": {
+              "code": "1.2.3.3",
+              "description": "Veículos",
+              "current_period": 0,
+              "previous_period": 0,
+              "variation": 0,
+              "variation_percent": 0,
+              "accumulated_depreciation": 0
+            }
+          },
+          "intangible_assets": {
+            "code": "1.2.4",
+            "description": "Intangível",
+            "current_period": 0,
+            "previous_period": 0,
+            "variation": 0,
+            "variation_percent": 0
+          }
+        }
+      },
+      "liabilities": {
+        "current_liabilities": {
+          "suppliers": {
+            "code": "2.1.1",
+            "description": "Fornecedores",
+            "current_period": 0,
+            "previous_period": 0,
+            "variation": 0,
+            "variation_percent": 0
+          },
+          "loans_and_financing": {
+            "code": "2.1.2",
+            "description": "Empréstimos e Financiamentos",
+            "current_period": 0,
+            "previous_period": 0,
+            "variation": 0,
+            "variation_percent": 0
+          },
+          "tax_and_labor_obligations": {
+            "code": "2.1.3",
+            "description": "Obrigações Fiscais e Trabalhistas",
+            "current_period": 0,
+            "previous_period": 0,
+            "variation": 0,
+            "variation_percent": 0,
+            "breakdown": {
+              "payroll_taxes": 0,
+              "social_security": 0,
+              "income_tax": 0,
+              "other_taxes": 0
+            }
+          }
+        },
+        "non_current_liabilities": {
+          "long_term_loans": {
+            "code": "2.2.1",
+            "description": "Empréstimos e Financiamentos",
+            "current_period": 0,
+            "previous_period": 0,
+            "variation": 0,
+            "variation_percent": 0
+          },
+          "provisions": {
+            "code": "2.2.2",
+            "description": "Provisões",
+            "current_period": 0,
+            "previous_period": 0,
+            "variation": 0,
+            "variation_percent": 0
+          }
+        }
+      },
+      "equity": {
+        "share_capital": {
+          "code": "3.1",
+          "description": "Capital Social",
+          "current_period": 0,
+          "previous_period": 0,
+          "variation": 0,
+          "variation_percent": 0
+        },
+        "capital_reserves": {
+          "code": "3.2",
+          "description": "Reservas de Capital",
+          "current_period": 0,
+          "previous_period": 0,
+          "variation": 0,
+          "variation_percent": 0
+        },
+        "retained_earnings": {
+          "code": "3.3",
+          "description": "Reservas de Lucros",
+          "current_period": 0,
+          "previous_period": 0,
+          "variation": 0,
+          "variation_percent": 0
+        },
+        "accumulated_profits_losses": {
+          "code": "3.4",
+          "description": "Lucros ou Prejuízos Acumulados",
+          "current_period": 0,
+          "previous_period": 0,
+          "variation": 0,
+          "variation_percent": 0
+        }
+      }
+    },
+    "totals": {
+      "total_assets": {
+        "current_period": 0,
+        "previous_period": 0,
+        "variation": 0,
+        "variation_percent": 0
+      },
+      "total_liabilities": {
+        "current_period": 0,
+        "previous_period": 0,
+        "variation": 0,
+        "variation_percent": 0
+      },
+      "total_equity": {
+        "current_period": 0,
+        "previous_period": 0,
+        "variation": 0,
+        "variation_percent": 0
+      },
+      "balance_check": {
+        "assets_equals_liabilities_equity": true,
+        "difference": 0
+      }
+    },
+    "analysis_metrics": {
+      "liquidity_ratios": {
+        "current_ratio": 0,
+        "quick_ratio": 0,
+        "cash_ratio": 0
+      },
+      "leverage_ratios": {
+        "debt_to_equity": 0,
+        "debt_to_assets": 0,
+        "equity_ratio": 0
+      },
+      "efficiency_ratios": {
+        "asset_turnover": 0,
+        "inventory_turnover": 0,
+        "receivables_turnover": 0
+      }
+    },
+    "metadata": {
+      "created_date": "2024-01-01",
+      "template_version": "1.0.0",
+      "description": "Template para Balanço Patrimonial compatível com NotebookLM",
+      "standards": ["BR-GAAP", "IFRS"],
+      "language": "pt-BR"
+    }
+  }
+}

@@ -1,0 +1,9 @@
+Técnica,Descrição,Quando Usar,Exemplo,Complexidade
+"Zero-Shot","Sem exemplos, apenas instrução","Tarefas simples, conhecimento geral","""Qual é a capital da França?""","Baixa"
+"Few-Shot","Alguns exemplos de entrada-saída","Tarefas específicas, formatos customizados","Classificação com 3 exemplos","Média"
+"Chain-of-Thought (CoT)","Mostrar passos de raciocínio","Problemas matemáticos, lógica complexa","""Vamos pensar passo a passo...""","Média"
+"Zero-Shot CoT","CoT sem exemplos","Raciocínio rápido sem exemplos","""Pense antes de responder""","Média"
+"Few-Shot CoT","CoT com exemplos","Raciocínio complexo com padrão","Exemplos com passos explícitos","Alta"
+"ReAct","Raciocínio + Ação com ferramentas","Agentes que usam APIs/ferramentas","Thought → Action → Observation","Alta"
+"Self-Consistency","Múltiplas gerações + votação","Tarefas críticas, alta precisão","Gerar 5 respostas, escolher maioria","Muito Alta"
+"Prompt Chaining","Sequência de prompts","Tarefas de múltiplos passos","Extração → Categorização → Resumo","Alta"

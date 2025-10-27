@@ -1,0 +1,15 @@
+{
+  "cursor": {
+    "api_key": "con-4b675d386275cbe80dd3d7f729e845ad5f9db2ae8746d0c8283638449dcfaf44",
+    "agent_enabled": true,
+    "agent_auto_save": true,
+    "agent_log_level": "info",
+    "cli_version": "1.7.54",
+    "cli_commit": "5c17eb2968a37f66bc6662f48d6356a100b67be0",
+    "cli_arch": "arm64",
+    "cli_mode": "local",
+    "trace_id": "1ea04d7a99584615bd48dc2d5063e246",
+    "config_path": "/Users/luiz.sena88/.cursor",
+    "extensions_path": "/Users/luiz.sena88/.cursor/extensions"
+  }
+}

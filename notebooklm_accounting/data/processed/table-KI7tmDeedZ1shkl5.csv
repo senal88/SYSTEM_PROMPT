@@ -1,0 +1,6 @@
+Framework,Melhor Para,Curva Aprendizado,Complexidade,Escalabilidade,Comunidade
+"LangChain/LangGraph","Fluxos complexos, RAG, APIs","Alta","Alta","Excelente","Muito Grande"
+"AutoGen","Colaboração conversacional, Código","Média-Alta","Média","Boa","Grande"
+"CrewAI","Prototipagem rápida, Papéis","Baixa","Média","Boa","Crescente"
+"LM Studio","Modelos locais, Mac Silicon","Baixa","Baixa","Limitada","Média"
+"Open WebUI","Interface de chat, Testes","Muito Baixa","Baixa","Limitada","Pequena"

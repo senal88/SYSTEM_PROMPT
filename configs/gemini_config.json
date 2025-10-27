@@ -1,0 +1,12 @@
+{
+  "gemini": {
+    "api_key": "AIzaSyBlk5paegtx4M0cVmP88UWBVSjqmQlRPDY",
+    "google_api_key": "AIzaSyASPYH3BdhF7CBWi7K183hbqaggT0TB4Pg",
+    "gcp_project_id": "gcp-ai-setup-24410",
+    "gcp_region": "us-central1",
+    "cli_version": "0.10.0",
+    "config_path": "/Users/luiz.sena88/.config/configstore/update-notifier-@google/gemini-cli.json",
+    "workspace_path": "/Users/luiz.sena88/Projetos/huggingface",
+    "ide_server_port": "57684"
+  }
+}

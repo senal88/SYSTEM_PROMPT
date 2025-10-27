@@ -1,0 +1,66 @@
+# ============================================================================
+# 🐳 Docker Compose - 1Password Connect Server (macOS Silicon)
+# Arquivo: connect/docker-compose.yml
+# Propósito: Configuração completa para produção
+# Data: 27 de Janeiro de 2025
+# ============================================================================
+
+services:
+  connect-api:
+    image: 1password/connect-api:latest
+    platform: linux/arm64
+    container_name: op-connect-api
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "8443:8443"
+    environment:
+      - OP_CONNECT_TOKEN=${OP_CONNECT_TOKEN}
+      - OP_CONNECT_SERVER_URL=http://localhost:8080
+    volumes:
+      - ./data:/home/op/data
+      - ./credentials.json:/home/opuser/credentials.json
+      - ./certs:/home/op/certs:ro
+    networks:
+      - connect_net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+  connect-sync:
+    image: 1password/connect-sync:latest
+    platform: linux/arm64
+    container_name: op-connect-sync
+    restart: unless-stopped
+    environment:
+      - OP_CONNECT_TOKEN=${OP_CONNECT_TOKEN}
+      - OP_CONNECT_SERVER_URL=http://connect-api:8080
+    volumes:
+      - ./data:/home/op/data
+      - ./credentials.json:/home/opuser/credentials.json
+    networks:
+      - connect_net
+    depends_on:
+      - connect-api
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://connect-api:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+networks:
+  connect_net:
+    driver: bridge
+    name: connect_net

@@ -1,0 +1,147 @@
+{
+  "notebooklm_config": {
+    "version": "1.0.0",
+    "description": "Configurações otimizadas para análise contábil com NotebookLM",
+    "company_id": "empresa_exemplo_ltda",
+    "fiscal_year": "2024",
+    "currency": "BRL",
+    "language": "pt-BR",
+    "analysis_settings": {
+      "default_period": "monthly",
+      "comparison_periods": ["previous_month", "previous_year", "ytd"],
+      "key_metrics": [
+        "revenue_growth",
+        "profit_margin", 
+        "cash_flow",
+        "debt_ratio",
+        "current_ratio",
+        "roi",
+        "roa",
+        "roe"
+      ],
+      "reporting_frequency": {
+        "daily": ["cash_position", "bank_balance"],
+        "weekly": ["sales_summary", "expense_analysis"],
+        "monthly": ["full_financial_statements", "variance_analysis"],
+        "quarterly": ["comprehensive_analysis", "trend_analysis"],
+        "annually": ["audit_preparation", "budget_vs_actual"]
+      }
+    },
+    "prompts": {
+      "financial_analysis": {
+        "balance_sheet_analysis": "Analise o balanço patrimonial da empresa, identificando pontos fortes e fracos na estrutura financeira, com foco em liquidez, endividamento e composição do patrimônio.",
+        "income_statement_analysis": "Examine a demonstração do resultado do exercício, analisando a evolução das receitas, custos e despesas, identificando tendências e oportunidades de melhoria.",
+        "cash_flow_analysis": "Avalie o fluxo de caixa da empresa, identificando as principais fontes e usos de recursos, e propondo estratégias para otimização da gestão financeira.",
+        "ratio_analysis": "Calcule e interprete os principais indicadores financeiros, comparando com benchmarks do setor e identificando áreas que necessitam atenção.",
+        "trend_analysis": "Analise as tendências dos principais indicadores financeiros ao longo do tempo, identificando padrões e propondo ações corretivas quando necessário."
+      },
+      "budgeting_forecasting": {
+        "budget_analysis": "Compare o orçamento planejado com os resultados reais, identificando desvios significativos e suas causas, propondo ajustes para o próximo período.",
+        "forecast_creation": "Com base nos dados históricos e tendências identificadas, crie projeções para os próximos 12 meses, considerando cenários otimista, realista e pessimista.",
+        "scenario_analysis": "Desenvolva análises de cenários considerando diferentes variáveis econômicas e operacionais, avaliando o impacto na performance financeira da empresa."
+      },
+      "cost_management": {
+        "cost_analysis": "Analise a estrutura de custos da empresa, identificando os principais componentes e sua evolução, propondo estratégias de redução e otimização.",
+        "profitability_by_product": "Avalie a rentabilidade por produto ou serviço, identificando os mais e menos lucrativos, e propondo ajustes na estratégia comercial.",
+        "overhead_allocation": "Analise a distribuição dos custos indiretos, verificando se está adequada e propondo melhorias na metodologia de rateio."
+      },
+      "compliance_tax": {
+        "tax_optimization": "Analise a estrutura tributária da empresa, identificando oportunidades de otimização legal e propondo estratégias para redução da carga fiscal.",
+        "compliance_check": "Verifique a conformidade com as obrigações fiscais e contábeis, identificando possíveis riscos e propondo ações preventivas.",
+        "regulatory_analysis": "Analise o impacto de mudanças regulatórias na estrutura financeira da empresa, propondo adaptações necessárias."
+      }
+    },
+    "data_processing": {
+      "input_formats": ["csv", "excel", "json", "pdf"],
+      "output_formats": ["json", "csv", "excel", "pdf"],
+      "validation_rules": {
+        "required_fields": ["date", "account_code", "description", "debit", "credit"],
+        "date_format": "YYYY-MM-DD",
+        "currency_format": "BRL",
+        "decimal_places": 2
+      },
+      "data_cleaning": {
+        "remove_duplicates": true,
+        "standardize_accounts": true,
+        "validate_balances": true,
+        "normalize_descriptions": true
+      }
+    },
+    "reporting": {
+      "standard_reports": [
+        {
+          "name": "Relatório Mensal Executivo",
+          "frequency": "monthly",
+          "sections": [
+            "Resumo Executivo",
+            "Análise de Receitas",
+            "Análise de Custos",
+            "Indicadores Financeiros",
+            "Projeções"
+          ]
+        },
+        {
+          "name": "Análise de Liquidez",
+          "frequency": "weekly",
+          "sections": [
+            "Posição de Caixa",
+            "Fluxo de Caixa Projetado",
+            "Análise de Contas a Receber",
+            "Análise de Contas a Pagar"
+          ]
+        },
+        {
+          "name": "Relatório Trimestral Completo",
+          "frequency": "quarterly",
+          "sections": [
+            "Demonstrações Financeiras",
+            "Análise Comparativa",
+            "Indicadores de Performance",
+            "Análise de Tendências",
+            "Recomendações Estratégicas"
+          ]
+        }
+      ],
+      "custom_reports": {
+        "enabled": true,
+        "max_sections": 10,
+        "available_metrics": [
+          "revenue_metrics",
+          "profitability_metrics",
+          "liquidity_metrics",
+          "leverage_metrics",
+          "efficiency_metrics"
+        ]
+      }
+    },
+    "ai_analysis": {
+      "analysis_depth": "comprehensive",
+      "include_benchmarks": true,
+      "sector_comparison": true,
+      "risk_assessment": true,
+      "recommendations": true,
+      "action_plans": true,
+      "confidence_scores": true
+    },
+    "integration": {
+      "erp_systems": ["SAP", "Oracle", "Microsoft Dynamics", "TOTVS"],
+      "banking_apis": ["Banco do Brasil", "Itaú", "Bradesco", "Santander"],
+      "tax_systems": ["SPED", "eSocial", "e-Financeira"],
+      "export_formats": ["PDF", "Excel", "PowerBI", "Tableau"]
+    },
+    "security": {
+      "data_encryption": true,
+      "access_control": true,
+      "audit_logging": true,
+      "backup_frequency": "daily",
+      "retention_policy": "7_years"
+    },
+    "metadata": {
+      "created_date": "2024-01-01",
+      "last_updated": "2024-01-01",
+      "version": "1.0.0",
+      "created_by": "Sistema Contábil",
+      "description": "Configurações para análise contábil com NotebookLM"
+    }
+  }
+}

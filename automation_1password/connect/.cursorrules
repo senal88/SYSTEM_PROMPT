@@ -1,0 +1,256 @@
+# 1Password Connect Server - Cursor AI Rules
+
+## Project Overview
+This is a production-ready 1Password Connect Server deployment for macOS Silicon (M1/M2/M3).
+The project uses Docker Compose for container orchestration and focuses on secure secrets management.
+
+## Code Style and Conventions
+
+### Shell Scripts
+- Use `#!/bin/bash` with `set -euo pipefail` for all scripts
+- Always quote variables: `"$VARIABLE"`
+- Use meaningful variable names in UPPER_CASE for globals
+- Include comprehensive error handling with colored output
+- Add logging for all critical operations
+- Use functions for reusable code blocks
+
+### Docker Compose
+- Use version 3.8 or higher
+- Include explicit platform specifications for Apple Silicon: `platform: linux/arm64`
+- Always specify image tags (avoid `:latest` in production)
+- Use health checks for all services
+- Implement proper volume management
+- Include resource limits for production deployments
+
+### Documentation
+- Use Markdown for all documentation
+- Include code examples with proper syntax highlighting
+- Provide step-by-step instructions
+- Add troubleshooting sections
+- Use emojis for visual clarity (✅ ❌ ⚠️ ℹ️)
+
+## Security Best Practices
+
+### Secrets Management
+- Never commit credentials.json, .env, or certificate files
+- Always use restrictive file permissions (600 for sensitive files)
+- Validate JWT tokens before use
+- Use Docker secrets for production (Swarm mode)
+- Keep all sensitive files in .gitignore
+
+### Docker Security
+- Run containers with minimal capabilities (`cap_drop: ALL`)
+- Use read-only volumes where possible
+- Implement proper network segmentation
+- Enable TLS for production deployments
+- Regular security updates for base images
+
+## Apple Silicon Optimizations
+
+### Performance
+- Prioritize ARM64 native images over x86_64/amd64
+- Use VirtioFS for file sharing when available
+- Allocate appropriate resources in Docker Desktop
+- Avoid Rosetta emulation when native images exist
+- Use Docker Compose V2 (plugin) for better performance
+
+### Compatibility
+- Test both ARM64 and x86_64 architectures when applicable
+- Include platform specifications in docker-compose.yml
+- Document any architecture-specific requirements
+- Provide fallback options for unsupported architectures
+
+## Project Structure
+
+```
+connect/
+├── credentials.json              # 1Password credentials (git-ignored)
+├── .env                         # Environment variables (git-ignored)
+├── docker-compose.yml           # Main Docker Compose config
+├── docker-compose.swarm.yml     # Swarm deployment config
+├── validate-and-deploy.sh       # Complete validation & deployment
+├── setup-connect.sh             # Setup automation
+├── test-connect.sh              # Testing script
+├── setup-swarm-secrets.sh       # Swarm secrets management
+├── certs/                       # TLS certificates (git-ignored)
+├── data/                        # Persistent data (auto-created)
+└── README.md                    # Complete documentation
+```
+
+## Validation and Testing
+
+### Pre-Deployment Checks
+- Verify Docker and Docker Compose installation
+- Check for Apple Silicon architecture
+- Validate credentials.json format (JSON syntax)
+- Confirm JWT token format
+- Ensure required ports are available (8080, 8443)
+- Check file permissions on sensitive files
+
+### Post-Deployment Validation
+- Health check endpoints (`/health`)
+- API authentication tests (`/v1/vaults`)
+- Container status verification
+- Log inspection for errors
+- Network connectivity tests
+
+## Error Handling
+
+### Script Errors
+- Always exit with non-zero status on errors
+- Provide clear, actionable error messages
+- Include troubleshooting hints
+- Log all errors to validation.log
+- Use colored output for visibility
+
+### Docker Errors
+- Check container logs first
+- Verify environment variables
+- Confirm volume mounts
+- Test network connectivity
+- Validate image architecture
+
+## Development Workflow
+
+### Making Changes
+1. Always validate changes in a test environment first
+2. Update documentation when changing configurations
+3. Test on both Intel and Apple Silicon if possible
+4. Verify backward compatibility
+5. Update version tags appropriately
+
+### Testing Strategy
+1. Run validation script: `./validate-and-deploy.sh`
+2. Check service health: `docker compose ps`
+3. Test API endpoints with curl
+4. Verify authentication with actual credentials
+5. Monitor logs for warnings/errors
+
+### Deployment Process
+1. Validate all prerequisites
+2. Review security configurations
+3. Run automated validation
+4. Deploy with monitoring
+5. Perform post-deployment tests
+6. Document any issues or changes
+
+## Common Issues and Solutions
+
+### Port Already in Use
+- Check: `lsof -Pi :8080 -sTCP:LISTEN`
+- Solution: Stop conflicting service or change port
+
+### Docker Not Running
+- Check: `docker info`
+- Solution: Start Docker Desktop application
+
+### Authentication Failed
+- Check: JWT token format and validity
+- Solution: Regenerate token from 1Password dashboard
+
+### Container Health Check Failed
+- Check: `docker compose logs -f`
+- Solution: Verify credentials.json and environment variables
+
+### Slow Performance on Apple Silicon
+- Check: Image architecture in `docker images`
+- Solution: Use ARM64 images, enable VirtioFS
+
+## API Usage Patterns
+
+### Health Check
+```bash
+curl http://localhost:8080/health
+```
+
+### List Vaults
+```bash
+curl -H "Authorization: Bearer $OP_CONNECT_TOKEN" \
+     http://localhost:8080/v1/vaults
+```
+
+### Get Items from Vault
+```bash
+curl -H "Authorization: Bearer $OP_CONNECT_TOKEN" \
+     http://localhost:8080/v1/vaults/{vault-id}/items
+```
+
+### Get Specific Item
+```bash
+curl -H "Authorization: Bearer $OP_CONNECT_TOKEN" \
+     http://localhost:8080/v1/vaults/{vault-id}/items/{item-id}
+```
+
+## Code Generation Guidelines
+
+### When Generating Scripts
+- Include comprehensive error handling
+- Add helpful comments
+- Use consistent formatting
+- Implement logging
+- Provide usage examples
+
+### When Generating Docker Configs
+- Specify explicit versions
+- Include health checks
+- Add resource limits
+- Document all environment variables
+- Provide examples for different scenarios
+
+### When Generating Documentation
+- Structure with clear headings
+- Include code examples
+- Add troubleshooting sections
+- Provide links to official documentation
+- Use visual elements (tables, lists, code blocks)
+
+## Integration Points
+
+### 1Password CLI
+- Use `OP_CONNECT_HOST` environment variable
+- Authenticate with `OP_CONNECT_TOKEN`
+- Reference vaults by ID or name
+
+### External Applications
+- Provide token via environment variable
+- Use HTTPS in production
+- Implement retry logic for transient failures
+- Cache responses appropriately
+- Handle rate limiting gracefully
+
+## Maintenance Tasks
+
+### Regular Updates
+- Update Docker images monthly
+- Rotate access tokens quarterly
+- Review and update security configurations
+- Check for deprecated APIs
+- Update documentation
+
+### Monitoring
+- Monitor container health
+- Track API response times
+- Log authentication attempts
+- Alert on failures
+- Review logs weekly
+
+### Backup Strategy
+- Backup credentials.json securely
+- Document token storage locations
+- Keep configuration in version control (except secrets)
+- Test restoration procedures
+- Maintain offsite backups
+
+## AI Assistant Instructions
+
+When helping with this project:
+1. Always consider Apple Silicon optimizations
+2. Prioritize security in all suggestions
+3. Provide complete, tested code examples
+4. Include error handling and validation
+5. Reference official 1Password documentation
+6. Consider both development and production scenarios
+7. Suggest automated testing approaches
+8. Recommend security best practices
+9. Include troubleshooting steps
+10. Keep documentation up to date

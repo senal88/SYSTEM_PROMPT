@@ -1,0 +1,309 @@
+{
+  "chart_of_accounts": {
+    "version": "1.0.0",
+    "company": "Empresa Exemplo Ltda",
+    "currency": "BRL",
+    "fiscal_year": "2024",
+    "accounts": {
+      "1": {
+        "code": "1",
+        "name": "ATIVO",
+        "type": "ASSET",
+        "category": "BALANCE_SHEET",
+        "subaccounts": {
+          "1.1": {
+            "code": "1.1",
+            "name": "ATIVO CIRCULANTE",
+            "type": "CURRENT_ASSET",
+            "subaccounts": {
+              "1.1.1": {
+                "code": "1.1.1",
+                "name": "CAIXA E EQUIVALENTES DE CAIXA",
+                "type": "CASH",
+                "subaccounts": {
+                  "1.1.1.1": {
+                    "code": "1.1.1.1",
+                    "name": "CAIXA",
+                    "type": "CASH"
+                  },
+                  "1.1.1.2": {
+                    "code": "1.1.1.2",
+                    "name": "BANCOS CONTA MOVIMENTO",
+                    "type": "BANK_ACCOUNT"
+                  }
+                }
+              },
+              "1.1.2": {
+                "code": "1.1.2",
+                "name": "APLICAÇÕES FINANCEIRAS",
+                "type": "FINANCIAL_INVESTMENTS",
+                "subaccounts": {
+                  "1.1.2.1": {
+                    "code": "1.1.2.1",
+                    "name": "APLICAÇÕES FINANCEIRAS - CURTO PRAZO",
+                    "type": "SHORT_TERM_INVESTMENTS"
+                  }
+                }
+              },
+              "1.1.3": {
+                "code": "1.1.3",
+                "name": "CONTAS A RECEBER",
+                "type": "ACCOUNTS_RECEIVABLE",
+                "subaccounts": {
+                  "1.1.3.1": {
+                    "code": "1.1.3.1",
+                    "name": "CLIENTES",
+                    "type": "CUSTOMERS"
+                  },
+                  "1.1.3.2": {
+                    "code": "1.1.3.2",
+                    "name": "DUPLICATAS A RECEBER",
+                    "type": "RECEIVABLES"
+                  }
+                }
+              },
+              "1.1.4": {
+                "code": "1.1.4",
+                "name": "ESTOQUES",
+                "type": "INVENTORY",
+                "subaccounts": {
+                  "1.1.4.1": {
+                    "code": "1.1.4.1",
+                    "name": "MERCADORIAS PARA REVENDA",
+                    "type": "MERCHANDISE"
+                  },
+                  "1.1.4.2": {
+                    "code": "1.1.4.2",
+                    "name": "MATÉRIAS-PRIMAS",
+                    "type": "RAW_MATERIALS"
+                  }
+                }
+              }
+            }
+          },
+          "1.2": {
+            "code": "1.2",
+            "name": "ATIVO NÃO CIRCULANTE",
+            "type": "NON_CURRENT_ASSET",
+            "subaccounts": {
+              "1.2.1": {
+                "code": "1.2.1",
+                "name": "ATIVO REALIZÁVEL A LONGO PRAZO",
+                "type": "LONG_TERM_RECEIVABLES"
+              },
+              "1.2.2": {
+                "code": "1.2.2",
+                "name": "INVESTIMENTOS",
+                "type": "INVESTMENTS"
+              },
+              "1.2.3": {
+                "code": "1.2.3",
+                "name": "IMOBILIZADO",
+                "type": "FIXED_ASSETS",
+                "subaccounts": {
+                  "1.2.3.1": {
+                    "code": "1.2.3.1",
+                    "name": "IMÓVEIS",
+                    "type": "REAL_ESTATE"
+                  },
+                  "1.2.3.2": {
+                    "code": "1.2.3.2",
+                    "name": "MÁQUINAS E EQUIPAMENTOS",
+                    "type": "MACHINERY"
+                  },
+                  "1.2.3.3": {
+                    "code": "1.2.3.3",
+                    "name": "VEÍCULOS",
+                    "type": "VEHICLES"
+                  }
+                }
+              },
+              "1.2.4": {
+                "code": "1.2.4",
+                "name": "INTANGÍVEL",
+                "type": "INTANGIBLE_ASSETS"
+              }
+            }
+          }
+        }
+      },
+      "2": {
+        "code": "2",
+        "name": "PASSIVO",
+        "type": "LIABILITY",
+        "category": "BALANCE_SHEET",
+        "subaccounts": {
+          "2.1": {
+            "code": "2.1",
+            "name": "PASSIVO CIRCULANTE",
+            "type": "CURRENT_LIABILITY",
+            "subaccounts": {
+              "2.1.1": {
+                "code": "2.1.1",
+                "name": "FORNECEDORES",
+                "type": "SUPPLIERS"
+              },
+              "2.1.2": {
+                "code": "2.1.2",
+                "name": "EMPRÉSTIMOS E FINANCIAMENTOS",
+                "type": "LOANS_AND_FINANCING"
+              },
+              "2.1.3": {
+                "code": "2.1.3",
+                "name": "OBRIGAÇÕES FISCAIS E TRABALHISTAS",
+                "type": "TAX_AND_LABOR_OBLIGATIONS"
+              }
+            }
+          },
+          "2.2": {
+            "code": "2.2",
+            "name": "PASSIVO NÃO CIRCULANTE",
+            "type": "NON_CURRENT_LIABILITY",
+            "subaccounts": {
+              "2.2.1": {
+                "code": "2.2.1",
+                "name": "EMPRÉSTIMOS E FINANCIAMENTOS",
+                "type": "LONG_TERM_LOANS"
+              },
+              "2.2.2": {
+                "code": "2.2.2",
+                "name": "PROVISÕES",
+                "type": "PROVISIONS"
+              }
+            }
+          }
+        }
+      },
+      "3": {
+        "code": "3",
+        "name": "PATRIMÔNIO LÍQUIDO",
+        "type": "EQUITY",
+        "category": "BALANCE_SHEET",
+        "subaccounts": {
+          "3.1": {
+            "code": "3.1",
+            "name": "CAPITAL SOCIAL",
+            "type": "SHARE_CAPITAL"
+          },
+          "3.2": {
+            "code": "3.2",
+            "name": "RESERVAS DE CAPITAL",
+            "type": "CAPITAL_RESERVES"
+          },
+          "3.3": {
+            "code": "3.3",
+            "name": "RESERVAS DE LUCROS",
+            "type": "RETAINED_EARNINGS"
+          },
+          "3.4": {
+            "code": "3.4",
+            "name": "LUCROS OU PREJUÍZOS ACUMULADOS",
+            "type": "ACCUMULATED_PROFITS_LOSSES"
+          }
+        }
+      },
+      "4": {
+        "code": "4",
+        "name": "RECEITAS",
+        "type": "REVENUE",
+        "category": "INCOME_STATEMENT",
+        "subaccounts": {
+          "4.1": {
+            "code": "4.1",
+            "name": "RECEITA BRUTA DE VENDAS",
+            "type": "GROSS_REVENUE",
+            "subaccounts": {
+              "4.1.1": {
+                "code": "4.1.1",
+                "name": "VENDAS DE PRODUTOS",
+                "type": "PRODUCT_SALES"
+              },
+              "4.1.2": {
+                "code": "4.1.2",
+                "name": "PRESTAÇÃO DE SERVIÇOS",
+                "type": "SERVICE_REVENUE"
+              }
+            }
+          },
+          "4.2": {
+            "code": "4.2",
+            "name": "DEDUÇÕES DA RECEITA BRUTA",
+            "type": "REVENUE_DEDUCTIONS",
+            "subaccounts": {
+              "4.2.1": {
+                "code": "4.2.1",
+                "name": "IMPOSTOS SOBRE VENDAS",
+                "type": "SALES_TAXES"
+              },
+              "4.2.2": {
+                "code": "4.2.2",
+                "name": "DEVOLUÇÕES E CANCELAMENTOS",
+                "type": "RETURNS_AND_CANCELLATIONS"
+              }
+            }
+          }
+        }
+      },
+      "5": {
+        "code": "5",
+        "name": "CUSTOS E DESPESAS",
+        "type": "COSTS_AND_EXPENSES",
+        "category": "INCOME_STATEMENT",
+        "subaccounts": {
+          "5.1": {
+            "code": "5.1",
+            "name": "CUSTOS DAS VENDAS",
+            "type": "COST_OF_SALES",
+            "subaccounts": {
+              "5.1.1": {
+                "code": "5.1.1",
+                "name": "CUSTO DAS MERCADORIAS VENDIDAS",
+                "type": "COST_OF_GOODS_SOLD"
+              },
+              "5.1.2": {
+                "code": "5.1.2",
+                "name": "CUSTO DOS SERVIÇOS PRESTADOS",
+                "type": "COST_OF_SERVICES"
+              }
+            }
+          },
+          "5.2": {
+            "code": "5.2",
+            "name": "DESPESAS OPERACIONAIS",
+            "type": "OPERATING_EXPENSES",
+            "subaccounts": {
+              "5.2.1": {
+                "code": "5.2.1",
+                "name": "DESPESAS ADMINISTRATIVAS",
+                "type": "ADMINISTRATIVE_EXPENSES"
+              },
+              "5.2.2": {
+                "code": "5.2.2",
+                "name": "DESPESAS COM VENDAS",
+                "type": "SELLING_EXPENSES"
+              }
+            }
+          },
+          "5.3": {
+            "code": "5.3",
+            "name": "DESPESAS FINANCEIRAS",
+            "type": "FINANCIAL_EXPENSES"
+          },
+          "5.4": {
+            "code": "5.4",
+            "name": "OUTRAS DESPESAS",
+            "type": "OTHER_EXPENSES"
+          }
+        }
+      }
+    },
+    "metadata": {
+      "created_date": "2024-01-01",
+      "last_updated": "2024-01-01",
+      "created_by": "Sistema Contábil",
+      "description": "Plano de contas estruturado para análise com NotebookLM",
+      "standards": ["BR-GAAP", "IFRS"],
+      "language": "pt-BR"
+    }
+  }
+}

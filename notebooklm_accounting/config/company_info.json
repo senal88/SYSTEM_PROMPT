@@ -1,0 +1,136 @@
+{
+  "company": {
+    "basic_info": {
+      "name": "Empresa Exemplo Ltda",
+      "legal_name": "Empresa Exemplo Ltda",
+      "cnpj": "12.345.678/0001-90",
+      "inscricao_estadual": "123456789",
+      "inscricao_municipal": "987654321",
+      "regime_tributario": "Lucro Real",
+      "porte_empresa": "Média",
+      "setor_atividade": "Tecnologia da Informação",
+      "cnae_principal": "6201-5/00",
+      "data_constituicao": "2020-01-15",
+      "situacao_cadastral": "Ativa"
+    },
+    "address": {
+      "headquarters": {
+        "street": "Rua das Flores, 123",
+        "neighborhood": "Centro",
+        "city": "São Paulo",
+        "state": "SP",
+        "zip_code": "01234-567",
+        "country": "Brasil"
+      },
+      "mailing": {
+        "street": "Rua das Flores, 123",
+        "neighborhood": "Centro", 
+        "city": "São Paulo",
+        "state": "SP",
+        "zip_code": "01234-567",
+        "country": "Brasil"
+      }
+    },
+    "contact": {
+      "phone": "+55 11 1234-5678",
+      "email": "contato@empresaexemplo.com.br",
+      "website": "https://www.empresaexemplo.com.br",
+      "social_media": {
+        "linkedin": "https://linkedin.com/company/empresaexemplo",
+        "instagram": "@empresaexemplo"
+      }
+    },
+    "financial_info": {
+      "currency": "BRL",
+      "fiscal_year_start": "01-01",
+      "fiscal_year_end": "12-31",
+      "accounting_method": "Accrual",
+      "chart_of_accounts": "Standard Brazilian",
+      "financial_statements": {
+        "balance_sheet": "Monthly",
+        "income_statement": "Monthly", 
+        "cash_flow": "Monthly",
+        "equity_statement": "Annual"
+      }
+    },
+    "banking": {
+      "primary_bank": {
+        "name": "Banco do Brasil",
+        "code": "001",
+        "agency": "1234",
+        "account": "12345-6",
+        "account_type": "Corrente"
+      },
+      "secondary_banks": [
+        {
+          "name": "Itaú Unibanco",
+          "code": "341",
+          "agency": "5678",
+          "account": "98765-4",
+          "account_type": "Poupança"
+        }
+      ]
+    },
+    "tax_info": {
+      "pis_rate": 0.65,
+      "cofins_rate": 3.0,
+      "icms_rate": 18.0,
+      "iss_rate": 5.0,
+      "irpj_rate": 15.0,
+      "csll_rate": 9.0,
+      "tax_regime": "Lucro Real",
+      "simples_nacional": false
+    },
+    "employees": {
+      "total_employees": 25,
+      "management": 3,
+      "technical": 15,
+      "administrative": 7,
+      "average_salary": 8500.00,
+      "benefits_rate": 0.15
+    },
+    "business_metrics": {
+      "annual_revenue": 2500000.00,
+      "gross_margin": 0.35,
+      "net_margin": 0.12,
+      "debt_to_equity": 0.45,
+      "current_ratio": 1.8,
+      "quick_ratio": 1.2
+    },
+    "notebooklm_config": {
+      "analysis_focus": [
+        "Análise de rentabilidade",
+        "Gestão de fluxo de caixa",
+        "Controle de custos",
+        "Análise de indicadores financeiros",
+        "Projeções e planejamento"
+      ],
+      "reporting_periods": [
+        "Mensal",
+        "Trimestral", 
+        "Anual"
+      ],
+      "key_questions": [
+        "Qual a evolução da receita nos últimos 12 meses?",
+        "Como está a margem de lucro da empresa?",
+        "Quais são os principais custos operacionais?",
+        "Como está a situação de liquidez?",
+        "Qual a projeção de crescimento para o próximo ano?"
+      ],
+      "data_sources": [
+        "Sistema ERP",
+        "Extratos bancários",
+        "Notas fiscais",
+        "Folha de pagamento",
+        "Relatórios contábeis"
+      ]
+    },
+    "metadata": {
+      "created_date": "2024-01-01",
+      "last_updated": "2024-01-01",
+      "version": "1.0.0",
+      "created_by": "Sistema Contábil",
+      "description": "Informações da empresa para análise contábil com NotebookLM"
+    }
+  }
+}
