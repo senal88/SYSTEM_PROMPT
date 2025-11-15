@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # System Prompt Universal para IAs Comerciais
 
 Sistema completo para aplicar e gerenciar system prompts em todas as ferramentas de IA comerciais, maximizando a engenharia de contexto.
@@ -150,3 +151,7 @@ Para problemas ou dúvidas, consulte:
 **Versão:** 1.0
 **Última atualização:** 2025-11-15
 
+=======
+# SYSTEM_PROMPT
+SYSTEM PROMPT GLOBAL – GOVERNANÇA, EXECUÇÃO E PRECISÃO
+>>>>>>> 49cd5535eea46addd251ee55a7265f192ea78de2
