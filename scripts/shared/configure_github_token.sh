@@ -97,7 +97,7 @@ echo "4️⃣  Configurando remote do repositório..."
 if [ -d "/root/SYSTEM_PROMPT/.git" ]; then
     cd /root/SYSTEM_PROMPT
     CURRENT_REMOTE=$(git remote get-url origin 2>/dev/null || echo "")
-    
+
     if [[ "$CURRENT_REMOTE" == *"github.com"* ]]; then
         # Atualizar remote com token
         NEW_REMOTE="https://${GITHUB_TOKEN}@github.com/$(echo "$CURRENT_REMOTE" | sed 's|.*github.com/||' | sed 's|\.git$||').git"
