@@ -4,7 +4,7 @@ Guia completo para configurar GitHub Personal Access Token na VPS para push auto
 
 ## Status Atual
 
-✅ **Token configurado:** `ghp_7YBdUD...`  
+✅ **Token configurado:** `ghp_YOUR_TOKEN_HERE`  
 ✅ **Usuário:** senal88  
 ✅ **Repositório:** senal88/SYSTEM_PROMPT  
 ✅ **Autenticação:** Funcionando
