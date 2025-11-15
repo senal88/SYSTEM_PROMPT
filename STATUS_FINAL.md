@@ -1,7 +1,7 @@
 # Status Final - Sistema System Prompt Universal
 
-**Data:** 2025-11-15  
-**Repositório:** https://github.com/senal88/SYSTEM_PROMPT  
+**Data:** 2025-11-15
+**Repositório:** https://github.com/senal88/SYSTEM_PROMPT
 **Branch:** main
 
 ---
