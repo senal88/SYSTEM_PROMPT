@@ -52,7 +52,7 @@ Este script:
    export OP_SERVICE_ACCOUNT_TOKEN="op://vault/item/field"
    # Ou token direto
    export OP_SERVICE_ACCOUNT_TOKEN="seu-token-aqui"
-   
+
    # Adicionar ao .bashrc para persistência
    echo 'export OP_SERVICE_ACCOUNT_TOKEN="seu-token-aqui"' >> ~/.bashrc
    source ~/.bashrc
@@ -214,6 +214,6 @@ source <(op inject -i script.sh)
 
 ---
 
-**Versão:** 1.0  
+**Versão:** 1.0
 **Última atualização:** 2025-11-15
 

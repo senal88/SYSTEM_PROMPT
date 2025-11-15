@@ -89,12 +89,12 @@ if [ "$SIGNED_IN" = false ]; then
     echo "   - Execute: eval \$(op signin)"
     echo "   - Adicione ao ~/.bashrc para persistir"
     echo ""
-    
+
     # Tentar autenticação interativa
     echo -e "   ${YELLOW}Tentando autenticação interativa...${NC}"
     echo "   (Você precisará inserir sua senha do 1Password)"
     echo ""
-    
+
     # Criar script temporário para autenticação
     AUTH_SCRIPT=$(mktemp)
     cat > "$AUTH_SCRIPT" << 'AUTH_EOF'
@@ -110,7 +110,7 @@ echo ""
 echo "  export OP_SERVICE_ACCOUNT_TOKEN='seu-token-aqui'"
 echo "  echo 'export OP_SERVICE_ACCOUNT_TOKEN=\"seu-token-aqui\"' >> ~/.bashrc"
 AUTH_EOF
-    
+
     cat "$AUTH_SCRIPT"
     rm "$AUTH_SCRIPT"
 fi
@@ -127,10 +127,10 @@ if grep -q "OP_SERVICE_ACCOUNT_TOKEN\|op signin" "$BASHRC" 2>/dev/null; then
     grep -n "OP_SERVICE_ACCOUNT_TOKEN\|op signin" "$BASHRC" | sed 's/^/   /'
 else
     echo -e "   ${BLUE}ℹ️  Adicionando configuração ao .bashrc...${NC}"
-    
+
     # Backup do .bashrc
     cp "$BASHRC" "${BASHRC}.backup.$(date +%Y%m%d_%H%M%S)"
-    
+
     # Adicionar configuração
     cat >> "$BASHRC" << 'BASHRC_EOF'
 
@@ -147,7 +147,7 @@ else
 #     eval $(op signin my.1password.com luiz.sena88@icloud.com --raw) 2>/dev/null || true
 # fi
 BASHRC_EOF
-    
+
     echo -e "   ${GREEN}✅ Configuração adicionada ao .bashrc${NC}"
 fi
 
@@ -181,7 +181,7 @@ echo "8️⃣  Verificando PATH..."
 if [[ ":$PATH:" != *":$HOME/bin:"* ]]; then
     echo -e "   ${YELLOW}⚠️  $HOME/bin não está no PATH${NC}"
     echo "   Adicionando ao .bashrc..."
-    
+
     if ! grep -q '$HOME/bin' "$BASHRC"; then
         echo '' >> "$BASHRC"
         echo '# Adicionar ~/bin ao PATH' >> "$BASHRC"
