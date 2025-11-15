@@ -1,0 +1,42 @@
+# Relatórios temporários
+/tmp/
+*.log
+*.error.log
+
+# Arquivos de configuração com API keys
+configs/*.py
+!configs/*.py.example
+
+# Relatórios gerados
+reports/*
+!reports/.gitkeep
+
+# Arquivos de ambiente
+.env
+.env.local
+*.env
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# IDEs
+.vscode/
+.idea/
+*.iml
+
+# Backup files
+*.backup
+*.bak
+*.tmp
