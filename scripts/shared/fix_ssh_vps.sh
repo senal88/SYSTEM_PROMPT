@@ -28,7 +28,7 @@ if [ -f /root/.profile ]; then
         echo -e "   ${YELLOW}⚠️  Problema detectado: 'er' na primeira linha${NC}"
         echo "   💾 Criando backup..."
         cp /root/.profile /root/.profile.backup.$(date +%Y%m%d_%H%M%S)
-        
+
         # Criar .profile correto
         cat > /root/.profile << 'PROFILE_EOF'
 # ~/.profile: executed by the command interpreter for login shells.
@@ -56,7 +56,7 @@ fi
 # disable message of the day
 mesg n 2> /dev/null || true
 PROFILE_EOF
-        
+
         echo -e "   ${GREEN}✅ .profile corrigido${NC}"
     else
         echo -e "   ${GREEN}✅ .profile parece estar correto${NC}"
@@ -146,13 +146,13 @@ SSH_DIR="/root/.ssh"
 if [ -d "$SSH_DIR" ]; then
     chmod 700 "$SSH_DIR"
     echo -e "   ${GREEN}✅ Permissões do diretório .ssh: 700${NC}"
-    
+
     # Verificar authorized_keys
     if [ -f "$SSH_DIR/authorized_keys" ]; then
         chmod 600 "$SSH_DIR/authorized_keys"
         echo -e "   ${GREEN}✅ Permissões de authorized_keys: 600${NC}"
     fi
-    
+
     # Verificar config
     if [ -f "$SSH_DIR/config" ]; then
         chmod 600 "$SSH_DIR/config"
@@ -167,7 +167,7 @@ echo ""
 echo "4️⃣  Verificando configuração SSH do servidor..."
 if [ -f /etc/ssh/sshd_config ]; then
     echo -e "   ${GREEN}✅ sshd_config existe${NC}"
-    
+
     # Verificar se PermitRootLogin está configurado
     if grep -q "^PermitRootLogin" /etc/ssh/sshd_config; then
         PERMIT_ROOT=$(grep "^PermitRootLogin" /etc/ssh/sshd_config | awk '{print $2}')
