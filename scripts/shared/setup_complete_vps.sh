@@ -32,17 +32,17 @@ OP_SERVICE_TOKEN=""
 if command -v op &> /dev/null; then
     if op account list &>/dev/null 2>&1; then
         echo -e "   ${BLUE}ℹ️  Tentando buscar Service Account Token do 1Password...${NC}"
-        
+
         # Tentar diferentes nomes de itens
         ITEM_NAMES=("1p_vps" "VPS 1Password" "1Password VPS" "Service Account VPS" "OP_VPS")
-        
+
         for item_name in "${ITEM_NAMES[@]}"; do
             echo "   Tentando: $item_name"
             TOKEN=$(op item get "$item_name" --fields "token" 2>/dev/null || \
                    op item get "$item_name" --fields "password" 2>/dev/null || \
                    op item get "$item_name" --fields "service account token" 2>/dev/null || \
                    echo "")
-            
+
             if [ -n "$TOKEN" ] && [[ "$TOKEN" =~ ^opvault_ ]]; then
                 OP_SERVICE_TOKEN="$TOKEN"
                 echo -e "   ${GREEN}✅ Token encontrado!${NC}"
@@ -79,15 +79,15 @@ if [ -n "$OP_SERVICE_TOKEN" ]; then
     echo "   Configurando token no .bashrc..."
     # Remover token antigo se existir
     sed -i '/^export OP_SERVICE_ACCOUNT_TOKEN=/d' ~/.bashrc 2>/dev/null || true
-    
+
     # Adicionar novo token
     echo "" >> ~/.bashrc
     echo "# 1Password Service Account Token" >> ~/.bashrc
     echo "export OP_SERVICE_ACCOUNT_TOKEN=\"$OP_SERVICE_TOKEN\"" >> ~/.bashrc
-    
+
     export OP_SERVICE_ACCOUNT_TOKEN="$OP_SERVICE_TOKEN"
     echo -e "   ${GREEN}✅ Token configurado!${NC}"
-    
+
     # Testar
     if op vault list &>/dev/null 2>&1; then
         echo -e "   ${GREEN}✅ Autenticação funcionando!${NC}"
@@ -114,7 +114,7 @@ if [ -f "$PROMPT_DIR/scripts/ubuntu/collect_all_ia_ubuntu.sh" ]; then
     echo "   Executando coleta completa..."
     OUTPUT_DIR="/tmp/ia_collection_test" \
     bash "$PROMPT_DIR/scripts/ubuntu/collect_all_ia_ubuntu.sh" > /tmp/collection_test.log 2>&1
-    
+
     if [ $? -eq 0 ]; then
         echo -e "   ${GREEN}✅ Coleta executada com sucesso${NC}"
         echo "   Logs em: /tmp/collection_test.log"
