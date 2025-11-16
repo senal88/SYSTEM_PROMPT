@@ -34,17 +34,17 @@ ITEM_FOUND=""
 for vault in $(op vault list --format json 2>/dev/null | grep -o '"name":"[^"]*"' | cut -d'"' -f4); do
     for item_name in "${ITEM_NAMES[@]}"; do
         echo "Buscando: '$item_name' no vault '$vault'..."
-        
+
         # Tentar buscar item
         ITEM_DATA=$(op item get "$item_name" --vault "$vault" --format json 2>/dev/null || echo "")
-        
+
         if [ -n "$ITEM_DATA" ]; then
             # Tentar extrair token de diferentes campos
             TOKEN=$(echo "$ITEM_DATA" | grep -o '"value":"opvault_[^"]*"' | cut -d'"' -f4 || \
                    echo "$ITEM_DATA" | grep -o '"value":"[^"]*token[^"]*"' | cut -d'"' -f4 || \
                    echo "$ITEM_DATA" | jq -r '.fields[] | select(.label | test("token|Token|SERVICE|service"; "i")) | .value' 2>/dev/null || \
                    echo "")
-            
+
             if [ -n "$TOKEN" ] && [[ "$TOKEN" =~ ^opvault_ ]]; then
                 ITEM_FOUND="$item_name"
                 VAULT_FOUND="$vault"
