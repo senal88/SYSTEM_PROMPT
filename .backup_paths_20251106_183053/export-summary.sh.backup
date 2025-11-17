@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Script para mostrar resumo da exportação dos tokens
+
+# Cores para output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m'
+
+log() {
+    echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')]${NC} $1"
+}
+
+info() {
+    echo -e "${BLUE}[INFO]${NC} $1"
+}
+
+echo -e "${BLUE}╔══════════════════════════════════════════════════════════════╗"
+echo -e "║                    RESUMO DA EXPORTAÇÃO                        ║"
+echo -e "╚══════════════════════════════════════════════════════════════╝${NC}"
+echo ""
+
+# 1. Token macOS
+log "TOKEN MACOS IDENTIFICADO:"
+echo "Token: eyJhbGciOiJFUzI1NiIsImtpZCI6ImNvNnU1ZGE2M2Jwem9mbjZ6M25kczV5Nm1pIiwidHlwIjoiSldUIn0.eyIxcGFzc3dvcmQuY29tL2F1dWlkIjoiUlRUVzNRWUQ2RkdTQkZUTUVUTTYzSE5OTzQiLCIxcGFzc3dvcmQuY29tL3Rva2VuIjoiQmxVV1preWpuOWFVVVJQSEE5OGh0Rm5aWTA0QkFyMGoiLCIxcGFzc3dvcmQuY29tL2Z0cyI6WyJ2YXVsdGFjY2VzcyJdLCIxcGFzc3dvcmQuY29tL3Z0cyI6W3sidSI6ImdrcHNiZ2l6bGtzMnprbnd6cXBwcG5iMnplIiwiYSI6NDk2fV0sImF1ZCI6WyJjb20uMXBhc3N3b3JkLmNvbm5lY3QiXSwic3ViIjoiVTczR1RSRzJHQkQ2UkRGQVVIQlBBV0NKTlEiLCJpYXQiOjE3NjE0MDg4NjcsImlzcyI6ImNvbS4xcGFzc3dvcmQuYjUiLCJqdGkiOiI0c2ZzNnpveTZudWJ1eHJxaDRiaGE2YjM2NCJ9.o8ZzCONl-qNkYu6HOCZBIfNVMKmEJvv-VaAlRQ8hROjRI0jOBpRUt0WbTba0VriCevMWDiPrywQOwr3eLKzW_g"
+echo "Vault ID: gkpsbgizlks2zknwzqpppnb2ze"
+echo "Host: http://localhost:8080"
+echo "Ambiente: macOS Development"
+echo ""
+
+# 2. Token VPS
+log "TOKEN VPS IDENTIFICADO:"
+echo "Token: eyJhbGciOiJFUzI1NiIsImtpZCI6ImZsdXN1N3F1eGtiNHpxZmlkMzd2ZWc3d2N5IiwidHlwIjoiSldUIn0.eyIxcGFzc3dvcmQuY29tL2F1dWlkIjoiUlRUVzNRWUQ2RkdTQkZUTUVUTTYzSE5OTzQiLCIxcGFzc3dvcmQuY29tL3Rva2VuIjoiX0RiLV9PcjJjWGFPbW50NFFRMzhjcVpYMExmWFRsWTciLCIxcGFzc3dvcmQuY29tL2Z0cyI6WyJ2YXVsdGFjY2VzcyJdLCIxcGFzc3dvcmQuY29tL3Z0cyI6W3sidSI6Im9hM3RpZGVrbWV1MjZueGlpZXIycWJpN3Y0IiwiYSI6NDh9XSwiYXVkIjpbImNvbS4xcGFzc3dvcmQuY29ubmVjdCJdLCJzdWIiOiJJUDNWVkVCMkNCSFY1R01YTTVQRkhJQkgzNCIsImlhdCI6MTc2MTU3MDgxNCwiaXNzIjoiY29tLjFwYXNzd29yZC5iNSIsImp0aSI6InB4ZTRhZjRkNWd5aXJ5aWFmbnVkNHd5M21hIn0.JeWuTLjJoshK6qk28l_PqedNXUtFo-R2s5g7OGkaY1S2hHMunXWVC76sUcVEAkY32Ic4SduU6471mv37qUDWUg"
+echo "Vault ID: oa3tidekmeu26nxiiier2qbi7v4"
+echo "Host: https://manager.senamfo.com.br:8080"
+echo "Ambiente: VPS Production"
+echo ""
+
+# 3. Configurações exportadas
+log "CONFIGURAÇÕES EXPORTADAS:"
+echo "✅ Variáveis de ambiente salvas em ~/.zprofile"
+echo "✅ Scripts de comutação criados"
+echo "✅ Scripts de teste criados"
+echo "✅ Arquivo de resumo JSON criado"
+echo ""
+
+# 4. Arquivos criados
+log "ARQUIVOS CRIADOS:"
+echo "✅ extract-tokens.sh - Identifica tokens automaticamente"
+echo "✅ configure-both-tokens.sh - Configura ambos os tokens"
+echo "✅ use-macos-env.sh - Comuta para ambiente macOS"
+echo "✅ use-vps-env.sh - Comuta para ambiente VPS"
+echo "✅ test-both-environments.sh - Testa ambos os ambientes"
+echo "✅ tokens-summary.json - Resumo em JSON"
+echo ""
+
+# 5. Status atual
+log "STATUS ATUAL:"
+echo "🔧 1Password CLI: Instalado"
+echo "🔧 1Password Connect Server: Rodando em localhost:8080"
+echo "🔧 Token macOS: Configurado e funcionando"
+echo "🔧 Token VPS: Configurado (requer servidor VPS acessível)"
+echo ""
+
+# 6. Próximos passos
+log "PRÓXIMOS PASSOS:"
+echo "1. Para usar ambiente macOS: op item list"
+echo "2. Para usar ambiente VPS: source use-vps-env.sh && op item list"
+echo "3. Para testar ambos: ./test-both-environments.sh"
+echo "4. Para reiniciar configuração: source ~/.zprofile"
+echo ""
+
+info "AMBOS OS TOKENS FORAM IDENTIFICADOS E CONFIGURADOS COM SUCESSO! 🎯"

@@ -1,0 +1,12 @@
+{
+  // Hostinger API Configuration for Cursor
+  "hostinger.api.key": "${HOSTINGER_API_KEY}",
+  "hostinger.api.baseUrl": "https://developers.hostinger.com",
+
+  // Context Files
+  "hostinger.context": {
+    "apiDocs": "${workspaceFolder}/10_INFRAESTRUTURA_VPS/framework/api-1.json",
+    "reference": "${workspaceFolder}/VAULT_OBSIDIAN/Clippings/Hostinger API Reference.md",
+    "globalContext": "${workspaceFolder}/Dotfiles/context/global/HOSTINGER_API.md"
+  }
+}

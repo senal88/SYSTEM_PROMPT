@@ -1,0 +1,201 @@
+Análise de .cursorrules em ~/Projetos
+======================================
+
+Arquivo: 15_local-ai-packaged/.cursorrules
+Tamanho: 119 linhas
+---
+Arquivo: 15_local-ai-packaged/insights-lm-local-package/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: 08_configuracao/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: 10_experimentais/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: projetos-env/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: gestora_investimentos/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: lm_studio/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: kodee-demo-main/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: frontend/.cursorrules
+Tamanho: 119 linhas
+---
+Arquivo: 11_1_agent_expert/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: 06_integracao/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: config/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: manus_projetos/app-tributario/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: manus_projetos/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: 11_2_agentkit/.cursorrules
+Tamanho: 117 linhas
+---
+Arquivo: 20_database/.cursorrules
+Tamanho: 137 linhas
+---
+Arquivo: 05_aplicacoes/.cursorrules
+Tamanho: 119 linhas
+---
+Arquivo: 01_plataformas/gestora_investimentos/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: 01_plataformas/.cursorrules
+Tamanho: 119 linhas
+---
+Arquivo: 01_plataformas/agent_expert/.cursorrules
+Tamanho: 117 linhas
+---
+Arquivo: notebooklm_accounting/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: 16_stirling-pdf/tableconvert/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: 16_stirling-pdf/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: gdrive/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: docs/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: .cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: 03_ecossistemas/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: 03_ecossistemas/huggingface_models/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: 18_app-irpf/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: stirling-pdf/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: 04_ferramentas_dev/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: repo2txt/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: 07_frontend/.cursorrules
+Tamanho: 119 linhas
+---
+Arquivo: perplexity/config/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: perplexity/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: perplexity/api-cookbook/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: perplexity/apex-reporting/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: 14_agent_reforma_tributaria/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: iterm2/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: raycast/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: scripts/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: fip_pessoal/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: 09_arquivos/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: salesforce/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: srcafront/.cursorrules
+Tamanho: 119 linhas
+---
+Arquivo: 13_compilador/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: 11_3_agentkit-macos/openai-guardrails-python/.cursorrules
+Tamanho: 117 linhas
+---
+Arquivo: 11_3_agentkit-macos/.cursorrules
+Tamanho: 117 linhas
+---
+Arquivo: 11_3_agentkit-macos/openai-agents-python/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: 11_3_agentkit-macos/openai-chatkit-advanced-samples/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: 11_3_agentkit-macos/openai-chatkit-starter-app/.cursorrules
+Tamanho: 119 linhas
+---
+Arquivo: 11_4_agentkit-vps/openai-guardrails-python/.cursorrules
+Tamanho: 117 linhas
+---
+Arquivo: 11_4_agentkit-vps/.cursorrules
+Tamanho: 117 linhas
+---
+Arquivo: 11_4_agentkit-vps/openai-agents-python/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: 11_4_agentkit-vps/openai-chatkit-advanced-samples/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: 11_4_agentkit-vps/openai-chatkit-starter-app/.cursorrules
+Tamanho: 119 linhas
+---
+Arquivo: 17_agent_expert/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: 02_agentes_ia/code_review_agent/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: 02_agentes_ia/.cursorrules
+Tamanho: 117 linhas
+---
+Arquivo: 02_agentes_ia/agentkit/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: 02_agentes_ia/expert_reforma_tributaria/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: 02_agentes_ia/bni_contabil_agent/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: jus_ia/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: opcao_adapta/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: irpf/.cursorrules
+Tamanho: 112 linhas
+---
+Arquivo: pps_framwork_mfo/.cursorrules
+Tamanho: 112 linhas
+---

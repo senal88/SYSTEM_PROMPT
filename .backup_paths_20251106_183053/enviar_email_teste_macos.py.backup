@@ -1,0 +1,56 @@
+import os.path
+import base64
+from email.message import EmailMessage
+
+from google.auth.transport.requests import Request
+from google.oauth2.credentials import Credentials
+from google_auth_oauthlib.flow import InstalledAppFlow
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
+
+# Escopos definem o nível de acesso: se modificar, delete o token.json.
+SCOPES = ["https://www.googleapis.com/auth/gmail.send"]
+
+def gmail_authenticate():
+    creds = None
+    if os.path.exists("credentials/token.json"):
+        creds = Credentials.from_authorized_user_file("credentials/token.json", SCOPES)
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            # ESSA É A PARTE QUE ABRE O NAVEGADOR NA PRIMEIRA VEZ
+            flow = InstalledAppFlow.from_client_secrets_file("credentials/client_secret.json", SCOPES)
+            creds = flow.run_local_server(port=0)
+        with open("credentials/token.json", "w") as token:
+            token.write(creds.to_json())
+    return creds
+
+def send_message(service, user_id, message):
+    try:
+        message = service.users().messages().send(userId=user_id, body=message).execute()
+        print(f"Message Id: {message['id']}")
+        return message
+    except HttpError as error:
+        print(f"An error occurred: {error}")
+
+def main():
+    print("🚀 Autenticando com o Google... Um navegador pode ser aberto para autorização.")
+    creds = gmail_authenticate()
+    service = build("gmail", "v1", credentials=creds)
+
+    message = EmailMessage()
+    message.set_content("Este é um e-mail de teste enviado via automação com o Google AI Pro!")
+    message["To"] = "me"  # Envia para seu próprio e-mail
+    message["From"] = "me"
+    message["Subject"] = "✅ Teste de Automação Google AI Pro"
+
+    encoded_message = base64.urlsafe_b64encode(message.as_bytes()).decode()
+    create_message = {"raw": encoded_message}
+
+    print("📨 Enviando e-mail de teste...")
+    send_message(service, "me", create_message)
+    print("✅ E-mail enviado com sucesso!")
+
+if __name__ == "__main__":
+    main()

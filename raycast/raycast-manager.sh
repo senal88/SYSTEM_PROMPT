@@ -9,7 +9,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 MANAGEMENT_DIR="$SCRIPT_DIR/management"
 SCRIPTS_DIR="$SCRIPT_DIR/scripts"
-RAYCAST_BACKUP="$HOME/Dotfiles/raycast-profile"
+RAYCAST_BACKUP="$DOTFILES_HOME/raycast-profile"
 
 show_help() {
     # ... (Help text) ...

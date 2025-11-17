@@ -1,0 +1,29 @@
+{
+  // Contexto Global VSCode
+  // Baseado em ~/Dotfiles/context/global/CONTEXTO_GLOBAL_COMPLETO.md
+
+  // Referência ao contexto global
+  "files.associations": {
+    "CONTEXTO_GLOBAL_COMPLETO.md": "markdown",
+    "CONTEXTO_VSCODE.md": "markdown"
+  },
+
+  // Configurações específicas do workspace
+  "files.exclude": {
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/.venv": true,
+    "**/credentials/**": true
+  },
+
+  // Paths importantes
+  "terminal.integrated.env.osx": {
+    "DOTFILES_DIR": "${env:HOME}/Dotfiles",
+    "GCP_PROJECT_ID": "gcp-ai-setup-24410"
+  },
+
+  "terminal.integrated.env.linux": {
+    "DOTFILES_DIR": "${env:HOME}/Dotfiles",
+    "GCP_PROJECT_ID": "gcp-ai-setup-24410"
+  }
+}

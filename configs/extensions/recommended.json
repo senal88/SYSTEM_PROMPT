@@ -1,0 +1,188 @@
+{
+  // ==========================================
+  // EXTENSÕES UNIVERSAL - PERFIL COMPLETO
+  // Versão: 2.0.1
+  // Compatibilidade: VSCode, Cursor 2.0
+  // ==========================================
+  
+  "recommendations": [
+    // ==========================================
+    // FORMATADORES E LINTERS
+    // ==========================================
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "ms-python.black-formatter",
+    "ms-python.isort",
+    "charliermarsh.ruff",
+    "shellformat.shell-format",
+    
+    // ==========================================
+    // LINGUAGENS DE PROGRAMAÇÃO
+    // ==========================================
+    // Python
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-python.debugpy",
+    
+    // JavaScript/TypeScript
+    "ms-vscode.vscode-typescript-next",
+    "dbaeumer.vscode-eslint",
+    
+    // C/C++
+    "ms-vscode.cpptools",
+    "ms-vscode.makefile-tools",
+    
+    // Go
+    "golang.go",
+    
+    // Rust
+    "rust-lang.rust-analyzer",
+    
+    // Kotlin
+    "mathiasfrohlich.Kotlin",
+    
+    // .NET
+    "ms-dotnettools.csharp",
+    "ms-dotnettools.vscode-dotnet-runtime",
+    
+    // PHP
+    "bmewburn.vscode-intelephense-client",
+    "felixbecker.php-debug",
+    
+    // ==========================================
+    // WEB DEVELOPMENT
+    // ==========================================
+    "bradlc.vscode-tailwindcss",
+    "svelte.svelte-vscode",
+    "astro-build.astro-vscode",
+    "angular.ng-template",
+    "Vue.volar",
+    "octref.vetur",
+    "formulahendry.auto-rename-tag",
+    "christian-kohler.path-intellisense",
+    
+    // ==========================================
+    // REMOTE E CONTAINERS
+    // ==========================================
+    "ms-vscode-remote.remote-ssh",
+    "ms-vscode-remote.remote-containers",
+    "ms-vscode.remote-repositories",
+    "ms-vscode.remote-server",
+    "ms-vscode-remote.vscode-remote-extensionpack",
+    
+    // ==========================================
+    // VERSION CONTROL (GIT)
+    // ==========================================
+    "eamodio.gitlens",
+    "donjayamanne.githistory",
+    "github.vscode-pull-request-github",
+    "github.vscode-github-actions",
+    
+    // ==========================================
+    // DEVOPS E INFRAESTRUTURA
+    // ==========================================
+    "ms-azuretools.vscode-docker",
+    "ms-kubernetes-tools.vscode-kubernetes-tools",
+    "hashicorp.terraform",
+    "HashiCorp.HCL",
+    "redhat.ansible",
+    "redhat.yaml",
+    
+    // ==========================================
+    // BANCO DE DADOS
+    // ==========================================
+    "ms-mssql.mssql",
+    
+    // ==========================================
+    // MARKDOWN E DOCUMENTAÇÃO
+    // ==========================================
+    "yzhang.markdown-all-in-one",
+    "yzane.markdown-pdf",
+    
+    // ==========================================
+    // PRODUTIVIDADE
+    // ==========================================
+    "gruntfuggly.todo-tree",
+    "wayou.vscode-todo-highlight",
+    "streetsidesoftware.code-spell-checker",
+    "aaron-bond.better-comments",
+    "usernamehw.errorlens",
+    "oderwat.indent-rainbow",
+    
+    // ==========================================
+    // IA E AUTOMAÇÃO
+    // ==========================================
+    "GitHub.copilot",
+    "GitHub.copilot-chat",
+    
+    // ==========================================
+    // TEMAS E ÍCONES
+    // ==========================================
+    "pkief.material-icon-theme",
+    "zhuangtongfa.material-theme",
+    "equinusocio.vsc-material-theme",
+    
+    // ==========================================
+    // FERRAMENTAS ADICIONAIS
+    // ==========================================
+    "ms-vscode.hexeditor",
+    "ms-vscode.powershell",
+    "jock.svg",
+    "ms-vscode.test-adapter-converter",
+    "hbenl.vscode-test-explorer",
+    "tamasfe.even-better-toml",
+    "redhat.vscode-yaml",
+    "ms-vscode.vscode-json",
+    "coenraads.bracket-pair-colorizer-2"
+  ],
+  
+  "unwantedRecommendations": [
+    "hookyqr.beautify",
+    "dbaeumer.jshint",
+    "ms-vscode.vscode-typescript"
+  ],
+  
+  // ==========================================
+  // CATEGORIAS DE EXTENSÕES
+  // ==========================================
+  "categories": {
+    "formatters": [
+      "esbenp.prettier-vscode",
+      "ms-python.black-formatter",
+      "shellformat.shell-format"
+    ],
+    "languages": [
+      "ms-python.python",
+      "ms-vscode.vscode-typescript-next",
+      "golang.go",
+      "rust-lang.rust-analyzer"
+    ],
+    "web": [
+      "bradlc.vscode-tailwindcss",
+      "svelte.svelte-vscode",
+      "Vue.volar"
+    ],
+    "remote": [
+      "ms-vscode-remote.remote-ssh",
+      "ms-vscode-remote.remote-containers"
+    ],
+    "git": [
+      "eamodio.gitlens",
+      "github.vscode-pull-request-github"
+    ],
+    "devops": [
+      "ms-azuretools.vscode-docker",
+      "hashicorp.terraform"
+    ],
+    "ai": [
+      "GitHub.copilot",
+      "GitHub.copilot-chat"
+    ],
+    "productivity": [
+      "gruntfuggly.todo-tree",
+      "streetsidesoftware.code-spell-checker"
+    ]
+  }
+}
+
+

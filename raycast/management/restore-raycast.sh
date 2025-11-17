@@ -17,7 +17,7 @@ error() { echo -e "${RED}[ERROR]${NC} $1"; }
 info() { echo -e "${BLUE}[INFO]${NC} $1"; }
 
 # Configurações
-RAYCAST_BACKUP="${1:-$HOME/Dotfiles/raycast-profile}"
+RAYCAST_BACKUP="${1:-$DOTFILES_HOME/raycast-profile}"
 RAYCAST_DEST="$HOME/Library/Application Support/com.raycast.macos"
 FORCE_RESTORE="${2:-false}"
 

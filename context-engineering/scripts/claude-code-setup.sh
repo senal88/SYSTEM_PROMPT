@@ -1,0 +1,268 @@
+#!/usr/bin/env bash
+# claude-code-setup.sh
+# Setup completo do Claude Code usando ANTHROPIC_API_KEY do 1Password
+
+set -euo pipefail
+
+# Cores para output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Diretórios
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_HOME="$DOTFILES_HOME"
+OP_CONFIG_DIR="$HOME/.config/op"
+
+# Configurar 1Password CLI (sem carregar op_config.sh para evitar erros)
+# Desativar Connect se necessário
+export OP_CONNECT_HOST=""
+export OP_CONNECT_TOKEN=""
+
+# Função para obter ANTHROPIC_API_KEY do 1Password
+get_anthropic_api_key() {
+    local vault="${1:-}"
+
+    if [ -z "$vault" ]; then
+        # Detectar vault baseado no ambiente
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            vault="1p_macos"
+        else
+            vault="1p_vps"
+        fi
+    fi
+
+    echo "🔑 Obtendo ANTHROPIC_API_KEY do vault: $vault" >&2
+
+    # Tentar obter a chave do 1Password
+    local key
+    if command -v op &> /dev/null; then
+        # Desativar Connect se necessário
+        unset OP_CONNECT_HOST OP_CONNECT_TOKEN
+
+    # Tentar obter o item (tentar primeiro por ID conhecido, depois por nome)
+        # Primeiro tentar pelo ID conhecido do item Anthropic-API
+        key=$(op item get "ce5jhu6mivh4g63lzfxlj3r2cu" --vault "$vault" --fields "credential" --reveal 2>/dev/null || \
+              op item get "Anthropic-API" --vault "$vault" --fields "credential" --reveal 2>/dev/null || \
+              op item get "Anthropic-API" --vault "$vault" --fields "password" --reveal 2>/dev/null || \
+              op item get "ANTHROPIC_API_KEY" --vault "$vault" --fields "password" --reveal 2>/dev/null || \
+              op item get "Anthropic API Key" --vault "$vault" --fields "password" --reveal 2>/dev/null || \
+              op item get "anthropic_api_key" --vault "$vault" --fields "password" --reveal 2>/dev/null || \
+              echo "")
+
+        if [ -z "$key" ]; then
+            echo -e "${YELLOW}⚠️  Não encontrado no vault $vault, tentando outro vault...${NC}" >&2
+
+            # Tentar no outro vault
+            if [ "$vault" == "1p_macos" ]; then
+                vault="1p_vps"
+            else
+                vault="1p_macos"
+            fi
+
+            key=$(op item get "ce5jhu6mivh4g63lzfxlj3r2cu" --vault "$vault" --fields "credential" --reveal 2>/dev/null || \
+                  op item get "Anthropic-API" --vault "$vault" --fields "credential" --reveal 2>/dev/null || \
+                  op item get "Anthropic-API" --vault "$vault" --fields "password" --reveal 2>/dev/null || \
+                  op item get "ANTHROPIC_API_KEY" --vault "$vault" --fields "password" --reveal 2>/dev/null || \
+                  op item get "Anthropic API Key" --vault "$vault" --fields "password" --reveal 2>/dev/null || \
+                  op item get "anthropic_api_key" --vault "$vault" --fields "password" --reveal 2>/dev/null || \
+                  echo "")
+        fi
+
+        if [ -n "$key" ]; then
+            echo "$key"
+            return 0
+        fi
+    fi
+
+    return 1
+}
+
+# Função para verificar se Claude Code está instalado
+check_claude_code_installed() {
+    if command -v claude &> /dev/null; then
+        return 0
+    elif npm list -g @anthropic-ai/claude-code &> /dev/null; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+# Função para instalar Claude Code
+install_claude_code() {
+    echo -e "${BLUE}📦 Instalando Claude Code...${NC}"
+
+    if ! command -v npm &> /dev/null; then
+        echo -e "${RED}❌ npm não encontrado. Instale Node.js primeiro.${NC}" >&2
+        return 1
+    fi
+
+    # Verificar versão do Node.js
+    node_version=$(node --version | cut -d'v' -f2 | cut -d'.' -f1)
+    if [ "$node_version" -lt 18 ]; then
+        echo -e "${RED}❌ Node.js 18+ é necessário. Versão atual: $(node --version)${NC}" >&2
+        return 1
+    fi
+
+    # Instalar Claude Code globalmente
+    echo "Executando: npm install -g @anthropic-ai/claude-code"
+    npm install -g @anthropic-ai/claude-code
+
+    if check_claude_code_installed; then
+        echo -e "${GREEN}✅ Claude Code instalado com sucesso${NC}"
+        return 0
+    else
+        echo -e "${YELLOW}⚠️  Claude Code instalado mas não encontrado no PATH${NC}"
+        echo "Adicione ao PATH: $(npm config get prefix)/bin"
+        return 1
+    fi
+}
+
+# Função para configurar ANTHROPIC_API_KEY
+setup_api_key() {
+    local api_key
+
+    echo -e "${BLUE}🔑 Configurando ANTHROPIC_API_KEY...${NC}"
+
+    # Tentar obter do 1Password
+    api_key=$(get_anthropic_api_key)
+
+    if [ -z "$api_key" ]; then
+        echo -e "${YELLOW}⚠️  Não foi possível obter ANTHROPIC_API_KEY do 1Password${NC}"
+        echo -e "${YELLOW}   Verifique se o item existe nos vaults:${NC}"
+        echo -e "${YELLOW}   - 1p_macos (ID: gkpsbgizlks2zknwzqpppnb2ze)${NC}"
+        echo -e "${YELLOW}   - 1p_vps (ID: oa3tidekmeu26nxiier2qbi7v4)${NC}"
+        echo ""
+        echo -e "${YELLOW}   Ou configure manualmente:${NC}"
+        echo -e "${YELLOW}   export ANTHROPIC_API_KEY='sua-chave-aqui'${NC}"
+        return 1
+    fi
+
+    # Configurar variável de ambiente
+    export ANTHROPIC_API_KEY="$api_key"
+
+    # Adicionar ao shell config se não existir
+    local shell_config
+    if [ -n "${ZSH_VERSION:-}" ]; then
+        shell_config="$HOME/.zshrc"
+    elif [ -n "${BASH_VERSION:-}" ]; then
+        shell_config="$HOME/.bashrc"
+    else
+        shell_config="$HOME/.profile"
+    fi
+
+    # Verificar se já existe configuração
+    if ! grep -q "ANTHROPIC_API_KEY" "$shell_config" 2>/dev/null; then
+        echo "" >> "$shell_config"
+        echo "# Claude Code - ANTHROPIC_API_KEY do 1Password" >> "$shell_config"
+        echo "# Obter automaticamente do 1Password" >> "$shell_config"
+        echo "if command -v op &> /dev/null && [ -f \"\$HOME/.config/op/op_config.sh\" ]; then" >> "$shell_config"
+        echo "    source \"\$HOME/.config/op/op_config.sh\"" >> "$shell_config"
+        echo "    export ANTHROPIC_API_KEY=\$(op item get \"ce5jhu6mivh4g63lzfxlj3r2cu\" --vault \"1p_macos\" --fields \"credential\" --reveal 2>/dev/null || \\" >> "$shell_config"
+        echo "                     op item get \"Anthropic-API\" --vault \"1p_macos\" --fields \"credential\" --reveal 2>/dev/null || \\" >> "$shell_config"
+        echo "                     op item get \"ce5jhu6mivh4g63lzfxlj3r2cu\" --vault \"1p_vps\" --fields \"credential\" --reveal 2>/dev/null || \\" >> "$shell_config"
+        echo "                     op item get \"Anthropic-API\" --vault \"1p_vps\" --fields \"credential\" --reveal 2>/dev/null || \\" >> "$shell_config"
+        echo "                     echo \"\")" >> "$shell_config"
+        echo "fi" >> "$shell_config"
+
+        echo -e "${GREEN}✅ Configuração adicionada ao $shell_config${NC}"
+    else
+        echo -e "${YELLOW}⚠️  ANTHROPIC_API_KEY já configurado em $shell_config${NC}"
+    fi
+
+    echo -e "${GREEN}✅ ANTHROPIC_API_KEY configurado${NC}"
+    return 0
+}
+
+# Função para verificar instalação
+verify_installation() {
+    echo -e "${BLUE}🔍 Verificando instalação...${NC}"
+
+    local errors=0
+
+    # Verificar Claude Code
+    if check_claude_code_installed; then
+        echo -e "${GREEN}✅ Claude Code instalado${NC}"
+
+        # Tentar executar claude doctor
+        if command -v claude &> /dev/null; then
+            echo "Executando: claude doctor"
+            claude doctor || errors=$((errors + 1))
+        fi
+    else
+        echo -e "${RED}❌ Claude Code não encontrado${NC}"
+        errors=$((errors + 1))
+    fi
+
+    # Verificar ANTHROPIC_API_KEY
+    if [ -n "${ANTHROPIC_API_KEY:-}" ]; then
+        echo -e "${GREEN}✅ ANTHROPIC_API_KEY configurado${NC}"
+        echo "   (chave oculta por segurança)"
+    else
+        echo -e "${YELLOW}⚠️  ANTHROPIC_API_KEY não configurado nesta sessão${NC}"
+        echo "   Execute: source ~/.zshrc (ou ~/.bashrc)"
+    fi
+
+    # Verificar 1Password
+    if command -v op &> /dev/null; then
+        echo -e "${GREEN}✅ 1Password CLI disponível${NC}"
+    else
+        echo -e "${YELLOW}⚠️  1Password CLI não encontrado${NC}"
+    fi
+
+    return $errors
+}
+
+# Função principal
+main() {
+    echo -e "${BLUE}========================================${NC}"
+    echo -e "${BLUE}🚀 Setup Claude Code${NC}"
+    echo -e "${BLUE}========================================${NC}"
+    echo ""
+
+    # 1. Verificar/Instalar Claude Code
+    if ! check_claude_code_installed; then
+        install_claude_code || {
+            echo -e "${RED}❌ Falha ao instalar Claude Code${NC}" >&2
+            exit 1
+        }
+    else
+        echo -e "${GREEN}✅ Claude Code já instalado${NC}"
+    fi
+
+    echo ""
+
+    # 2. Configurar ANTHROPIC_API_KEY
+    setup_api_key || {
+        echo -e "${YELLOW}⚠️  Continuando sem API key do 1Password${NC}"
+    }
+
+    echo ""
+
+    # 3. Verificar instalação
+    verify_installation
+
+    echo ""
+    echo -e "${BLUE}========================================${NC}"
+    echo -e "${GREEN}✅ Setup concluído!${NC}"
+    echo -e "${BLUE}========================================${NC}"
+    echo ""
+    echo -e "${BLUE}📝 Próximos passos:${NC}"
+    echo ""
+    echo "1. Recarregue seu shell:"
+    echo "   source ~/.zshrc  # ou ~/.bashrc"
+    echo ""
+    echo "2. Autentique-se no Claude Code:"
+    echo "   claude"
+    echo ""
+    echo "3. Ou configure manualmente:"
+    echo "   export ANTHROPIC_API_KEY=\$(op item get \"ANTHROPIC_API_KEY\" --vault \"1p_macos\" --fields \"password\")"
+    echo ""
+}
+
+# Executar função principal
+main "$@"
+

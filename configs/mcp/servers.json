@@ -1,0 +1,160 @@
+{
+  // ==========================================
+  // MCP SERVERS - CONFIGURAÇÃO COMPLETA
+  // Versão: 2.0.1
+  // Model Context Protocol Servers
+  // ==========================================
+
+  "mcpServers": {
+    // Sistema de Arquivos
+    "filesystem": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/"],
+      "env": {},
+      "description": "Acesso completo ao sistema de arquivos"
+    },
+
+    // Git
+    "git": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-git"],
+      "env": {},
+      "description": "Operações Git via MCP"
+    },
+
+    // GitHub
+    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": {
+        "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}"
+      },
+      "description": "Integração com GitHub API"
+    },
+
+    // Docker
+    "docker": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-docker"],
+      "env": {},
+      "description": "Gerenciamento de containers Docker"
+    },
+
+    // Kubernetes
+    "kubernetes": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-kubernetes"],
+      "env": {
+        "KUBECONFIG": "${KUBECONFIG}"
+      },
+      "description": "Operações Kubernetes"
+    },
+
+    // PostgreSQL
+    "postgres": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-postgres"],
+      "env": {
+        "POSTGRES_CONNECTION_STRING": "${POSTGRES_CONNECTION_STRING}"
+      },
+      "description": "Acesso a bancos PostgreSQL"
+    },
+
+    // Brave Search
+    "brave-search": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-brave-search"],
+      "env": {
+        "BRAVE_API_KEY": "${BRAVE_API_KEY}"
+      },
+      "description": "Busca web via Brave Search API"
+    },
+
+    // Puppeteer
+    "puppeteer": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-puppeteer"],
+      "env": {},
+      "description": "Automação de navegador com Puppeteer"
+    },
+
+    // SQLite
+    "sqlite": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sqlite"],
+      "env": {},
+      "description": "Acesso a bancos SQLite"
+    },
+
+    // Memory
+    "memory": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"],
+      "env": {},
+      "description": "Sistema de memória persistente"
+    },
+
+    // Slack (opcional)
+    "slack": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-slack"],
+      "env": {
+        "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}",
+        "SLACK_TEAM_ID": "${SLACK_TEAM_ID}"
+      },
+      "description": "Integração com Slack",
+      "optional": true
+    },
+
+    // Google Drive (opcional)
+    "google-drive": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-google-drive"],
+      "env": {
+        "GOOGLE_DRIVE_CREDENTIALS": "${GOOGLE_DRIVE_CREDENTIALS}"
+      },
+      "description": "Acesso ao Google Drive",
+      "optional": true
+    },
+
+    // Gmail (opcional)
+    "gmail": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-gmail"],
+      "env": {
+        "GMAIL_CREDENTIALS": "${GMAIL_CREDENTIALS}"
+      },
+      "description": "Acesso ao Gmail",
+      "optional": true
+    },
+
+    // Notion (opcional)
+    "notion": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-notion"],
+      "env": {
+        "NOTION_API_KEY": "${NOTION_API_KEY}"
+      },
+      "description": "Integração com Notion",
+      "optional": true
+    },
+
+    // Obsidian (opcional)
+    "obsidian": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-obsidian"],
+      "env": {
+        "OBSIDIAN_VAULT_PATH": "${OBSIDIAN_VAULT_PATH}"
+      },
+      "description": "Acesso ao vault Obsidian",
+      "optional": true
+    }
+  },
+
+  // Configurações Globais MCP
+  "mcp": {
+    "logLevel": "info",
+    "timeout": 30000,
+    "retries": 3
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "preferences": {
+    "quickEntryShortcut": "double-tap-option"
+  },
+  "mcpServers": {
+    "task-master-ai": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "task-master-ai"],
+      "description": "Gerenciamento de tarefas via AI"
+    }
+  }
+}

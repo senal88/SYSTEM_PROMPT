@@ -1,0 +1,386 @@
+#!/usr/bin/env bash
+# audit-projeto-bni-completo.sh
+# Auditoria completa do projeto BNI: Git, dados, VPS e n8n
+
+set -euo pipefail
+
+# Cores
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+MAGENTA='\033[0;35m'
+NC='\033[0m'
+
+PROJECT_DIR="$HOME/database/BNI_DOCUMENTOS_BRUTOS"
+REPORT_FILE="$PROJECT_DIR/AUDITORIA_COMPLETA_$(date +%Y%m%d_%H%M%S).md"
+
+log_info() { echo -e "${BLUE}ℹ${NC} $1"; }
+log_success() { echo -e "${GREEN}✅${NC} $1"; }
+log_error() { echo -e "${RED}❌${NC} $1" >&2; }
+log_warning() { echo -e "${YELLOW}⚠️${NC} $1"; }
+log_section() {
+    echo ""
+    echo -e "${CYAN}════════════════════════════════════════${NC}"
+    echo -e "${CYAN}$1${NC}"
+    echo -e "${CYAN}════════════════════════════════════════${NC}"
+    echo ""
+}
+
+# Iniciar relatório
+cat > "$REPORT_FILE" << EOF
+# Auditoria Completa - Projeto BNI Gestão de Imóveis
+
+**Data**: $(date '+%Y-%m-%d %H:%M:%S')
+**Localização**: $PROJECT_DIR
+
+---
+
+EOF
+
+# 1. Auditoria Git
+audit_git() {
+    log_section "📦 Auditoria Git"
+
+    cd "$PROJECT_DIR"
+
+    cat >> "$REPORT_FILE" << EOF
+## 📦 Auditoria Git
+
+EOF
+
+    # Verificar se é repositório Git
+    if [ ! -d ".git" ]; then
+        log_error "Não é um repositório Git"
+        echo "❌ **Não é um repositório Git**" >> "$REPORT_FILE"
+        return 1
+    fi
+
+    # Remote
+    REMOTE=$(git remote get-url origin 2>/dev/null || echo "N/A")
+    log_info "Remote: $REMOTE"
+    echo "- **Remote**: \`$REMOTE\`" >> "$REPORT_FILE"
+
+    # Branches
+    log_info "Listando branches..."
+    echo "" >> "$REPORT_FILE"
+    echo "### Branches Disponíveis" >> "$REPORT_FILE"
+    echo "\`\`\`" >> "$REPORT_FILE"
+    git branch -a >> "$REPORT_FILE" 2>&1
+    echo "\`\`\`" >> "$REPORT_FILE"
+
+    # Branch atual
+    CURRENT_BRANCH=$(git branch --show-current 2>/dev/null || echo "N/A")
+    log_info "Branch atual: $CURRENT_BRANCH"
+    echo "" >> "$REPORT_FILE"
+    echo "- **Branch Atual**: \`$CURRENT_BRANCH\`" >> "$REPORT_FILE"
+
+    # Status
+    log_info "Status do repositório..."
+    echo "" >> "$REPORT_FILE"
+    echo "### Status do Repositório" >> "$REPORT_FILE"
+    echo "\`\`\`" >> "$REPORT_FILE"
+    git status >> "$REPORT_FILE" 2>&1
+    echo "\`\`\`" >> "$REPORT_FILE"
+
+    # Verificar se existe branch main
+    if git show-ref --verify --quiet refs/heads/main 2>/dev/null; then
+        log_success "Branch 'main' existe"
+        echo "- ✅ Branch 'main' existe" >> "$REPORT_FILE"
+
+        # Comparar main com default/atual
+        if [ "$CURRENT_BRANCH" != "main" ]; then
+            log_warning "Não está na branch 'main'"
+            echo "- ⚠️ **Não está na branch 'main'**" >> "$REPORT_FILE"
+        fi
+    else
+        log_error "Branch 'main' não existe"
+        echo "- ❌ **Branch 'main' não existe**" >> "$REPORT_FILE"
+    fi
+
+    log_success "Auditoria Git concluída"
+}
+
+# 2. Auditoria de Dados CSV/SQL
+audit_data_files() {
+    log_section "📊 Auditoria de Arquivos de Dados"
+
+    cd "$PROJECT_DIR"
+
+    cat >> "$REPORT_FILE" << EOF
+## 📊 Auditoria de Arquivos de Dados
+
+EOF
+
+    # Contar arquivos CSV
+    CSV_COUNT=$(find . -name "*.csv" -type f | wc -l | tr -d ' ')
+    log_info "Arquivos CSV encontrados: $CSV_COUNT"
+    echo "- **Arquivos CSV**: $CSV_COUNT" >> "$REPORT_FILE"
+
+    if [ "$CSV_COUNT" -gt 0 ]; then
+        echo "" >> "$REPORT_FILE"
+        echo "### Lista de Arquivos CSV" >> "$REPORT_FILE"
+        echo "\`\`\`" >> "$REPORT_FILE"
+        find . -name "*.csv" -type f >> "$REPORT_FILE"
+        echo "\`\`\`" >> "$REPORT_FILE"
+
+        # Verificar tamanhos
+        echo "" >> "$REPORT_FILE"
+        echo "### Tamanhos dos Arquivos CSV" >> "$REPORT_FILE"
+        echo "\`\`\`" >> "$REPORT_FILE"
+        find . -name "*.csv" -type f -exec ls -lh {} \; | awk '{print $5, $9}' >> "$REPORT_FILE"
+        echo "\`\`\`" >> "$REPORT_FILE"
+    else
+        log_warning "Nenhum arquivo CSV encontrado"
+        echo "- ⚠️ **Nenhum arquivo CSV encontrado**" >> "$REPORT_FILE"
+    fi
+
+    # Contar arquivos SQL
+    SQL_COUNT=$(find . -name "*.sql" -type f | wc -l | tr -d ' ')
+    log_info "Arquivos SQL encontrados: $SQL_COUNT"
+    echo "" >> "$REPORT_FILE"
+    echo "- **Arquivos SQL**: $SQL_COUNT" >> "$REPORT_FILE"
+
+    if [ "$SQL_COUNT" -gt 0 ]; then
+        echo "" >> "$REPORT_FILE"
+        echo "### Lista de Arquivos SQL" >> "$REPORT_FILE"
+        echo "\`\`\`" >> "$REPORT_FILE"
+        find . -name "*.sql" -type f >> "$REPORT_FILE"
+        echo "\`\`\`" >> "$REPORT_FILE"
+    else
+        log_warning "Nenhum arquivo SQL encontrado"
+        echo "- ⚠️ **Nenhum arquivo SQL encontrado**" >> "$REPORT_FILE"
+    fi
+
+    # Verificar diretório de dados
+    DATA_DIR="$PROJECT_DIR/00_ANALISES_E_DADOS"
+    if [ -d "$DATA_DIR" ]; then
+        log_info "Diretório de dados encontrado: $DATA_DIR"
+        echo "" >> "$REPORT_FILE"
+        echo "### Estrutura do Diretório de Dados" >> "$REPORT_FILE"
+        echo "\`\`\`" >> "$REPORT_FILE"
+        ls -la "$DATA_DIR" >> "$REPORT_FILE" 2>&1
+        echo "\`\`\`" >> "$REPORT_FILE"
+
+        # Verificar NOCODB_IMPORT
+        if [ -d "$DATA_DIR/NOCODB_IMPORT" ]; then
+            log_success "Diretório NOCODB_IMPORT encontrado"
+            echo "- ✅ Diretório NOCODB_IMPORT encontrado" >> "$REPORT_FILE"
+
+            NOCODB_CSV=$(find "$DATA_DIR/NOCODB_IMPORT" -name "*.csv" | wc -l | tr -d ' ')
+            echo "- Arquivos CSV em NOCODB_IMPORT: $NOCODB_CSV" >> "$REPORT_FILE"
+        else
+            log_warning "Diretório NOCODB_IMPORT não encontrado"
+            echo "- ⚠️ Diretório NOCODB_IMPORT não encontrado" >> "$REPORT_FILE"
+        fi
+    fi
+
+    log_success "Auditoria de dados concluída"
+}
+
+# 3. Verificar tipos de dados específicos
+audit_specific_data_types() {
+    log_section "📄 Verificação de Tipos de Dados Específicos"
+
+    cd "$PROJECT_DIR"
+
+    cat >> "$REPORT_FILE" << EOF
+## 📄 Verificação de Tipos de Dados Específicos
+
+### Tipos de Documentos Esperados:
+- Demonstrativos financeiros
+- Dados de contratos
+- Recibos
+- Extratos bancários
+- Notas fiscais
+
+EOF
+
+    # Buscar por palavras-chave nos nomes de arquivos
+    KEYWORDS=(
+        "demonstrativo"
+        "contrato"
+        "recibo"
+        "extrato"
+        "nota_fiscal"
+        "nota-fiscal"
+        "financeiro"
+        "banco"
+    )
+
+    for keyword in "${KEYWORDS[@]}"; do
+        COUNT=$(find . -iname "*${keyword}*" -type f | wc -l | tr -d ' ')
+        if [ "$COUNT" -gt 0 ]; then
+            log_info "Encontrados arquivos com '$keyword': $COUNT"
+            echo "- ✅ **$keyword**: $COUNT arquivo(s)" >> "$REPORT_FILE"
+        else
+            log_warning "Nenhum arquivo encontrado com '$keyword'"
+            echo "- ⚠️ **$keyword**: Nenhum arquivo encontrado" >> "$REPORT_FILE"
+        fi
+    done
+
+    log_success "Verificação de tipos de dados concluída"
+}
+
+# 4. Auditoria n8n
+audit_n8n() {
+    log_section "🔄 Auditoria n8n"
+
+    cat >> "$REPORT_FILE" << EOF
+## 🔄 Auditoria n8n
+
+EOF
+
+    # Verificar se existe configuração n8n no projeto
+    N8N_DIRS=$(find "$PROJECT_DIR" -type d -iname "*n8n*" 2>/dev/null | head -5)
+
+    if [ -n "$N8N_DIRS" ]; then
+        log_info "Diretórios n8n encontrados:"
+        echo "$N8N_DIRS" | while read -r dir; do
+            echo "- ✅ Diretório n8n: \`$dir\`" >> "$REPORT_FILE"
+            log_info "  - $dir"
+        done
+    else
+        log_warning "Nenhum diretório n8n encontrado no projeto"
+        echo "- ⚠️ **Nenhum diretório n8n encontrado no projeto**" >> "$REPORT_FILE"
+    fi
+
+    # Verificar workflows n8n
+    N8N_WORKFLOWS=$(find "$PROJECT_DIR" -name "*.json" -type f -exec grep -l "n8n" {} \; 2>/dev/null | head -10)
+
+    if [ -n "$N8N_WORKFLOWS" ]; then
+        echo "" >> "$REPORT_FILE"
+        echo "### Workflows n8n Encontrados" >> "$REPORT_FILE"
+        echo "$N8N_WORKFLOWS" | while read -r workflow; do
+            echo "- \`$workflow\`" >> "$REPORT_FILE"
+        done
+    else
+        echo "- ⚠️ **Nenhum workflow n8n encontrado**" >> "$REPORT_FILE"
+    fi
+
+    log_success "Auditoria n8n concluída"
+}
+
+# 5. Verificar VPS Ubuntu
+audit_vps() {
+    log_section "🖥️  Verificação VPS Ubuntu"
+
+    cat >> "$REPORT_FILE" << EOF
+## 🖥️ Verificação VPS Ubuntu
+
+**Nota**: Esta auditoria verifica configurações locais relacionadas à VPS.
+
+EOF
+
+    # Verificar configuração de infraestrutura
+    INFRA_PROD="$HOME/infra/stack-prod"
+
+    if [ -d "$INFRA_PROD" ]; then
+        log_success "Diretório de infraestrutura produção encontrado"
+        echo "- ✅ Diretório de infraestrutura produção: \`$INFRA_PROD\`" >> "$REPORT_FILE"
+
+        # Verificar docker-compose.yml
+        if [ -f "$INFRA_PROD/docker-compose.yml" ]; then
+            log_success "docker-compose.yml encontrado"
+            echo "- ✅ docker-compose.yml encontrado" >> "$REPORT_FILE"
+        fi
+
+        # Verificar scripts
+        if [ -d "$INFRA_PROD/scripts" ]; then
+            SCRIPT_COUNT=$(find "$INFRA_PROD/scripts" -type f | wc -l | tr -d ' ')
+            log_info "Scripts encontrados: $SCRIPT_COUNT"
+            echo "- Scripts: $SCRIPT_COUNT" >> "$REPORT_FILE"
+        fi
+    else
+        log_warning "Diretório de infraestrutura produção não encontrado"
+        echo "- ⚠️ **Diretório de infraestrutura produção não encontrado**" >> "$REPORT_FILE"
+    fi
+
+    log_success "Verificação VPS concluída"
+}
+
+# 6. Verificar acesso do Claude
+audit_claude_access() {
+    log_section "🤖 Verificação de Acesso Claude"
+
+    cat >> "$REPORT_FILE" << EOF
+## 🤖 Verificação de Acesso Claude
+
+EOF
+
+    # Verificar se existe .cursorrules
+    if [ -f "$PROJECT_DIR/.cursorrules" ]; then
+        log_success ".cursorrules encontrado"
+        echo "- ✅ .cursorrules encontrado" >> "$REPORT_FILE"
+    else
+        log_error ".cursorrules não encontrado"
+        echo "- ❌ **.cursorrules não encontrado**" >> "$REPORT_FILE"
+    fi
+
+    # Verificar documentação do projeto no Claude Cloud Knowledge
+    CLAUDE_KNOWLEDGE="$HOME/Dotfiles/claude-cloud-knowledge/02_PROJETO_BNI"
+
+    if [ -d "$CLAUDE_KNOWLEDGE" ]; then
+        log_success "Diretório Claude Cloud Knowledge encontrado"
+        echo "- ✅ Diretório Claude Cloud Knowledge: \`$CLAUDE_KNOWLEDGE\`" >> "$REPORT_FILE"
+
+        # Listar arquivos
+        FILE_COUNT=$(find "$CLAUDE_KNOWLEDGE" -type f | wc -l | tr -d ' ')
+        echo "- Arquivos de contexto: $FILE_COUNT" >> "$REPORT_FILE"
+    else
+        log_warning "Diretório Claude Cloud Knowledge não encontrado"
+        echo "- ⚠️ **Diretório Claude Cloud Knowledge não encontrado**" >> "$REPORT_FILE"
+    fi
+
+    log_success "Verificação Claude concluída"
+}
+
+# Função principal
+main() {
+    echo -e "${MAGENTA}════════════════════════════════════════${NC}"
+    echo -e "${MAGENTA}🔍 Auditoria Completa - Projeto BNI${NC}"
+    echo -e "${MAGENTA}════════════════════════════════════════${NC}"
+    echo ""
+
+    audit_git
+    audit_data_files
+    audit_specific_data_types
+    audit_n8n
+    audit_vps
+    audit_claude_access
+
+    # Resumo final
+    cat >> "$REPORT_FILE" << EOF
+---
+
+## 📋 Resumo da Auditoria
+
+**Data**: $(date '+%Y-%m-%d %H:%M:%S')
+**Projeto**: BNI Gestão de Imóveis
+**Localização**: $PROJECT_DIR
+
+### Recomendações
+
+1. **Git**: Verificar branch 'main' e garantir acesso do Claude
+2. **Dados**: Verificar se todos os tipos de documentos estão presentes
+3. **n8n**: Revisar workflows iniciais
+4. **VPS**: Verificar sincronização de configurações
+5. **Claude**: Garantir que contexto está atualizado no Claude Cloud
+
+---
+
+**Relatório completo salvo em**: \`$REPORT_FILE\`
+EOF
+
+    log_section "✅ Auditoria Concluída"
+
+    echo -e "${GREEN}✅ Relatório completo salvo em:${NC}"
+    echo "   $REPORT_FILE"
+    echo ""
+    echo -e "${BLUE}📄 Abrindo relatório...${NC}"
+    cat "$REPORT_FILE"
+}
+
+main "$@"
+

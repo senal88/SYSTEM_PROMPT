@@ -1,0 +1,20 @@
+{
+  "preferences": {
+    "quickEntryShortcut": "double-tap-option"
+  },
+  "mcpServers": {
+    "task-master-ai": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "task-master-ai"]
+    },
+    "my-server": {
+      "type": "http",
+      "url": "https://example.com/mcp",
+      "headers": {
+        "Authorization": "Bearer token",
+        "X-API-Key": "key"
+      }
+    }
+  }
+}

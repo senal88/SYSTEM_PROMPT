@@ -1,0 +1,227 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Script para extrair e organizar tokens identificados
+# Identifica tokens de VPS e macOS Silicon
+
+# Cores para output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m'
+
+log() {
+    echo -e "${GREEN}[$(date +'%Y-%m-%d %H:%M:%S')]${NC} $1"
+}
+
+warn() {
+    echo -e "${YELLOW}[WARNING]${NC} $1"
+}
+
+error() {
+    echo -e "${RED}[ERROR]${NC} $1"
+}
+
+info() {
+    echo -e "${BLUE}[INFO]${NC} $1"
+}
+
+echo -e "${BLUE}╔══════════════════════════════════════════════════════════════╗"
+echo -e "║                    IDENTIFICAÇÃO DE TOKENS                      ║"
+echo -e "╚══════════════════════════════════════════════════════════════╝${NC}"
+echo ""
+
+# 1. Token do 1Password Connect para macOS
+log "Identificando token do 1Password Connect para macOS..."
+MACOS_TOKEN_FILE="$DOTFILES_HOME/automation_1password/connect/macos_connect_server/macos_conect_server.txt"
+
+if [[ -f "$MACOS_TOKEN_FILE" ]]; then
+    MACOS_TOKEN=$(cat "$MACOS_TOKEN_FILE" | tr -d '\n' | tr -d ' ')
+    log "✅ Token macOS encontrado: ${MACOS_TOKEN:0:20}..."
+    
+    # Decodificar JWT para verificar informações
+    if command -v jq >/dev/null 2>&1; then
+        # Extrair payload do JWT
+        PAYLOAD=$(echo "$MACOS_TOKEN" | cut -d'.' -f2)
+        # Adicionar padding se necessário
+        PADDING=$((4 - (${#PAYLOAD} % 4)))
+        if [[ $PADDING -ne 4 ]]; then
+            PAYLOAD="${PAYLOAD}$(printf '%*s' $PADDING | tr ' ' '=')"
+        fi
+        # Decodificar base64
+        DECODED=$(echo "$PAYLOAD" | base64 -d 2>/dev/null || echo "{}")
+        if [[ "$DECODED" != "{}" ]]; then
+            info "Informações do token macOS:"
+            echo "$DECODED" | jq -r '{
+                "audience": .aud[0],
+                "subject": .sub,
+                "issued_at": .iat,
+                "expires_at": .exp,
+                "vault_access": ."1password.com/vts"
+            }' 2>/dev/null || echo "Token válido mas não decodificável"
+        fi
+    fi
+else
+    warn "Arquivo de token macOS não encontrado: $MACOS_TOKEN_FILE"
+fi
+
+echo ""
+
+# 2. Verificar configurações do VPS
+log "Identificando configurações do VPS..."
+VPS_ENV_FILE="$DOTFILES_HOME/automation_1password/env/vps.env"
+
+if [[ -f "$VPS_ENV_FILE" ]]; then
+    log "✅ Arquivo de configuração VPS encontrado"
+    
+    # Extrair informações do VPS
+    VPS_IP=$(grep -o '147\.79\.81\.59' "$VPS_ENV_FILE" || echo "Não encontrado")
+    VPS_DOMAIN=$(grep -o 'senamfo\.com\.br' "$VPS_ENV_FILE" || echo "Não encontrado")
+    
+    info "Configurações do VPS identificadas:"
+    echo "  - IP: $VPS_IP"
+    echo "  - Domínio: $VPS_DOMAIN"
+    echo "  - Ambiente: production"
+    echo "  - Região: us-central1"
+else
+    warn "Arquivo de configuração VPS não encontrado: $VPS_ENV_FILE"
+fi
+
+echo ""
+
+# 3. Verificar DNS records do VPS
+log "Analisando registros DNS do VPS..."
+DNS_FILE="$DOTFILES_HOME/automation_1password/configs/vps_registros_dns_cloudflare.txt"
+
+if [[ -f "$DNS_FILE" ]]; then
+    log "✅ Registros DNS encontrados"
+    
+    # Contar serviços configurados
+    SERVICE_COUNT=$(grep -c "CNAME.*manager.senamfo.com.br" "$DNS_FILE" || echo "0")
+    PROXIED_COUNT=$(grep -c "cf-proxied:true" "$DNS_FILE" || echo "0")
+    UNPROXIED_COUNT=$(grep -c "cf-proxied:false" "$DNS_FILE" || echo "0")
+    
+    info "Serviços configurados no VPS:"
+    echo "  - Total de serviços: $SERVICE_COUNT"
+    echo "  - Com proxy Cloudflare: $PROXIED_COUNT"
+    echo "  - Sem proxy Cloudflare: $UNPROXIED_COUNT"
+    
+    # Listar alguns serviços principais
+    info "Serviços principais identificados:"
+    grep "CNAME.*manager.senamfo.com.br" "$DNS_FILE" | head -10 | while read line; do
+        service=$(echo "$line" | awk '{print $1}' | sed 's/\.senamfo\.com\.br\.//')
+        echo "  - $service"
+    done
+else
+    warn "Arquivo de DNS não encontrado: $DNS_FILE"
+fi
+
+echo ""
+
+# 4. Verificar tokens de API
+log "Identificando tokens de API..."
+API_TOKENS=()
+
+# Verificar se há tokens do OpenAI
+if grep -q "openai-domain-verification" "$DNS_FILE" 2>/dev/null; then
+    OPENAI_VERIFICATION=$(grep "openai-domain-verification" "$DNS_FILE" | grep -o 'dv-[A-Za-z0-9_-]*' || echo "")
+    if [[ -n "$OPENAI_VERIFICATION" ]]; then
+        API_TOKENS+=("OpenAI Domain Verification: $OPENAI_VERIFICATION")
+    fi
+fi
+
+# Verificar se há tokens do Google
+if grep -q "google" "$DNS_FILE" 2>/dev/null; then
+    API_TOKENS+=("Google Workspace: Configurado")
+fi
+
+# Verificar se há tokens do Cloudflare
+if grep -q "cloudflare" "$DNS_FILE" 2>/dev/null; then
+    API_TOKENS+=("Cloudflare: Configurado")
+fi
+
+if [[ ${#API_TOKENS[@]} -gt 0 ]]; then
+    info "Tokens de API identificados:"
+    for token in "${API_TOKENS[@]}"; do
+        echo "  - $token"
+    done
+else
+    warn "Nenhum token de API identificado nos arquivos de configuração"
+fi
+
+echo ""
+
+# 5. Criar arquivo de resumo
+log "Criando arquivo de resumo dos tokens..."
+SUMMARY_FILE="$PWD/tokens-summary.json"
+
+cat > "$SUMMARY_FILE" << JSON
+{
+  "timestamp": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+  "environment": "macOS Silicon + VPS",
+  "tokens": {
+    "macos": {
+      "1password_connect": {
+        "token": "${MACOS_TOKEN:-N/A}",
+        "type": "JWT",
+        "purpose": "1Password Connect Server",
+        "environment": "macOS Development"
+      }
+    },
+    "vps": {
+      "ip": "147.79.81.59",
+      "domain": "senamfo.com.br",
+      "environment": "production",
+      "region": "us-central1",
+      "services_count": ${SERVICE_COUNT:-0},
+      "cloudflare_proxied": ${PROXIED_COUNT:-0},
+      "cloudflare_unproxied": ${UNPROXIED_COUNT:-0}
+    },
+    "apis": {
+      "openai": {
+        "domain_verification": "${OPENAI_VERIFICATION:-N/A}",
+        "status": "configured"
+      },
+      "google": {
+        "status": "configured",
+        "mx_records": "active"
+      },
+      "cloudflare": {
+        "status": "configured",
+        "dns_management": "active"
+      }
+    }
+  },
+  "recommendations": [
+    "Configurar 1Password CLI com token macOS",
+    "Sincronizar tokens entre ambientes",
+    "Implementar rotação automática de tokens",
+    "Configurar monitoramento de expiração"
+  ]
+}
+JSON
+
+log "✅ Resumo salvo em: $SUMMARY_FILE"
+
+echo ""
+echo -e "${GREEN}╔══════════════════════════════════════════════════════════════╗"
+echo -e "║                    RESUMO DA IDENTIFICAÇÃO                      ║"
+echo -e "╚══════════════════════════════════════════════════════════════╝${NC}"
+
+info "Tokens identificados:"
+echo "✅ 1Password Connect Token (macOS): ${MACOS_TOKEN:0:20}..."
+echo "✅ VPS IP: 147.79.81.59"
+echo "✅ Domínio: senamfo.com.br"
+echo "✅ Serviços configurados: $SERVICE_COUNT"
+echo "✅ APIs configuradas: OpenAI, Google, Cloudflare"
+
+echo ""
+info "Próximos passos recomendados:"
+echo "1. Configurar 1Password CLI com o token identificado"
+echo "2. Sincronizar configurações entre macOS e VPS"
+echo "3. Implementar monitoramento de expiração de tokens"
+echo "4. Configurar backup automático das configurações"
+
+echo ""
+log "Identificação de tokens concluída! 🎯"

@@ -1,0 +1,156 @@
+{
+  // ==========================================
+  // KARABINER-ELEMENTS - CONFIGURAÇÃO COMPLETA
+  // Versão: 2.0.1
+  // macOS Tahoe 26.0.1
+  // ==========================================
+  
+  "global": {
+    "check_for_updates_on_startup": true,
+    "show_in_menu_bar": true,
+    "show_profile_name_in_menu_bar": false
+  },
+  
+  "profiles": [
+    {
+      "name": "Default",
+      "selected": true,
+      
+      // Modificações Simples
+      "simple_modifications": [
+        {
+          "from": {
+            "key_code": "caps_lock"
+          },
+          "to": {
+            "key_code": "left_control"
+          },
+          "description": "Caps Lock → Control"
+        }
+      ],
+      
+      // Modificações Complexas
+      "complex_modifications": {
+        "rules": [
+          {
+            "description": "F3 para Mission Control",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "f3"
+                },
+                "to": [
+                  {
+                    "key_code": "mission_control"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Option + F3 para Application Windows",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "f3",
+                  "modifiers": {
+                    "mandatory": ["option"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "down_arrow",
+                    "modifiers": ["control"]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Control + H/J/K/L para navegação",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "h",
+                  "modifiers": {
+                    "mandatory": ["left_control"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "left_arrow"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "j",
+                  "modifiers": {
+                    "mandatory": ["left_control"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "down_arrow"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "k",
+                  "modifiers": {
+                    "mandatory": ["left_control"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "up_arrow"
+                  }
+                ]
+              },
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "l",
+                  "modifiers": {
+                    "mandatory": ["left_control"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "right_arrow"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "description": "Control + D para Delete",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "d",
+                  "modifiers": {
+                    "mandatory": ["left_control"]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "delete_forward"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
+

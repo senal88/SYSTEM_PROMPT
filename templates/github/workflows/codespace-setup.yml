@@ -1,0 +1,153 @@
+name: Codespace Setup
+
+on:
+  create:
+  workflow_dispatch:
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup Codespace - Ferramentas Base
+      run: |
+        echo "🚀 Configurando Codespace..."
+
+        # Atualizar sistema
+        sudo apt-get update
+        sudo apt-get upgrade -y
+
+        # Instalar ferramentas essenciais
+        sudo apt-get install -y \
+          git curl wget vim nano \
+          build-essential \
+          zsh bash-completion \
+          ca-certificates \
+          gnupg lsb-release \
+          software-properties-common \
+          apt-transport-https \
+          unzip zip \
+          tree htop \
+          net-tools
+
+    - name: Setup Codespace - Node.js
+      run: |
+        echo "📦 Instalando Node.js..."
+        curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+        sudo apt-get install -y nodejs
+
+    - name: Setup Codespace - Python
+      run: |
+        echo "🐍 Instalando Python..."
+        sudo apt-get install -y \
+          python3 python3-pip python3-venv \
+          python3-dev python3-setuptools
+
+        pip3 install --user --upgrade \
+          pip setuptools wheel \
+          black pylint flake8
+
+    - name: Setup Codespace - Docker
+      run: |
+        echo "🐳 Configurando Docker..."
+        sudo install -m 0755 -d /etc/apt/keyrings
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+        sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+        echo \
+          "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+          $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+          sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+        sudo apt-get update
+        sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+    - name: Setup Codespace - Git
+      run: |
+        echo "⚙️  Configurando Git..."
+        git config --global init.defaultBranch main
+        git config --global pull.rebase false
+        git config --global core.editor vim
+
+    - name: Setup Codespace - Zsh
+      run: |
+        echo "⚙️  Configurando Zsh..."
+        if [ ! -d "$HOME/.oh-my-zsh" ]; then
+          sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+        fi
+
+        # Instalar plugins
+        git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions || true
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting || true
+
+    - name: Setup Codespace - Ferramentas Adicionais
+      run: |
+        echo "🔧 Instalando ferramentas adicionais..."
+
+        # FZF
+        if [ ! -d "$HOME/.fzf" ]; then
+          git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+          ~/.fzf/install --all --no-update-rc
+        fi
+
+        # Ripgrep
+        sudo apt-get install -y ripgrep
+
+        # Bat
+        sudo apt-get install -y bat
+
+    - name: Setup Codespace - Dependências do Projeto
+      run: |
+        echo "📦 Instalando dependências do projeto..."
+
+        if [ -f "package.json" ]; then
+          npm install
+        fi
+
+        if [ -f "requirements.txt" ]; then
+          pip3 install --user -r requirements.txt
+        fi
+
+    - name: Setup Codespace - Contexto Global
+      run: |
+        echo "📚 Configurando contexto global..."
+
+        # Criar estrutura de contexto
+        mkdir -p $HOME/Dotfiles/context/{global,cursor,vscode,claude,gemini,chatgpt}
+
+        # Variáveis de ambiente
+        cat >> $HOME/.bashrc << 'EOF'
+
+# Dotfiles Context
+export DOTFILES_DIR="$HOME/Dotfiles"
+export GCP_PROJECT_ID="gcp-ai-setup-24410"
+export GCP_PROJECT_NUMBER="501288307921"
+export GCP_REGION="us-central1"
+export CONTEXT_GLOBAL="$DOTFILES_DIR/context/global/CONTEXTO_GLOBAL_COMPLETO.md"
+EOF
+
+        cat >> $HOME/.zshrc << 'EOF'
+
+# Dotfiles Context
+export DOTFILES_DIR="$HOME/Dotfiles"
+export GCP_PROJECT_ID="gcp-ai-setup-24410"
+export GCP_PROJECT_NUMBER="501288307921"
+export GCP_REGION="us-central1"
+export CONTEXT_GLOBAL="$DOTFILES_DIR/context/global/CONTEXTO_GLOBAL_COMPLETO.md"
+EOF
+
+        echo "✅ Contexto global configurado"
+
+    - name: Setup Codespace - Concluído
+      run: |
+        echo "✅ Codespace configurado com sucesso!"
+        echo ""
+        echo "Ferramentas instaladas:"
+        echo "- Node.js: $(node --version)"
+        echo "- Python: $(python3 --version)"
+        echo "- Docker: $(docker --version)"
+        echo "- Git: $(git --version)"
+        echo ""
+        echo "📚 Contexto global disponível em: \$HOME/Dotfiles/context/"

@@ -1,0 +1,42 @@
+# Export de Registros DNS - mfotrust.com
+# Data: Mon Nov 17 01:21:08 -03 2025
+# Gerado por: exportar-dns-atual.sh
+
+
+## Nameservers (NS)
+NS  @  ns1.dns-parking.com.
+NS  @  ns2.dns-parking.com.
+
+## Registros A
+A  @  147.79.105.234
+A  @  89.116.213.167
+AAAA  @  2a02:4780:17:30d2:b56d:4451:a4:f46f
+AAAA  @  2a02:4780:2f:f57f:206b:95c0:51a8:4f1b
+
+## Registros MX (Email)
+MX  @  5  mx1.hostinger.com.
+MX  @  10  mx2.hostinger.com.
+
+## Registros TXT
+TXT  @  "v=spf1 include:_spf.mail.hostinger.com ~all"
+TXT  @  "v=spf1 include:_spf.mail.hostinger.com ~all"  (SPF)
+TXT  _dmarc  "v=DMARC1; p=none"  (DMARC)
+
+## Registros DKIM
+TXT  hostingermail-a._domainkey  hostingermail-a.dkim.mail.hostinger.com.
+"v=DKIM1;k=rsa;p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAs+RijpkYCOFcf5HdHXcwSJJdaqCIf9jyybiM8GFNhzhQMYKXmKGefVdmAIaqcKstjtkCMktZRl6uqrd+gnAsslRoEOtfBbWuqtL/1NRovLakhLngQQChKrJQ1EIgbBBtQyJVN3+m/d6Bzq/xSJKqZjyX2LYwJArwZSpp3JoKp0X7JrzYSXCH312/WSv8htE/cHZ" "+K7PYJYRmu2CzeNUhh/pJr7liC6nrvWmJCfRAov5g8lAJPR9dKH/EvtCBiMk+sC8fv8395CEmQaOHMj54XCH9fYYHx9qxK4IfsbnvN3jYv+Rel6nSgluaapSwEll0Rl+YBY71bieyV0ZY2lrJ2wIDAQAB"
+TXT  hostingermail-b._domainkey  hostingermail-b.dkim.mail.hostinger.com.
+"v=DKIM1;p="
+TXT  hostingermail-c._domainkey  hostingermail-c.dkim.mail.hostinger.com.
+"v=DKIM1;p="
+
+## Registros CNAME
+CNAME  www  www.mfotrust.com.cdn.hstgr.net.
+CNAME  autodiscover  autodiscover.mail.hostinger.com.
+CNAME  autoconfig  autoconfig.mail.hostinger.com.
+
+## Resumo
+# Total de nameservers: 2
+# Total de registros MX: 2
+# SPF: Configurado
+# DMARC: Configurado

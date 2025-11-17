@@ -1,0 +1,103 @@
+{
+  // ==========================================
+  // RAYCAST - CONFIGURAÇÃO COMPLETA
+  // Versão: 2.0.1
+  // macOS Tahoe 26.0.1
+  // ==========================================
+  
+  "hotkeys": {
+    "raycast": "cmd+space",
+    "clipboard": "cmd+v",
+    "powerMenu": "cmd+x",
+    "scripts": "cmd+shift+s",
+    "snippets": "cmd+shift+;",
+    "aiSearch": "cmd+shift+a",
+    "windowManagement": "cmd+shift+w",
+    "quickLinks": "cmd+shift+l",
+    "calculator": "cmd+shift+c"
+  },
+  
+  "extensions": [
+    // Integrações de Código
+    "github",
+    "vscode",
+    "cursor",
+    "git",
+    
+    // Produtividade
+    "clipboard-manager",
+    "snippets",
+    "script-commands",
+    "quicklinks",
+    "window-management",
+    
+    // IA e Busca
+    "chatgpt",
+    "gemini",
+    "claude",
+    "ai-search",
+    
+    // Comunicação
+    "gmail",
+    "slack",
+    "calendar",
+    
+    // Sistema
+    "notes",
+    "spotlight",
+    "finder",
+    "safari",
+    "chrome",
+    
+    // Desenvolvimento
+    "docker",
+    "kubernetes",
+    "terraform"
+  ],
+  
+  "settings": {
+    "autoLaunch": true,
+    "windowTransparency": 0.95,
+    "showInMenuBar": true,
+    "hideWhenInactive": false,
+    "closeMainWindow": true,
+    "clearSearchOnSubmission": true,
+    "launchAtLogin": true,
+    "hideMainWindow": true,
+    "hideMenuBarIcon": false
+  },
+  
+  "ai": {
+    "defaultProvider": "claude",
+    "providers": {
+      "claude": {
+        "apiKey": "${CLAUDE_API_KEY}",
+        "model": "claude-3.5-sonnet"
+      },
+      "gemini": {
+        "apiKey": "${GEMINI_API_KEY}",
+        "model": "gemini-2.0-flash-exp"
+      },
+      "chatgpt": {
+        "apiKey": "${OPENAI_API_KEY}",
+        "model": "gpt-4"
+      }
+    }
+  },
+  
+  "integrations": {
+    "github": {
+      "token": "${GITHUB_TOKEN}",
+      "defaultRepository": ""
+    },
+    "cursor": {
+      "enabled": true,
+      "path": "/Applications/Cursor.app"
+    },
+    "vscode": {
+      "enabled": true,
+      "path": "/Applications/Visual Studio Code.app"
+    }
+  }
+}
+

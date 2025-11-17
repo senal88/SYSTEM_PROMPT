@@ -12,7 +12,7 @@ cat <<EOF > "$PLIST_FILE"
     <string>com.luiz.dailybackup</string>
     <key>ProgramArguments</key>
     <array>
-        <string>/Users/luiz.sena88/Dotfiles/create_backup.sh</string>
+        <string>$DOTFILES_HOME/create_backup.sh</string>
     </array>
     <key>StartCalendarInterval</key>
     <dict>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Claude Cloud Pro - Configurações Pessoais Globais
+    TEMPLATE SIMPLIFICADO - Preencha com suas informações
+
+    Versão: 1.0.0
+    Uso: Copie este arquivo e preencha com suas informações pessoais
+-->
+
+<ClaudeCloudProConfig versao="1.0.0" dataAtualizacao="2025-01-15">
+
+    <!-- ============================================ -->
+    <!-- SEÇÃO 1: INFORMAÇÕES DO PROJETO -->
+    <!-- ============================================ -->
+    <Projeto>
+        <Nome>CLAUDE_CLOUD_PRO_CONFIG</Nome>
+        <Descricao>
+            Configurações pessoais globais para Claude Cloud Pro.
+            <!-- DESCREVA SEU PROJETO AQUI -->
+        </Descricao>
+        <Objetivos>
+            <Objetivo>Fornecer contexto rico e estruturado para LLMs</Objetivo>
+            <!-- ADICIONE SEUS OBJETIVOS AQUI -->
+        </Objetivos>
+    </Projeto>
+
+    <!-- ============================================ -->
+    <!-- SEÇÃO 2: IDENTIFICAÇÃO DO USUÁRIO -->
+    <!-- ============================================ -->
+    <Usuario>
+        <NomeCompleto>SEU NOME COMPLETO</NomeCompleto>
+        <NomePreferido>Como prefere ser chamado</NomePreferido>
+        <Email>seu.email@example.com</Email>
+        <IdiomaPadrao>pt-BR</IdiomaPadrao>
+        <FusoHorario>America/Sao_Paulo</FusoHorario>
+    </Usuario>
+
+    <!-- ============================================ -->
+    <!-- SEÇÃO 3: CONFIGURAÇÕES GLOBAIS -->
+    <!-- ============================================ -->
+    <ConfiguracoesGlobais>
+        <Localizacao>
+            <Idioma>pt-BR</Idioma>
+            <FormatoData>ISO 8601 (YYYY-MM-DD)</FormatoData>
+            <Encoding>UTF-8</Encoding>
+        </Localizacao>
+        <ModeloClaude>
+            <ModeloRecomendado>claude-sonnet-4.5</ModeloRecomendado>
+            <!-- Opções: claude-sonnet-4.5, claude-opus-4.0, claude-haiku-3.5 -->
+        </ModeloClaude>
+        <Respostas>
+            <Idioma>pt-BR</Idioma>
+            <Estilo>claro-e-objetivo</Estilo>
+        </Respostas>
+    </ConfiguracoesGlobais>
+
+    <!-- ============================================ -->
+    <!-- SEÇÃO 4: PREFERÊNCIAS DO USUÁRIO -->
+    <!-- ============================================ -->
+    <PreferenciasUsuario>
+        <Notificacoes>
+            <ConclusaoResposta ativo="true">
+                <!-- true ou false -->
+                <Descricao>Ser notificado quando Claude terminar uma resposta</Descricao>
+            </ConclusaoResposta>
+            <EmailCodeRemote ativo="true">
+                <!-- true ou false -->
+                <Descricao>Receber email quando Claude Code Remote terminar de compilar</Descricao>
+            </EmailCodeRemote>
+        </Notificacoes>
+        <FormatacaoCodigo>
+            <Python>
+                <Formatador>black</Formatador>
+                <LinhaMaxima>100</LinhaMaxima>
+                <TypeHints>sempre</TypeHints>
+            </Python>
+            <Shell>
+                <Compatibilidade>bash-e-zsh</Compatibilidade>
+                <TratamentoErros>set -euo pipefail</TratamentoErros>
+            </Shell>
+        </FormatacaoCodigo>
+    </PreferenciasUsuario>
+
+    <!-- ============================================ -->
+    <!-- SEÇÃO 5: CONFIGURAÇÕES DE AMBIENTES -->
+    <!-- ============================================ -->
+    <Ambientes>
+        <!-- EXEMPLO: macOS -->
+        <Ambiente nome="macos-silicon" tipo="dev">
+            <Identificacao>
+                <Hostname>SEU-HOSTNAME</Hostname>
+                <OS>macOS</OS>
+                <Shell>zsh</Shell>
+                <Usuario>seu-usuario</Usuario>
+                <Home>/Users/seu-usuario</Home>
+            </Identificacao>
+            <EstruturaDiretorios>
+                <Dotfiles>~/Dotfiles</Dotfiles>
+                <Config>~/.config</Config>
+            </EstruturaDiretorios>
+        </Ambiente>
+
+        <!-- ADICIONE OUTROS AMBIENTES AQUI -->
+    </Ambientes>
+
+    <!-- ============================================ -->
+    <!-- SEÇÃO 6: STACK TECNOLÓGICA -->
+    <!-- ============================================ -->
+    <StackTecnologica>
+        <Backend>
+            <Python versao="3.11+"/>
+            <NodeJS versao="LTS"/>
+            <Docker versao="latest"/>
+        </Backend>
+        <!-- ADICIONE SUAS TECNOLOGIAS AQUI -->
+    </StackTecnologica>
+
+    <!-- ============================================ -->
+    <!-- SEÇÃO 7: INTEGRAÇÕES -->
+    <!-- ============================================ -->
+    <Integracoes>
+        <!-- 1Password -->
+        <OnePassword>
+            <Account>
+                <Email>seu.email@example.com</Email>
+                <UserID>SEU_USER_ID</UserID>
+            </Account>
+            <Vaults>
+                <Vault nome="nome_vault" id="vault_id" ambiente="macos"/>
+                <!-- ADICIONE SEUS VAULTS AQUI -->
+            </Vaults>
+        </OnePassword>
+
+        <!-- Hugging Face -->
+        <HuggingFace>
+            <Perfil>seu-perfil</Perfil>
+            <URLPublico>https://huggingface.co/seu-perfil</URLPublico>
+        </HuggingFace>
+
+        <!-- ADICIONE OUTRAS INTEGRAÇÕES AQUI -->
+    </Integracoes>
+
+    <!-- ============================================ -->
+    <!-- SEÇÃO 8: SEGURANÇA -->
+    <!-- ============================================ -->
+    <Seguranca>
+        <Secrets>
+            <Gerenciamento>1Password CLI</Gerenciamento>
+            <Regra>NUNCA commitar secrets em código</Regra>
+        </Secrets>
+        <Git>
+            <GitIgnore>
+                <Item>.env</Item>
+                <Item>*.secret</Item>
+                <!-- ADICIONE OUTROS ITENS AQUI -->
+            </GitIgnore>
+        </Git>
+    </Seguranca>
+
+    <!-- ============================================ -->
+    <!-- SEÇÃO 9: METADADOS -->
+    <!-- ============================================ -->
+    <Metadados>
+        <Versao>1.0.0</Versao>
+        <DataCriacao>2025-01-15</DataCriacao>
+        <DataUltimaAtualizacao>2025-01-15</DataUltimaAtualizacao>
+        <Autor>SEU NOME</Autor>
+        <Status>Em Configuracao</Status>
+    </Metadados>
+
+</ClaudeCloudProConfig>

@@ -1,0 +1,21 @@
+{
+  // Hostinger API Configuration
+  "hostinger.api.key": "${HOSTINGER_API_KEY}",
+  "hostinger.api.baseUrl": "https://developers.hostinger.com",
+  "hostinger.api.timeout": 30000,
+
+  // Environment Variables
+  "terminal.integrated.env.osx": {
+    "HOSTINGER_API_KEY": "${env:HOSTINGER_API_KEY}"
+  },
+  "terminal.integrated.env.linux": {
+    "HOSTINGER_API_KEY": "${env:HOSTINGER_API_KEY}"
+  },
+
+  // API Documentation
+  "hostinger.api.docs": {
+    "openapiJson": "${workspaceFolder}/10_INFRAESTRUTURA_VPS/framework/api-1.json",
+    "openapiYaml": "${workspaceFolder}/10_INFRAESTRUTURA_VPS/framework/api-1.yaml",
+    "reference": "${workspaceFolder}/VAULT_OBSIDIAN/Clippings/Hostinger API Reference.md"
+  }
+}

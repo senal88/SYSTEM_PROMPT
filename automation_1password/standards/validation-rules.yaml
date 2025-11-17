@@ -1,0 +1,410 @@
+# Regras de Validação - 1Password Items
+# Versão: 1.0.0
+# Última Atualização: 2025-11-17
+
+version: "1.0.0"
+last_updated: "2025-11-17"
+
+# Regras de nomenclatura
+nomenclature:
+  pattern: "^[A-Z][A-Z0-9_]+$"
+  min_length: 5
+  max_length: 100
+  required_components:
+    - service
+    - type
+  optional_components:
+    - environment
+
+  # Serviços padronizados
+  services:
+    - OPENAI
+    - ANTHROPIC
+    - GOOGLE
+    - GEMINI  # Aceito como alias de GOOGLE
+    - PERPLEXITY
+    - HUGGINGFACE
+    - HF  # Aceito como alias
+    - GITHUB
+    - GITLAB
+    - DOCKER
+    - CURSOR
+    - CLOUDFLARE
+    - CF  # Aceito como alias
+    - HOSTINGER
+    - AWS
+    - GCP
+    - POSTGRESQL
+    - POSTGRES  # Aceito como alias
+    - MYSQL
+    - MONGODB
+    - REDIS
+    - N8N
+    - CHATWOOT
+    - TRAEFIK
+    - 1PASSWORD
+    - 1P  # Aceito como alias
+
+  # Tipos padronizados
+  types:
+    - API_KEY
+    - TOKEN
+    - PASSWORD
+    - CREDENTIALS
+    - SERVICE_ACCOUNT
+    - LOGIN
+    - SSH_KEY
+
+  # Ambientes padronizados
+  environments:
+    - MACOS
+    - VPS
+    # (sem sufixo = compartilhado)
+
+# Regras de validação por tipo de credencial
+credential_types:
+  api_key:
+    # OpenAI API Key
+    openai:
+      pattern: "^sk-[a-zA-Z0-9]{32,}$"
+      min_length: 51
+      max_length: 100
+      description: "OpenAI API Key (sk-...)"
+      examples:
+        - "sk-proj-abc123..."
+        - "sk-abc123..."
+
+    # Anthropic API Key
+    anthropic:
+      pattern: "^sk-ant-[a-zA-Z0-9-]{95,}$"
+      min_length: 100
+      max_length: 120
+      description: "Anthropic API Key (sk-ant-...)"
+      examples:
+        - "sk-ant-api03-..."
+
+    # Google API Key
+    google:
+      pattern: "^AIza[0-9A-Za-z-_]{35}$"
+      min_length: 39
+      max_length: 39
+      description: "Google API Key (AIza...)"
+      examples:
+        - "AIzaSyAbc123..."
+
+    # GitHub Token
+    github:
+      pattern: "^(ghp_|gho_|ghu_|ghs_|ghr_)[a-zA-Z0-9]{36,}$"
+      min_length: 40
+      max_length: 100
+      description: "GitHub Personal Access Token"
+      examples:
+        - "ghp_abc123..."
+        - "gho_abc123..."
+
+    # Hugging Face Token
+    huggingface:
+      pattern: "^hf_[a-zA-Z0-9]{37,}$"
+      min_length: 40
+      max_length: 100
+      description: "Hugging Face Token (hf_...)"
+      examples:
+        - "hf_abc123..."
+
+    # Cloudflare API Token
+    cloudflare:
+      pattern: "^[a-zA-Z0-9]{40,}$"
+      min_length: 40
+      max_length: 100
+      description: "Cloudflare API Token"
+      examples:
+        - "abc123..."
+
+    # Generic API Key (fallback)
+    generic:
+      pattern: "^[a-zA-Z0-9_\-]{20,}$"
+      min_length: 20
+      max_length: 200
+      description: "Generic API Key"
+      examples:
+        - "abc123..."
+
+  token:
+    # GitHub Token (mesmo que api_key.github)
+    github:
+      pattern: "^(ghp_|gho_|ghu_|ghs_|ghr_)[a-zA-Z0-9]{36,}$"
+      min_length: 40
+      max_length: 100
+      description: "GitHub Token"
+
+    # Generic Token
+    generic:
+      pattern: "^[a-zA-Z0-9_\-]{20,}$"
+      min_length: 20
+      max_length: 200
+      description: "Generic Token"
+
+  password:
+    # Generic Password
+    generic:
+      pattern: "^.{8,}$"
+      min_length: 8
+      max_length: 500
+      description: "Generic Password"
+      recommendations:
+        - "Minimum 12 characters recommended"
+        - "Use mix of uppercase, lowercase, numbers, symbols"
+      examples:
+        - "StrongP@ssw0rd123"
+
+  service_account:
+    # GCP Service Account JSON
+    gcp:
+      pattern: ".*"
+      description: "GCP Service Account JSON file"
+      file_type: "json"
+      required_fields:
+        - "type"
+        - "project_id"
+        - "private_key_id"
+        - "private_key"
+        - "client_email"
+      validation:
+        - "Must be valid JSON"
+        - "Must contain required fields"
+        - "private_key must be valid RSA key"
+
+# Regras de categoria
+categories:
+  API_CREDENTIAL:
+    required_fields:
+      - credential  # ou password (dependendo do 1Password)
+    optional_fields:
+      - notes
+      - url
+    should_contain:
+      - "API key"
+      - "Token"
+      - "Service account"
+
+  LOGIN:
+    required_fields:
+      - username  # ou email
+      - password
+    optional_fields:
+      - url
+      - notes
+    should_contain:
+      - "Username/Email"
+      - "Password"
+
+  PASSWORD:
+    required_fields:
+      - password
+    optional_fields:
+      - notes
+    should_contain:
+      - "Password value"
+
+  DATABASE:
+    required_fields:
+      - hostname  # ou server
+      - username
+      - password
+    optional_fields:
+      - port
+      - database
+      - connection_string
+    should_contain:
+      - "Database credentials"
+
+  SSH_KEY:
+    required_fields:
+      - private_key
+    optional_fields:
+      - public_key
+      - notes
+    should_contain:
+      - "SSH private key"
+
+  DOCUMENT:
+    required_fields:
+      - document  # arquivo anexado
+    optional_fields:
+      - notes
+    should_contain:
+      - "File attachment"
+
+  SECURE_NOTE:
+    required_fields:
+      - notes  # ou notesPlain
+    should_contain:
+      - "Secure note content"
+
+# Regras de tags
+tags:
+  required_namespaces:
+    - environment
+    - service
+    - type
+    - status
+
+  optional_namespaces:
+    - project
+    - priority
+
+  environment:
+    values:
+      - macos
+      - vps
+      - shared
+      - production
+      - development
+      - staging
+
+  service:
+    values:
+      - openai
+      - anthropic
+      - google
+      - perplexity
+      - huggingface
+      - github
+      - gitlab
+      - docker
+      - cursor
+      - cloudflare
+      - hostinger
+      - aws
+      - gcp
+      - postgresql
+      - mysql
+      - mongodb
+      - redis
+      - n8n
+      - chatwoot
+      - traefik
+      - 1password
+
+  type:
+    values:
+      - api_key
+      - token
+      - password
+      - credentials
+      - service_account
+      - ssh_key
+      - certificate
+      - license
+
+  status:
+    values:
+      - active
+      - inactive
+      - deprecated
+      - expired
+      - rotated
+
+# Regras de validação de duplicatas
+duplicates:
+  # Considerar duplicata se:
+  criteria:
+    - "Mesmo nome (case-insensitive)"
+    - "Mesmo serviço + tipo + ambiente"
+    - "Nomes similares (diferença apenas em case ou separadores)"
+
+  # Exceções (não são duplicatas):
+  exceptions:
+    - "Diferentes ambientes (_MACOS vs _VPS)"
+    - "Diferentes versões explícitas (v1, v2)"
+    - "Diferentes projetos (se tag project diferente)"
+
+# Regras de correção automática
+auto_fixes:
+  # Correções de nomenclatura
+  nomenclature:
+    - from: "ANTRHOPIC"
+      to: "ANTHROPIC"
+      description: "Corrigir erro de digitação"
+
+    - from: "GEMINI_API_KEY"
+      to: "GOOGLE_API_KEY"
+      description: "Usar GOOGLE ao invés de GEMINI (padrão)"
+
+    - from: "OpenAI_API_Key"
+      to: "OPENAI_API_KEY"
+      description: "Converter para UPPER_SNAKE_CASE"
+
+    - from: "api-key"
+      to: "API_KEY"
+      description: "Converter hífen para underscore e maiúsculas"
+
+  # Correções de categoria
+  category:
+    - condition: "Nome contém API_KEY ou TOKEN e categoria é LOGIN"
+      fix: "Alterar categoria para API_CREDENTIAL"
+
+    - condition: "Nome contém PASSWORD e categoria é SECURE_NOTE"
+      fix: "Alterar categoria para PASSWORD"
+
+# Validação de integridade
+integrity:
+  # Verificações obrigatórias
+  checks:
+    - name: "nomenclature_format"
+      description: "Nome segue padrão SERVICE_TYPE_ENV"
+      severity: "error"
+
+    - name: "category_match"
+      description: "Categoria corresponde ao tipo de credencial"
+      severity: "error"
+
+    - name: "credential_format"
+      description: "Formato da credencial corresponde ao padrão esperado"
+      severity: "warning"
+
+    - name: "required_tags"
+      description: "Tags obrigatórias estão presentes"
+      severity: "warning"
+
+    - name: "no_duplicates"
+      description: "Não há duplicatas no mesmo ambiente"
+      severity: "error"
+
+# Exemplos de validação
+examples:
+  valid:
+    - name: "OPENAI_API_KEY_MACOS"
+      category: "API_CREDENTIAL"
+      tags: "environment:macos,service:openai,type:api_key,status:active"
+      credential: "sk-proj-abc123..."
+
+    - name: "GITHUB_TOKEN"
+      category: "API_CREDENTIAL"
+      tags: "environment:shared,service:github,type:token,status:active"
+      credential: "ghp_abc123..."
+
+    - name: "POSTGRESQL_PASSWORD_VPS"
+      category: "PASSWORD"
+      tags: "environment:vps,service:postgresql,type:password,status:active"
+      credential: "StrongP@ssw0rd123"
+
+  invalid:
+    - name: "ANTRHOPIC_API_KEY"
+      issues:
+        - "Erro de digitação: ANTRHOPIC → ANTHROPIC"
+
+    - name: "OpenAI_API_Key_macos"
+      issues:
+        - "Case inconsistente: deve ser UPPER_SNAKE_CASE"
+        - "Sufixo em lowercase: deve ser _MACOS"
+
+    - name: "GEMINI_API_KEY"
+      issues:
+        - "Usar GOOGLE_API_KEY ao invés de GEMINI_API_KEY"
+
+    - name: "OPENAI_API_KEY"
+      category: "LOGIN"
+      issues:
+        - "Categoria incorreta: API_KEY deve ser API_CREDENTIAL"
+

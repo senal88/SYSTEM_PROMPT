@@ -1,0 +1,143 @@
+#!/bin/bash
+# ============================================================================
+# 🚀 Setup Completo - 1Password Connect + Cursor
+# Arquivo: scripts/setup-complete.sh
+# Propósito: Configuração completa do ambiente
+# Data: 27 de Janeiro de 2025
+# ============================================================================
+
+set -e
+
+echo "🚀 Iniciando configuração completa do ambiente..."
+
+# 1. Verificar pré-requisitos
+echo "🔍 Verificando pré-requisitos..."
+command -v op >/dev/null 2>&1 || { echo "❌ 1Password CLI não encontrado"; exit 1; }
+command -v docker >/dev/null 2>&1 || { echo "❌ Docker não encontrado"; exit 1; }
+
+# 2. Carregar variáveis de ambiente
+echo "📋 Carregando variáveis de ambiente..."
+source ~/Dotfiles/automation_1password/scripts/secrets/load-secure-env.sh macos
+
+echo "✅ Variáveis carregadas:"
+echo "   - Vault: $OP_VAULT"
+echo "   - Host: $OP_CONNECT_HOST"
+echo "   - Token: ${OP_CONNECT_TOKEN:0:20}..."
+
+# 3. Testar conexão com 1Password Connect
+echo "🔍 Testando conexão com 1Password Connect..."
+if curl -s -H "Authorization: Bearer $OP_CONNECT_TOKEN" "$OP_CONNECT_HOST/v1/health" >/dev/null; then
+  echo "✅ Conexão com 1Password Connect estabelecida"
+else
+  echo "❌ Falha ao conectar com 1Password Connect"
+  echo "   Verifique se o servidor Connect está rodando em: $OP_CONNECT_HOST"
+  exit 1
+fi
+
+# 4. Testar acesso aos vaults
+echo "🏦 Testando acesso aos vaults..."
+if curl -s -H "Authorization: Bearer $OP_CONNECT_TOKEN" "$OP_CONNECT_HOST/v1/vaults" >/dev/null; then
+  echo "✅ Acesso aos vaults confirmado"
+else
+  echo "❌ Falha ao acessar vaults"
+  exit 1
+fi
+
+# 5. Configurar Cursor
+echo "🔧 Configurando Cursor..."
+mkdir -p ~/.cursor
+
+# Criar arquivo de ambiente para Cursor
+cat > ~/.cursor/.env.macos << EOF
+# ============================================================================
+# 🔐 Cursor Environment - macOS
+# Arquivo: ~/.cursor/.env.macos
+# Propósito: Variáveis de ambiente para Cursor no macOS
+# ============================================================================
+
+# 1Password Connect Configuration
+export OP_VAULT="$OP_VAULT"
+export OP_CONNECT_HOST="$OP_CONNECT_HOST"
+export OP_CONNECT_TOKEN="$OP_CONNECT_TOKEN"
+
+# API Keys (via 1Password Connect)
+export OPENAI_API_KEY=\$(curl -s -H "Authorization: Bearer \$OP_CONNECT_TOKEN" "\$OP_CONNECT_HOST/v1/vaults/\$OP_VAULT/items/OpenAI%20API%20Key" | jq -r '.fields[] | select(.label=="api_key") | .value')
+export ANTHROPIC_API_KEY=\$(curl -s -H "Authorization: Bearer \$OP_CONNECT_TOKEN" "\$OP_CONNECT_HOST/v1/vaults/\$OP_VAULT/items/Anthropic%20API%20Key" | jq -r '.fields[] | select(.label=="api_key") | .value')
+export GEMINI_API_KEY=\$(curl -s -H "Authorization: Bearer \$OP_CONNECT_TOKEN" "\$OP_CONNECT_HOST/v1/vaults/\$OP_VAULT/items/Google%20Gemini%20API%20Key" | jq -r '.fields[] | select(.label=="api_key") | .value')
+export PERPLEXITY_API_KEY=\$(curl -s -H "Authorization: Bearer \$OP_CONNECT_TOKEN" "\$OP_CONNECT_HOST/v1/vaults/\$OP_VAULT/items/Perplexity%20API%20Key" | jq -r '.fields[] | select(.label=="api_key") | .value')
+
+# Database Configuration
+export POSTGRES_HOST=\$(curl -s -H "Authorization: Bearer \$OP_CONNECT_TOKEN" "\$OP_CONNECT_HOST/v1/vaults/\$OP_VAULT/items/PostgreSQL%20Development" | jq -r '.fields[] | select(.label=="hostname") | .value')
+export POSTGRES_PORT=\$(curl -s -H "Authorization: Bearer \$OP_CONNECT_TOKEN" "\$OP_CONNECT_HOST/v1/vaults/\$OP_VAULT/items/PostgreSQL%20Development" | jq -r '.fields[] | select(.label=="port") | .value')
+export POSTGRES_USER=\$(curl -s -H "Authorization: Bearer \$OP_CONNECT_TOKEN" "\$OP_CONNECT_HOST/v1/vaults/\$OP_VAULT/items/PostgreSQL%20Development" | jq -r '.fields[] | select(.label=="username") | .value')
+export POSTGRES_PASSWORD=\$(curl -s -H "Authorization: Bearer \$OP_CONNECT_TOKEN" "\$OP_CONNECT_HOST/v1/vaults/\$OP_VAULT/items/PostgreSQL%20Development" | jq -r '.fields[] | select(.label=="password") | .value')
+export POSTGRES_DB=\$(curl -s -H "Authorization: Bearer \$OP_CONNECT_TOKEN" "\$OP_CONNECT_HOST/v1/vaults/\$OP_VAULT/items/PostgreSQL%20Development" | jq -r '.fields[] | select(.label=="database") | .value')
+
+# SMTP Configuration
+export SMTP_HOST=\$(curl -s -H "Authorization: Bearer \$OP_CONNECT_TOKEN" "\$OP_CONNECT_HOST/v1/vaults/\$OP_VAULT/items/SMTP%20Gmail%20Configuration" | jq -r '.fields[] | select(.label=="host") | .value')
+export SMTP_PORT=\$(curl -s -H "Authorization: Bearer \$OP_CONNECT_TOKEN" "\$OP_CONNECT_HOST/v1/vaults/\$OP_VAULT/items/SMTP%20Gmail%20Configuration" | jq -r '.fields[] | select(.label=="port") | .value')
+export SMTP_USER=\$(curl -s -H "Authorization: Bearer \$OP_CONNECT_TOKEN" "\$OP_CONNECT_HOST/v1/vaults/\$OP_VAULT/items/SMTP%20Gmail%20Configuration" | jq -r '.fields[] | select(.label=="username") | .value')
+export SMTP_PASSWORD=\$(curl -s -H "Authorization: Bearer \$OP_CONNECT_TOKEN" "\$OP_CONNECT_HOST/v1/vaults/\$OP_VAULT/items/SMTP%20Gmail%20Configuration" | jq -r '.fields[] | select(.label=="password") | .value')
+EOF
+
+echo "✅ Arquivo de ambiente do Cursor criado: ~/.cursor/.env.macos"
+
+# 6. Configurar shell
+echo "📝 Configurando shell..."
+if ! grep -q "load-secure-env.sh macos" ~/.zshrc; then
+  echo "source ~/Dotfiles/automation_1password/scripts/secrets/load-secure-env.sh macos" >> ~/.zshrc
+  echo "✅ Configuração adicionada ao ~/.zshrc"
+fi
+
+# 7. Criar script de carregamento para Cursor
+cat > ~/Dotfiles/automation_1password/scripts/bootstrap/load-cursor-env.sh << 'EOF'
+#!/bin/bash
+# ============================================================================
+# 🔐 Load Cursor Environment
+# Arquivo: scripts/bootstrap/load-cursor-env.sh
+# Propósito: Carregar variáveis de ambiente do Cursor
+# ============================================================================
+
+set -e
+
+echo "🔐 Carregando variáveis de ambiente do Cursor..."
+
+# Carregar variáveis do 1Password Connect
+source ~/Dotfiles/automation_1password/scripts/secrets/load-secure-env.sh macos
+
+# Carregar variáveis específicas do Cursor
+if [[ -f ~/.cursor/.env.macos ]]; then
+  source ~/.cursor/.env.macos
+  echo "✅ Variáveis do Cursor carregadas"
+else
+  echo "❌ Arquivo de ambiente do Cursor não encontrado"
+  exit 1
+fi
+
+echo "✅ Variáveis carregadas com sucesso!"
+echo "   - OpenAI API Key: ${OPENAI_API_KEY:0:10}..."
+echo "   - Anthropic API Key: ${ANTHROPIC_API_KEY:0:10}..."
+echo "   - Database: $POSTGRES_HOST:$POSTGRES_PORT"
+echo "   - SMTP: $SMTP_HOST:$SMTP_PORT"
+EOF
+
+chmod +x ~/Dotfiles/automation_1password/scripts/bootstrap/load-cursor-env.sh
+
+# 8. Testar carregamento de variáveis
+echo "🧪 Testando carregamento de variáveis..."
+source ~/Dotfiles/automation_1password/scripts/bootstrap/load-cursor-env.sh
+
+# 9. Log da operação
+echo "$(date): Setup completo executado com sucesso" >> ~/Dotfiles/automation_1password/logs/automation.log
+
+echo ""
+echo "✅ Configuração completa finalizada!"
+echo "📂 Logs: ~/Dotfiles/automation_1password/logs/automation.log"
+echo "🔧 Scripts: ~/Dotfiles/automation_1password/scripts/bootstrap/"
+echo "🌐 Connect: $OP_CONNECT_HOST"
+echo "🏦 Vault: $OP_VAULT"
+echo ""
+echo "🎯 Próximos passos:"
+echo "1. Execute: source ~/Dotfiles/automation_1password/scripts/bootstrap/load-cursor-env.sh"
+echo "2. Verifique as variáveis: echo \$OPENAI_API_KEY"
+echo "3. Configure o Cursor para usar essas variáveis"

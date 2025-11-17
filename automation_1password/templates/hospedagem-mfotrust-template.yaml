@@ -1,0 +1,135 @@
+# Template de Itens 1Password - Hospedagem mfotrust.com
+# Seguindo melhores práticas de nomenclatura, categorias e tags
+# Versão: 1.0.0
+# Data: 2025-11-17
+
+items:
+  # Item 1: Credenciais FTP
+  - name: "HOSTINGER_FTP_MFOTRUST"
+    category: "LOGIN"
+    vault: "1p_vps"
+    fields:
+      username: "u452314665"
+      password: "[SENHA_FTP_DO_1PASSWORD]"
+      url: "ftp://mfotrust.com"
+      hostname: "ftp://185.173.111.131"
+      notes: "Credenciais FTP para mfotrust.com - Business Web Hosting"
+    tags:
+      - "environment:vps"
+      - "service:hostinger"
+      - "type:credentials"
+      - "status:active"
+      - "project:mfotrust"
+    description: "Credenciais de acesso FTP para o site mfotrust.com"
+
+  # Item 2: Informações do Plano
+  - name: "HOSTINGER_PLAN_DETAILS_MFOTRUST"
+    category: "SECURE_NOTE"
+    vault: "1p_vps"
+    fields:
+      notes: |
+        PLANO: Business Web Hosting
+        DOMÍNIO: mfotrust.com
+        EXPIRA: 2026-11-14
+
+        RECURSOS:
+        - Espaço em disco: 50 GB
+        - RAM: 1536 MB
+        - CPU: 2 núcleos
+        - Inodes: 600.000
+        - Addons/Sites: 50
+        - Máximo de processos: 120
+        - PHP workers: 60
+        - Largura de banda: Ilimitado
+
+        SERVIDOR:
+        - Nome: server1596
+        - Localização: South America (Brazil)
+        - Backups: EUA
+        - IP do site: 185.173.111.131
+
+        ACESSO:
+        - Site: https://mfotrust.com
+        - Site WWW: https://www.mfotrust.com
+        - FTP IP: ftp://185.173.111.131
+        - FTP Host: ftp://mfotrust.com
+    tags:
+      - "environment:vps"
+      - "service:hostinger"
+      - "type:note"
+      - "status:active"
+      - "project:mfotrust"
+      - "priority:high"
+    description: "Detalhes completos do plano de hospedagem Business Web Hosting"
+
+  # Item 3: Informações do Servidor
+  - name: "HOSTINGER_SERVER_INFO_MFOTRUST"
+    category: "SECURE_NOTE"
+    vault: "1p_vps"
+    fields:
+      notes: |
+        SERVIDOR: server1596
+        LOCALIZAÇÃO: South America (Brazil)
+        BACKUPS: EUA
+
+        IP DO SITE: 185.173.111.131
+
+        NAMESERVERS ATUAIS:
+        - ns1.dns-parking.com
+        - ns2.dns-parking.com
+
+        NAMESERVERS HOSTINGER:
+        - ns1.dns-parking.com
+        - ns2.dns-parking.com
+
+        NOTA: Nameservers estão como dns-parking (verificar se deve atualizar)
+    tags:
+      - "environment:vps"
+      - "service:hostinger"
+      - "type:note"
+      - "status:active"
+      - "project:mfotrust"
+    description: "Informações técnicas do servidor de hospedagem"
+
+  # Item 4: Detalhes FTP
+  - name: "HOSTINGER_FTP_DETAILS_MFOTRUST"
+    category: "SECURE_NOTE"
+    vault: "1p_vps"
+    fields:
+      notes: |
+        FTP - mfotrust.com
+
+        IP: ftp://185.173.111.131
+        Hostname: ftp://mfotrust.com
+        Username: u452314665
+        Password: [ver item HOSTINGER_FTP_MFOTRUST]
+
+        CAMINHO DE UPLOAD:
+        public_html
+
+        PROTOCOLO: FTP
+        PORTA: 21 (padrão)
+        SEGURANÇA: FTPS recomendado (porta 990)
+    tags:
+      - "environment:vps"
+      - "service:hostinger"
+      - "type:note"
+      - "status:active"
+      - "project:mfotrust"
+    description: "Detalhes de configuração e conexão FTP"
+
+# Relacionamentos
+relationships:
+  - parent: "HOSTINGER_PLAN_DETAILS_MFOTRUST"
+    children:
+      - "HOSTINGER_FTP_MFOTRUST"
+      - "HOSTINGER_SERVER_INFO_MFOTRUST"
+      - "HOSTINGER_FTP_DETAILS_MFOTRUST"
+
+# Validação
+validation:
+  - check: "Todos os itens devem ter tags obrigatórias"
+  - check: "Credenciais devem estar em categoria LOGIN"
+  - check: "Informações técnicas devem estar em SECURE_NOTE"
+  - check: "Nomenclatura deve seguir padrão SERVICE_TYPE_ENV"
+

@@ -1,0 +1,4 @@
+e7f65995ff208b42769be9bd551bc5edb75cc06f430ba9b3f7c8ab10cea7fe1e  /Users/luiz.sena88/dev-prod/backups/1password/1p_macos_20251116_201632.json
+7a14e0f81ae3dd6103c15de94ecb50d0a50f0496a92032a6a1e1c9eba4291505  /Users/luiz.sena88/dev-prod/backups/1password/1p_vps_20251116_201632.json
+2dfe08e20c700bde989c44c37930b4248b0ce1a1ee5cfc9fb6fe0dfc3e1e92bc  /Users/luiz.sena88/dev-prod/backups/1password/1p_macos_20251116_201632.csv
+9422ac31838554b21afc5689b114656939a04fc39f469bb6bd6b4369ae742adb  /Users/luiz.sena88/dev-prod/backups/1password/1p_vps_20251116_201632.csv

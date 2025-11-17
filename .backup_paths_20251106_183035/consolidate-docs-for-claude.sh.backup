@@ -1,0 +1,365 @@
+#!/bin/bash
+# Script para consolidar documentação para upload no Claude Cloud Pro
+# Gera arquivos organizados e prontos para upload
+
+set -euo pipefail
+
+# Cores
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m'
+
+OUTPUT_DIR="$HOME/Dotfiles/claude-cloud-knowledge"
+PROJECT_DIR="$HOME/database/BNI_DOCUMENTOS_BRUTOS"
+
+log_info() {
+    echo -e "${BLUE}ℹ${NC} $1"
+}
+
+log_success() {
+    echo -e "${GREEN}✓${NC} $1"
+}
+
+log_error() {
+    echo -e "${RED}✗${NC} $1" >&2
+}
+
+log_warning() {
+    echo -e "${YELLOW}⚠${NC} $1"
+}
+
+# Criar estrutura de diretórios
+log_info "Criando estrutura de diretórios..."
+mkdir -p "$OUTPUT_DIR"/{00_CONTEXTO_GLOBAL,01_CONFIGURACOES,02_PROJETO_BNI,03_AUTOMACAO,04_REFERENCIAS}
+
+# 1. Contexto Global Base
+log_info "Consolidando Contexto Global..."
+
+# 1.1 Ambientes
+if [ -f "$HOME/Dotfiles/context-engineering/CONTEXTO_AMBIENTES_COMPLETO.md" ]; then
+    cp "$HOME/Dotfiles/context-engineering/CONTEXTO_AMBIENTES_COMPLETO.md" \
+       "$OUTPUT_DIR/00_CONTEXTO_GLOBAL/Ambientes.md"
+    log_success "Ambientes.md"
+fi
+
+# 1.2 Infraestrutura
+cat > "$OUTPUT_DIR/00_CONTEXTO_GLOBAL/Infraestrutura.md" << 'EOF'
+# Infraestrutura Completa
+
+## Stack Tecnológica
+
+### Backend
+- Python 3.11+
+- Node.js LTS
+- Docker & Docker Compose
+
+### Banco de Dados
+- PostgreSQL 16-alpine
+- Redis alpine
+
+### Serviços
+- Traefik v2.10 (reverse proxy)
+- Portainer (gerenciamento Docker)
+- NocoDB (base de dados no-code)
+- n8n (automação)
+- Grafana (monitoramento)
+- Dify (LLM platform)
+
+## Portas e Serviços
+
+### macOS Local
+- Traefik: 80, 443, 8080
+- Portainer: 9443
+- PostgreSQL: 5432
+- NocoDB: 8081
+- n8n: 5678
+- Grafana: 3000
+- Redis: 6379
+- Dify API: 5001
+- Dify Web: 3001
+
+## Arquitetura
+
+```
+macOS (Dev) → Docker Compose → Serviços Locais
+VPS (Prod) → Docker Compose → Serviços Produção
+Codespace → DevContainer → Ambiente Isolado
+```
+EOF
+log_success "Infraestrutura.md"
+
+# 1.3 Stack
+cat > "$OUTPUT_DIR/00_CONTEXTO_GLOBAL/Stack.md" << 'EOF'
+# Stack Tecnológica Completa
+
+## Desenvolvimento
+- macOS Silicon (Apple M-series)
+- Zsh shell
+- VSCode/Cursor
+- Raycast
+
+## DevOps
+- 1Password CLI v2.24.0+
+- GitHub CLI
+- Hugging Face CLI
+- Docker & Docker Compose
+
+## Integrações
+- 1Password (vaults separados por ambiente)
+- GitHub (repositórios e Codespaces)
+- Hugging Face (modelos e datasets)
+- Cloudflare (DNS e SSL)
+
+## Automação
+- Scripts bash/zsh
+- n8n workflows
+- GitHub Actions (planejado)
+EOF
+log_success "Stack.md"
+
+# 2. Configurações
+log_info "Consolidando Configurações..."
+
+# 2.1 1Password
+if [ -f "$HOME/Dotfiles/automation_1password/README.md" ]; then
+    cp "$HOME/Dotfiles/automation_1password/README.md" \
+       "$OUTPUT_DIR/01_CONFIGURACOES/1Password.md"
+    log_success "1Password.md"
+fi
+
+# 2.2 GitHub
+if [ -f "$HOME/Dotfiles/automation_1password/scripts/UPDATE_DATASETS.md" ]; then
+    # Extrair apenas seção GitHub
+    sed -n '/^## GitHub/,/^## Hugging Face/p' \
+        "$HOME/Dotfiles/automation_1password/scripts/UPDATE_DATASETS.md" > \
+        "$OUTPUT_DIR/01_CONFIGURACOES/GitHub.md" || true
+    log_success "GitHub.md"
+fi
+
+# 2.3 Hugging Face
+if [ -f "$HOME/Dotfiles/automation_1password/scripts/UPDATE_DATASETS.md" ]; then
+    # Extrair apenas seção Hugging Face
+    sed -n '/^## Hugging Face/,$p' \
+        "$HOME/Dotfiles/automation_1password/scripts/UPDATE_DATASETS.md" > \
+        "$OUTPUT_DIR/01_CONFIGURACOES/HuggingFace.md" || true
+    log_success "HuggingFace.md"
+fi
+
+# 3. Projeto BNI
+log_info "Consolidando Documentação do Projeto..."
+
+# 3.1 Contexto do Projeto
+if [ -f "$PROJECT_DIR/00_DOCUMENTACAO_POLITICAS/CONTEXTO_COMPLETO_PROJETO.md" ]; then
+    cp "$PROJECT_DIR/00_DOCUMENTACAO_POLITICAS/CONTEXTO_COMPLETO_PROJETO.md" \
+       "$OUTPUT_DIR/02_PROJETO_BNI/Contexto.md"
+    log_success "Contexto.md"
+fi
+
+# 3.2 Skills
+if [ -f "$PROJECT_DIR/SKILLS.md" ]; then
+    cp "$PROJECT_DIR/SKILLS.md" \
+       "$OUTPUT_DIR/02_PROJETO_BNI/Skills.md"
+    log_success "Skills.md"
+fi
+
+# 3.3 Credenciais
+if [ -f "$PROJECT_DIR/00_DOCUMENTACAO_POLITICAS/CREDENCIAIS_1PASSWORD.md" ]; then
+    cp "$PROJECT_DIR/00_DOCUMENTACAO_POLITICAS/CREDENCIAIS_1PASSWORD.md" \
+       "$OUTPUT_DIR/02_PROJETO_BNI/Credenciais.md"
+    log_success "Credenciais.md"
+fi
+
+# 4. Automação
+log_info "Consolidando Automação..."
+
+# 4.1 Scripts
+cat > "$OUTPUT_DIR/03_AUTOMACAO/Scripts.md" << 'EOF'
+# Scripts de Automação Disponíveis
+
+## 1Password
+- `op-init.sh` - Inicialização automática
+- `op-export-vault.sh` - Exportar dados das vaults
+- `op-config-check` - Verificar configuração
+
+## GitHub
+- `gh-setup.sh` - Setup completo do GitHub
+
+## Hugging Face
+- `hf-setup.sh` - Setup completo do Hugging Face
+- Funções: hf-login, hf-deploy-model, hf-upload-dataset, etc.
+
+## Setup de Ambientes
+- `setup-macos.sh` - Setup macOS
+- `setup-vps.sh` - Setup VPS
+- `setup-codespace.sh` - Setup Codespace
+
+## Localização
+Todos os scripts em: `~/Dotfiles/automation_1password/scripts/`
+EOF
+log_success "Scripts.md"
+
+# 4.2 Integrações
+cat > "$OUTPUT_DIR/03_AUTOMACAO/Integrações.md" << 'EOF'
+# Integrações Configuradas
+
+## 1Password
+- Vault macOS: 1p_macos
+- Vault VPS: 1p_vps
+- Wrapper inteligente do CLI
+- Funções de gerenciamento
+
+## GitHub
+- CLI configurado
+- SSH keys via 1Password
+- Dotfiles sincronizados
+
+## Hugging Face
+- CLI configurado
+- Endpoint: senal88/endpoints/all-minilm-l6-v2-bks
+- Funções helper disponíveis
+
+## Cloudflare
+- DNS configurado
+- SSL/TLS via Traefik
+- Zero Trust (planejado)
+EOF
+log_success "Integrações.md"
+
+# 4.3 Deploy
+if [ -f "$HOME/Dotfiles/context-engineering/PLANO_ACAO_FINAL.md" ]; then
+    # Extrair seção de deploy
+    sed -n '/^## FASE 3: Automação e Deploy/,/^## FASE 4:/p' \
+        "$HOME/Dotfiles/context-engineering/PLANO_ACAO_FINAL.md" > \
+        "$OUTPUT_DIR/03_AUTOMACAO/Deploy.md" || true
+    log_success "Deploy.md"
+fi
+
+# 5. Referências
+log_info "Consolidando Referências..."
+
+# 5.1 Guias
+if [ -f "$HOME/Dotfiles/context-engineering/GUIA_RAPIDO.md" ]; then
+    cp "$HOME/Dotfiles/context-engineering/GUIA_RAPIDO.md" \
+       "$OUTPUT_DIR/04_REFERENCIAS/Guias.md"
+    log_success "Guias.md"
+fi
+
+# 5.2 API
+cat > "$OUTPUT_DIR/04_REFERENCIAS/API.md" << 'EOF'
+# Referências de API
+
+## 1Password CLI
+- Docs: https://developer.1password.com/docs/cli
+- Shell Plugins: https://developer.1password.com/docs/cli/shell-plugins
+
+## GitHub CLI
+- Docs: https://cli.github.com/manual/
+- API: https://docs.github.com/en/rest
+
+## Hugging Face
+- Docs: https://huggingface.co/docs
+- API: https://huggingface.co/docs/api-inference/index
+- Perfil: https://huggingface.co/senal88
+
+## Docker Compose
+- Docs: https://docs.docker.com/compose/
+- Reference: https://docs.docker.com/compose/compose-file/
+
+## Traefik
+- Docs: https://doc.traefik.io/traefik/
+- Configuration: https://doc.traefik.io/traefik/routing/providers/docker/
+EOF
+log_success "API.md"
+
+# 5.3 Troubleshooting
+cat > "$OUTPUT_DIR/04_REFERENCIAS/Troubleshooting.md" << 'EOF'
+# Troubleshooting
+
+## 1Password
+- Verificar: `op-config-check`
+- Login: `op-signin-auto`
+- Exportar: `op-export-vault.sh`
+
+## GitHub
+- Verificar: `gh auth status`
+- Setup: `./gh-setup.sh`
+
+## Hugging Face
+- Verificar: `hf-status`
+- Setup: `./hf-setup.sh`
+
+## Docker
+- Status: `docker-compose ps`
+- Logs: `docker-compose logs -f`
+- Restart: `docker-compose restart`
+EOF
+log_success "Troubleshooting.md"
+
+# Criar índice principal
+log_info "Criando índice principal..."
+cat > "$OUTPUT_DIR/README.md" << 'EOF'
+# Claude Cloud Pro - Knowledge Base
+
+## 📚 Estrutura de Documentação
+
+### 00_CONTEXTO_GLOBAL/
+- **Ambientes.md** - Contexto completo dos ambientes (macOS, VPS, Codespace)
+- **Infraestrutura.md** - Stack tecnológica e serviços
+- **Stack.md** - Tecnologias e ferramentas utilizadas
+
+### 01_CONFIGURACOES/
+- **1Password.md** - Sistema completo de automação 1Password
+- **GitHub.md** - Configuração e integração GitHub
+- **HuggingFace.md** - Configuração e integração Hugging Face
+
+### 02_PROJETO_BNI/
+- **Contexto.md** - Contexto completo do projeto BNI
+- **Skills.md** - Skills e especializações
+- **Credenciais.md** - Política de credenciais e segurança
+
+### 03_AUTOMACAO/
+- **Scripts.md** - Scripts disponíveis e uso
+- **Integrações.md** - Integrações configuradas
+- **Deploy.md** - Processo de deploy e automação
+
+### 04_REFERENCIAS/
+- **Guias.md** - Guias rápidos de uso
+- **API.md** - Referências de APIs
+- **Troubleshooting.md** - Solução de problemas comuns
+
+## 🚀 Como Usar
+
+1. Faça upload de todos os arquivos .md no Claude Cloud Pro
+2. Organize em pastas conforme estrutura acima
+3. Use como referência nas conversas com Claude
+
+## 📝 Atualização
+
+Execute `consolidate-docs-for-claude.sh` para atualizar a documentação.
+
+---
+
+**Gerado em:** $(date)
+**Versão:** 1.0.0
+EOF
+
+log_success "README.md criado"
+
+# Criar arquivo consolidado único (opcional)
+log_info "Criando arquivo consolidado único..."
+cat "$OUTPUT_DIR"/**/*.md > "$OUTPUT_DIR/CONSOLIDADO_COMPLETO.md" 2>/dev/null || {
+    find "$OUTPUT_DIR" -name "*.md" -type f ! -name "CONSOLIDADO_COMPLETO.md" -exec cat {} \; > "$OUTPUT_DIR/CONSOLIDADO_COMPLETO.md"
+}
+log_success "CONSOLIDADO_COMPLETO.md criado"
+
+log_success "✅ Consolidação concluída!"
+log_info ""
+log_info "Arquivos gerados em: $OUTPUT_DIR"
+log_info ""
+log_info "Próximos passos:"
+log_info "1. Revisar arquivos gerados"
+log_info "2. Fazer upload no Claude Cloud Pro"
+log_info "3. Organizar em pastas conforme README.md"
+

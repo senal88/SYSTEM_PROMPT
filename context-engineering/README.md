@@ -16,13 +16,17 @@ Fornecer contexto rico e estruturado para LLMs através de:
 Dotfiles/
 ├── context-engineering/
 │   ├── .cursorrules                    # Regras globais
+│   ├── PREFERENCIAS_PESSOAIS.md        # Preferências pessoais Claude Cloud
 │   ├── cursor-rules/
 │   │   ├── .cursorrules.macos          # Regras específicas macOS
 │   │   ├── .cursorrules.vps            # Regras específicas VPS
 │   │   └── .cursorrules.codespace      # Regras específicas Codespace
 │   ├── templates/
-│   │   ├── llm-context-template.md     # Template de contexto
-│   │   └── prompt-template.md          # Template de prompt
+│   │   ├── llm-context-template.md              # Template de contexto
+│   │   ├── prompt-template.md                   # Template de prompt
+│   │   ├── claude-cloud-pro-config.xml          # Template XML completo Claude Cloud Pro
+│   │   ├── claude-cloud-pro-config-template.xml # Template XML simplificado
+│   │   └── CLAUDE_CLOUD_PRO_XML_TEMPLATE_GUIDE.md # Guia do template XML
 │   ├── scripts/
 │   │   ├── setup-macos.sh              # Setup macOS
 │   │   ├── setup-vps.sh                # Setup VPS
@@ -228,6 +232,103 @@ Configura:
 - VSCode settings/snippets
 - 1Password (se disponível)
 
+### auto-config-claude-cloud.py
+
+**Script automatizado para Claude Cloud Pro:**
+
+- ✅ Verifica MCP conectado
+- ✅ Revisa todos os arquivos de contexto
+- ✅ Atualiza configuração XML automaticamente
+- ✅ Gera prompt para Claude Cloud
+- ✅ Cria relatório de arquivos para upload
+
+**Uso:**
+```bash
+cd ~/Dotfiles/context-engineering
+python3 scripts/auto-config-claude-cloud.py
+```
+
+**Arquivos gerados:**
+- `templates/prompt-claude-cloud.md` - Prompt completo para upload
+- `RELATORIO_AUTOMATIZADO.md` - Relatório de revisão
+- `templates/claude-cloud-pro-config.xml` - XML atualizado (se sucesso)
+
+### claude-code-setup.sh
+
+**Setup do Claude Code com 1Password:**
+
+- ✅ Instala Claude Code (requer Node.js 18+)
+- ✅ Configura `ANTHROPIC_API_KEY` do 1Password
+- ✅ Adiciona configuração automática ao shell
+- ✅ Verifica instalação com `claude doctor`
+
+**Uso:**
+```bash
+cd ~/Dotfiles/context-engineering
+./scripts/claude-code-setup.sh
+```
+
+**Pré-requisitos:**
+- `ANTHROPIC_API_KEY` deve estar nos vaults 1p_macos ou 1p_vps
+- 1Password CLI instalado e autenticado
+
+**Documentação completa:** Ver `CLAUDE_CODE_SETUP.md`
+
+**Guia de Login:** Ver `CLAUDE_CODE_LOGIN.md` para instruções de autenticação
+
+**Yolo Mode:** Ver `CLAUDE_CODE_YOLO_MODE.md` para informações sobre segurança
+
+### claude-code-login.sh
+
+**Login rápido no Claude Code:**
+
+- 🔑 Obtém `ANTHROPIC_API_KEY` do 1Password automaticamente
+- ✅ Configura variável de ambiente
+- 🔍 Verifica autenticação
+
+**Uso:**
+```bash
+cd ~/Dotfiles/context-engineering
+./scripts/claude-code-login.sh
+claude
+```
+
+### add-mcp-server.sh
+
+**Adicionar servidor MCP HTTP ao Claude Desktop:**
+
+- ✅ Adiciona servidor MCP HTTP à configuração
+- 🔐 Suporta headers de autenticação (Bearer token, API Key)
+- 📝 Usa jq ou Python para atualizar JSON
+- 💾 Faz backup antes de modificar
+
+**Uso:**
+```bash
+cd ~/Dotfiles/context-engineering
+./scripts/add-mcp-server.sh "my-server" "https://example.com/mcp" "Bearer token" "api-key"
+```
+
+**Documentação:** Ver `MCP_HTTP_SERVER_CONFIG.md`
+
+### sync-profiles.sh
+
+**Sincronizar perfis entre ambientes:**
+
+- ✅ Sincroniza VSCode e Cursor (settings, snippets, keybindings)
+- ✅ Sincroniza Cursor Rules específicas por ambiente
+- ✅ Sincroniza Git e SSH config
+- ✅ Faz backup automático antes de modificar
+- ✅ Detecta diferenças com `--diff`
+
+**Uso:**
+```bash
+cd ~/Dotfiles/context-engineering
+./scripts/sync-profiles.sh              # Sincronizar tudo
+./scripts/sync-profiles.sh --diff       # Ver diferenças
+```
+
+**Documentação:** Ver `SINCRONIZACAO_PERFIS.md` e `PATHS_COMPARACAO.md`
+
 ## 📚 Uso
 
 ### 1. Usar Snippets
@@ -246,9 +347,17 @@ O arquivo `.cursorrules` é lido automaticamente pelo Cursor. Para ambiente espe
 
 ### 3. Usar Templates
 
-1. Copie o template relevante
+#### Templates Markdown
+1. Copie o template relevante (`llm-context-template.md` ou `prompt-template.md`)
 2. Preencha com seu contexto
 3. Use como prompt para LLM
+
+#### Template XML Claude Cloud Pro
+1. Copie `claude-cloud-pro-config-template.xml` (versão simplificada)
+2. Ou use `claude-cloud-pro-config.xml` (versão completa pré-preenchida)
+3. Preencha com suas informações pessoais
+4. Consulte `CLAUDE_CLOUD_PRO_XML_TEMPLATE_GUIDE.md` para documentação completa
+5. Faça upload no Claude Cloud Pro Knowledge base
 
 ## 🔄 Manutenção
 

@@ -28,12 +28,12 @@ warning() {
 }
 
 # Verificar se estamos no diretório correto
-if [[ ! -d "$HOME/Dotfiles" ]]; then
-    error "Diretório ~/Dotfiles não encontrado!"
+if [[ ! -d "$DOTFILES_HOME" ]]; then
+    error "Diretório $DOTFILES_HOME não encontrado!"
     exit 1
 fi
 
-cd "$HOME/Dotfiles"
+cd "$DOTFILES_HOME"
 
 echo ""
 log "Verificando estrutura centralizada..."
@@ -111,9 +111,9 @@ fi
 
 # Codex CLI
 if [[ -f "codex/codex-cli/bin/codex.js" ]]; then
-    success "✅ Codex CLI: Encontrado em ~/Dotfiles/codex/"
+    success "✅ Codex CLI: Encontrado em $DOTFILES_HOME/codex/"
 else
-    warning "⚠️ Codex CLI: Não encontrado em ~/Dotfiles/codex/"
+    warning "⚠️ Codex CLI: Não encontrado em $DOTFILES_HOME/codex/"
 fi
 
 # 6. VERIFICAR VARIÁVEIS DE AMBIENTE
@@ -133,10 +133,10 @@ done
 echo ""
 echo "🛤️ PATHS:"
 echo "=========="
-if [[ "$PATH" == *"$HOME/Dotfiles/scripts"* ]]; then
-    success "✅ PATH contém ~/Dotfiles/scripts"
+if [[ "$PATH" == *"$DOTFILES_HOME/scripts"* ]]; then
+    success "✅ PATH contém $DOTFILES_HOME/scripts"
 else
-    error "❌ PATH não contém ~/Dotfiles/scripts"
+    error "❌ PATH não contém $DOTFILES_HOME/scripts"
 fi
 
 if [[ "$PATH" == *"$HOME/bin"* ]]; then
@@ -193,7 +193,7 @@ echo "🌍 Arquivos de ambiente: $(find env -type f 2>/dev/null | wc -l)"
 echo ""
 echo "🎯 VALIDAÇÃO CONCLUÍDA!"
 echo "======================="
-echo "📁 Todas as configurações estão centralizadas em: ~/Dotfiles/"
+echo "📁 Todas as configurações estão centralizadas em: $DOTFILES_HOME/"
 echo "🔧 Use 'status' para verificar o status das configurações"
 echo "🔄 Use 'reload' para recarregar as configurações"
 echo "🚀 Use 'setup' para executar o setup das configurações"

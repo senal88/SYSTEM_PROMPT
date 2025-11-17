@@ -1,177 +1,51 @@
-# Cursor Rules - Configuração Global
-# Este arquivo define regras e contexto para LLMs em todos os ambientes
+# Cursor Rules - Contexto Global
 
-## IDENTIFICAÇÃO DO USUÁRIO
+## 📋 Base de Contexto
 
-- **Nome completo**: Luiz Fernando Moreira Sena
-- **Como chamar**: Sena
-- **Email**: luiz.sena88@icloud.com
-- **Preferências**: Ver `PREFERENCIAS_PESSOAIS.md` para detalhes completos
+Este workspace usa `~/Dotfiles` como padrão global de governança. Sempre consulte:
+- `~/Dotfiles/context/global/CONTEXTO_GLOBAL_COMPLETO.md` - Contexto completo
+- `~/Dotfiles/context/cursor/CONTEXTO_CURSOR.md` - Contexto específico Cursor
 
-## IDENTIFICAÇÃO DO AMBIENTE
+## 🎯 Configurações Padronizadas
 
-Você está trabalhando em um ambiente híbrido:
-- **Dev**: macOS Silicon (luiz.sena88@MacBook-Pro)
-- **Prod**: VPS Ubuntu (1p_vps vault)
-- **Codespace**: GitHub Codespaces (setup via VSCode)
+- **Base Path**: `~/Dotfiles`
+- **Projeto GCP**: `gcp-ai-setup-24410` (501288307921)
+- **Região**: `us-central1`
+- **Credenciais**: 1Password → `~/Dotfiles/credentials/` (local, não versionado)
 
-## CONTEXTO DO PROJETO
+## 🔐 Credenciais
 
-### Stack Tecnológica
-- **Backend**: Python 3.11+, Node.js, Docker
-- **Infraestrutura**: Docker Compose, Traefik, PostgreSQL, Redis
-- **DevOps**: 1Password CLI, GitHub Actions, Terraform (planejado)
-- **Automação**: Scripts bash/zsh, Python, n8n
+- **Fonte**: 1Password (vault: 1p_macos ou Personal)
+- **Sincronização**: `~/Dotfiles/scripts/sync/sync-1password-to-dotfiles.sh`
+- **Local**: `~/Dotfiles/credentials/` (NUNCA commitar)
 
-### Convenções de Código
+## 🚀 Comandos Importantes
 
-#### Python
-- Formatação: Black com linha máxima de 100 caracteres
-- Imports: isort
-- Type hints: Sempre que apropriado
-- Docstrings: Português brasileiro para funções públicas
-- Naming: snake_case para variáveis/funções, PascalCase para classes
-
-#### Shell (Bash/Zsh)
-- Compatibilidade: Funcionar em ambos bash e zsh
-- Variáveis: UPPER_SNAKE_CASE para constantes
-- Funções: snake_case
-- Shebang: `#!/bin/bash` ou `#!/usr/bin/env bash`
-
-#### Arquivos e Diretórios
-- Nomes sem espaços ou acentos
-- Formato de data: ISO 8601 (YYYY-MM-DD)
-- Encoding: UTF-8
-- Estrutura: Seguir política de governança documental quando aplicável
-
-## 1PASSWORD INTEGRATION
-
-### Configuração
-- Vault macOS: `gkpsbgizlks2zknwzqpppnb2ze` (1p_macos)
-- Vault VPS: `oa3tidekmeu26nxiier2qbi7v4` (1p_vps)
-- Configuração: `~/.config/op/op_config.sh`
-- Scripts: `~/Dotfiles/automation_1password/scripts/`
-
-### Comandos Disponíveis
 ```bash
-op-config-check        # Verificar configuração
-op-signin-auto         # Login automático
-op-vault-switch        # Trocar vault
-op-export-vault.sh     # Exportar dados
+# Setup completo
+cd ~/Dotfiles && ./scripts/setup/master.sh
+
+# Sincronizar credenciais
+./scripts/sync/sync-1password-to-dotfiles.sh
+
+# Atualizar contexto
+./scripts/context/update-global-context.sh
 ```
 
-### Uso em Código
-- Sempre desativar Connect antes de usar CLI: `unset OP_CONNECT_HOST OP_CONNECT_TOKEN`
-- Usar wrapper `op()` que já faz isso automaticamente
-- Nunca hardcodar secrets - usar 1Password
+## 📁 Estrutura
 
-## AMBIENTE ESPECÍFICO
+- `~/Dotfiles/configs/` - Configurações
+- `~/Dotfiles/scripts/` - Scripts
+- `~/Dotfiles/credentials/` - Credenciais (local)
+- `~/Dotfiles/context/` - Contexto para IAs
 
-### macOS Silicon
-- Homebrew: `/opt/homebrew/bin`
-- Shell: Zsh (padrão)
-- Dotfiles: `~/Dotfiles/`
-- Config: `~/.config/`
+## ⚠️ Regras
 
-### VPS Ubuntu
-- Package manager: apt
-- Shell: Bash (padrão) ou Zsh (se instalado)
-- User: Configurar via scripts de bootstrap
-- Vault padrão: 1p_vps
+1. **SEMPRE** usar `~/Dotfiles` como base
+2. **NUNCA** commitar credenciais
+3. **SEMPRE** sincronizar do 1Password antes de usar
+4. **SEMPRE** atualizar contexto após mudanças significativas
 
-### Codespaces
-- Configuração via VSCode Settings
-- Dotfiles: Clonar de `~/Dotfiles/`
-- Setup automático via `.devcontainer/`
+---
 
-## PADRÕES DE ARQUIVOS
-
-### Scripts
-- Sempre incluir shebang apropriado
-- Incluir tratamento de erros: `set -euo pipefail`
-- Comentários em português
-- Funções com descrição
-
-### Configuração
-- JSON: Formatação consistente, sem trailing commas
-- YAML: Indentação de 2 espaços
-- Shell: Compatibilidade bash/zsh
-
-### Documentação
-- README.md em português
-- Exemplos de uso
-- Troubleshooting
-- Changelog quando apropriado
-
-## SEGURANÇA
-
-### Secrets
-- NUNCA commitar secrets em código
-- Usar 1Password para todos os secrets
-- Variáveis de ambiente via `.env` (não versionado)
-- Tokens via 1Password CLI
-
-### Git
-- .gitignore deve incluir: `.env`, `*.secret`, `*.key`, `__pycache__/`, `.DS_Store`
-- Não commitar arquivos de configuração local com secrets
-
-## PRODUTIVIDADE
-
-### Atalhos Personalizados
-- Raycast: Prefixos personalizados
-- VSCode: Snippets e keybindings
-- Terminal: Aliases em `~/.zshrc`
-
-### Automação
-- Scripts reutilizáveis em `~/Dotfiles/automation_1password/scripts/`
-- Funções shell comuns
-- Templates para novos projetos
-
-## TRABALHANDO COM LLMs
-
-### Prompt Engineering
-- Sempre fornecer contexto do ambiente
-- Especificar stack tecnológica
-- Incluir exemplos relevantes
-- Pedir validação de segurança
-
-### Contexto de Código
-- Usar CODE REFERENCES para código existente
-- Usar MARKDOWN CODE BLOCKS para código novo
-- Nunca misturar formatos
-
-### Respostas
-- Sempre em português brasileiro
-- Código com comentários em português
-- Explicações claras e objetivas
-
-## VALIDAÇÃO
-## GOVERNANÇA DE DADOS
-
-### Princípios de Governança
-- **Automação**: Sempre usar scripts automatizados quando possível
-- **Validação**: Validar antes de aplicar mudanças
-- **Auditoria**: Registrar todas as operações importantes
-- **Versionamento**: Manter histórico de mudanças
-- **Segurança**: Nunca hardcodar secrets
-
-### Scripts de Governança
-- `setup-claude-cloud-complete.sh`: Setup completo e integração
-- `governance/automation/update-claude-context.sh`: Atualização automática diária
-- `governance/automation/validate-context.sh`: Validação de contexto
-- `sync-profiles.sh`: Sincronização de perfis entre ambientes
-
-### Atualização Automática
-- **Frequência**: Diária às 2h da manhã (via cron)
-- **Processo**: Consolidar → Atualizar → Validar → Auditoria
-- **Logs**: `governance/audit/update-YYYYMMDD.log`
-
-### Validação Antes de Mudanças
-1. Executar `governance/automation/validate-context.sh`
-2. Verificar autenticação (1Password)
-3. Criar backup antes de modificar
-4. Validar schemas JSON/YAML
-5. Testar em ambiente isolado quando possível
-
-## VALIDAÇÃO
-
+**Última atualização**: 2025-01-17

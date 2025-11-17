@@ -1,0 +1,21 @@
+{
+  "isEnabled": true,
+  "userConfig": {
+    "allowed_directories": [
+      "/Users/luiz.sena88",
+      "/Users/luiz.sena88/Dotfiles",
+      "/Users/luiz.sena88/Dotfiles/claude-cloud-knowledge",
+      "/Users/luiz.sena88/Dotfiles/claude-cloud-knowledge/06_MCP",
+      "/Users/luiz.sena88/database",
+      "/Users/luiz.sena88/database/BNI_DOCUMENTOS_BRUTOS",
+      "/Users/luiz.sena88/database/BNI_DOCUMENTOS_BRUTOS/00_DOCUMENTACAO_POLITICAS",
+      "/Users/luiz.sena88/database/BNI_DOCUMENTOS_BRUTOS/09_AUTOMACAO",
+      "/Users/luiz.sena88/database/BNI_DOCUMENTOS_BRUTOS/00_GOVERNANCA",
+      "/Users/luiz.sena88/database/BNI_DOCUMENTOS_BRUTOS/00_ANALISES_E_DADOS",
+      "/Users/luiz.sena88/Library",
+      "/Users/luiz.sena88/Library/Application Support",
+      "/Users/luiz.sena88/Library/Application Support/Claude",
+      "/Users/luiz.sena88/Library/Application Support/Cursor"
+    ]
+  }
+}

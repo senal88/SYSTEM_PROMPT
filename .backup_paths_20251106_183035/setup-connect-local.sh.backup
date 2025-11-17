@@ -1,0 +1,110 @@
+#!/bin/bash
+# ============================================================================
+# 🚀 Setup Connect Local - macOS
+# Arquivo: scripts/setup-connect-local.sh
+# Propósito: Configurar 1Password Connect localmente
+# Data: 27 de Janeiro de 2025
+# ============================================================================
+
+set -e
+
+echo "🚀 Configurando 1Password Connect localmente..."
+
+# 1. Carregar variáveis
+source ~/Dotfiles/automation_1password/env/macos.env
+
+# 2. Atualizar host para local
+export OP_CONNECT_HOST="http://localhost:8080"
+
+# 3. Configurar Docker Compose
+cd ~/Dotfiles/automation_1password/connect
+
+# Criar docker-compose.yml
+cat > docker-compose.yml << 'EOF'
+version: '3.8'
+services:
+  op-connect:
+    image: 1password/connect-api:latest
+    container_name: op-connect-macos
+    environment:
+      - OP_CONNECT_TOKEN=${OP_CONNECT_TOKEN}
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./credentials.json:/home/opuser/credentials.json
+    restart: unless-stopped
+    networks:
+      - automation_net
+
+networks:
+  automation_net:
+    driver: bridge
+    name: automation_net
+EOF
+
+# Criar credentials.json
+cat > credentials.json << 'EOF'
+{
+  "credentials": [
+    {
+      "account": "my.1password.com",
+      "email": "luiz.sena88@icloud.com",
+      "secretKey": "A3-YEBP46-396NV5-RDFNK-7LCQK-A43DB-H4XKC",
+      "password": "Gm@1L#Env@hard"
+    }
+  ]
+}
+EOF
+
+# 4. Iniciar Connect
+echo "🐳 Iniciando 1Password Connect..."
+docker-compose up -d
+
+# 5. Aguardar Connect estar pronto
+echo "⏳ Aguardando Connect estar pronto..."
+sleep 15
+
+# 6. Testar conexão
+echo "🧪 Testando conexão..."
+if curl -s http://localhost:8080/v1/health >/dev/null; then
+  echo "✅ 1Password Connect está rodando em http://localhost:8080"
+else
+  echo "❌ Falha ao conectar com Connect"
+  exit 1
+fi
+
+# 7. Atualizar arquivo de ambiente para usar local
+cat > ~/Dotfiles/automation_1password/env/macos.env << EOF
+# ============================================================================
+# 🔐 1Password Connect – macOS Development
+# Arquivo: env/macos.env
+# Propósito: Configurações específicas do ambiente macOS
+# Data: 27 de Janeiro de 2025
+# ============================================================================
+
+# 1Password Connect Configuration
+export OP_VAULT="1p_macos"
+export OP_CONNECT_HOST="http://localhost:8080"
+export OP_CONNECT_TOKEN=\$(cat "\$HOME/Dotfiles/automation_1password/tokens/macos_token.txt")
+
+# Paths
+export OP_AUTOMATION_ROOT="\$HOME/Dotfiles/automation_1password"
+export PATH="\$OP_AUTOMATION_ROOT/scripts:\$PATH"
+
+# Environment
+export OP_ENVIRONMENT="development"
+export OP_REGION="us-central1"
+
+# Logging
+export OP_LOG_LEVEL="info"
+export OP_LOG_FILE="\$OP_AUTOMATION_ROOT/logs/automation.log"
+
+# Security
+export OP_SESSION_TIMEOUT="3600"
+export OP_VAULT_TIMEOUT="1800"
+EOF
+
+echo "✅ 1Password Connect configurado localmente!"
+echo "🌐 Connect: http://localhost:8080"
+echo "🏦 Vault: $OP_VAULT"
+echo "🔧 Para parar: cd ~/Dotfiles/automation_1password/connect && docker-compose down"

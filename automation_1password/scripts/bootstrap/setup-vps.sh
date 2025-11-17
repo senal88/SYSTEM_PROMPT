@@ -9,7 +9,7 @@
 set -e
 
 # Configurações
-ROOT="$HOME/Dotfiles/automation_1password"
+ROOT="$DOTFILES_HOME/automation_1password"
 ENV_FILE="$ROOT/env/vps.env"
 SHARED_ENV="$ROOT/env/shared.env"
 

@@ -1,0 +1,224 @@
+# Template de Itens 1Password - Configurações Avançadas mfotrust.com
+# Seguindo melhores práticas de nomenclatura, categorias e tags
+# Versão: 1.0.0
+# Data: 2025-11-17
+
+items:
+  # Item 1: Acesso SSH
+  - name: "HOSTINGER_SSH_MFOTRUST"
+    category: "LOGIN"
+    vault: "1p_vps"
+    fields:
+      username: "u452314665"
+      password: "[SENHA_SSH_DO_1PASSWORD]"
+      hostname: "185.173.111.131"
+      port: "65002"
+      url: "ssh://u452314665@185.173.111.131:65002"
+      notes: "Acesso SSH para mfotrust.com - Porta 65002 - Status: INACTIVE (habilitar se necessário)"
+    tags:
+      - "environment:vps"
+      - "service:hostinger"
+      - "type:credentials"
+      - "status:inactive"
+      - "project:mfotrust"
+    description: "Credenciais de acesso SSH para o servidor de hospedagem"
+    command: "ssh -p 65002 u452314665@185.173.111.131"
+
+  # Item 2: Banco de Dados MySQL
+  - name: "HOSTINGER_MYSQL_MFOTRUST"
+    category: "DATABASE"
+    vault: "1p_vps"
+    fields:
+      hostname: "srv1596.hstgr.io"
+      hostname_alt: "193.203.175.121"
+      port: "3306"
+      database: "u452314665_ufi6Z"
+      username: "u452314665_VQw4W"
+      password: "[SENHA_MYSQL_DO_1PASSWORD]"
+      connection_string: "mysql://u452314665_VQw4W:[senha]@srv1596.hstgr.io:3306/u452314665_ufi6Z"
+      notes: "Banco de dados MySQL para mfotrust.com - Criado em 2025-11-14 - Tamanho: 3 MB"
+    tags:
+      - "environment:vps"
+      - "service:hostinger"
+      - "type:credentials"
+      - "status:active"
+      - "project:mfotrust"
+      - "priority:high"
+    description: "Credenciais completas do banco de dados MySQL"
+
+  # Item 3: MySQL Remoto
+  - name: "HOSTINGER_MYSQL_REMOTE_MFOTRUST"
+    category: "SECURE_NOTE"
+    vault: "1p_vps"
+    fields:
+      notes: |
+        MYSQL REMOTO - mfotrust.com
+
+        HOSTS DISPONÍVEIS:
+        - srv1596.hstgr.io (recomendado)
+        - 193.203.175.121 (IP alternativo)
+
+        PORTA: 3306
+
+        BANCO DE DADOS: u452314665_ufi6Z
+        USUÁRIO: u452314665_VQw4W
+        SENHA: [ver item HOSTINGER_MYSQL_MFOTRUST]
+
+        CONFIGURAÇÃO:
+        - Acesso remoto deve ser habilitado no painel
+        - IPs permitidos devem ser configurados
+        - Firewall deve permitir porta 3306
+
+        CONEXÃO:
+        mysql -h srv1596.hstgr.io -u u452314665_VQw4W -p u452314665_ufi6Z
+    tags:
+      - "environment:vps"
+      - "service:hostinger"
+      - "type:note"
+      - "status:active"
+      - "project:mfotrust"
+    description: "Configuração de acesso remoto ao MySQL"
+
+  # Item 4: phpMyAdmin
+  - name: "HOSTINGER_PHPMYADMIN_MFOTRUST"
+    category: "SECURE_NOTE"
+    vault: "1p_vps"
+    fields:
+      notes: |
+        PHPMYADMIN - mfotrust.com
+
+        ACESSO:
+        - Via painel Hostinger: Sites → mfotrust.com → Bancos de Dados → PHP My Admin
+        - Link direto disponível no painel
+
+        CREDENCIAIS:
+        - Usuário: u452314665_VQw4W
+        - Senha: [ver item HOSTINGER_MYSQL_MFOTRUST]
+        - Banco: u452314665_ufi6Z
+
+        NOTA: Para login via link direto, usar credenciais do banco de dados
+    tags:
+      - "environment:vps"
+      - "service:hostinger"
+      - "type:note"
+      - "status:active"
+      - "project:mfotrust"
+    description: "Informações de acesso ao phpMyAdmin"
+
+  # Item 5: GIT
+  - name: "HOSTINGER_GIT_MFOTRUST"
+    category: "SECURE_NOTE"
+    vault: "1p_vps"
+    fields:
+      notes: |
+        GIT - mfotrust.com
+
+        REPOSITÓRIO GIT PRIVADO:
+        - Chave SSH disponível no painel
+        - Adicionar chave ao GitHub/Bitbucket para repositórios privados
+
+        DEPLOYMENT:
+        - Repositórios públicos: https://github.com/user/repo.git
+        - Repositórios privados: git@github.com:user/repo.git
+        - Diretório padrão: public_html
+        - Diretório deve estar vazio para deploy
+
+        CONFIGURAÇÃO:
+        - Gerar chave SSH no painel se necessário
+        - Configurar repositório e branch
+        - Especificar diretório de instalação (opcional)
+    tags:
+      - "environment:vps"
+      - "service:hostinger"
+      - "type:note"
+      - "status:active"
+      - "project:mfotrust"
+    description: "Configuração de Git e deployment"
+
+  # Item 6: Gerenciador de IP
+  - name: "HOSTINGER_IP_MANAGER_MFOTRUST"
+    category: "SECURE_NOTE"
+    vault: "1p_vps"
+    fields:
+      notes: |
+        GERENCIADOR DE IP - mfotrust.com
+
+        FUNCIONALIDADES:
+        1. Permitir Endereço de IP
+           - Liberar IPs bloqueados
+           - Acesso ao site
+
+        2. Bloquear Endereço de IP
+           - Bloquear IPs específicos
+           - Proteção contra acesso não autorizado
+
+        USO:
+        - IPs permitidos: Para liberar acesso
+        - IPs bloqueados: Para restringir acesso
+        - Notas: Documentar motivo de cada IP
+
+        LOCALIZAÇÃO:
+        Painel → Sites → mfotrust.com → Avançado → Gerenciador de IP
+    tags:
+      - "environment:vps"
+      - "service:hostinger"
+      - "type:note"
+      - "status:active"
+      - "project:mfotrust"
+    description: "Gerenciamento de IPs permitidos e bloqueados"
+
+  # Item 7: Redirecionamentos
+  - name: "HOSTINGER_REDIRECTS_MFOTRUST"
+    category: "SECURE_NOTE"
+    vault: "1p_vps"
+    fields:
+      notes: |
+        REDIRECIONAMENTOS - mfotrust.com
+
+        TIPO: Redirecionamento 301 (Permanente)
+
+        CONFIGURAÇÃO:
+        - Redirecionar: http://mfotrust.com/caminho
+        - Redirecionar para: http://dominio.com
+        - Pode usar URL ou IP
+
+        NOTA IMPORTANTE:
+        - Para HTTPS, usar opção "Forçar SSL" na área SSL
+        - Não usar redirecionamento para HTTPS
+
+        LOCALIZAÇÃO:
+        Painel → Sites → mfotrust.com → Domínios → Redirecionamentos
+    tags:
+      - "environment:vps"
+      - "service:hostinger"
+      - "type:note"
+      - "status:active"
+      - "project:mfotrust"
+    description: "Configuração de redirecionamentos 301"
+
+# Relacionamentos
+relationships:
+  - parent: "HOSTINGER_PLAN_DETAILS_MFOTRUST"
+    children:
+      - "HOSTINGER_SSH_MFOTRUST"
+      - "HOSTINGER_MYSQL_MFOTRUST"
+      - "HOSTINGER_MYSQL_REMOTE_MFOTRUST"
+      - "HOSTINGER_PHPMYADMIN_MFOTRUST"
+      - "HOSTINGER_GIT_MFOTRUST"
+      - "HOSTINGER_IP_MANAGER_MFOTRUST"
+      - "HOSTINGER_REDIRECTS_MFOTRUST"
+
+  - parent: "HOSTINGER_MYSQL_MFOTRUST"
+    children:
+      - "HOSTINGER_MYSQL_REMOTE_MFOTRUST"
+      - "HOSTINGER_PHPMYADMIN_MFOTRUST"
+
+# Validação
+validation:
+  - check: "Todos os itens devem ter tags obrigatórias"
+  - check: "Credenciais devem estar em categorias apropriadas (LOGIN, DATABASE)"
+  - check: "Informações técnicas devem estar em SECURE_NOTE"
+  - check: "Nomenclatura deve seguir padrão SERVICE_TYPE_ENV"
+  - check: "SSH deve ter status:inactive (habilitar se necessário)"
+  - check: "MySQL deve ter priority:high"
+

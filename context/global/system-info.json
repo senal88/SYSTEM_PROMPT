@@ -1,0 +1,26 @@
+{
+  "timestamp": "2025-11-17T12:04:10Z",
+  "system": {
+    "os": "Darwin",
+    "arch": "arm64",
+    "hostname": "MacBook-Pro.local",
+    "user": "luiz.sena88",
+    "home": "/Users/luiz.sena88"
+  },
+  "dotfiles": {
+    "path": "/Users/luiz.sena88/Dotfiles",
+    "version": "2.0.1"
+  },
+  "tools": {
+    "git": "2.51.2",
+    "docker": "28.5.2",
+    "node": "v25.1.0",
+    "python": "3.14.0",
+    "gcloud": "547.0.0"
+  },
+  "gcp": {
+    "project_id": "gcp-ai-setup-24410",
+    "project_number": "501288307921",
+    "region": "us-central1"
+  }
+}

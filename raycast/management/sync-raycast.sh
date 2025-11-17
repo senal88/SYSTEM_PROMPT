@@ -18,7 +18,7 @@ info() { echo -e "${BLUE}[INFO]${NC} $1"; }
 
 # Configurações
 RAYCAST_SRC="$HOME/Library/Application Support/com.raycast.macos"
-RAYCAST_BACKUP="$HOME/Dotfiles/raycast-profile"
+RAYCAST_BACKUP="$DOTFILES_HOME/raycast-profile"
 DIRECTION="${1:-both}"  # both, to-backup, to-raycast
 EXCLUDE_SQLITE="${2:-false}"
 

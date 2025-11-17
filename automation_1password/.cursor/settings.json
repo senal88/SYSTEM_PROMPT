@@ -1,0 +1,109 @@
+{
+  // ============================================================================
+  // Configurações Cursor IDE - Otimizadas para Performance
+  // Resolve: "Waiting for code actions from 'X'"
+  // ============================================================================
+
+  // Desabilitar code actions automáticas globalmente (evita "Waiting...")
+  "editor.codeActionsOnSave": {},
+  "editor.codeActionsOnSaveTimeout": 750,
+
+  // Code actions apenas para Markdown (se necessário)
+  "[markdown]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.markdownlint": "explicit"
+    },
+    "editor.codeActionsOnSaveTimeout": 2000
+  },
+
+  // Desabilitar code actions para outras linguagens que causam delay
+  "[typescript]": {
+    "editor.codeActionsOnSave": {}
+  },
+  "[typescriptreact]": {
+    "editor.codeActionsOnSave": {}
+  },
+  "[javascript]": {
+    "editor.codeActionsOnSave": {}
+  },
+  "[javascriptreact]": {
+    "editor.codeActionsOnSave": {}
+  },
+  "[json]": {
+    "editor.codeActionsOnSave": {}
+  },
+  "[jsonc]": {
+    "editor.codeActionsOnSave": {}
+  },
+  "[yaml]": {
+    "editor.codeActionsOnSave": {}
+  },
+  "[python]": {
+    "editor.codeActionsOnSave": {}
+  },
+  "[bash]": {
+    "editor.codeActionsOnSave": {}
+  },
+  "[shellscript]": {
+    "editor.codeActionsOnSave": {}
+  },
+
+  // Performance: Desabilitar features que causam delay
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": false,
+    "strings": false
+  },
+  "editor.suggestOnTriggerCharacters": true,
+  "editor.acceptSuggestionOnCommitCharacter": false,
+
+  // Gemini Code Assist - Configurações otimizadas
+  "geminiCodeAssist.enabled": true,
+  "geminiCodeAssist.codeActions": false,  // Desabilitar code actions do Gemini
+  "geminiCodeAssist.quickFix": false,     // Desabilitar quick fix automático
+
+  // Tailwind CSS IntelliSense - Desabilitar code actions
+  "tailwindCSS.experimental.classRegex": [],
+  "tailwindCSS.codeActions": false,
+
+  // Markdownlint - Apenas warnings, sem auto-fix on save
+  "markdownlint.config": {
+    "default": true,
+    "MD013": false,
+    "MD033": false
+  },
+
+  // Outras otimizações de performance
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/.cursor/**": true,
+    "**/dist/**": true,
+    "**/build/**": true
+  },
+
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/.git": true,
+    "**/.cursor": true
+  },
+
+  // Editor performance
+  "editor.renderWhitespace": "boundary",
+  "editor.minimap.enabled": true,
+  "editor.wordWrap": "off",
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
+
+  // Terminal
+  "terminal.integrated.scrollback": 10000,
+  "terminal.integrated.fastScrollSensitivity": 5,
+
+  // Extensions - Desabilitar features que causam delay
+  "extensions.autoCheckUpdates": false,
+  "extensions.autoUpdate": false
+}
+

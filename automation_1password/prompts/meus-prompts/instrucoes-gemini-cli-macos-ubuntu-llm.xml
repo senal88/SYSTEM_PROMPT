@@ -973,3 +973,4 @@ echo "✅ Serviço systemd criado (não habilitado por padrão)"
         </referencias_externas>
     </metadados_llm>
 </instrucoes_gemini_cli>
+

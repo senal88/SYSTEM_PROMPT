@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# === CONFIGURAÇÕES =============================================
+ROOT="$HOME/Dotfiles/automation_1password"
+REPORT="$ROOT/ARCHITECTURE_REPORT.md"
+TMP_REPORT="$ROOT/.tmp_tree.txt"
+
+echo "📦 Exportando arquitetura de: $ROOT"
+cd "$ROOT"
+
+# === GERA TREE =================================================
+echo "📁 Gerando estrutura completa..."
+find . -type d -not -path '*/\.*' | sort > "$TMP_REPORT"
+
+# === EXPORTA RELATÓRIO MARKDOWN ================================
+{
+echo "# 🧱 Arquitetura Atual – automation_1password"
+echo ""
+echo "**Gerado automaticamente:** $(date '+%Y-%m-%d %H:%M:%S')"
+echo ""
+echo "## �� Estrutura Completa"
+echo '```'
+tree -a -I '.git|node_modules|__pycache__|*.log|*.tmp|*.DS_Store' .
+echo '```'
+echo ""
+echo "## 🔍 Duplicidades e Inconsistências"
+echo ""
+echo "### 🔸 Diretórios duplicados"
+find . -type d | awk -F/ '{print $NF}' | sort | uniq -d | sed 's/^/- /' || true
+echo ""
+echo "### 🔸 Arquivos duplicados"
+find . -type f -not -path '*/\.*' -exec basename {} \; | sort | uniq -d | sed 's/^/- /' || true
+echo ""
+echo "### 🔸 Arquivos maiores que 10MB"
+find . -type f -size +10M -exec du -h {} + | sort -rh | sed 's/^/- /' || echo "Nenhum arquivo grande encontrado."
+echo ""
+echo "### 🔸 Scripts sem permissão executável"
+find scripts -type f -name "*.sh" ! -perm -u=x -print | sed 's/^/- /' || echo "Nenhum script inválido."
+echo ""
+echo "## 🧩 Sugestão de Reorganização"
+echo "- Mover arquivos .env e .json sensíveis para 'connect/' ou 'configs/'"
+echo "- Consolidar templates duplicados em 'templates/env/'"
+echo "- Garantir Makefile principal na raiz"
+echo "- Atualizar README.md com links reais de cada módulo"
+echo ""
+echo "## 📘 README.md Validação"
+if [ -f README.md ]; then
+  echo "- Linhas Totais: $(wc -l < README.md)"
+  echo "- Contém seção Quick Start? $(grep -q 'Quick Start' README.md && echo '✅ Sim' || echo '❌ Não')"
+  echo "- Contém seção Segurança? $(grep -q 'Segurança' README.md && echo '✅ Sim' || echo '❌ Não')"
+  echo "- Contém seção Workflows? $(grep -q 'Workflow' README.md && echo '✅ Sim' || echo '❌ Não')"
+else
+  echo "❌ README.md não encontrado."
+fi
+echo ""
+echo "## ✅ Próximos Passos"
+echo "1. Validar duplicidades listadas acima"
+echo "2. Atualizar README.md conforme o novo layout"
+echo "3. Executar scripts de validação:"
+echo "   - bash scripts/validation/validate_environment_macos.sh"
+echo "   - bash scripts/validation/validate_organization.sh"
+echo "4. Regerar diagramas no Cursor IDE"
+} > "$REPORT"
+
+# === EXIBE RESULTADO ===========================================
+echo "📄 Relatório gerado em: $REPORT"
+echo ""
+echo "📊 Resumo da Arquitetura:"
+echo "- Diretórios: $(find . -type d ! -path '*/\.*' | wc -l | tr -d ' ')"
+echo "- Arquivos: $(find . -type f ! -path '*/\.*' | wc -l | tr -d ' ')"
+echo "- Scripts: $(find scripts -type f -name "*.sh" 2>/dev/null | wc -l | tr -d ' ')"
+echo "- Documentação: $(find . -name "*.md" ! -path '*/\.*' | wc -l | tr -d ' ')"
+echo ""
+echo "✅ Relatório completo disponível em: ARCHITECTURE_REPORT.md"
+

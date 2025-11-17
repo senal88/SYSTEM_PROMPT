@@ -1,0 +1,138 @@
+{
+  // ==========================================
+  // DEVCONTAINER - TEMPLATE UNIVERSAL
+  // Versão: 2.0.1
+  // Compatibilidade: VSCode, Cursor, GitHub Codespaces
+  // ==========================================
+
+  "name": "Universal Development Container",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+
+  // Features do DevContainer
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20"
+    },
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.11",
+      "installTools": true
+    },
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "latest",
+      "dockerDashComposeVersion": "v2"
+    },
+    "ghcr.io/devcontainers/features/git:1": {
+      "version": "latest",
+      "ppa": true
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "installOhMyZsh": true,
+      "upgradePackages": true,
+      "username": "vscode",
+      "uid": "1000",
+      "gid": "1000"
+    }
+  },
+
+  // Customizações do Editor
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "editor.fontSize": 13,
+        "editor.fontFamily": "'SF Mono', Monaco, 'Courier New', monospace",
+        "editor.lineHeight": 1.6,
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "files.autoSave": "afterDelay",
+        "files.autoSaveDelay": 1000,
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.linting.enabled": true,
+        "python.formatting.provider": "black"
+      },
+      "extensions": [
+        "esbenp.prettier-vscode",
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.black-formatter",
+        "golang.go",
+        "rust-lang.rust-analyzer",
+        "ms-vscode-remote.remote-containers",
+        "eamodio.gitlens",
+        "ms-azuretools.vscode-docker",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "dbaeumer.vscode-eslint",
+        "ms-vscode.vscode-typescript-next"
+      ]
+    },
+    "cursor": {
+      "settings": {
+        "editor.fontSize": 13,
+        "editor.fontFamily": "'SF Mono', Monaco",
+        "editor.formatOnSave": true,
+        "cursor.ai.enabled": true
+      }
+    }
+  },
+
+  // Portas Forward
+  "forwardPorts": [3000, 8000, 8080, 5000, 5432, 6379],
+  "portsAttributes": {
+    "3000": {
+      "label": "Web App",
+      "onAutoForward": "notify"
+    },
+    "8000": {
+      "label": "API Server",
+      "onAutoForward": "notify"
+    },
+    "5432": {
+      "label": "PostgreSQL",
+      "onAutoForward": "silent"
+    },
+    "6379": {
+      "label": "Redis",
+      "onAutoForward": "silent"
+    }
+  },
+
+  // Comandos Pós-Criação
+  "postCreateCommand": "bash .devcontainer/post-create.sh && bash .devcontainer/context-setup.sh || true",
+  "postStartCommand": "echo 'DevContainer iniciado!'",
+
+  // Usuário Remoto
+  "remoteUser": "vscode",
+
+  // Mounts
+  "mounts": [
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,consistency=cached"
+  ],
+
+  // Variáveis de Ambiente
+  "containerEnv": {
+    "DEBIAN_FRONTEND": "noninteractive",
+    "NODE_ENV": "development",
+    "DOTFILES_DIR": "${containerEnv:HOME}/Dotfiles",
+    "GCP_PROJECT_ID": "gcp-ai-setup-24410",
+    "GCP_PROJECT_NUMBER": "501288307921",
+    "GCP_REGION": "us-central1"
+  },
+
+  // Comandos de Atualização
+  "updateContentCommand": "npm install && pip install -r requirements.txt || true",
+
+  // Configurações Adicionais
+  "remoteEnv": {
+    "PATH": "${containerEnv:PATH}:/home/vscode/.local/bin"
+  },
+
+  // Comandos de Limpeza
+  "shutdownAction": "stopContainer"
+}

@@ -1,0 +1,160 @@
+#!/bin/bash
+# path-demo.sh - Demonstração de como trato o caminho home
+
+set -euo pipefail
+
+# Cores para output
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+CYAN='\033[0;36m'
+WHITE='\033[1;37m'
+NC='\033[0m'
+
+echo -e "${WHITE}🔍 DEMONSTRAÇÃO DE TRATAMENTO DO CAMINHO HOME${NC}"
+echo -e "${WHITE}==============================================${NC}"
+echo ""
+
+# 1. Variáveis de ambiente padrão
+echo -e "${CYAN}📁 VARIÁVEIS DE AMBIENTE PADRÃO:${NC}"
+echo "----------------------------------------"
+echo "HOME: $HOME"
+echo "USER: $USER"
+echo "PWD: $PWD"
+echo ""
+
+# 2. Caminhos absolutos
+echo -e "${CYAN}📂 CAMINHOS ABSOLUTOS:${NC}"
+echo "------------------------"
+echo "Home do usuário: /Users/luiz.sena88"
+echo "Diretório atual: $(pwd)"
+echo "Diretório alvo: /Users/luiz.sena88/Dotfiles/automacao_1password"
+echo ""
+
+# 3. Verificação de existência
+echo -e "${CYAN}🔍 VERIFICAÇÃO DE EXISTÊNCIA:${NC}"
+echo "-----------------------------------"
+
+TARGET_DIR="/Users/luiz.sena88/Dotfiles/automacao_1password"
+
+if [ -d "$TARGET_DIR" ]; then
+    echo -e "${GREEN}✅ Diretório existe: $TARGET_DIR${NC}"
+else
+    echo -e "${YELLOW}❌ Diretório não encontrado: $TARGET_DIR${NC}"
+fi
+
+if [ -r "$TARGET_DIR" ]; then
+    echo -e "${GREEN}✅ Permissão de leitura: OK${NC}"
+else
+    echo -e "${YELLOW}❌ Sem permissão de leitura${NC}"
+fi
+
+if [ -w "$TARGET_DIR" ]; then
+    echo -e "${GREEN}✅ Permissão de escrita: OK${NC}"
+else
+    echo -e "${YELLOW}❌ Sem permissão de escrita${NC}"
+fi
+
+if [ -x "$TARGET_DIR" ]; then
+    echo -e "${GREEN}✅ Permissão de execução: OK${NC}"
+else
+    echo -e "${YELLOW}❌ Sem permissão de execução${NC}"
+fi
+
+echo ""
+
+# 4. Estrutura de diretórios
+echo -e "${CYAN}📊 ESTRUTURA DE DIRETÓRIOS:${NC}"
+echo "--------------------------------"
+echo "Conteúdo do diretório alvo:"
+ls -la "$TARGET_DIR" | head -10
+
+echo ""
+
+# 5. Estatísticas básicas
+echo -e "${CYAN}📈 ESTATÍSTICAS BÁSICAS:${NC}"
+echo "----------------------------"
+TOTAL_ITEMS=$(find "$TARGET_DIR" -maxdepth 1 -not -path "$TARGET_DIR" | wc -l | tr -d ' ')
+TOTAL_DIRS=$(find "$TARGET_DIR" -maxdepth 1 -type d -not -path "$TARGET_DIR" | wc -l | tr -d ' ')
+TOTAL_FILES=$(find "$TARGET_DIR" -maxdepth 1 -type f | wc -l | tr -d ' ')
+
+echo "Total de itens: $TOTAL_ITEMS"
+echo "Diretórios: $TOTAL_DIRS"
+echo "Arquivos: $TOTAL_FILES"
+
+# 6. Tamanho total
+TOTAL_SIZE=$(du -sk "$TARGET_DIR" 2>/dev/null | cut -f1)
+if [ -n "$TOTAL_SIZE" ]; then
+    if [ "$TOTAL_SIZE" -lt 1024 ]; then
+        SIZE_FORMATTED="${TOTAL_SIZE}KB"
+    elif [ "$TOTAL_SIZE" -lt 1048576 ]; then
+        SIZE_FORMATTED="$((TOTAL_SIZE / 1024))MB"
+    else
+        SIZE_FORMATTED="$((TOTAL_SIZE / 1048576))GB"
+    fi
+    echo "Tamanho total: $SIZE_FORMATTED"
+else
+    echo "Tamanho total: Não disponível"
+fi
+
+echo ""
+
+# 7. URLs completas (como você solicitou)
+echo -e "${CYAN}🌐 URLs COMPLETAS:${NC}"
+echo "-------------------"
+echo "file://$TARGET_DIR"
+echo "file://$TARGET_DIR/docs/"
+echo "file://$TARGET_DIR/configs/"
+echo "file://$TARGET_DIR/archives/"
+
+echo ""
+
+# 8. Caminhos relativos
+echo -e "${CYAN}📂 CAMINHOS RELATIVOS:${NC}"
+echo "----------------------------"
+RELATIVE_PATH="${TARGET_DIR#$HOME}"
+echo "Caminho relativo ao home: $RELATIVE_PATH"
+echo "Caminho relativo ao PWD: $(realpath --relative-to="$(pwd)" "$TARGET_DIR" 2>/dev/null || echo "N/A")"
+
+echo ""
+
+# 9. Demonstração de como os scripts tratam o caminho
+echo -e "${CYAN}🔧 COMO OS SCRIPTS TRATAM O CAMINHO:${NC}"
+echo "--------------------------------------------"
+
+# Simular o tratamento do script permissions-checker.sh
+echo "1. Verificação de existência:"
+if [ ! -d "$TARGET_DIR" ]; then
+    echo "   ❌ Diretório não encontrado: $TARGET_DIR"
+    exit 1
+else
+    echo "   ✅ Diretório encontrado: $TARGET_DIR"
+fi
+
+echo ""
+echo "2. Verificação de permissões:"
+if [ ! -r "$TARGET_DIR" ]; then
+    echo "   ❌ Sem permissão de leitura: $TARGET_DIR"
+    exit 1
+else
+    echo "   ✅ Permissão de leitura: OK"
+fi
+
+echo ""
+echo "3. Processamento recursivo:"
+echo "   📁 Analisando: $TARGET_DIR"
+echo "   📊 Profundidade máxima: 3"
+echo "   🔍 Processando itens..."
+
+# Simular processamento de alguns itens
+find "$TARGET_DIR" -maxdepth 1 -not -path "$TARGET_DIR" | head -5 | while read -r item; do
+    if [ -d "$item" ]; then
+        echo "   📁 $(basename "$item") (diretório)"
+    else
+        echo "   📄 $(basename "$item") (arquivo)"
+    fi
+done
+
+echo ""
+echo -e "${GREEN}✅ Demonstração concluída!${NC}"
+echo -e "${GREEN}   Os scripts tratam o caminho home de forma absoluta e segura${NC}"

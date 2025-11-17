@@ -1,0 +1,540 @@
+#!/usr/bin/env bash
+# setup-claude-cloud-complete.sh
+# Setup completo e integração 100% do Claude Cloud com governança automatizada
+
+set -euo pipefail
+
+# Cores
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+MAGENTA='\033[0;35m'
+NC='\033[0m'
+
+# Diretórios
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_DIR="$HOME/Dotfiles"
+CONTEXT_DIR="$DOTFILES_DIR/context-engineering"
+CLAUDE_KNOWLEDGE_DIR="$DOTFILES_DIR/claude-cloud-knowledge"
+OP_CONFIG_DIR="$HOME/.config/op"
+
+# Funções de logging
+log_info() { echo -e "${BLUE}ℹ${NC} $1"; }
+log_success() { echo -e "${GREEN}✅${NC} $1"; }
+log_error() { echo -e "${RED}❌${NC} $1" >&2; }
+log_warning() { echo -e "${YELLOW}⚠️${NC} $1"; }
+log_section() {
+    echo ""
+    echo -e "${CYAN}════════════════════════════════════════${NC}"
+    echo -e "${CYAN}$1${NC}"
+    echo -e "${CYAN}════════════════════════════════════════${NC}"
+    echo ""
+}
+
+# Configurar 1Password CLI
+setup_1password() {
+    log_section "🔐 Configurando 1Password CLI"
+
+    if ! command -v op &> /dev/null; then
+        log_error "1Password CLI não encontrado"
+        return 1
+    fi
+
+    # Verificar autenticação
+    if ! op whoami &>/dev/null; then
+        log_warning "Não autenticado no 1Password. Fazendo login..."
+        op signin || {
+            log_error "Falha ao fazer login no 1Password"
+            return 1
+        }
+    fi
+
+    log_success "1Password CLI configurado"
+}
+
+# Obter credenciais do 1Password
+get_credential() {
+    local item_name="$1"
+    local vault="${2:-1p_macos}"
+    local field="${3:-credential}"
+
+    # Tentar diferentes nomes e vaults
+    op item get "$item_name" --vault "$vault" --fields "$field" --reveal 2>/dev/null || \
+    op item get "$item_name" --vault "1p_vps" --fields "$field" --reveal 2>/dev/null || \
+    op item get "$item_name" --vault "1p_macos" --fields "password" --reveal 2>/dev/null || \
+    echo ""
+}
+
+# Verificar e configurar ANTHROPIC_API_KEY
+setup_anthropic_api_key() {
+    log_section "🔑 Configurando ANTHROPIC_API_KEY"
+
+    API_KEY=$(get_credential "ce5jhu6mivh4g63lzfxlj3r2cu" "1p_macos" "credential" || \
+              get_credential "Anthropic-API" "1p_macos" "credential")
+
+    if [ -z "$API_KEY" ]; then
+        log_error "ANTHROPIC_API_KEY não encontrada no 1Password"
+        return 1
+    fi
+
+    export ANTHROPIC_API_KEY="$API_KEY"
+
+    # Adicionar ao shell config
+    local shell_config
+    if [ -n "${ZSH_VERSION:-}" ]; then
+        shell_config="$HOME/.zshrc"
+    else
+        shell_config="$HOME/.bashrc"
+    fi
+
+    if ! grep -q "ANTHROPIC_API_KEY" "$shell_config" 2>/dev/null; then
+        cat >> "$shell_config" << 'EOF'
+
+# Claude Cloud - ANTHROPIC_API_KEY do 1Password
+if command -v op &> /dev/null && [ -f "$HOME/.config/op/op_config.sh" ]; then
+    source "$HOME/.config/op/op_config.sh" 2>/dev/null || true
+    export ANTHROPIC_API_KEY=$(op item get "ce5jhu6mivh4g63lzfxlj3r2cu" --vault "1p_macos" --fields "credential" --reveal 2>/dev/null || \
+                     op item get "Anthropic-API" --vault "1p_macos" --fields "credential" --reveal 2>/dev/null || \
+                     echo "")
+fi
+EOF
+        log_success "ANTHROPIC_API_KEY configurada no $shell_config"
+    fi
+
+    log_success "ANTHROPIC_API_KEY configurada (${#API_KEY} caracteres)"
+}
+
+# Verificar Claude Code
+setup_claude_code() {
+    log_section "🤖 Verificando Claude Code"
+
+    if command -v claude &> /dev/null; then
+        log_success "Claude Code instalado: $(claude --version 2>/dev/null || echo 'v2.0.33+')"
+
+        # Verificar se está autenticado
+        if [ -n "${ANTHROPIC_API_KEY:-}" ]; then
+            log_success "ANTHROPIC_API_KEY configurada"
+        else
+            log_warning "ANTHROPIC_API_KEY não configurada nesta sessão"
+        fi
+    else
+        log_warning "Claude Code não encontrado no PATH"
+        log_info "Execute: npm install -g @anthropic-ai/claude-code"
+    fi
+}
+
+# Configurar Claude Desktop
+setup_claude_desktop() {
+    log_section "🖥️  Configurando Claude Desktop"
+
+    if [[ "$OSTYPE" != "darwin"* ]]; then
+        log_warning "Claude Desktop disponível apenas no macOS"
+        return 0
+    fi
+
+    CLAUDE_CONFIG="$HOME/Library/Application Support/Claude/claude_desktop_config.json"
+    CLAUDE_CONFIG_SOURCE="$CLAUDE_KNOWLEDGE_DIR/01_CONFIGURACOES/claude_desktop_config.json"
+
+    mkdir -p "$(dirname "$CLAUDE_CONFIG")"
+
+    if [ -f "$CLAUDE_CONFIG_SOURCE" ]; then
+        # Fazer backup se existir
+        if [ -f "$CLAUDE_CONFIG" ]; then
+            cp "$CLAUDE_CONFIG" "${CLAUDE_CONFIG}.backup.$(date +%Y%m%d_%H%M%S)"
+        fi
+
+        cp "$CLAUDE_CONFIG_SOURCE" "$CLAUDE_CONFIG"
+        log_success "Claude Desktop configurado"
+    else
+        log_warning "Arquivo de configuração não encontrado: $CLAUDE_CONFIG_SOURCE"
+    fi
+}
+
+# Criar estrutura de governança de dados
+setup_data_governance() {
+    log_section "📊 Configurando Governança de Dados"
+
+    GOVERNANCE_DIR="$CONTEXT_DIR/governance"
+    mkdir -p "$GOVERNANCE_DIR"
+
+    # Estrutura de governança
+    cat > "$GOVERNANCE_DIR/README.md" << 'EOF'
+# Governança de Dados para LLMs
+
+## 📋 Estrutura
+
+- `policies/` - Políticas de governança
+- `schemas/` - Schemas de validação
+- `audit/` - Logs de auditoria
+- `automation/` - Scripts de automação
+
+## 🔄 Atualização Automática
+
+Os scripts de governança são executados automaticamente via cron ou sistema de agendamento.
+EOF
+
+    mkdir -p "$GOVERNANCE_DIR"/{policies,schemas,audit,automation}
+
+    log_success "Estrutura de governança criada"
+}
+
+# Criar script de atualização automática
+create_auto_update_script() {
+    log_section "🔄 Criando Script de Atualização Automática"
+
+    UPDATE_SCRIPT="$CONTEXT_DIR/governance/automation/update-claude-context.sh"
+
+    cat > "$UPDATE_SCRIPT" << 'SCRIPT_EOF'
+#!/usr/bin/env bash
+# update-claude-context.sh
+# Atualização automática de contexto para Claude Cloud
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+CONTEXT_DIR="$(cd "$SCRIPT_DIR/../.." && pwd)"
+DOTFILES_DIR="$(dirname "$CONTEXT_DIR")"
+CLAUDE_KNOWLEDGE_DIR="$DOTFILES_DIR/claude-cloud-knowledge"
+LOG_FILE="$CONTEXT_DIR/governance/audit/update-$(date +%Y%m%d).log"
+
+log_with_timestamp() {
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1" | tee -a "$LOG_FILE"
+}
+
+log_with_timestamp "🔄 Iniciando atualização automática de contexto"
+
+# 1. Verificar autenticação
+if ! op whoami &>/dev/null; then
+    log_with_timestamp "❌ Não autenticado no 1Password"
+    exit 1
+fi
+
+# 2. Executar script de consolidação
+if [ -f "$CONTEXT_DIR/scripts/consolidate-docs-for-claude.sh" ]; then
+    log_with_timestamp "📚 Consolidando documentação"
+    "$CONTEXT_DIR/scripts/consolidate-docs-for-claude.sh" >> "$LOG_FILE" 2>&1
+fi
+
+# 3. Executar script de automação Claude Cloud
+if [ -f "$CONTEXT_DIR/scripts/auto-config-claude-cloud.py" ]; then
+    log_with_timestamp "🤖 Executando automação Claude Cloud"
+    python3 "$CONTEXT_DIR/scripts/auto-config-claude-cloud.py" >> "$LOG_FILE" 2>&1
+fi
+
+# 4. Validar arquivos gerados
+log_with_timestamp "✅ Atualização concluída"
+
+SCRIPT_EOF
+
+    chmod +x "$UPDATE_SCRIPT"
+    log_success "Script de atualização criado: $UPDATE_SCRIPT"
+}
+
+# Configurar cron job para atualização automática
+setup_cron_job() {
+    log_section "⏰ Configurando Atualização Automática"
+
+    UPDATE_SCRIPT="$CONTEXT_DIR/governance/automation/update-claude-context.sh"
+
+    # Criar cron job (diário às 2h da manhã)
+    CRON_JOB="0 2 * * * $UPDATE_SCRIPT"
+
+    # Verificar se já existe
+    if crontab -l 2>/dev/null | grep -q "$UPDATE_SCRIPT"; then
+        log_warning "Cron job já existe"
+    else
+        log_info "Adicionando cron job para atualização diária às 2h"
+        (crontab -l 2>/dev/null; echo "$CRON_JOB") | crontab -
+        log_success "Cron job configurado"
+    fi
+}
+
+# Validar integrações
+validate_integrations() {
+    log_section "✅ Validando Integrações"
+
+    local errors=0
+
+    # Verificar 1Password
+    if command -v op &> /dev/null; then
+        if op whoami &>/dev/null; then
+            log_success "1Password: Autenticado"
+        else
+            log_error "1Password: Não autenticado"
+            errors=$((errors + 1))
+        fi
+    else
+        log_error "1Password: CLI não instalado"
+        errors=$((errors + 1))
+    fi
+
+    # Verificar ANTHROPIC_API_KEY
+    if [ -n "${ANTHROPIC_API_KEY:-}" ]; then
+        log_success "ANTHROPIC_API_KEY: Configurada (${#ANTHROPIC_API_KEY} caracteres)"
+    else
+        log_warning "ANTHROPIC_API_KEY: Não configurada nesta sessão"
+    fi
+
+    # Verificar Claude Code
+    if command -v claude &> /dev/null; then
+        log_success "Claude Code: Instalado"
+    else
+        log_warning "Claude Code: Não encontrado"
+    fi
+
+    # Verificar estrutura de diretórios
+    if [ -d "$CLAUDE_KNOWLEDGE_DIR" ]; then
+        log_success "Claude Knowledge: Estrutura encontrada"
+    else
+        log_error "Claude Knowledge: Estrutura não encontrada"
+        errors=$((errors + 1))
+    fi
+
+    # Verificar scripts
+    local scripts=(
+        "scripts/sync-profiles.sh"
+        "scripts/claude-code-setup.sh"
+        "scripts/auto-config-claude-cloud.py"
+    )
+
+    for script in "${scripts[@]}"; do
+        if [ -f "$CONTEXT_DIR/$script" ]; then
+            log_success "Script: $script encontrado"
+        else
+            log_warning "Script: $script não encontrado"
+        fi
+    done
+
+    return $errors
+}
+
+# Criar documento de melhores práticas atualizado
+create_best_practices() {
+    log_section "📚 Criando Documento de Melhores Práticas"
+
+    BEST_PRACTICES="$CONTEXT_DIR/MELHORES_PRATICAS.md"
+
+    cat > "$BEST_PRACTICES" << 'EOF'
+# Melhores Práticas - Engenharia de Contexto e Governança de Dados
+
+## 🎯 Princípios Fundamentais
+
+### 1. Contexto Rico e Estruturado
+- Sempre fornecer contexto completo do ambiente
+- Organizar informações hierarquicamente
+- Usar templates padronizados
+- Manter documentação atualizada
+
+### 2. Segurança e Autenticação
+- **NUNCA** hardcodar secrets
+- Usar 1Password para todos os tokens
+- Rotacionar credenciais regularmente
+- Validar autenticação antes de operações críticas
+
+### 3. Governança de Dados
+- Estrutura de dados padronizada
+- Validação automática de schemas
+- Auditoria de mudanças
+- Versionamento de configurações
+
+### 4. Automação e Atualização
+- Scripts reutilizáveis e idempotentes
+- Atualização automática de contexto
+- Backup antes de mudanças
+- Logging de todas as operações
+
+## 🔐 Autenticação e Credenciais
+
+### Fluxo de Autenticação
+
+1. **1Password CLI**: Fonte única de verdade para secrets
+2. **Variáveis de Ambiente**: Configuradas via shell config
+3. **Validação**: Verificar antes de usar
+4. **Rotação**: Processo automatizado
+
+### Credenciais Principais
+
+| Credencial | Fonte | Uso |
+|------------|-------|-----|
+| ANTHROPIC_API_KEY | 1Password (ID: ce5jhu6mivh4g63lzfxlj3r2cu) | Claude API |
+| GitHub Token | 1Password | GitHub CLI |
+| Hugging Face Token | 1Password | HF CLI |
+| SSH Keys | 1Password | Git/Acesso remoto |
+
+## 📊 Governança de Dados Automatizada
+
+### Estrutura de Governança
+
+```
+governance/
+├── policies/          # Políticas de governança
+├── schemas/           # Schemas de validação
+├── audit/             # Logs de auditoria
+└── automation/        # Scripts de automação
+```
+
+### Processo de Atualização Automática
+
+1. **Diário (2h da manhã)**:
+   - Consolidar documentação
+   - Atualizar contexto Claude Cloud
+   - Validar configurações
+   - Gerar relatórios
+
+2. **Sempre que necessário**:
+   - Executar `sync-profiles.sh` após mudanças
+   - Executar `auto-config-claude-cloud.py` após atualizações
+   - Validar autenticação antes de operações críticas
+
+### Validação Automática
+
+- Schemas JSON para configurações
+- Validação de paths e permissões
+- Verificação de integridade de arquivos
+- Testes de conectividade de APIs
+
+## 🔄 Sincronização Entre Ambientes
+
+### Fluxo de Sincronização
+
+1. **Desenvolvimento (macOS)**:
+   - Fazer mudanças locais
+   - Testar configurações
+   - Commitar no Git
+
+2. **Sincronização**:
+   - Git push para repositório
+   - Pull no VPS
+   - Executar `sync-profiles.sh`
+
+3. **Validação**:
+   - Verificar diferenças
+   - Testar configurações
+   - Documentar mudanças
+
+## 📝 Estrutura de Contexto para LLMs
+
+### Organização Hierárquica
+
+```
+Claude Cloud Knowledge/
+├── 00_CONTEXTO_GLOBAL/    # Contexto base (sempre carregado primeiro)
+├── 01_CONFIGURACOES/      # Configurações e autenticação
+├── 02_PROJETO_BNI/        # Contexto específico do projeto
+├── 03_AUTOMACAO/          # Scripts e automações
+├── 04_REFERENCIAS/        # Referências e guias
+├── 05_SKILLS/             # Skills e especializações
+└── 06_MCP/                # MCP servers e configuração
+```
+
+### Princípios de Organização
+
+1. **Progressividade**: Do geral para o específico
+2. **Modularidade**: Cada seção independente
+3. **Rastreabilidade**: Versionamento e auditoria
+4. **Atualização**: Processo automatizado
+
+## 🤖 Automação de Contexto
+
+### Scripts Principais
+
+1. **consolidate-docs-for-claude.sh**:
+   - Consolida documentação de múltiplas fontes
+   - Gera arquivos estruturados
+   - Valida formato e conteúdo
+
+2. **auto-config-claude-cloud.py**:
+   - Verifica MCP conectado
+   - Revisa arquivos de contexto
+   - Gera prompt para upload
+   - Cria relatório
+
+3. **sync-profiles.sh**:
+   - Sincroniza VSCode/Cursor
+   - Atualiza Cursor Rules
+   - Mantém consistência entre ambientes
+
+### Gatilhos de Atualização
+
+- **Mudanças em dotfiles**: Git hooks
+- **Atualização diária**: Cron job
+- **Mudanças em configurações**: Scripts de setup
+- **Novas integrações**: Scripts específicos
+
+## 🔍 Validação e Qualidade
+
+### Checklist de Validação
+
+Antes de fazer upload no Claude Cloud:
+
+- [ ] Todos os arquivos revisados
+- [ ] Autenticação verificada
+- [ ] Paths validados
+- [ ] Sem secrets hardcoded
+- [ ] Documentação atualizada
+- [ ] Scripts testados
+
+### Testes Automáticos
+
+- Validação de JSON/YAML
+- Verificação de paths
+- Testes de conectividade
+- Validação de schemas
+
+## 📚 Referências
+
+- [Context Engineering Best Practices](https://docs.anthropic.com/claude/docs)
+- [Governança de Dados](governance/policies/)
+- [Templates](templates/)
+
+---
+
+**Última atualização**: 2025-01-15
+**Status**: ✅ Implementado
+EOF
+
+    log_success "Documento de melhores práticas criado"
+}
+
+# Função principal
+main() {
+    echo -e "${MAGENTA}════════════════════════════════════════${NC}"
+    echo -e "${MAGENTA}🚀 Setup Completo Claude Cloud${NC}"
+    echo -e "${MAGENTA}════════════════════════════════════════${NC}"
+    echo ""
+    echo -e "${BLUE}Sistema:${NC} $(uname -s)"
+    echo -e "${BLUE}Usuário:${NC} $(whoami)"
+    echo ""
+
+    # Executar todas as etapas
+    setup_1password || exit 1
+    setup_anthropic_api_key || exit 1
+    setup_claude_code
+    setup_claude_desktop
+    setup_data_governance
+    create_auto_update_script
+    create_best_practices
+
+    # Sincronizar perfis
+    log_section "🔄 Sincronizando Perfis"
+    "$CONTEXT_DIR/scripts/sync-profiles.sh" || log_warning "Falha na sincronização de perfis"
+
+    # Validar tudo
+    validate_integrations
+
+    log_section "✅ Setup Concluído"
+
+    echo -e "${GREEN}✅ Claude Cloud 100% integrado e configurado${NC}"
+    echo ""
+    echo -e "${BLUE}📝 Próximos passos:${NC}"
+    echo "   1. Recarregue seu shell: source ~/.zshrc"
+    echo "   2. Verifique autenticação: op whoami"
+    echo "   3. Teste Claude Code: claude doctor"
+    echo "   4. Execute atualização: ./governance/automation/update-claude-context.sh"
+    echo ""
+}
+
+main "$@"
+

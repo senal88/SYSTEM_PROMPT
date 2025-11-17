@@ -1,0 +1,154 @@
+# Tags Válidas - Sistema de Padronização
+# Versão: 1.0.0
+# Última Atualização: 2025-11-17
+
+# Namespaces válidos e seus valores permitidos
+namespaces:
+  environment:
+    values:
+      - macos
+      - vps
+      - shared
+      - production
+      - development
+      - staging
+    required: false
+    description: "Ambiente onde a credencial é usada"
+
+  service:
+    values:
+      - openai
+      - anthropic
+      - google
+      - github
+      - gitlab
+      - docker
+      - cloudflare
+      - hostinger
+      - postgresql
+      - redis
+      - mongodb
+      - n8n
+      - chatwoot
+      - traefik
+      - 1password
+      - huggingface
+      - perplexity
+      - cursor
+      - termius
+      - notion
+      - spotify
+      - context7
+      - projuris
+      - baserow
+      - nocodb
+      - grafana
+      - minio
+      - dify
+      - flowise
+      - librechat
+      - chromadb
+      - appsmith
+      - nextcloud
+      - m365
+      - gmail
+      - smtp
+    required: false
+    description: "Serviço/provedor da credencial"
+
+  type:
+    values:
+      - api_key
+      - token
+      - password
+      - credentials
+      - service_account
+      - ssh_key
+      - certificate
+      - license
+      - note
+    required: false
+    description: "Tipo de credencial"
+
+  status:
+    values:
+      - active
+      - inactive
+      - deprecated
+      - expired
+      - rotated
+    required: false
+    description: "Status da credencial"
+
+  project:
+    values:
+      - gemini
+      - chatwoot
+      - n8n
+      - nocodb
+      - app_tributario
+      - gestora_investimentos
+      - mfotrust
+      - senamfo
+    required: false
+    description: "Projeto específico"
+
+  priority:
+    values:
+      - critical
+      - high
+      - medium
+      - low
+    required: false
+    description: "Prioridade da credencial"
+
+# Formato de tag válido
+format:
+  pattern: "^[a-z0-9_]+:[a-z0-9_]+$"
+  description: "Formato: namespace:value (lowercase, underscore permitido)"
+
+# Tags que devem ser removidas (fora do padrão)
+tags_invalidas:
+  - "macos"  # Deve ser environment:macos
+  - "vps"   # Deve ser environment:vps
+  - "api"   # Deve ser type:api_key
+  - "key"   # Deve ser type:api_key
+  - "token" # Deve ser type:token
+  - "password" # Deve ser type:password
+  - "active" # Deve ser status:active
+  - "inactive" # Deve ser status:inactive
+  - "production" # Deve ser environment:production
+  - "development" # Deve ser environment:development
+  - "staging" # Deve ser environment:staging
+  - "critical" # Deve ser priority:critical
+  - "high" # Deve ser priority:high
+  - "medium" # Deve ser priority:medium
+  - "low" # Deve ser priority:low
+
+# Regras de migração (tags antigas -> novas)
+migration_rules:
+  "macos": "environment:macos"
+  "vps": "environment:vps"
+  "api": "type:api_key"
+  "key": "type:api_key"
+  "token": "type:token"
+  "password": "type:password"
+  "active": "status:active"
+  "inactive": "status:inactive"
+  "production": "environment:production"
+  "development": "environment:development"
+  "staging": "environment:staging"
+  "critical": "priority:critical"
+  "high": "priority:high"
+  "medium": "priority:medium"
+  "low": "priority:low"
+
+# Tags que devem ser sempre removidas (sem migração)
+tags_para_remover:
+  - "test"
+  - "temp"
+  - "old"
+  - "backup"
+  - "deprecated" # Se não for status:deprecated
+  - "expired" # Se não for status:expired
+

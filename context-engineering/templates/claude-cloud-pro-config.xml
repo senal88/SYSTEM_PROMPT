@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Claude Cloud Pro - Configurações Pessoais Globais
+    Template XML para configuração completa do Claude Cloud Pro
+
+    Versão: 1.0.0
+    Última atualização: 2025-01-15
+    Autor: Luiz Fernando Moreira Sena
+-->
+
+<ClaudeCloudProConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:schemaLocation="claude-cloud-pro-config.xsd"
+                     versao="1.0.0"
+                     dataAtualizacao="2025-01-15">
+
+    <!-- ============================================ -->
+    <!-- SEÇÃO 1: INFORMAÇÕES DO PROJETO -->
+    <!-- ============================================ -->
+    <Projeto>
+        <Nome>CLAUDE_CLOUD_PRO_CONFIG</Nome>
+        <Descricao>
+            Configurações pessoais globais para Claude Cloud Pro.
+            Sistema completo de engenharia de contexto para LLMs em múltiplos ambientes:
+            macOS Silicon, VPS Ubuntu e GitHub Codespaces.
+        </Descricao>
+        <Objetivos>
+            <Objetivo>Fornecer contexto rico e estruturado para LLMs</Objetivo>
+            <Objetivo>Configurar regras específicas por ambiente</Objetivo>
+            <Objetivo>Automatizar setup e configuração de ambientes</Objetivo>
+            <Objetivo>Integrar com ferramentas de produtividade (1Password, GitHub, Hugging Face)</Objetivo>
+        </Objetivos>
+        <Versao>1.0.0</Versao>
+    </Projeto>
+
+    <!-- ============================================ -->
+    <!-- SEÇÃO 2: IDENTIFICAÇÃO DO USUÁRIO -->
+    <!-- ============================================ -->
+    <Usuario>
+        <NomeCompleto>Luiz Fernando Moreira Sena</NomeCompleto>
+        <NomePreferido>Sena</NomeCompleto>
+        <Email>luiz.sena88@icloud.com</Email>
+        <IdiomaPadrao>pt-BR</IdiomaPadrao>
+        <FusoHorario>America/Sao_Paulo</FusoHorario>
+    </Usuario>
+
+    <!-- ============================================ -->
+    <!-- SEÇÃO 3: CONFIGURAÇÕES GLOBAIS -->
+    <!-- ============================================ -->
+    <ConfiguracoesGlobais>
+        <!-- Configurações de Idioma e Localização -->
+        <Localizacao>
+            <Idioma>pt-BR</Idioma>
+            <FormatoData>ISO 8601 (YYYY-MM-DD)</FormatoData>
+            <FormatoHora>24h</FormatoHora>
+            <Encoding>UTF-8</Encoding>
+        </Localizacao>
+
+        <!-- Configurações de Modelo Claude -->
+        <ModeloClaude>
+            <ModeloRecomendado>claude-sonnet-4.5</ModeloRecomendado>
+            <ModelosAlternativos>
+                <Modelo nome="claude-opus-4.0" uso="analises-complexas"/>
+                <Modelo nome="claude-haiku-3.5" uso="tarefas-rapidas"/>
+            </ModelosAlternativos>
+            <CapacidadeContexto>200000</CapacidadeContexto>
+            <TokensUnidade>tokens</TokensUnidade>
+        </ModeloClaude>
+
+        <!-- Configurações de Resposta -->
+        <Respostas>
+            <Idioma>pt-BR</Idioma>
+            <Estilo>claro-e-objetivo</Estilo>
+            <ComentariosCodigo>pt-BR</ComentariosCodigo>
+            <Explicacoes>detalhadas</Explicacoes>
+        </Respostas>
+    </ConfiguracoesGlobais>
+
+    <!-- ============================================ -->
+    <!-- SEÇÃO 4: PREFERÊNCIAS DO USUÁRIO -->
+    <!-- ============================================ -->
+    <PreferenciasUsuario>
+        <!-- Preferências de Notificações -->
+        <Notificacoes>
+            <ConclusaoResposta ativo="true">
+                <Descricao>Ser notificado quando Claude terminar uma resposta</Descricao>
+                <Uso>Mais útil para tarefas de longa duração como chamadas de ferramentas, Pesquisa e Claude Code Remote</Uso>
+            </ConclusaoResposta>
+            <EmailCodeRemote ativo="true">
+                <Descricao>Receber email quando o Claude Code Remote terminar de compilar ou precisar da resposta</Descricao>
+            </EmailCodeRemote>
+        </Notificacoes>
+
+        <!-- Preferências de Formatação de Código -->
+        <FormatacaoCodigo>
+            <Python>
+                <Formatador>black</Formatador>
+                <LinhaMaxima>100</LinhaMaxima>
+                <Imports>isort</Imports>
+                <TypeHints>sempre</TypeHints>
+                <Docstrings>pt-BR</Docstrings>
+                <Naming>
+                    <Variaveis>snake_case</Variaveis>
+                    <Funcoes>snake_case</Funcoes>
+                    <Classes>PascalCase</Classes>
+                </Naming>
+            </Python>
+            <Shell>
+                <Compatibilidade>bash-e-zsh</Compatibilidade>
+                <Variaveis>UPPER_SNAKE_CASE</Variaveis>
+                <Funcoes>snake_case</Funcoes>
+                <Shebang>#!/bin/bash</Shebang>
+                <TratamentoErros>set -euo pipefail</TratamentoErros>
+            </Shell>
+            <Documentacao>
+                <Idioma>pt-BR</Idioma>
+                <IncluirExemplos>true</IncluirExemplos>
+                <IncluirTroubleshooting>true</IncluirTroubleshooting>
+            </Documentacao>
+        </FormatacaoCodigo>
+
+        <!-- Preferências de Arquivos e Diretórios -->
+        <ArquivosDiretorios>
+            <NomesSemEspacos>true</NomesSemEspacos>
+            <NomesSemAcentos>true</NomesSemAcentos>
+            <FormatoData>ISO 8601</FormatoData>
+            <Encoding>UTF-8</Encoding>
+        </ArquivosDiretorios>
+    </PreferenciasUsuario>
+
+    <!-- ============================================ -->
+    <!-- SEÇÃO 5: CONFIGURAÇÕES DE AMBIENTES -->
+    <!-- ============================================ -->
+    <Ambientes>
+        <!-- Ambiente macOS Silicon (Dev) -->
+        <Ambiente nome="macos-silicon" tipo="dev">
+            <Identificacao>
+                <Hostname>MacBook-Pro</Hostname>
+                <OS>macOS</OS>
+                <VersaoOS>darwin 25.0.0</VersaoOS>
+                <Arquitetura>arm64</Arquitetura>
+                <Shell>zsh</Shell>
+                <ShellPath>/bin/zsh</ShellPath>
+                <Usuario>luiz.sena88</Usuario>
+                <Home>/Users/luiz.sena88</Home>
+            </Identificacao>
+            <EstruturaDiretorios>
+                <Dotfiles>~/Dotfiles</Dotfiles>
+                <Config>~/.config</Config>
+                <Projeto>~/database/BNI_DOCUMENTOS_BRUTOS</Projeto>
+            </EstruturaDiretorios>
+            <Ferramentas>
+                <GerenciadorPacotes>Homebrew</GerenciadorPacotes>
+                <HomebrewPath>/opt/homebrew/bin</HomebrewPath>
+                <Python>Pyenv</Python>
+                <Node>NVM</Node>
+                <Conda>Micromamba</Conda>
+            </Ferramentas>
+            <Portas>
+                <Traefik>80, 443, 8080</Traefik>
+                <Portainer>9443</Portainer>
+                <PostgreSQL>5432</PostgreSQL>
+                <NocoDB>8081</NocoDB>
+                <N8N>5678</N8N>
+                <Grafana>3000</Grafana>
+                <Redis>6379</Redis>
+                <DifyAPI>5001</DifyAPI>
+                <DifyWeb>3001</DifyWeb>
+            </Portas>
+        </Ambiente>
+
+        <!-- Ambiente VPS Ubuntu (Prod) -->
+        <Ambiente nome="vps-ubuntu" tipo="prod">
+            <Identificacao>
+                <OS>Ubuntu Linux</OS>
+                <Shell>bash</Shell>
+                <ShellAlternativo>zsh</ShellAlternativo>
+            </Identificacao>
+            <EstruturaDiretorios>
+                <Dotfiles>~/Dotfiles</Dotfiles>
+                <Config>~/.config</Config>
+                <Infra>~/infra</Infra>
+            </EstruturaDiretorios>
+            <Ferramentas>
+                <GerenciadorPacotes>apt</GerenciadorPacotes>
+            </Ferramentas>
+            <Portas>
+                <HTTP>80</HTTP>
+                <HTTPS>443</HTTPS>
+                <SSH>22</SSH>
+            </Portas>
+            <Seguranca>
+                <Firewall>UFW</Firewall>
+                <PortasAbertas>22, 80, 443</PortasAbertas>
+            </Seguranca>
+        </Ambiente>
+
+        <!-- Ambiente GitHub Codespaces -->
+        <Ambiente nome="codespace" tipo="dev">
+            <Identificacao>
+                <Plataforma>GitHub Codespaces</Plataforma>
+                <Setup>automatico</Setup>
+            </Identificacao>
+            <EstruturaDiretorios>
+                <Dotfiles>~/Dotfiles</Dotfiles>
+                <DevContainer>.devcontainer</DevContainer>
+            </EstruturaDiretorios>
+        </Ambiente>
+    </Ambientes>
+
+    <!-- ============================================ -->
+    <!-- SEÇÃO 6: STACK TECNOLÓGICA -->
+    <!-- ============================================ -->
+    <StackTecnologica>
+        <Backend>
+            <Python versao="3.11+"/>
+            <NodeJS versao="LTS"/>
+            <Docker versao="latest"/>
+            <DockerCompose versao="v2+"/>
+        </Backend>
+        <BancoDados>
+            <PostgreSQL versao="16-alpine"/>
+            <Redis versao="alpine"/>
+        </BancoDados>
+        <Infraestrutura>
+            <Traefik versao="v2.10" uso="reverse-proxy"/>
+            <Portainer versao="latest" uso="gerenciamento-docker"/>
+            <NocoDB versao="latest" uso="base-dados-no-code"/>
+            <N8N versao="latest" uso="automacao"/>
+            <Grafana versao="latest" uso="monitoramento"/>
+            <Dify versao="latest" uso="llm-platform"/>
+        </Infraestrutura>
+        <DevOps>
+            <OnePassword versao="v2.24.0+"/>
+            <Git configurado="true"/>
+            <SSH configurado="true"/>
+            <Terraform planejado="true"/>
+        </DevOps>
+        <Automatizacao>
+            <Scripts>bash/zsh</Scripts>
+            <Linguagem>Python</Linguagem>
+            <Plataforma>n8n</Plataforma>
+        </Automatizacao>
+    </StackTecnologica>
+
+    <!-- ============================================ -->
+    <!-- SEÇÃO 7: INTEGRAÇÕES -->
+    <!-- ============================================ -->
+    <Integracoes>
+        <!-- 1Password -->
+        <OnePassword>
+            <Account>
+                <URL>https://my.1password.com/</URL>
+                <Email>luiz.sena88@icloud.com</Email>
+                <UserID>BOAC3NIIQZBF5CFNGZO36FBRIM</UserID>
+            </Account>
+            <Vaults>
+                <Vault nome="1p_macos" id="gkpsbgizlks2zknwzqpppnb2ze" ambiente="macos"/>
+                <Vault nome="1p_vps" id="oa3tidekmeu26nxiier2qbi7v4" ambiente="vps"/>
+                <Vault nome="default_importado" id="syz4hgfg6c62ndrxjmoortzhia" tipo="importado"/>
+                <Vault nome="Personal" id="7bgov3zmccio5fxc5v7irhy5k4" tipo="pessoal"/>
+            </Vaults>
+            <Configuracao>
+                <ConfigPath>~/.config/op/op_config.sh</ConfigPath>
+                <ScriptsPath>~/Dotfiles/automation_1password/scripts/</ScriptsPath>
+                <Comandos>
+                    <Comando nome="op-config-check" descricao="Verificar configuração"/>
+                    <Comando nome="op-signin-auto" descricao="Login automático"/>
+                    <Comando nome="op-vault-switch" descricao="Trocar vault"/>
+                    <Comando nome="op-export-vault" descricao="Exportar dados"/>
+                </Comandos>
+            </Configuracao>
+            <Uso>
+                <Regra>Nunca hardcodar secrets</Regra>
+                <Regra>Sempre usar 1Password CLI</Regra>
+                <Regra>Desativar Connect antes de usar CLI</Regra>
+            </Uso>
+        </OnePassword>
+
+        <!-- Hugging Face -->
+        <HuggingFace>
+            <Perfil>senal88</Perfil>
+            <URLPublico>https://huggingface.co/senal88</URLPublico>
+            <Space>
+                <Nome>Qwen3-Coder-WebDev</Nome>
+                <URL>https://huggingface.co/spaces/senal88/Qwen3-Coder-WebDev</URL>
+            </Space>
+            <Endpoint>
+                <Nome>all-minilm-l6-v2-bks</Nome>
+                <URL>https://endpoints.huggingface.co/senal88/endpoints/all-minilm-l6-v2-bks</URL>
+            </Endpoint>
+            <Configuracao>
+                <TokensURL>https://huggingface.co/settings/tokens</TokensURL>
+                <SSHKeysURL>https://huggingface.co/settings/keys</SSHKeysURL>
+                <BillingURL>https://huggingface.co/settings/billing</BillingURL>
+            </Configuracao>
+        </HuggingFace>
+
+        <!-- GitHub -->
+        <GitHub>
+            <Repositorios>
+                <Repositorio nome="Dotfiles" tipo="configuracoes"/>
+            </Repositorios>
+            <Codespaces>
+                <Configuracao>via .devcontainer/</Configuracao>
+                <Setup>automatico</Setup>
+            </Codespaces>
+        </GitHub>
+
+        <!-- Raycast -->
+        <Raycast>
+            <Ativo>true</Ativo>
+            <Snippets>
+                <Snippet tipo="1password"/>
+                <Snippet tipo="shell"/>
+                <Snippet tipo="python"/>
+            </Snippets>
+            <Shortcuts configurados="true"/>
+        </Raycast>
+
+        <!-- VSCode/Cursor -->
+        <VSCodeCursor>
+            <Extensoes>
+                <Extensao>1Password (op-vscode)</Extensao>
+                <Extensao>Python (ms-python.python)</Extensao>
+                <Extensao>Docker (ms-azuretools.vscode-docker)</Extensao>
+                <Extensao>GitLens (eamodio.gitlens)</Extensao>
+                <Extensao>ShellCheck (timonwong.shellcheck)</Extensao>
+            </Extensoes>
+            <Snippets>
+                <Snippet tipo="1password"/>
+                <Snippet tipo="python"/>
+                <Snippet tipo="shell"/>
+            </Snippets>
+        </VSCodeCursor>
+    </Integracoes>
+
+    <!-- ============================================ -->
+    <!-- SEÇÃO 8: SEGURANÇA -->
+    <!-- ============================================ -->
+    <Seguranca>
+        <Secrets>
+            <Gerenciamento>1Password CLI</Gerenciamento>
+            <Regra>NUNCA commitar secrets em código</Regra>
+            <Regra>Usar 1Password para todos os secrets</Regra>
+            <Regra>Variáveis de ambiente via .env (não versionado)</Regra>
+            <Regra>Tokens via 1Password CLI</Regra>
+        </Secrets>
+        <Git>
+            <GitIgnore>
+                <Item>.env</Item>
+                <Item>*.secret</Item>
+                <Item>*.key</Item>
+                <Item>__pycache__/</Item>
+                <Item>.DS_Store</Item>
+            </GitIgnore>
+            <Regra>Não commitar arquivos de configuração local com secrets</Regra>
+        </Git>
+        <SSH>
+            <Acesso>apenas-chaves-publicas</Acesso>
+            <ConfigPath>~/.ssh/config</ConfigPath>
+        </SSH>
+        <Firewall>
+            <VPS>UFW configurado</VPS>
+            <PortasAbertas>22, 80, 443</PortasAbertas>
+        </Firewall>
+    </Seguranca>
+
+    <!-- ============================================ -->
+    <!-- SEÇÃO 9: PRODUTIVIDADE -->
+    <!-- ============================================ -->
+    <Produtividade>
+        <AtalhosPersonalizados>
+            <Raycast>prefixos-personalizados</Raycast>
+            <VSCode>snippets-e-keybindings</VSCode>
+            <Terminal>aliases-em-zshrc</Terminal>
+        </AtalhosPersonalizados>
+        <Automacao>
+            <ScriptsReutilizaveis>~/Dotfiles/automation_1password/scripts/</ScriptsReutilizaveis>
+            <FuncoesShell>comuns</FuncoesShell>
+            <Templates>para-novos-projetos</Templates>
+        </Automacao>
+    </Produtividade>
+
+    <!-- ============================================ -->
+    <!-- SEÇÃO 10: TRABALHANDO COM LLMs -->
+    <!-- ============================================ -->
+    <TrabalhandoComLLMs>
+        <PromptEngineering>
+            <Regra>Sempre fornecer contexto do ambiente</Regra>
+            <Regra>Especificar stack tecnológica</Regra>
+            <Regra>Incluir exemplos relevantes</Regra>
+            <Regra>Pedir validação de segurança</Regra>
+        </PromptEngineering>
+        <ContextoCodigo>
+            <CodigoExistente>CODE REFERENCES</CodigoExistente>
+            <CodigoNovo>MARKDOWN CODE BLOCKS</CodigoNovo>
+            <Regra>Nunca misturar formatos</Regra>
+        </ContextoCodigo>
+        <Validacao>
+            <Passo>Verificar compatibilidade com ambiente</Passo>
+            <Passo>Validar segurança (sem secrets hardcoded)</Passo>
+            <Passo>Confirmar convenções de código</Passo>
+            <Passo>Testar em ambiente isolado quando possível</Passo>
+        </Validacao>
+    </TrabalhandoComLLMs>
+
+    <!-- ============================================ -->
+    <!-- SEÇÃO 11: ESTRUTURA DE DOCUMENTAÇÃO -->
+    <!-- ============================================ -->
+    <Documentacao>
+        <Estrutura>
+            <Nivel nome="00_CONTEXTO_GLOBAL">
+                <Arquivo>Ambientes.md</Arquivo>
+                <Arquivo>Infraestrutura.md</Arquivo>
+                <Arquivo>Stack.md</Arquivo>
+            </Nivel>
+            <Nivel nome="01_CONFIGURACOES">
+                <Arquivo>1Password.md</Arquivo>
+                <Arquivo>GitHub.md</Arquivo>
+                <Arquivo>HuggingFace.md</Arquivo>
+                <Arquivo>claude_desktop_config.json</Arquivo>
+            </Nivel>
+            <Nivel nome="02_PROJETO_BNI">
+                <Arquivo>Contexto.md</Arquivo>
+                <Arquivo>Skills.md</Arquivo>
+                <Arquivo>Credenciais.md</Arquivo>
+            </Nivel>
+            <Nivel nome="03_AUTOMACAO">
+                <Arquivo>Scripts.md</Arquivo>
+                <Arquivo>Integracoes.md</Arquivo>
+                <Arquivo>Deploy.md</Arquivo>
+            </Nivel>
+            <Nivel nome="04_REFERENCIAS">
+                <Arquivo>Guias.md</Arquivo>
+                <Arquivo>API.md</Arquivo>
+                <Arquivo>Troubleshooting.md</Arquivo>
+            </Nivel>
+            <Nivel nome="05_SKILLS">
+                <Arquivo>README.md</Arquivo>
+                <Arquivo>SKILLS_COMPLETE_GUIDE.md</Arquivo>
+                <Arquivo>SKILLS_QUICK_REFERENCE.md</Arquivo>
+                <Arquivo>SKILLS_EXAMPLES.md</Arquivo>
+            </Nivel>
+            <Nivel nome="06_MCP">
+                <Arquivo>MCP_COMPLETE_GUIDE.md</Arquivo>
+            </Nivel>
+        </Estrutura>
+        <OrdemUpload>
+            <Passo ordem="1">Contexto Global Base</Passo>
+            <Passo ordem="2">Configurações e Setup</Passo>
+            <Passo ordem="3">Documentação do Projeto</Passo>
+            <Passo ordem="4">Skills e Especializações</Passo>
+            <Passo ordem="5">Referências e APIs</Passo>
+        </OrdemUpload>
+    </Documentacao>
+
+    <!-- ============================================ -->
+    <!-- SEÇÃO 12: METADADOS -->
+    <!-- ============================================ -->
+    <Metadados>
+        <Versao>1.0.0</Versao>
+        <DataCriacao>2025-01-15</DataCriacao>
+        <DataUltimaAtualizacao>2025-01-15</DataUltimaAtualizacao>
+        <Autor>Luiz Fernando Moreira Sena</Autor>
+        <Status>Configurado</Status>
+        <Notas>
+            <Nota>
+                Preferências aplicadas a todas as conversas, dentro das diretrizes da Anthropic.
+                Essas configurações são específicas do Claude Cloud e não afetam outras integrações.
+            </Nota>
+        </Notas>
+    </Metadados>
+
+</ClaudeCloudProConfig>

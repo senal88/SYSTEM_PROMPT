@@ -1,0 +1,335 @@
+# Templates de Itens 1Password
+# Versão: 1.0.0
+# Última Atualização: 2025-11-17
+
+version: "1.0.0"
+last_updated: "2025-11-17"
+
+templates:
+  # Template para API Credential
+  api_credential:
+    category: "API_CREDENTIAL"
+    name_pattern: "{SERVICE}_API_KEY_{ENV}"
+    description: "Template para chaves de API"
+    required_fields:
+      - name: "credential"
+        label: "API Key"
+        type: "concealed"
+        description: "Valor da chave de API"
+    optional_fields:
+      - name: "notes"
+        label: "Notes"
+        type: "text"
+        description: "Informações adicionais sobre a chave"
+      - name: "url"
+        label: "URL"
+        type: "url"
+        description: "URL do serviço (opcional)"
+    required_tags:
+      - "service:{service}"
+      - "type:api_key"
+      - "status:active"
+      - "environment:{env}"
+    optional_tags:
+      - "priority:high"
+      - "project:{project}"
+    example:
+      name: "OPENAI_API_KEY_MACOS"
+      fields:
+        credential: "sk-proj-abc123..."
+        notes: "OpenAI API Key for development"
+      tags: "environment:macos,service:openai,type:api_key,status:active,priority:high"
+
+  # Template para Token
+  token:
+    category: "API_CREDENTIAL"
+    name_pattern: "{SERVICE}_TOKEN_{ENV}"
+    description: "Template para tokens de acesso"
+    required_fields:
+      - name: "credential"
+        label: "Token"
+        type: "concealed"
+        description: "Valor do token"
+    optional_fields:
+      - name: "notes"
+        label: "Notes"
+        type: "text"
+        description: "Informações sobre o token"
+      - name: "expires"
+        label: "Expires"
+        type: "date"
+        description: "Data de expiração (se aplicável)"
+    required_tags:
+      - "service:{service}"
+      - "type:token"
+      - "status:active"
+      - "environment:{env}"
+    example:
+      name: "GITHUB_TOKEN"
+      fields:
+        credential: "ghp_abc123..."
+        notes: "GitHub Personal Access Token"
+      tags: "environment:shared,service:github,type:token,status:active"
+
+  # Template para Login
+  login:
+    category: "LOGIN"
+    name_pattern: "{SERVICE}_LOGIN_{ENV}"
+    description: "Template para credenciais de login"
+    required_fields:
+      - name: "username"
+        label: "Username"
+        type: "text"
+        description: "Nome de usuário ou email"
+      - name: "password"
+        label: "Password"
+        type: "concealed"
+        description: "Senha"
+    optional_fields:
+      - name: "url"
+        label: "URL"
+        type: "url"
+        description: "URL do serviço"
+      - name: "notes"
+        label: "Notes"
+        type: "text"
+        description: "Informações adicionais"
+    required_tags:
+      - "service:{service}"
+      - "type:credentials"
+      - "status:active"
+      - "environment:{env}"
+    example:
+      name: "N8N_LOGIN_VPS"
+      fields:
+        username: "admin@example.com"
+        password: "SecurePassword123"
+        url: "https://n8n.example.com"
+      tags: "environment:vps,service:n8n,type:credentials,status:active"
+
+  # Template para Password
+  password:
+    category: "PASSWORD"
+    name_pattern: "{SERVICE}_PASSWORD_{ENV}"
+    description: "Template para senhas isoladas"
+    required_fields:
+      - name: "password"
+        label: "Password"
+        type: "concealed"
+        description: "Valor da senha"
+    optional_fields:
+      - name: "notes"
+        label: "Notes"
+        type: "text"
+        description: "Descrição do uso da senha"
+    required_tags:
+      - "service:{service}"
+      - "type:password"
+      - "status:active"
+      - "environment:{env}"
+    example:
+      name: "POSTGRESQL_PASSWORD_VPS"
+      fields:
+        password: "StrongP@ssw0rd123"
+        notes: "PostgreSQL database password"
+      tags: "environment:vps,service:postgresql,type:password,status:active"
+
+  # Template para Database
+  database:
+    category: "DATABASE"
+    name_pattern: "{SERVICE}_DATABASE_{ENV}"
+    description: "Template para credenciais de banco de dados"
+    required_fields:
+      - name: "hostname"
+        label: "Hostname"
+        type: "text"
+        description: "Hostname ou IP do servidor"
+      - name: "port"
+        label: "Port"
+        type: "text"
+        description: "Porta do banco de dados"
+      - name: "database"
+        label: "Database"
+        type: "text"
+        description: "Nome do banco de dados"
+      - name: "username"
+        label: "Username"
+        type: "text"
+        description: "Usuário do banco"
+      - name: "password"
+        label: "Password"
+        type: "concealed"
+        description: "Senha do banco"
+    optional_fields:
+      - name: "connection_string"
+        label: "Connection String"
+        type: "text"
+        description: "String de conexão completa (opcional)"
+      - name: "notes"
+        label: "Notes"
+        type: "text"
+        description: "Informações adicionais"
+    required_tags:
+      - "service:{service}"
+      - "type:credentials"
+      - "status:active"
+      - "environment:{env}"
+    example:
+      name: "POSTGRESQL_DATABASE_VPS"
+      fields:
+        hostname: "localhost"
+        port: "5432"
+        database: "chatwoot"
+        username: "chatwoot_user"
+        password: "SecurePassword123"
+      tags: "environment:vps,service:postgresql,type:credentials,status:active"
+
+  # Template para SSH Key
+  ssh_key:
+    category: "SSH_KEY"
+    name_pattern: "SSH_KEY_{DESCRIPTION}_{ENV}"
+    description: "Template para chaves SSH"
+    required_fields:
+      - name: "private_key"
+        label: "Private Key"
+        type: "text"
+        description: "Chave privada SSH"
+    optional_fields:
+      - name: "public_key"
+        label: "Public Key"
+        type: "text"
+        description: "Chave pública SSH (opcional)"
+      - name: "notes"
+        label: "Notes"
+        type: "text"
+        description: "Informações sobre a chave (servidor, usuário, etc.)"
+    required_tags:
+      - "type:ssh_key"
+      - "status:active"
+      - "environment:{env}"
+    optional_tags:
+      - "service:{service}"
+    example:
+      name: "SSH_KEY_UNIVERSAL"
+      fields:
+        private_key: "-----BEGIN OPENSSH PRIVATE KEY-----..."
+        public_key: "ssh-ed25519 AAAAC3..."
+        notes: "Universal SSH key for VPS access"
+      tags: "environment:shared,type:ssh_key,status:active"
+
+  # Template para Document (Service Account JSON)
+  service_account_document:
+    category: "DOCUMENT"
+    name_pattern: "{SERVICE}_SERVICE_ACCOUNT_{ENV}"
+    description: "Template para arquivos de service account (GCP, AWS)"
+    required_fields:
+      - name: "document"
+        label: "Document"
+        type: "file"
+        description: "Arquivo JSON da service account"
+    optional_fields:
+      - name: "notes"
+        label: "Notes"
+        type: "text"
+        description: "Informações sobre a service account"
+    required_tags:
+      - "service:{service}"
+      - "type:service_account"
+      - "status:active"
+      - "environment:{env}"
+      - "priority:critical"
+    example:
+      name: "GCP_SERVICE_ACCOUNT_VPS"
+      fields:
+        document: "gcp-service-account.json"
+        notes: "GCP Service Account for VPS automation"
+      tags: "environment:vps,service:google,type:service_account,status:active,priority:critical"
+
+  # Template para Secure Note
+  secure_note:
+    category: "SECURE_NOTE"
+    name_pattern: "{SERVICE}_{TYPE}_{ENV}"
+    description: "Template para notas seguras (não credenciais)"
+    required_fields:
+      - name: "notes"
+        label: "Notes"
+        type: "text"
+        description: "Conteúdo da nota"
+    required_tags:
+      - "service:{service}"
+      - "type:note"
+      - "status:active"
+      - "environment:{env}"
+    example:
+      name: "CLOUDFLARE_ZONE_ID"
+      fields:
+        notes: "Zone ID: abc123def456"
+      tags: "environment:shared,service:cloudflare,type:note,status:active"
+
+# Mapeamento de serviços para templates
+service_mapping:
+  openai:
+    template: "api_credential"
+    service_tag: "openai"
+
+  anthropic:
+    template: "api_credential"
+    service_tag: "anthropic"
+
+  google:
+    template: "api_credential"
+    service_tag: "google"
+    # Para service accounts, usar service_account_document
+
+  github:
+    template: "token"
+    service_tag: "github"
+
+  postgresql:
+    password_template: "password"
+    database_template: "database"
+    service_tag: "postgresql"
+
+  redis:
+    template: "password"
+    service_tag: "redis"
+
+  mongodb:
+    template: "password"
+    service_tag: "mongodb"
+
+  n8n:
+    login_template: "login"
+    api_template: "api_credential"
+    service_tag: "n8n"
+
+  chatwoot:
+    login_template: "login"
+    service_tag: "chatwoot"
+
+# Guia de uso
+usage:
+  create_item:
+    description: "Como criar um item usando template"
+    steps:
+      - "Identificar o tipo de credencial"
+      - "Escolher template apropriado"
+      - "Substituir placeholders ({SERVICE}, {ENV}, etc.)"
+      - "Preencher campos obrigatórios"
+      - "Adicionar tags obrigatórias"
+      - "Adicionar tags opcionais se necessário"
+
+  example_command:
+    description: "Exemplo de comando 1Password CLI"
+    command: |
+      op item create \
+        --category "API_CREDENTIAL" \
+        --title "OPENAI_API_KEY_MACOS" \
+        --vault "1p_macos" \
+        credential="sk-proj-abc123..." \
+        notes="OpenAI API Key for development" \
+        --tag "environment:macos" \
+        --tag "service:openai" \
+        --tag "type:api_key" \
+        --tag "status:active"
+

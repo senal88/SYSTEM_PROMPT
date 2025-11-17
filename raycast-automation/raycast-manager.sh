@@ -21,7 +21,7 @@ success() { echo -e "${GREEN}[SUCCESS]${NC} $1"; }
 # Configurações
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 RAYCAST_SRC="$HOME/Library/Application Support/com.raycast.macos"
-RAYCAST_BACKUP="$HOME/Dotfiles/raycast-profile"
+RAYCAST_BACKUP="$DOTFILES_HOME/raycast-profile"
 
 show_help() {
     echo -e "${BLUE}╔══════════════════════════════════════════════════════════════╗"

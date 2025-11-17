@@ -1,0 +1,136 @@
+# Mapeamento de Cofres 1Password CLI
+# Configuração Multi-Plataforma
+# Última Atualização: 2025-11-16
+
+version: "1.0.0"
+last_updated: "2025-11-16"
+
+vaults:
+  macos:
+    id: "gkpsbgizlks2zknwzqpppnb2ze"
+    name: "1p_macos"
+    environment: "macOS Silicon"
+    authentication:
+      method: "TouchID (biometria)"
+      command: "op signin --account <macos_account>"
+      notes: "Autenticação sem senha usando TouchID"
+      platform: "macOS Tahoe 26.0.1"
+    items:
+      - name: "SSH Keys"
+        description: "Chaves SSH para acesso VPS"
+      - name: "API Keys"
+        description: "Chaves de API para serviços externos"
+      - name: "Docker Credentials"
+        description: "Credenciais Docker Hub e registries"
+      - name: "GitHub Tokens"
+        description: "Tokens de acesso GitHub"
+      - name: "Database Passwords"
+        description: "Senhas de bancos de dados"
+
+  vps:
+    id: "oa3tidekmeu26nxiier2qbi7v4"
+    name: "1p_vps"
+    environment: "VPS Ubuntu"
+    authentication:
+      method: "Service Account Token"
+      command: "op signin --account <vps_account> --token <token>"
+      notes: "Autenticação persistente via token"
+      platform: "Ubuntu 22.04 LTS"
+      ip: "147.79.81.59"
+      domain: "senamfo.com.br"
+    items:
+      - name: "SSH Keys"
+        description: "Chaves SSH para acesso remoto"
+      - name: "SSL Certificates"
+        description: "Certificados SSL/TLS"
+      - name: "Service Passwords"
+        description: "Senhas de serviços (Docker, PostgreSQL, etc)"
+      - name: "Webhooks Tokens"
+        description: "Tokens de webhooks e integrações"
+
+  default:
+    id: "syz4hgfg6c62ndrxjmoortzhia"
+    name: "default importado"
+    environment: "Ambos (fallback)"
+    authentication:
+      method: "Padrão 1Password"
+      notes: "Cofre padrão para fallback quando outros não disponíveis"
+    items:
+      - name: "Generic Secrets"
+        description: "Secrets genéricos compartilhados"
+
+  personal:
+    id: "7bgov3zmccio5fxc5v7irhy5k4"
+    name: "Personal"
+    environment: "Pessoal"
+    authentication:
+      method: "Pessoal"
+      notes: "Uso individual, fora do escopo de automação"
+    usage: "Não usar em automação de ambientes"
+
+# Comandos de Referência
+commands:
+  authenticate_macos:
+    description: "Autenticar no macOS usando TouchID"
+    command: |
+      eval $(op signin --account <macos_account>)
+    example: |
+      eval $(op signin --account my.1password.com)
+
+  authenticate_vps:
+    description: "Autenticar na VPS usando token"
+    command: |
+      eval $(op signin --account <vps_account> --token <token>)
+    example: |
+      eval $(op signin --account my.1password.com --token $(cat ~/.op-token))
+
+  list_vaults:
+    description: "Listar todos os cofres disponíveis"
+    command: "op vault list"
+
+  get_item:
+    description: "Buscar item específico de um cofre"
+    command: |
+      op item get "<item_name>" --vault <vault_id> --fields <field>
+    example: |
+      op item get "SSH Key" --vault gkpsbgizlks2zknwzqpppnb2ze --fields password
+
+  create_item:
+    description: "Criar novo item seguro"
+    command: |
+      op item create --vault <vault_id> "<item_name>" <field>=<value>
+    example: |
+      op item create --vault gkpsbgizlks2zknwzqpppnb2ze "New SSH Key" password=<key> username=root
+
+# Validação
+validation:
+  check_auth:
+    description: "Verificar se CLI está autenticada"
+    command: "op whoami"
+    expected: "Retorna usuário autenticado"
+
+  check_vault_access:
+    description: "Verificar acesso a cofre específico"
+    command: "op vault list | grep <vault_id>"
+    expected: "Lista cofre se tiver acesso"
+
+# Segurança
+security:
+  notes:
+    - "Nunca commitar tokens ou senhas"
+    - "Usar autenticação biométrica no macOS quando possível"
+    - "Rotar tokens de service account periodicamente"
+    - "Validar autenticação antes de operações críticas"
+    - "Usar cofres segregados por ambiente"
+
+# Exportação
+export:
+  scripts:
+    essential: "./export-1password-essencial.sh"
+    professional: "./export-1password-profissional.sh"
+  output_directory: "~/dev-prod/backups/1password"
+  frequency:
+    recommended: "Semanal (versão profissional)"
+    quick: "Quando necessário (versão essencial)"
+  documentation: "./README_EXPORTACAO.md"
+

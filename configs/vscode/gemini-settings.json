@@ -1,0 +1,23 @@
+{
+  // ==========================================
+  // VSCode - Gemini Code Assist Configuration
+  // Versão: 2.0.1
+  // Compatibilidade: macOS, Ubuntu
+  // ==========================================
+
+  // Gemini Code Assist Settings
+  "geminiCodeAssist.project": "gcp-ai-setup-24410",
+  "geminiCodeAssist.region": "us-central1",
+
+  // API Keys (serão substituídas via script ou 1Password)
+  "geminiCodeAssist.apiKey": "${GEMINI_API_KEY}",
+  "geminiCodeAssist.googleApiKey": "${GOOGLE_API_KEY}",
+
+  // Configurações adicionais
+  "geminiCodeAssist.enableAutoComplete": true,
+  "geminiCodeAssist.enableCodeActions": true,
+  "geminiCodeAssist.enableInlineSuggestions": true,
+  "geminiCodeAssist.model": "gemini-2.0-flash-exp",
+  "geminiCodeAssist.temperature": 0.7,
+  "geminiCodeAssist.maxTokens": 4096
+}

@@ -1,0 +1,168 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit",
+    "source.fixAll": "explicit"
+  },
+  "editor.rulers": [
+    100
+  ],
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+    "editor.formatOnSave": true,
+    "editor.rulers": [
+      100
+    ],
+    "editor.tabSize": 4
+  },
+  "python.formatting.provider": "black",
+  "python.formatting.blackArgs": [
+    "--line-length=100"
+  ],
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": true,
+  "isort.args": [
+    "--profile",
+    "black",
+    "--line-length=100"
+  ],
+  "[shellscript]": {
+    "editor.defaultFormatter": "timonwong.shellcheck",
+    "editor.tabSize": 2
+  },
+  "shellcheck.enable": true,
+  "shellcheck.run": "onSave",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+  "[dockerfile]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-docker",
+    "editor.tabSize": 2
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.wordWrap": "on",
+    "editor.tabSize": 2
+  },
+  "files.encoding": "utf8",
+  "files.eol": "\n",
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "files.exclude": {
+    "**/.DS_Store": true,
+    "**/__pycache__": true,
+    "**/*.pyc": true,
+    "**/.pytest_cache": true,
+    "**/.mypy_cache": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/__pycache__": true,
+    "**/.git": true,
+    "**/.DS_Store": true
+  },
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.cursorBlinking": true,
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "1password.configuration": {
+    "vault": "1p_macos"
+  },
+  "editor.snippetSuggestions": "top",
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+  "workbench.colorTheme": "Default Dark+",
+  "workbench.iconTheme": "vs-seti",
+  "remote.SSH.configFile": "~/.ssh/config",
+  "remote.SSH.defaultExtensions": [
+    "1password.op-vscode",
+    "ms-python.python",
+    "ms-azuretools.vscode-docker"
+  ],
+  "remote.SSH.remotePlatform": {
+    "vps": "linux"
+  },
+  "remote.autoForwardPortsSource": "hybrid",
+  "claudeCodeChat": {
+    "permissions": {
+      "defaultMode": "default",
+      "allow": [
+        "file.read",
+        "code.read",
+        "search.read"
+      ],
+      "ask": [
+        "file.write",
+        "command.run",
+        "terminal.run",
+        "git.commit",
+        "git.push"
+      ],
+      "deny": [
+        "system.delete",
+        "system.format",
+        "system.shutdown"
+      ],
+      "yoloMode": false
+    },
+    "wsl": {
+      "enabled": false,
+      "distro": "Ubuntu",
+      "nodePath": "/usr/bin/node",
+      "claudePath": "/usr/local/bin/claude"
+    },
+    "billing": {
+      "enabled": false,
+      "limit": 0,
+      "alertThreshold": 0,
+      "monthlyLimit": 0,
+      "dailyLimit": 0
+    },
+    "autoEnable": false,
+    "enabled": false,
+    "bashPatterns": [],
+    "cleanupPeriodDays": 30
+  },
+  "workbench": {
+    "settings": {
+      "applyToAllProfiles": [
+        "claudeCodeChat",
+        "claudeCodeChat.permissions",
+        "claudeCodeChat.permissions.yoloMode",
+        "claudeCodeChat.wsl.enabled",
+        "claudeCodeChat.billing.enabled",
+        "claudeCodeChat.billing.limit",
+        "claudeCodeChat.bashPatterns"
+      ]
+    }
+  },
+  "remote.SSH.defaultExtensions": [
+    "1password.op-vscode",
+    "ms-python.python",
+    "ms-azuretools.vscode-docker",
+    "anthropic.claude-code"
+  ],
+  "dev.containers.defaultExtensions": [
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "ms-python.black-formatter",
+    "anthropic.claude-code"
+  ]
+}
