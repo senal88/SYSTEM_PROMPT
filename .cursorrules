@@ -282,21 +282,285 @@ Quando um planejamento é aprovado pelo usuário, você DEVE executar automatica
 
 ---
 
+## 🔒 FASE 0: VALIDAÇÃO RIGOROSA PRÉ-EXECUÇÃO (OBRIGATÓRIA)
+
+**ESTA FASE DEVE SER EXECUTADA ANTES DE QUALQUER OUTRA FASE**
+
+### 0.1 Validação de Dependências do Sistema
+
+#### 0.1.1 Ferramentas Obrigatórias
+- ✅ **1Password CLI**: `command -v op` → DEVE existir e estar autenticado
+  - Validar: `op whoami` → DEVE retornar usuário válido
+  - **ERRO CRÍTICO** se não autenticado → PARAR execução
+
+- ✅ **jq**: `command -v jq` → DEVE existir
+  - **ERRO CRÍTICO** se não instalado → PARAR execução
+
+- ✅ **Git**: `command -v git` → DEVE existir
+  - Validar configuração: `git config user.name` e `git config user.email`
+  - **ERRO CRÍTICO** se não configurado → PARAR execução
+
+- ✅ **SSH**: `command -v ssh` → DEVE existir
+  - Validar chaves: `~/.ssh/id_ed25519_universal` → DEVE existir com permissão 600
+  - Validar config: `~/.ssh/config` → DEVE existir com permissão 600
+  - **ERRO CRÍTICO** se não configurado → PARAR execução
+
+- ✅ **curl**: `command -v curl` → DEVE existir
+  - **ERRO CRÍTICO** se não instalado → PARAR execução
+
+#### 0.1.2 Ferramentas Opcionais (Validar mas não bloquear)
+- ⚠️ **GitHub CLI**: `command -v gh` → Validar se existe
+- ⚠️ **Docker**: `command -v docker` → Validar se existe
+- ⚠️ **Node.js**: `command -v node` → Validar se existe
+
+### 0.2 Validação Rigorosa de Variáveis e Credenciais no 1Password
+
+#### 0.2.1 Lista de Placeholders INVÁLIDOS (REJEITAR IMEDIATAMENTE)
+
+**NUNCA aceitar estes valores como válidos:**
+
+```
+- "YOUR_API_KEY"
+- "your-api-key-here"
+- "placeholder"
+- "REPLACE_ME"
+- "INSERT_KEY_HERE"
+- "example.com"
+- "example@example.com"
+- "1234567890"
+- "changeme"
+- "TODO"
+- "FIXME"
+- "TBD"
+- "null"
+- "undefined"
+- "empty"
+- ""
+- Qualquer string com menos de 16 caracteres para senhas
+- Qualquer string que contenha "example", "test", "demo", "sample"
+- Qualquer string que seja apenas números sequenciais (12345678)
+- Qualquer string que seja apenas letras sequenciais (abcdefgh)
+```
+
+#### 0.2.2 Validação de Cada Credencial no 1Password
+
+**Para cada credencial, validar:**
+
+1. **Existência**: Item DEVE existir no vault
+2. **Campo preenchido**: Campo DEVE ter valor (não vazio)
+3. **Não é placeholder**: Valor NÃO pode estar na lista de placeholders inválidos
+4. **Formato válido**: Valor DEVE seguir formato esperado:
+   - API Keys: Geralmente 32+ caracteres alfanuméricos
+   - Tokens: Geralmente 40+ caracteres
+   - Senhas: Mínimo 16 caracteres, preferencialmente 32+
+   - Emails: Formato válido de email
+   - URLs: Formato válido de URL
+5. **Não expirado**: Se tiver data de expiração, DEVE estar válido
+6. **Único**: NÃO pode haver duplicatas
+
+#### 0.2.3 Credenciais Obrigatórias e Validação Específica
+
+**API-VPS-HOSTINGER**:
+- ✅ DEVE existir no vault
+- ✅ Valor DEVE ser exatamente `jkBoNklZ2vnWHquuZRjbR09CxmqPfXNOqabkEnJvc06e0665` OU outro token válido
+- ✅ NÃO pode ser placeholder
+- ✅ DEVE ter formato de token Hostinger (64 caracteres alfanuméricos)
+- ✅ Testar API: `curl -X GET "https://developers.hostinger.com/api/vps/v1/virtual-machines" -H "Authorization: Bearer ${TOKEN}"`
+- **ERRO CRÍTICO** se inválido → PARAR execução
+
+**Gemini-API-Keys**:
+- ✅ DEVE existir no vault
+- ✅ Campo `google_api_key` DEVE estar preenchido
+- ✅ Valor DEVE ter formato válido (não placeholder)
+- ✅ NÃO pode conter "example", "test", "demo"
+- ✅ DEVE ter pelo menos 32 caracteres
+- **ERRO CRÍTICO** se inválido → PARAR execução
+
+**GitHub-Token**:
+- ✅ DEVE existir no vault (se necessário)
+- ✅ Valor DEVE ser token GitHub válido (ghp_... ou ghs_...)
+- ✅ NÃO pode ser placeholder
+- ✅ Testar: `gh api user` → DEVE funcionar
+- **ERRO CRÍTICO** se inválido e necessário → PARAR execução
+
+**HuggingFace-Token**:
+- ✅ DEVE existir no vault (se necessário)
+- ✅ Valor DEVE ser token HuggingFace válido (hf_...)
+- ✅ NÃO pode ser placeholder
+- **ERRO CRÍTICO** se inválido e necessário → PARAR execução
+
+#### 0.2.4 Validação de Variáveis de Ambiente
+
+**Para cada variável de ambiente, validar:**
+
+1. **Definida**: Variável DEVE estar definida
+2. **Não vazia**: Valor NÃO pode ser vazio
+3. **Não placeholder**: Valor NÃO pode estar na lista de placeholders
+4. **Formato correto**: Valor DEVE seguir formato esperado
+5. **Acessível**: Se necessário, testar conectividade/autenticação
+
+**Variáveis obrigatórias:**
+- `DOTFILES_DIR` → DEVE apontar para `~/Dotfiles` ou `/Users/luiz.sena88/Dotfiles`
+- `GCP_PROJECT_ID` → DEVE ser `gcp-ai-setup-24410`
+- `GCP_PROJECT_NUMBER` → DEVE ser `501288307921`
+- `HOSTINGER_API_TOKEN` → DEVE ser token válido (não placeholder)
+- `GOOGLE_API_KEY` → DEVE ser chave válida (não placeholder)
+- `GITHUB_TOKEN` → DEVE ser token válido se necessário (não placeholder)
+
+### 0.3 Validação de Nomenclaturas e Duplicidades
+
+#### 0.3.1 Validação de Nomenclaturas
+
+**Padrão obrigatório**: `<prefixo>-<tipo>-<ambiente>-<versao>-<timestamp>.<extensao>`
+
+**Validar:**
+- ✅ Prefixo DEVE estar na lista válida: `op-`, `vps-`, `sys-`, `api-`, `email-`, `db-`, `docker-`, `traefik-`
+- ✅ Tipo DEVE estar na lista válida: `config`, `export`, `diag`, `audit`, `log`, `key`, `mapping`
+- ✅ Ambiente DEVE estar na lista válida: `dev`, `prod`, `macos`, `vps`, `all`
+- ✅ Versão DEVE seguir padrão: `v1`, `v2`, etc.
+- ✅ Timestamp DEVE seguir padrão: `YYYYMMDD_HHMMSS`
+
+**ERRO** se nomenclatura não seguir padrão → CORRIGIR antes de continuar
+
+#### 0.3.2 Inspeção de Duplicidades
+
+**Para cada arquivo/configuração criado:**
+
+1. **Buscar duplicatas**:
+   - Procurar arquivos com conteúdo similar
+   - Procurar configurações duplicadas
+   - Procurar credenciais duplicadas no 1Password
+
+2. **Identificar obsoletos**:
+   - Arquivos com data > 6 meses sem atualização
+   - Configurações substituídas por versões mais novas
+   - Credenciais marcadas como obsoletas
+
+3. **Ações obrigatórias**:
+   - ✅ Remover duplicatas (manter apenas a versão mais recente)
+   - ✅ Arquivar obsoletos (mover para `archived/`)
+   - ✅ Atualizar referências nos documentos ativos
+   - ✅ Documentar remoção/arquivamento
+
+### 0.4 Validação de Configurações e Arquivos
+
+#### 0.4.1 Validação de JSON/YAML
+
+**Para cada arquivo JSON/YAML:**
+
+1. **Sintaxe válida**: Arquivo DEVE ser válido (usar `jq` ou `yq`)
+2. **Schema válido**: Se houver schema, DEVE validar contra schema
+3. **Campos obrigatórios**: Todos os campos obrigatórios DEVE estar presentes
+4. **Tipos corretos**: Valores DEVE ter tipos corretos
+5. **Sem placeholders**: Nenhum valor DEVE ser placeholder
+
+**ERRO CRÍTICO** se arquivo inválido → CORRIGIR antes de continuar
+
+#### 0.4.2 Validação de Scripts
+
+**Para cada script:**
+
+1. **Sintaxe válida**: Script DEVE ter sintaxe válida (`bash -n script.sh`)
+2. **Permissões corretas**: Scripts executáveis DEVE ter permissão 755
+3. **Shebang correto**: DEVE ter shebang apropriado (`#!/bin/bash`)
+4. **Variáveis definidas**: Todas as variáveis usadas DEVE estar definidas
+5. **Sem placeholders**: Nenhum valor hardcoded DEVE ser placeholder
+
+**ERRO CRÍTICO** se script inválido → CORRIGIR antes de continuar
+
+### 0.5 Validação de Conectividade e Serviços
+
+#### 0.5.1 Conectividade SSH
+
+- ✅ Testar conexão VPS: `ssh -o ConnectTimeout=5 vps "echo OK"`
+- ✅ Validar chave SSH: `ssh-add -l` → DEVE listar chave
+- ✅ Validar config SSH: `~/.ssh/config` → DEVE ter aliases corretos
+- **ERRO CRÍTICO** se não conecta → PARAR execução
+
+#### 0.5.2 Conectividade APIs
+
+**Para cada API necessária:**
+
+1. **Token válido**: Token DEVE ser válido (não placeholder)
+2. **Teste de conexão**: Fazer requisição de teste
+3. **Resposta válida**: API DEVE responder corretamente
+4. **Rate limit**: Verificar se não excedeu rate limit
+
+**ERRO CRÍTICO** se API não responde → PARAR execução
+
+### 0.6 Validação de Estrutura de Diretórios
+
+**Validar estrutura obrigatória:**
+
+```
+~/Dotfiles/
+├── configs/          → DEVE existir
+├── scripts/          → DEVE existir
+├── credentials/      → DEVE existir (não versionado)
+├── context/          → DEVE existir
+└── docs/             → DEVE existir
+```
+
+**ERRO CRÍTICO** se estrutura não existe → CRIAR antes de continuar
+
+### 0.7 Checklist de Validação Pré-Execução
+
+**ANTES de executar qualquer fase, validar:**
+
+- [ ] Todas as ferramentas obrigatórias instaladas e funcionando
+- [ ] Todas as credenciais no 1Password validadas (não placeholders)
+- [ ] Todas as variáveis de ambiente validadas (não placeholders)
+- [ ] Nomenclaturas seguem padrão obrigatório
+- [ ] Duplicidades identificadas e removidas
+- [ ] Obsoletos identificados e arquivados
+- [ ] Todos os arquivos JSON/YAML válidos
+- [ ] Todos os scripts válidos e com permissões corretas
+- [ ] Conectividade SSH validada
+- [ ] Conectividade APIs validada
+- [ ] Estrutura de diretórios completa
+- [ ] Nenhum placeholder encontrado em nenhum lugar
+
+**SE QUALQUER ITEM FALHAR → PARAR execução e CORRIGIR antes de continuar**
+
+---
+
 ## 🚨 REGRAS DE EXECUÇÃO
+
+### Regra 0: Validação Rigorosa Pré-Execução (CRÍTICA)
+
+**ANTES de executar QUALQUER fase:**
+
+1. **EXECUTAR FASE 0 completa** (validação rigorosa)
+2. **NÃO continuar** se houver ERROS CRÍTICOS
+3. **CORRIGIR** todos os problemas antes de prosseguir
+4. **DOCUMENTAR** todas as validações realizadas
+
+**ERROS CRÍTICOS que PARAM execução:**
+- ❌ Ferramenta obrigatória não instalada
+- ❌ Credencial com placeholder no 1Password
+- ❌ Variável de ambiente com placeholder
+- ❌ Arquivo JSON/YAML inválido
+- ❌ Script com erro de sintaxe
+- ❌ Conectividade SSH falhando
+- ❌ API não respondendo (quando necessário)
+- ❌ Estrutura de diretórios incompleta
 
 ### Regra 1: Execução Automática
 Quando um planejamento é aprovado:
-1. **NÃO perguntar** sobre cada etapa individual
-2. **EXECUTAR automaticamente** seguindo a sequência acima
-3. **PARAR apenas** quando chegar à parte manual
-4. **DOCUMENTAR** tudo que foi executado
+1. **EXECUTAR FASE 0** (validação rigorosa) → OBRIGATÓRIA
+2. **NÃO perguntar** sobre cada etapa individual
+3. **EXECUTAR automaticamente** seguindo a sequência acima
+4. **PARAR apenas** quando chegar à parte manual
+5. **DOCUMENTAR** tudo que foi executado
 
 ### Regra 2: Validação Obrigatória
 Antes de executar cada fase:
 - ✅ Validar pré-requisitos
 - ✅ Verificar dependências
-- ✅ Confirmar credenciais disponíveis
+- ✅ Confirmar credenciais disponíveis (SEM placeholders)
 - ✅ Validar conectividade quando necessário
+- ✅ Validar nomenclaturas
+- ✅ Verificar duplicidades e obsoletos
 
 ### Regra 3: Tratamento de Erros
 Se uma etapa falhar:
@@ -318,6 +582,21 @@ Quando chegar à parte manual:
 
 Ao executar um planejamento aprovado, seguir esta checklist:
 
+### FASE 0: Validação Rigorosa Pré-Execução (OBRIGATÓRIA)
+- [ ] Ferramentas obrigatórias instaladas e funcionando
+- [ ] Credenciais no 1Password validadas (SEM placeholders)
+- [ ] Variáveis de ambiente validadas (SEM placeholders)
+- [ ] Nomenclaturas seguem padrão obrigatório
+- [ ] Duplicidades identificadas e removidas
+- [ ] Obsoletos identificados e arquivados
+- [ ] Arquivos JSON/YAML válidos
+- [ ] Scripts válidos e com permissões corretas
+- [ ] Conectividade SSH validada
+- [ ] Conectividade APIs validada
+- [ ] Estrutura de diretórios completa
+- [ ] Nenhum placeholder encontrado
+
+### Fases de Execução (após FASE 0 validada)
 - [ ] FASE 1: Contexto atualizado
 - [ ] FASE 2: Cofres validados
 - [ ] FASE 3: Terminais configurados
@@ -349,16 +628,91 @@ Quando o usuário aprovar um planejamento:
 
 ---
 
-## ⚠️ IMPORTANTE
+## ⚠️ IMPORTANTE - REGRAS CRÍTICAS
+
+### Regras Absolutas (NUNCA Violar)
+
+1. **NUNCA aceitar placeholders como válidos**
+   - Qualquer valor que seja placeholder → REJEITAR imediatamente
+   - Qualquer credencial com placeholder → ERRO CRÍTICO → PARAR execução
+
+2. **NUNCA executar sem validação prévia**
+   - FASE 0 DEVE ser executada ANTES de qualquer outra fase
+   - Se FASE 0 falhar → PARAR execução → CORRIGIR → REPETIR FASE 0
+
+3. **NUNCA ignorar erros críticos**
+   - Erros críticos → PARAR execução imediatamente
+   - Documentar erro → Corrigir → Validar novamente → Continuar
+
+4. **NUNCA permitir duplicidades ou obsoletos**
+   - Duplicidades → Remover (manter versão mais recente)
+   - Obsoletos → Arquivar antes de continuar
+
+5. **NUNCA usar nomenclaturas não padronizadas**
+   - Seguir padrão obrigatório: `<prefixo>-<tipo>-<ambiente>-<versao>-<timestamp>.<extensao>`
+   - Se não seguir padrão → CORRIGIR antes de continuar
+
+6. **SEMPRE validar antes de executar**
+   - Dependências → Validar antes de usar
+   - Credenciais → Validar antes de usar
+   - Variáveis → Validar antes de usar
+   - Arquivos → Validar antes de usar
+   - Scripts → Validar antes de executar
+
+7. **SEMPRE documentar validações**
+   - Todas as validações DEVE ser documentadas
+   - Todos os erros DEVE ser documentados
+   - Todas as correções DEVE ser documentadas
+
+### Regras de Execução
 
 - **SEMPRE** seguir a sequência lógica acima
+- **SEMPRE** executar FASE 0 antes de qualquer outra fase
 - **NUNCA** pular etapas sem validação
 - **SEMPRE** documentar o que foi executado
 - **SEMPRE** parar na parte manual com instruções claras
 - **SEMPRE** usar nomenclaturas padronizadas
 - **SEMPRE** seguir melhores práticas do framework
+- **SEMPRE** validar dependências e variáveis antes de usar
+- **SEMPRE** inspecionar duplicidades e obsoletos
+- **SEMPRE** garantir que nada que possa gerar erros passe desatualizado
 
 ---
 
-**Última atualização**: 2025-11-17  
-**Versão**: 2.0.0 - Execução Automática Parametrizada
+## 🔍 EXEMPLO DE VALIDAÇÃO RIGOROSA
+
+### Antes de Executar Qualquer Coisa:
+
+```bash
+# 1. Validar ferramentas
+command -v op || { echo "ERRO CRÍTICO: 1Password CLI não instalado"; exit 1; }
+op whoami || { echo "ERRO CRÍTICO: 1Password não autenticado"; exit 1; }
+
+# 2. Validar credencial (SEM placeholder)
+TOKEN=$(op read "op://1p_macos/API-VPS-HOSTINGER/credential")
+if [[ "$TOKEN" == *"placeholder"* ]] || [[ "$TOKEN" == *"YOUR_"* ]] || [[ -z "$TOKEN" ]]; then
+    echo "ERRO CRÍTICO: Credencial contém placeholder ou está vazia"
+    exit 1
+fi
+
+# 3. Testar API
+curl -X GET "https://developers.hostinger.com/api/vps/v1/virtual-machines" \
+  -H "Authorization: Bearer ${TOKEN}" || {
+    echo "ERRO CRÍTICO: API não responde"
+    exit 1
+}
+
+# 4. Validar nomenclatura
+if [[ ! "$filename" =~ ^[a-z]+-[a-z]+-[a-z]+-v[0-9]+-[0-9]{8}_[0-9]{6}\.[a-z]+$ ]]; then
+    echo "ERRO: Nomenclatura não segue padrão"
+    exit 1
+fi
+
+# 5. Continuar apenas se todas as validações passarem
+echo "✅ Todas as validações passaram. Prosseguindo..."
+```
+
+---
+
+**Última atualização**: 2025-11-17
+**Versão**: 3.0.0 - Validação Rigorosa e Prevenção de Erros
