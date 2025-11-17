@@ -1,0 +1,21 @@
+total 48
+drwxr-xr-x@ 20 luiz.sena88  staff   640 Oct 30 13:26 .
+drwxr-x---+ 94 luiz.sena88  staff  3008 Oct 30 13:59 ..
+-rw-r--r--@  1 luiz.sena88  staff  8196 Oct 29 10:37 .DS_Store
+-rw-------@  1 luiz.sena88  staff    74 Oct 23 07:23 .token_seed
+-rw-------@  1 luiz.sena88  staff     0 Oct 14 09:24 .token_seed.lock
+drwxr-xr-x@  5 luiz.sena88  staff   160 Oct 29 10:37 bin
+drwx------@ 10 luiz.sena88  staff   320 Oct 30 13:59 buildx
+drwx------@ 14 luiz.sena88  staff   448 Oct 22 17:54 cli-plugins
+drwxr-xr-x@  4 luiz.sena88  staff   128 Oct 14 11:13 cloud
+-rw-r--r--@  1 luiz.sena88  staff    78 Oct 29 10:44 config.json
+drwxr-xr-x@  3 luiz.sena88  staff    96 Oct 14 09:21 contexts
+-rw-r--r--@  1 luiz.sena88  staff   124 Oct 30 13:26 daemon.json
+drwx------@  4 luiz.sena88  staff   128 Oct 22 15:08 desktop-build
+drwx------@  5 luiz.sena88  staff   160 Oct 29 09:55 gordon
+drwxr-xr-x@  7 luiz.sena88  staff   224 Oct 14 09:22 mcp
+drwxr-xr-x@  4 luiz.sena88  staff   128 Oct 14 09:21 models
+drwxr-xr-x@  7 luiz.sena88  staff   224 Oct 29 10:37 modules
+drwx------@  5 luiz.sena88  staff   160 Oct 29 10:37 mutagen
+drwxr-xr-x@  4 luiz.sena88  staff   128 Oct 29 10:44 run
+drwxr-xr-x@  3 luiz.sena88  staff    96 Oct 24 14:54 scout

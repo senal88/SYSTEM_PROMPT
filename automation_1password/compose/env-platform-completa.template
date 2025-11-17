@@ -1,0 +1,102 @@
+# env-platform-completa.template - Stack Plataforma Completa
+# Injetar: op inject -i env-platform-completa.template -o .env
+# Last Updated: 2025-10-31
+# Version: 2.1.0
+
+# === Projeto ===
+PROJECT_SLUG=platform
+PRIMARY_DOMAIN=localhost
+
+# === Traefik ===
+TRAEFIK_EMAIL=op://1p_macos/Traefik/email
+TRAEFIK_DASHBOARD_AUTH=op://1p_macos/Traefik/dashboard_auth
+
+# === PostgreSQL + pgvector ===
+POSTGRES_USER=op://1p_macos/PostgreSQL/username
+POSTGRES_PASSWORD=op://1p_macos/PostgreSQL/password
+POSTGRES_DB=op://1p_macos/PostgreSQL/database
+
+# === MongoDB ===
+MONGO_ROOT_USERNAME=op://1p_macos/MongoDB/username
+MONGO_ROOT_PASSWORD=op://1p_macos/MongoDB/password
+MONGO_INIT_DB=op://1p_macos/MongoDB/init_database
+MONGO_EXPRESS_USER=op://1p_macos/Mongo-Express/username
+MONGO_EXPRESS_PASSWORD=op://1p_macos/Mongo-Express/password
+
+# === Redis ===
+REDIS_PASSWORD=op://1p_macos/Redis/password
+
+# === MinIO ===
+MINIO_ROOT_USER=op://1p_macos/MinIO/username
+MINIO_ROOT_PASSWORD=op://1p_macos/MinIO/password
+
+# === Appsmith ===
+APPSMITH_SUPER_ADMIN_EMAIL=op://1p_macos/Appsmith/email
+APPSMITH_SUPER_ADMIN_PASSWORD=op://1p_macos/Appsmith/password
+APPSMITH_ENCRYPTION_PASSWORD=op://1p_macos/Appsmith/encryption_password
+APPSMITH_ENCRYPTION_SALT=op://1p_macos/Appsmith/encryption_salt
+
+# === n8n ===
+N8N_ENCRYPTION_KEY=op://1p_macos/n8n/encryption_key
+N8N_USER_MANAGEMENT_JWT_SECRET=op://1p_macos/n8n/jwt_secret
+N8N_ADMIN_USER=op://1p_macos/n8n/admin_user
+N8N_ADMIN_PASSWORD=op://1p_macos/n8n/admin_password
+
+# === Grafana ===
+GRAFANA_ADMIN_USER=op://1p_macos/Grafana/admin_user
+GRAFANA_ADMIN_PASSWORD=op://1p_macos/Grafana/admin_password
+
+# === ChromaDB ===
+CHROMADB_API_KEY=op://1p_macos/ChromaDB/api_key
+
+# === Dify ===
+DIFY_SECRET_KEY=op://1p_macos/Dify/secret_key
+
+# === Flowise ===
+FLOWISE_ADMIN_USER=op://1p_macos/Flowise/admin_user
+FLOWISE_ADMIN_PASSWORD=op://1p_macos/Flowise/admin_password
+
+# === LibreChat ===
+LIBRECHAT_JWT_SECRET=op://1p_macos/LibreChat/jwt_secret
+LIBRECHAT_REFRESH_SECRET=op://1p_macos/LibreChat/refresh_secret
+
+# === Baserow ===
+BASEROW_SECRET_KEY=op://1p_macos/Baserow/secret_key
+BASEROW_JWT_SIGNING_KEY=op://1p_macos/Baserow/jwt_signing_key
+
+# === BookStack ===
+# Usa POSTGRES_USER/PASSWORD
+
+# === NextCloud ===
+NEXTCLOUD_ADMIN_USER=op://1p_macos/NextCloud/admin_user
+NEXTCLOUD_ADMIN_PASSWORD=op://1p_macos/NextCloud/admin_password
+
+# === AI / LLM Services (JÁ EXISTEM NO 1P_MACOS) ===
+HUGGINGFACE_TOKEN=op://1p_macos/HuggingFace-Token/credential
+PERPLEXITY_API_KEY=op://1p_macos/Perplexity-API/credential
+GEMINI_API_KEY=op://1p_macos/Gemini-API/credential
+CURSOR_API_KEY=op://1p_macos/Cursor-API/credential
+OPENAI_API_KEY=op://1p_macos/OpenAI-API/credential
+
+# === Cloudflare DNS (JÁ EXISTE NO 1P_VPS) ===
+CLOUDFLARE_API_KEY=op://1p_vps/Cloudflare/API_KEY
+CLOUDFLARE_API_TOKEN=op://1p_vps/Cloudflare/API_TOKEN
+CLOUDFLARE_ZONE_ID=op://1p_vps/Cloudflare/ZONE_ID
+CLOUDFLARE_ACCOUNT_ID=op://1p_vps/Cloudflare/ACCOUNT_ID
+CLOUDFLARE_EMAIL=op://1p_vps/Cloudflare/EMAIL
+
+# === SMTP (JÁ EXISTE NO 1P_MACOS) ===
+SMTP_HOST=op://1p_macos/SMTP/HOST
+SMTP_PORT=op://1p_macos/SMTP/PORT
+SMTP_USER=op://1p_macos/SMTP/USER
+SMTP_PASSWORD=op://1p_macos/SMTP/PASSWORD
+
+# === HuggingFace Pro (1TB Dataset) ===
+HF_HOME=~/huggingface
+HF_DATASETS_CACHE=~/huggingface/datasets
+HF_HUB_CACHE=~/huggingface/hub
+
+# === Git / GitHub (VPS) ===
+GIT_PASSKEY_PASSWORD=op://1p_vps/ezvsxxt4r4qdqwif4dve5ztzoe/password
+GITHUB_USER=luiz.sena88
+GITHUB_EMAIL=luiz.sena88@icloud.com

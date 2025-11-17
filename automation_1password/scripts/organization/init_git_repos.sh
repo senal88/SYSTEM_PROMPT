@@ -1,0 +1,106 @@
+#!/bin/bash
+set -euo pipefail
+
+# init_git_repos.sh
+# Revisa e prepara primeiro commit para os 29 repositórios Git inicializados
+
+WORKSPACE_ROOT="${HOME}/workspace"
+TIMESTAMP="$(date +%Y%m%d)"
+LOG_FILE="${HOME}/Dotfiles/automation_1password/exports/git_init_${TIMESTAMP}.log"
+
+exec > >(tee -a "$LOG_FILE") 2>&1
+
+echo "=========================================="
+echo "INICIALIZAÇÃO GIT - PRIMEIRO COMMIT"
+echo "Data: $(date)"
+echo "=========================================="
+
+# Encontrar todos os repositórios Git no workspace
+repos=()
+while IFS= read -r -d '' repo; do
+  repos+=("$repo")
+done < <(find "$WORKSPACE_ROOT" -type d -name ".git" -print0)
+
+echo ""
+echo "Encontrados ${#repos[@]} repositórios Git"
+echo ""
+
+for git_dir in "${repos[@]}"; do
+  project_dir="$(dirname "$git_dir")"
+  project_name="$(basename "$project_dir")"
+  
+  echo "[PROCESSANDO] ${project_name}"
+  echo "  Path: ${project_dir}"
+  
+  cd "$project_dir" || continue
+  
+  # Verificar status
+  if git status --porcelain 2>/dev/null | grep -q .; then
+    echo "  ✅ Mudanças detectadas"
+    
+    # Adicionar arquivos padrão
+    [[ -f "README.md" ]] && git add README.md 2>/dev/null || true
+    [[ -f ".gitignore" ]] && git add .gitignore 2>/dev/null || true
+    [[ -f ".cursorrules" ]] && git add .cursorrules 2>/dev/null || true
+    
+    # Adicionar estrutura básica
+    git add src/ 2>/dev/null || true
+    git add *.json 2>/dev/null || true
+    git add *.yml 2>/dev/null || true
+    git add *.yaml 2>/dev/null || true
+    git add package.json 2>/dev/null || true
+    git add requirements.txt 2>/dev/null || true
+    git add pyproject.toml 2>/dev/null || true
+    git add Makefile 2>/dev/null || true
+    
+    # Criar changelog se não existe
+    if [[ ! -f "CHANGELOG.md" ]]; then
+      cat > CHANGELOG.md <<EOF
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [2.0.0] - 2025-10-30
+
+### Added
+- Initial project structure
+- README.md with standardized headers
+- .gitignore configuration
+- .cursorrules integration with automation_1password
+- Git repository initialization
+
+### Changed
+- Project migrated to ~/workspace structure
+- Standardized documentation format
+EOF
+      git add CHANGELOG.md 2>/dev/null
+    fi
+    
+    # Commit inicial
+    if git diff --cached --quiet 2>/dev/null; then
+      echo "  ⚠️  Nenhuma mudança para commitar"
+    else
+      git commit -m "Initial commit: project structure and standardization
+
+- Add README.md with standardized headers (Last Updated: 2025-10-30, Version: 2.0.0)
+- Add .gitignore for appropriate project type
+- Add .cursorrules integration with automation_1password
+- Add CHANGELOG.md for version tracking
+- Project migrated to ~/workspace structure
+- Integration with central governance from ~/Dotfiles/automation_1password" 2>/dev/null && echo "  ✅ Commit inicial criado" || echo "  ⚠️  Erro ao criar commit"
+    fi
+  else
+    echo "  ℹ️  Nenhuma mudança pendente"
+  fi
+  
+  echo ""
+done
+
+echo "=========================================="
+echo "INICIALIZAÇÃO GIT CONCLUÍDA"
+echo "Log: ${LOG_FILE}"
+echo "=========================================="
+

@@ -1,0 +1,213 @@
+services:
+  # === Traefik (Reverse Proxy) ===
+  traefik:
+    image: traefik:v3.1
+    container_name: ${PROJECT_SLUG:-platform}_traefik
+    command:
+      - "--api.dashboard=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
+      - "--certificatesresolvers.letsencrypt.acme.email=${TRAEFIK_EMAIL}"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080" # Dashboard
+    networks:
+      - app_network
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - traefik_certs:/letsencrypt
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.${PRIMARY_DOMAIN}`)"
+      - "traefik.http.routers.traefik.entrypoints=websecure"
+      - "traefik.http.routers.traefik.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.traefik.service=api@internal"
+
+  # === PostgreSQL 16 + pgvector ===
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: ${PROJECT_SLUG:-platform}_postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # === MongoDB ===
+  mongodb:
+    image: mongo:7
+    container_name: ${PROJECT_SLUG:-platform}_mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - app_network
+    restart: unless-stopped
+
+  # === Redis ===
+  redis:
+    image: redis:7-alpine
+    container_name: ${PROJECT_SLUG:-platform}_redis
+    command: redis-server --requirepass ${REDIS_PASSWORD} --appendonly yes
+    volumes:
+      - redis_data:/data
+    networks:
+      - app_network
+    restart: unless-stopped
+
+  # === NocoDB ===
+  nocodb:
+    image: nocodb/nocodb:latest
+    container_name: ${PROJECT_SLUG:-platform}_nocodb
+    environment:
+      NC_DB: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}"
+    volumes:
+      - nocodb_data:/usr/app/data
+    networks:
+      - app_network
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nocodb.rule=Host(`nocodb.${PRIMARY_DOMAIN}`)"
+      - "traefik.http.routers.nocodb.entrypoints=websecure"
+      - "traefik.http.routers.nocodb.tls.certresolver=letsencrypt"
+      - "traefik.http.services.nocodb.loadbalancer.server.port=8080"
+
+  # === Appsmith ===
+  appsmith:
+    image: appsmith/appsmith-ce:latest
+    container_name: ${PROJECT_SLUG:-platform}_appsmith
+    environment:
+      APPSMITH_SUPER_ADMIN_EMAIL: ${APPSMITH_SUPER_ADMIN_EMAIL}
+      APPSMITH_SUPER_ADMIN_PASSWORD: ${APPSMITH_SUPER_ADMIN_PASSWORD}
+      APPSMITH_ENCRYPTION_PASSWORD: ${APPSMITH_ENCRYPTION_PASSWORD}
+      APPSMITH_ENCRYPTION_SALT: ${APPSMITH_ENCRYPTION_SALT}
+    volumes:
+      - appsmith_data:/appsmith-stacks
+    networks:
+      - app_network
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.appsmith.rule=Host(`appsmith.${PRIMARY_DOMAIN}`)"
+      - "traefik.http.routers.appsmith.entrypoints=websecure"
+      - "traefik.http.routers.appsmith.tls.certresolver=letsencrypt"
+      - "traefik.http.services.appsmith.loadbalancer.server.port=80"
+
+  # === LM Studio === (Disabled - requires authentication)
+  # lmstudio:
+  #   image: docker.lmstudio.ai/lmstudio:latest
+  #   container_name: ${PROJECT_SLUG:-platform}_lmstudio
+  #   volumes:
+  #     - lmstudio_data:/root/.lmstudio
+  #   networks:
+  #     - app_network
+  #   restart: unless-stopped
+  #   labels:
+  #     - "traefik.enable=true"
+  #     - "traefik.http.routers.lmstudio.rule=Host(`lmstudio.${PRIMARY_DOMAIN}`)"
+  #     - "traefik.http.routers.lmstudio.entrypoints=websecure"
+  #     - "traefik.http.routers.lmstudio.tls.certresolver=letsencrypt"
+  #     - "traefik.http.services.lmstudio.loadbalancer.server.port=1234"
+
+  # === n8n ===
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: ${PROJECT_SLUG:-platform}_n8n
+    environment:
+      N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY}
+      N8N_USER_MANAGEMENT_JWT_SECRET: ${N8N_USER_MANAGEMENT_JWT_SECRET}
+      DB_TYPE: postgresdb
+      DB_POSTGRESDB_HOST: postgres
+      DB_POSTGRESDB_PORT: 5432
+      DB_POSTGRESDB_DATABASE: ${POSTGRES_DB}
+      DB_POSTGRESDB_USER: ${POSTGRES_USER}
+      DB_POSTGRESDB_PASSWORD: ${POSTGRES_PASSWORD}
+      GENERIC_TIMEZONE: America/Sao_Paulo
+    volumes:
+      - n8n_data:/home/node/.n8n
+    networks:
+      - app_network
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.n8n.rule=Host(`n8n.${PRIMARY_DOMAIN}`)"
+      - "traefik.http.routers.n8n.entrypoints=websecure"
+      - "traefik.http.routers.n8n.tls.certresolver=letsencrypt"
+      - "traefik.http.services.n8n.loadbalancer.server.port=5678"
+
+  # === Portainer ===
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: ${PROJECT_SLUG:-platform}_portainer
+    command: -H unix:///var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - app_network
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.portainer.rule=Host(`portainer.${PRIMARY_DOMAIN}`)"
+      - "traefik.http.routers.portainer.entrypoints=websecure"
+      - "traefik.http.routers.portainer.tls.certresolver=letsencrypt"
+      - "traefik.http.services.portainer.loadbalancer.server.port=9000"
+
+  # === ChromaDB ===
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: ${PROJECT_SLUG:-platform}_chromadb
+    environment:
+      ANONYMIZED_TELEMETRY: "False"
+    volumes:
+      - chromadb_data:/chroma/chroma
+    networks:
+      - app_network
+    restart: unless-stopped
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.chromadb.rule=Host(`chromadb.${PRIMARY_DOMAIN}`)"
+      - "traefik.http.routers.chromadb.entrypoints=websecure"
+      - "traefik.http.routers.chromadb.tls.certresolver=letsencrypt"
+      - "traefik.http.services.chromadb.loadbalancer.server.port=8000"
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  mongodb_data:
+  redis_data:
+  nocodb_data:
+  appsmith_data:
+  # lmstudio_data:
+  n8n_data:
+  portainer_data:
+  chromadb_data:
+  traefik_certs:

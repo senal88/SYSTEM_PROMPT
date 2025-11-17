@@ -1,25 +1,127 @@
 #!/bin/bash
-# =====================================================
-# 🧩 sync_1password_env.sh
-# Script automático para sincronizar variáveis .env no 1Password
-# =====================================================
+# sync_1password_env.sh
+# Script para sincronizar variáveis .env no 1Password
+# Last Updated: 2025-10-31
+# Version: 2.1.0
 
-# 🔐 Autenticação no 1Password
-echo "🔑 Conectando ao 1Password CLI..."
-op account add --address my.1password.com   --email "luiz.sena88@icloud.com"   --secret-key "A3-YEBP46-396NV5-RDFNK-7LCQK-A43DB-H4XKC"   --signin <<EOF
-Gm@1L#Env@hard
-EOF
+set -euo pipefail
 
-# ⚙️ Inicializa sessão ativa
-eval $(op signin my.1password.com luiz.sena88@icloud.com)
+# Cores para output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
 
-# 🏦 Cria item principal
-echo "🏦 Criando item 'Google Cloud Credentials (.env.base64)' no vault_senamfo_local..."
-op item create --vault "vault_senamfo_local"   --category "Database"   --title "Google Cloud Credentials (.env.base64)"   --tags "gcp,env,secrets,etl,n8n"   --url "https://console.cloud.google.com/"   "description=Credenciais codificadas do projeto GCP ETL / N8N"
+# Verificar argumentos
+if [[ $# -lt 1 ]]; then
+    echo -e "${RED}❌ Erro: Arquivo ENV_FILE é obrigatório${NC}"
+    echo "Uso: $0 /caminho/para/.env [VAULT] [ITEM_TITLE]"
+    echo ""
+    echo "Exemplo:"
+    echo "  $0 /path/to/.env vault_senamfo_local 'Google Cloud Credentials'"
+    exit 1
+fi
 
-# 🧩 Adiciona variáveis codificadas
-echo "📦 Adicionando variáveis codificadas..."
-op item edit "Google Cloud Credentials (.env.base64)" --vault "vault_senamfo_local"   "GOOGLE_CLIENT_ID=NTAxMjg4MzA3OTIxLTNscnRxdTVycWNtZm9pY2h0M2NmNWVjbDV0bWEydXUyLmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29t"   "GOOGLE_PROJECT_ID=Z2NwLWFpLXNldHVwLTI0NDEw"   "GOOGLE_AUTH_URI=aHR0cHM6Ly9hY2NvdW50cy5nb29nbGUuY29tL28vb2F1dGgyL2F1dGg="   "GOOGLE_TOKEN_URI=aHR0cHM6Ly9vYXV0aDIuZ29vZ2xlYXBpcy5jb20vdG9rZW4="   "GOOGLE_CLIENT_SECRET=R09DU1BYLXZsQjdxdzBYNldrd3kzTXVxaXZ1ZWg2MmxsRzk="   "GCP_PRIVATE_KEY=LS0tLS1CRUdJTiBQUklWQVRFIEtFWS0tLS0tCk1JSUV2UUlCQURBTkJna3Foa2lHOXcwQkFRRUZBQVNDQktjd2dnU2pBZ0VBQW9JQkFRQ2E0S2dIQnk4cnRBRDEKTUZWWjRpeGMzR2lleFNQekl1OUN4RXlRN29EREFKd01ubnpHK05NajI0WVhsQjZUelNkZFhLNTBEbndaWWpwTQozL0wrL2Z4Y3lZY1JKQlNRT3V3clM3bzdJenVqZVR5ZS96cUI5cXl6UVlHamlHNFAwaHB1VTFsY3hDTlJEbHhnCnZFNlBHdUN5MXRlS2dCbVVyMFR4OXcyTlA2amsraENIR3dhQmN0MTI2RG5QUGhhSWo0N2U2dzZZOGR2Wi9ZdkwKeG1TSERZb2dMaFRrOEo3L2R3WXhKMkwzbFJkUDl3ZURudDNGdHdFQmVUYmo3TVdFZHVsV2lDQzcrejlzTUFMYwpJT0JUOHYwZVBqdllFL2lxMldncGt1L254TDVVeXBLOVVlRWhJTWJ2RVlPcFdoUzFCREJDdVdOYnA5OU9NZWx0CmhJRmhOYVBiQWdNQkFBRUNnZ0VBSCsyWlpoMkNpWEZwMHlJY0xsUDBqazQzMlNkT0FuVWN1dmhweW1VSXNXcWkKUU8yNVRuR0VZWHVEZUwvbHo5VjJ2SVg3UnR5bms3b094OE5SUG1VUXpmWVR2S0ppQk52SXpTSW02Y01aSzltMQorQmNvc2hzdXZpT09mSzZHOWdiN3dPdTQyK2xwV0cvcjlsdExuSy9QUzc4RG56OUtScjhkS1A2ajBnOGlHOVhwCk9PUnNzUlR0SEVEVW9DcGJMMFdXMzRjODFOMjRGSHlXNC9VRU9WeEdBemlYWk5oMGlObis0TFBHVnBkUjgxTXAKQ1pLNmg0cHpOV2VTVlRIT21IRkU2dVJiZ3NyU2VkTE1kbUZqVmVoUExWSDZzOXFtanFOMzlpNzF2b3g1UFFqZQpQMldYU0tiV0haUVdQVExmRW9waWFYeFptd3YxWHJUYnV0VHJvK0lqQlFLQmdRRFJIWVBSWjJFS1ZaRVN0VjhSCkdDaE55T281Q1Z1d0pCOHh1aU9WV0ZrcHF1MU5veklzQ2hJUGM4MWxiNVhMbU1ObjBURldrcm9lUkdYUnFoY2MKYndsZkljTVM1ZXFWR2o5dW9zQTkvb0c5U1hackIwUVVtREFjN2d3bmZ4ZDdGdkh4VnF3eFhyMU1lRlJmcFJWKwo2bFRWQjIzTDVKSjJPZVVvYjFidG9zcEJmUUtCZ1FDOW1oWDZtOGwxTTFMTUJGc1diSG5TSFFwWlVMNXRZWTRqCkNHdGZjblE2MzlOTEZ4MEF3dU1ubUFvaDNmUHZmZXRJTjlQcHRMVXd1M05NSDdzVWdZVkdjYmlScW1idWR2REEKNjJyM1hpZmp3bUQ3dFVoNE9UMUpmdklkenZJYkNJWWRkWjZQQUxLU213QjhjN3o4aWtmaGlnSytWSGJKZHo0OQpvWFltUEh4Nk53S0JnUUMvM05hdThLMEdjRSswM0pnbTlRVTFxUnZOelJwRTJEK092bndiY0g0T1R2ZC9malp3ClZhVVFiRzJObmYzUVdZOGYxNzN1OHB5MVhJZ1hBSHBINmxDczZpc3pVYVFUdll0cGxRWFJXNHZxQWxjV0NBcWMKNHExeVBhOEZKZ1NET1NBdkVCalpDMVdmcmQrc0NhbFpVdU1XdWNReGlMd2dvU255R1lXbWJ2QW5lUUtCZ0NLMApmYWx0c3FaOVNuNkZuWmF4TEd0RlhZdVR1QWVWZjhyeDA1V1pBYVYxS3R2bjB5czhnUS9TU0tpQ1ZCQldZQ2JMCjhVSXFEYkJwMzJUanVmNjY1b1pLY3BwWE1wZ2J0VjNhdWEybDBtOWlPUlpaekhZVkpCNjcyZDJTNzhYNi9YR1AKQWdMekFiek1HbjZ0UUw2SklUY3JaKzBtME1kM3lEREh5VFNlaGJwcEFvR0FONHhYdkxVUVJNL240NExnbXJoZApvWUVNS2VEL3M0V2RCdm02a1B1RllXdlN6MlpHSkZtRHYzKzh3RGZmcXV0cmQwSko0SWJmWllDOWhBLzVqK2RNClVVZkh4N1pLaHBOdDN4S1FIU0YveE51Snl2Y3Q1RkdMaUg1VlZPWlJJZGNZUENlaTBNRGRhcHI1am9CWlFnelYKZ0d1K3p4SG1JY24zbktzQXdrN0FVTVU9Ci0tLS0tRU5EIFBSSVZBVEUgS0VZLS0tLS0="
+ENV_FILE="${1}"
+VAULT="${2:-1p_macos}"
+ITEM_TITLE="${3:-$(basename "$ENV_FILE" .env)}"
 
-# ✅ Confirmação final
-echo "✅ Variáveis .env base64 foram salvas com sucesso no vault 'vault_senamfo_local'."
+# Validar arquivo existe
+if [[ ! -f "$ENV_FILE" ]]; then
+    echo -e "${RED}❌ Erro: Arquivo $ENV_FILE não encontrado${NC}"
+    exit 1
+fi
+
+# Verificar 1Password CLI instalado
+if ! command -v op &> /dev/null; then
+    echo -e "${RED}❌ Erro: 1Password CLI não encontrado${NC}"
+    echo "Instale com: brew install 1password-cli"
+    exit 1
+fi
+
+# Verificar sessão ativa
+echo -e "${YELLOW}🔐 Verificando sessão 1Password...${NC}"
+if ! op whoami &>/dev/null; then
+    echo -e "${RED}❌ Erro: Não há sessão 1Password ativa${NC}"
+    echo "Execute: op signin [account]"
+    echo "Ou: make secrets.audit # para ver instruções"
+    exit 1
+fi
+
+# Obter account e vault info
+CURRENT_ACCOUNT=$(op whoami 2>/dev/null | jq -r '.accountUuid' 2>/dev/null || op whoami 2>/dev/null)
+echo -e "${GREEN}✅ Sessão ativa: $CURRENT_ACCOUNT${NC}"
+
+# Verificar se vault existe
+if ! op vault get "$VAULT" &>/dev/null; then
+    echo -e "${RED}❌ Erro: Vault '$VAULT' não encontrado${NC}"
+    echo "Vaults disponíveis:"
+    op vault list
+    exit 1
+fi
+
+# Verificar se item já existe
+ITEM_EXISTS=false
+if op item get "$ITEM_TITLE" --vault "$VAULT" &>/dev/null 2>&1; then
+    ITEM_EXISTS=true
+    echo -e "${YELLOW}⚠️  Item '$ITEM_TITLE' já existe no vault '$VAULT'${NC}"
+    read -p "Sobrescrever? (y/N): " -n 1 -r
+    echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        echo "Operação cancelada"
+        exit 0
+    fi
+fi
+
+# Codificar arquivo em base64
+ENV_CONTENT=$(cat "$ENV_FILE" | base64 | tr -d '\n')
+ENV_SIZE=$(echo -n "$ENV_CONTENT" | wc -c)
+
+echo -e "${YELLOW}📦 Codificando arquivo ($ENV_SIZE bytes)...${NC}"
+
+# Criar ou atualizar item
+if [[ "$ITEM_EXISTS" == "true" ]]; then
+    echo -e "${YELLOW}🔄 Atualizando item '$ITEM_TITLE' no vault '$VAULT'...${NC}"
+    
+    # Extrair apenas variáveis (ignorar comentários e vazios)
+    while IFS='=' read -r key value; do
+        # Pular comentários e linhas vazias
+        [[ "$key" =~ ^#.*$ || -z "$key" ]] && continue
+        
+        # Remover espaços iniciais e quotes
+        key=$(echo "$key" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+        value=$(echo "$value" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//' | sed 's/^"//;s/"$//' | sed "s/^'//;s/'$//")
+        
+        # Codificar valor em base64 para segurança
+        value_b64=$(echo -n "$value" | base64)
+        
+        # Adicionar ao item
+        op item edit "$ITEM_TITLE" --vault "$VAULT" "${key}_B64=${value_b64}" 2>/dev/null || true
+    done < "$ENV_FILE"
+    
+    echo -e "${GREEN}✅ Item atualizado com sucesso${NC}"
+else
+    echo -e "${YELLOW}🆕 Criando item '$ITEM_TITLE' no vault '$VAULT'...${NC}"
+    
+    # Criar item com conteúdo base64 completo
+    op item create \
+        --vault "$VAULT" \
+        --category "Secure Note" \
+        --title "$ITEM_TITLE" \
+        --field label="env_base64" value="$ENV_CONTENT" \
+        --field label="env_file_path" value="$ENV_FILE" \
+        --field label="env_size" value="$ENV_SIZE" \
+        &>/dev/null
+    
+    echo -e "${GREEN}✅ Item criado com sucesso${NC}"
+fi
+
+# Confirmar
+echo -e "${GREEN}✅ Sincronização concluída${NC}"
+echo ""
+echo "Vault: $VAULT"
+echo "Item: $ITEM_TITLE"
+echo "Tamanho: $ENV_SIZE bytes"
+echo ""
+echo "Para recuperar:"
+echo "  op read \"op://$VAULT/$ITEM_TITLE/env_base64\" | base64 -d > $ENV_FILE.restored"

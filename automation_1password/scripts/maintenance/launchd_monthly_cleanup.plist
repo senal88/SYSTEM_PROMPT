@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.automation1password.monthly-cleanup</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/luiz.sena88/Dotfiles/automation_1password/scripts/maintenance/monthly_cleanup.sh</string>
+    </array>
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Day</key>
+        <integer>1</integer>
+        <key>Hour</key>
+        <integer>2</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+    <key>StandardOutPath</key>
+    <string>/Users/luiz.sena88/Dotfiles/automation_1password/logs/launchd_monthly_cleanup.out</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/luiz.sena88/Dotfiles/automation_1password/logs/launchd_monthly_cleanup.err</string>
+    <key>RunAtLoad</key>
+    <false/>
+</dict>
+</plist>
+

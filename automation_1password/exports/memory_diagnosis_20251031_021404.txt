@@ -1,0 +1,34 @@
+==========================================
+DIAGNÓSTICO DE MEMÓRIA - Fri Oct 31 02:14:04 -03 2025
+==========================================
+
+=== INFORMAÇÕES DE SISTEMA ===
+RAM Total: 24.00 GB
+
+=== STATUS DE MEMÓRIA (vm_stat) ===
+Mach Virtual Memory Statistics: (page size of 16384 bytes)
+Pages free:                                9885.
+Pages active:                            461493.
+Pages inactive:                          451662.
+Pages speculative:                         9576.
+Pages throttled:                              0.
+Pages wired down:                        188529.
+Pages purgeable:                           6420.
+"Translation faults":                4042252061.
+Pages copy-on-write:                  215348186.
+Pages zero filled:                   1100882774.
+Pages reactivated:                    958130367.
+Pages purged:                         398090826.
+File-backed pages:                       234839.
+Anonymous pages:                         687892.
+Pages stored in compressor:             1380154.
+Pages occupied by compressor:            397992.
+Decompressions:                      1165936604.
+Compressions:                        1254188329.
+Pageins:                              103233079.
+Pageouts:                               3487118.
+Swapins:                               60850732.
+Swapouts:                              70980639.
+
+=== TOP 20 PROCESSOS POR MEMÓRIA ===
+USER               PID  %CPU %MEM      VSZ    RSS   TT  STAT STARTED      TIME COMMAND

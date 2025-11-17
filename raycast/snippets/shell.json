@@ -1,0 +1,25 @@
+{
+  "snippets": [
+    {
+      "name": "sh-template",
+      "text": "#!/bin/bash\n# $1\n# Autor: luiz.sena88\n# Data: $(date +%Y-%m-%d)\n\nset -euo pipefail\n\n# Cores\nRED='\\033[0;31m'\nGREEN='\\033[0;32m'\nYELLOW='\\033[1;33m'\nBLUE='\\033[0;34m'\nNC='\\033[0m'\n\nmain() {\n    $2\n}\n\nmain \"$@\"",
+      "keyword": "shtemplate"
+    },
+    {
+      "name": "sh-colors",
+      "text": "RED='\\033[0;31m'\nGREEN='\\033[0;32m'\nYELLOW='\\033[1;33m'\nBLUE='\\033[0;34m'\nNC='\\033[0m'",
+      "keyword": "shcolors"
+    },
+    {
+      "name": "sh-log-functions",
+      "text": "log_info() { echo -e \"${BLUE}ℹ${NC} $1\"; }\nlog_success() { echo -e \"${GREEN}✓${NC} $1\"; }\nlog_error() { echo -e \"${RED}✗${NC} $1\" >&2; }\nlog_warning() { echo -e \"${YELLOW}⚠${NC} $1\"; }",
+      "keyword": "shlog"
+    },
+    {
+      "name": "sh-check-command",
+      "text": "if ! command -v $1 &>/dev/null; then\n    echo \"Erro: $1 não encontrado\" >&2\n    exit 1\nfi",
+      "keyword": "shcheck"
+    }
+  ]
+}
+

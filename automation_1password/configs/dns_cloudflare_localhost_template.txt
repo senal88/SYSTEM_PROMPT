@@ -1,0 +1,50 @@
+;;
+;; Domain:     localhost.
+;; Exported:   2025-10-28 00:00:00
+;;
+;; Este arquivo é um template de zona DNS para uso local em macOS Silicon.
+;; Todos os registros estão parametrizados para uso com variáveis de ambiente.
+;;
+;; SOA Record
+localhost	3600	IN	SOA	${DNS_NS1}. ${DNS_EMAIL}. 2051284391 10000 2400 604800 3600
+
+;; NS Records
+localhost.	86400	IN	NS	${DNS_NS1}.
+localhost.	86400	IN	NS	${DNS_NS2}.
+
+;; A Records
+manager.localhost.	1	IN	A	${DNS_MANAGER_IP} ; IP principal
+
+;; CNAME Records
+activepieces.localhost.	1	IN	CNAME	manager.localhost. ; cf_tags=cf-proxied:${CF_PROXY_ACTIVEPIECES}
+agent-api.localhost.	1	IN	CNAME	manager.localhost. ; cf_tags=cf-proxied:${CF_PROXY_AGENT_API}
+agent-app.localhost.	1	IN	CNAME	manager.localhost. ; cf_tags=cf-proxied:${CF_PROXY_AGENT_APP}
+agent-ui.localhost.	1	IN	CNAME	manager.localhost. ; cf_tags=cf-proxied:${CF_PROXY_AGENT_UI}
+api.localhost.	1	IN	CNAME	manager.localhost. ; cf_tags=cf-proxied:${CF_PROXY_API}
+traefik.localhost.	1	IN	CNAME	manager.localhost. ; cf_tags=cf-proxied:${CF_PROXY_TRAEFIK}
+postgres.localhost.	1	IN	CNAME	manager.localhost. ; cf_tags=cf-proxied:${CF_PROXY_POSTGRES}
+redis.localhost.	1	IN	CNAME	manager.localhost. ; cf_tags=cf-proxied:${CF_PROXY_REDIS}
+minio.localhost.	1	IN	CNAME	manager.localhost. ; cf_tags=cf-proxied:${CF_PROXY_MINIO}
+
+;; MX Records
+localhost.	1	IN	MX	10 ${DNS_MX1}.
+localhost.	1	IN	MX	5 ${DNS_MX2}.
+
+;; TXT Records
+_acme-challenge.manager.localhost.	120	IN	TXT	"${DNS_ACME_CHALLENGE}"
+_dmarc.localhost.	1	IN	TXT	"${DNS_DMARC_POLICY}" ; Política DMARC personalizada
+localhost.	1	IN	TXT	"${DNS_SPF}" ; SPF para email local
+
+;; Parâmetros para variáveis de ambiente:
+# DNS_NS1, DNS_NS2, DNS_EMAIL, DNS_MANAGER_IP, CF_PROXY_*, DNS_MX1, DNS_MX2, DNS_ACME_CHALLENGE, DNS_DMARC_POLICY, DNS_SPF
+# Exemplo de uso em .env:
+# DNS_NS1=ns1.localhost
+# DNS_NS2=ns2.localhost
+# DNS_EMAIL=dns.localhost.com
+# DNS_MANAGER_IP=127.0.0.1
+# CF_PROXY_API=true
+# DNS_MX1=mail.localhost
+# DNS_MX2=backupmail.localhost
+# DNS_ACME_CHALLENGE=challenge-token
+# DNS_DMARC_POLICY="v=DMARC1; p=none; rua=mailto:admin@localhost"
+# DNS_SPF="v=spf1 ip4:127.0.0.1 ~all"

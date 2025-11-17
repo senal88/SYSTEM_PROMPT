@@ -1,0 +1,16 @@
+REPOSITORY                                        TAG             DIGEST                                                                    IMAGE ID       CREATED         SIZE
+n8nio/n8n                                         latest          sha256:90bf64ec238b88908389694b5ace00e5c17ea5d4a0af812dd266d7cfcd40984f   90bf64ec238b   2 days ago      1.62GB
+<none>                                            <none>          <none>                                                                    c7dae935e865   3 days ago      1.62GB
+langgenius/dify-api                               latest          sha256:9546c6d9d1abc4ab48e14f349e26fb9016b5d432c48b44d817d09f14797a0882   9546c6d9d1ab   6 days ago      3.26GB
+langgenius/dify-web                               latest          sha256:85c2e857e8a5d039a9727bf19b08c5db3b4961a7459e2bf8fd47d719db5368fb   85c2e857e8a5   6 days ago      821MB
+infra-varela-tax-frontend                         latest          sha256:f09fd1d7449e0e548b7c287661e86189398196d8db13456e7e90d3e4922b6bb6   f09fd1d7449e   7 days ago      537MB
+grafana/grafana-oss                               latest          sha256:35c41e0fd0295f5d0ee5db7e780cf33506abfaf47686196f825364889dee878b   35c41e0fd029   10 days ago     909MB
+postgres                                          16-alpine       sha256:029660641a0cfc575b14f336ba448fb8a75fd595d42e1fa316b9fb4378742297   029660641a0c   2 weeks ago     381MB
+alpine                                            latest          sha256:4b7ce07002c69e8f3d704a9c5d6fd3053be500b7f1c69fc0d80990c2ad8dd412   4b7ce07002c6   3 weeks ago     13.3MB
+redis                                             alpine          sha256:59b6e694653476de2c992937ebe1c64182af4728e54bb49e9b7a6c26614d8933   59b6e6946534   3 weeks ago     98.9MB
+portainer/portainer-ce                            latest          sha256:264443d4063e0f2633f3ba210ccd69aacf07344dfc792128131dec8963df0f0a   264443d4063e   5 weeks ago     238MB
+1password/connect-sync                            latest          sha256:d5e937b2b7e314dbbaffacf469dc8f30376b5954a3ad836c8d96e6cb579d7fab   d5e937b2b7e3   6 weeks ago     78MB
+1password/connect-api                             latest          sha256:8fe7bcd50c9e73899e0a1aa5aa43421ca75fbceacb33dd07f6418c4116e637a1   8fe7bcd50c9e   6 weeks ago     88.8MB
+nocodb/nocodb                                     latest          sha256:8fd57018accf775fb5390392910e4b0ef6bb154f17c5732b478eb76c40ee8d1e   8fd57018accf   8 weeks ago     881MB
+mcr.microsoft.com/devcontainers/typescript-node   1-22-bookworm   sha256:7c2e711a4f7b02f32d2da16192d5e05aa7c95279be4ce889cff5df316f251c1d   7c2e711a4f7b   5 months ago    2.51GB
+traefik                                           v2.10           sha256:6341b98aec5ec8969b99e9730f4c5b22cca3103d42b6bbe4b7a3c910758fe565   6341b98aec5e   21 months ago   193MB

@@ -1,0 +1,123 @@
+=== GIT REMOTE ===
+origin	https://github.com/senal88/ls-edia-config.git (fetch)
+origin	https://github.com/senal88/ls-edia-config.git (push)
+
+=== GIT STATUS ===
+ M ../../.cursorrules
+ M ../../.gitignore
+ D ../../IMPLEMENTACAO_COMPLETA.md
+ M ../../connect/docker-compose.yml
+ M ../secrets/inject_secrets_macos.sh
+ M ../secrets/sync_1password_env.sh
+ m ../../../codex
+?? ../../../.bashrc
+?? ../../../.config/
+?? ../../../atlas-cli/Makefile
+?? ../../../atlas-cli/atlas.env
+?? ../../../atlas-cli/configure-atlas-cli.sh
+?? ../../../atlas-cli/install-atlas-cli.sh
+?? ../../.backups/
+?? ../../.tmp_tree.txt
+?? ../../.vscode/
+?? ../../GUIA_PORTTAINER_PRIMEIRO_ACESSO.md
+?? ../../GUIA_RAPIDO_USAR_AGORA.md
+?? ../../IMPROVEMENTS_REPORT.md
+?? ../../Makefile
+?? ../../compose/
+?? ../../configs/dns_cloudflare_localhost_full.txt
+?? ../../configs/dns_cloudflare_localhost_template.txt
+?? ../../connect/1Password.opvault/
+?? ../../connect/dns.template.env
+?? ../../context/
+?? ../../dados/
+?? ../../diagnostics/
+?? ../../docs/HUGGINGFACE_GUIA_COMPLETO.md
+?? ../../docs/PLANO_ACAO_COMPLETO.md
+?? ../../docs/VALIDACAO_PRE_VPS.md
+?? ../../docs/llm-cookbook.md
+?? ../../docs/operations/analisar_adequar_automation_1password/
+?? ../../docs/reports/
+?? ../../docs/runbooks/automacao-cursor-pro.md
+?? ../../docs/runbooks/deploy-stack-completa.md
+?? ../../docs/runbooks/desenvolvimento-system-prompt-hibrido.md
+?? ../../docs/runbooks/lmstudio-integration.md
+?? ../../docs/runbooks/organizar-projetos-home.md
+?? ../../docs/runbooks/otimizacao-memoria-projetos.md
+?? ../../docs/runbooks/raycast-1password-integration.md
+?? ../../docs/runbooks/restauracao-terminal.md
+?? ../../docs/runbooks/stacks-completas-equivalencia.md
+?? ../../docs/runbooks/testes-configuracao-vps.md
+?? ../../env/README.md
+?? ../../env/github-recovery-codes.txt
+?? ../../env/infra.example.env.op
+?? ../../env/macos.env.example
+?? ../../env/n8n-recovery-codes.txt
+?? ../../env/shared.env.example
+?? ../../env/vps.env.example
+?? ../../exports/
+?? ../../gemini_setup_final.tar.gz
+?? ../../gemini_setup_final/
+?? ../../injetar_env_cloudflare_corretamente.json
+?? ../../justfile
+?? ../../prompts/
+?? ../../reports/
+?? ../1p-create-all-secrets.sh
+?? ../audit/
+?? ../bootstrap/fix_ssh_1password_vps.sh
+?? ../bootstrap/fix_terminal_config.sh
+?? ../bootstrap/setup_vps_complete.sh
+?? ../bootstrap/test_ssh_1password.sh
+?? ../cloudflare/
+?? ./
+?? ../context/
+?? ../diagnostics/
+?? ../export_architecture.sh
+?? ../fix-op-connect-conflict.sh
+?? ../huggingface/
+?? ../lib/
+?? ../llm/
+?? ../lmstudio/
+?? ../maintenance/
+?? ../migration/
+?? ../organization/
+?? ../platform/
+?? ../projetos/
+?? ../prompts/
+?? ../raycast/
+?? ../secrets/load-infra-env.sh
+?? ../secrets/op_login.sh
+?? ../secrets/register-and-validate-api-keys.sh
+?? ../secrets/reset_connect_env.sh
+?? ../security/
+?? ../setup-auto-completo.sh
+?? ../traefik/
+?? ../validation/validate-ai-stack.sh
+?? ../validation/validate_architecture.sh
+?? ../../settings.json
+?? ../../setup-automatico.sh
+?? ../../setup-completo-final.sh
+?? ../../templates/projetos/
+?? ../../../cursor/
+?? ../../../gemini/
+?? ../../../huggingface/
+?? ../../../raycast/
+?? ../../../templates/
+?? ../../../tmux/
+?? ../../../zsh/
+
+=== GIT BRANCHES ===
+* main
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/main
+
+=== RECENT COMMITS ===
+4bedf7e feat: Adiciona scripts de pinagem automática Atlas CLI
+98961bc docs: Adiciona manual completo e checklist rápido
+bb2963b feat: Adiciona substituição completa Spotlight → Raycast
+4ea1c27 feat: Sistema completo de backup/restore do Raycast
+649cdbf feat: Adiciona repositório final organizado do Raycast Automation
+f22027d feat: Adiciona automação completa do Raycast com integração 1Password
+d4d0515 feat: add automation 1password workspace
+54e2f35 chore: finalize dotfiles-only layout
+108d4fd refactor: scope dotfiles repo
+5f8df61 docs: expand README with full LS-EDIA guide

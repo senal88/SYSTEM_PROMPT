@@ -1,0 +1,268 @@
+#!/bin/bash
+set -euo pipefail
+
+# ssh_dev_prompt.sh
+# Desenvolvimento interativo de system_prompt via SSH entre macOS e VPS
+# Permite edição remota, testes e sincronização bidirecional
+
+AUTOMATION_ROOT="${HOME}/Dotfiles/automation_1password"
+PROMPTS_DIR="${AUTOMATION_ROOT}/prompts/system"
+
+# Configuração VPS
+VPS_HOST="${VPS_HOST:-147.79.81.59}"
+VPS_USER="${VPS_USER:-luiz.sena88}"
+VPS_PROMPTS_DIR="${VPS_PROMPTS_DIR:-~/Dotfiles/automation_1password/prompts/system}"
+
+# Cores
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+log() {
+  echo -e "${BLUE}[SSH Dev]${NC} $1"
+}
+
+# Menu interativo
+show_menu() {
+  cat << EOF
+
+╔════════════════════════════════════════════════════════╗
+║  System Prompt Development - SSH Hybrid Workflow       ║
+╚════════════════════════════════════════════════════════╝
+
+1. Editar prompt localmente (macOS)
+2. Editar prompt no VPS (Ubuntu) via SSH
+3. Sincronizar local → VPS
+4. Sincronizar VPS → local
+5. Comparar diferenças
+6. Testar prompt localmente
+7. Testar prompt no VPS
+8. Deploy completo (backup + sync + validate)
+9. Sair
+
+EOF
+}
+
+# Editar localmente
+edit_local() {
+  local name
+  read -p "Nome do prompt: " name
+  
+  local file="${PROMPTS_DIR}/shared/${name}.md"
+  
+  if [[ ! -f "$file" ]]; then
+    echo "Prompt não encontrado. Criar novo? (s/N): "
+    read -r answer
+    if [[ "$answer" =~ ^[Ss]$ ]]; then
+      bash "${AUTOMATION_ROOT}/scripts/prompts/manage_system_prompt.sh" create "$name"
+      file="${PROMPTS_DIR}/shared/${name}.md"
+    else
+      return
+    fi
+  fi
+  
+  # Abrir editor
+  ${EDITOR:-nano} "$file"
+  
+  log "✅ Edição concluída localmente"
+}
+
+# Editar no VPS via SSH
+edit_remote() {
+  local name
+  read -p "Nome do prompt: " name
+  
+  log "Conectando ao VPS para editar..."
+  
+  ssh -t "${VPS_USER}@${VPS_HOST}" << EOF
+    cd ${VPS_PROMPTS_DIR}
+    file="shared/${name}.md"
+    
+    if [[ ! -f "\$file" ]]; then
+      echo "Arquivo não encontrado no VPS. Criar? (s/N): "
+      read answer
+      if [[ "\$answer" =~ ^[Ss]$ ]]; then
+        mkdir -p shared
+        touch "\$file"
+      else
+        exit
+      fi
+    fi
+    
+    \${EDITOR:-nano} "\$file"
+EOF
+  
+  log "✅ Edição concluída no VPS"
+}
+
+# Sync local → VPS
+sync_local_to_vps() {
+  local name
+  read -p "Nome do prompt para sincronizar: " name
+  
+  log "Sincronizando ${name} para VPS..."
+  
+  bash "${AUTOMATION_ROOT}/scripts/prompts/manage_system_prompt.sh" \
+    sync "$name" \
+    --vps-host "$VPS_HOST" \
+    --vps-user "$VPS_USER" \
+    --vps-dir "$VPS_PROMPTS_DIR"
+  
+  log "✅ Sincronização local → VPS concluída"
+}
+
+# Sync VPS → local
+sync_vps_to_local() {
+  local name
+  read -p "Nome do prompt para trazer do VPS: " name
+  
+  log "Baixando ${name} do VPS..."
+  
+  # Criar backup local primeiro
+  mkdir -p "${PROMPTS_DIR}/versions"
+  if [[ -f "${PROMPTS_DIR}/shared/${name}.md" ]]; then
+    cp "${PROMPTS_DIR}/shared/${name}.md" \
+       "${PROMPTS_DIR}/versions/${name}.backup_$(date +%Y%m%d_%H%M%S).md"
+  fi
+  
+  # Baixar do VPS
+  mkdir -p "${PROMPTS_DIR}/shared"
+  scp "${VPS_USER}@${VPS_HOST}:${VPS_PROMPTS_DIR}/shared/${name}.md" \
+      "${PROMPTS_DIR}/shared/" 2>/dev/null || {
+    log "⚠️  Arquivo não encontrado no VPS"
+    return
+  }
+  
+  log "✅ Sincronização VPS → local concluída"
+}
+
+# Comparar
+compare_prompts() {
+  local name
+  read -p "Nome do prompt para comparar: " name
+  
+  log "Comparando versões..."
+  
+  bash "${AUTOMATION_ROOT}/scripts/prompts/manage_system_prompt.sh" \
+    diff "$name" \
+    --vps-host "$VPS_HOST" \
+    --vps-user "$VPS_USER" \
+    --vps-dir "$VPS_PROMPTS_DIR"
+}
+
+# Testar localmente
+test_local() {
+  local name
+  read -p "Nome do prompt para testar: " name
+  
+  log "Testando prompt localmente (macOS)..."
+  
+  local file="${PROMPTS_DIR}/shared/${name}.md"
+  if [[ ! -f "$file" ]]; then
+    log "⚠️  Prompt não encontrado"
+    return
+  fi
+  
+  # Validar
+  bash "${AUTOMATION_ROOT}/scripts/prompts/manage_system_prompt.sh" validate "$name"
+  
+  # Mostrar preview
+  echo ""
+  log "Preview do prompt:"
+  echo "─────────────────────────────────────"
+  head -30 "$file"
+  echo "─────────────────────────────────────"
+}
+
+# Testar no VPS
+test_remote() {
+  local name
+  read -p "Nome do prompt para testar no VPS: " name
+  
+  log "Testando prompt no VPS (Ubuntu)..."
+  
+  ssh "${VPS_USER}@${VPS_HOST}" << EOF
+    cd ${VPS_PROMPTS_DIR}
+    
+    if [[ -f "shared/${name}.md" ]]; then
+      echo "✅ Prompt encontrado"
+      echo ""
+      echo "Preview do prompt:"
+      echo "─────────────────────────────────────"
+      head -30 "shared/${name}.md"
+      echo "─────────────────────────────────────"
+    else
+      echo "⚠️  Prompt não encontrado no VPS"
+    fi
+EOF
+}
+
+# Deploy completo
+deploy_full() {
+  local name
+  read -p "Nome do prompt para deploy: " name
+  
+  log "🚀 Deploy completo de ${name}..."
+  
+  # 1. Backup
+  log "1. Criando backup..."
+  bash "${AUTOMATION_ROOT}/scripts/prompts/manage_system_prompt.sh" backup
+  
+  # 2. Validar
+  log "2. Validando prompt..."
+  bash "${AUTOMATION_ROOT}/scripts/prompts/manage_system_prompt.sh" validate "$name"
+  
+  # 3. Sync local → VPS
+  log "3. Sincronizando para VPS..."
+  bash "${AUTOMATION_ROOT}/scripts/prompts/manage_system_prompt.sh" \
+    sync "$name" \
+    --vps-host "$VPS_HOST" \
+    --vps-user "$VPS_USER" \
+    --vps-dir "$VPS_PROMPTS_DIR"
+  
+  # 4. Validar no VPS
+  log "4. Validando no VPS..."
+  ssh "${VPS_USER}@${VPS_HOST}" << EOF
+    if [[ -f "${VPS_PROMPTS_DIR}/shared/${name}.md" ]]; then
+      echo "✅ Prompt validado no VPS"
+    else
+      echo "❌ Erro: Prompt não encontrado no VPS após sync"
+      exit 1
+    fi
+EOF
+  
+  log "✅ Deploy completo concluído!"
+}
+
+# Main loop
+main() {
+  while true; do
+    show_menu
+    read -p "Escolha uma opção: " choice
+    
+    case "$choice" in
+      1) edit_local ;;
+      2) edit_remote ;;
+      3) sync_local_to_vps ;;
+      4) sync_vps_to_local ;;
+      5) compare_prompts ;;
+      6) test_local ;;
+      7) test_remote ;;
+      8) deploy_full ;;
+      9) 
+        log "Saindo..."
+        exit 0
+        ;;
+      *)
+        log "Opção inválida"
+        ;;
+    esac
+    
+    echo ""
+    read -p "Pressione Enter para continuar..."
+  done
+}
+
+main
+

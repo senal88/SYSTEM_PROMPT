@@ -1,0 +1,40 @@
+# env-ai-stack.template - Stack AI (n8n + Ollama + Qdrant + Hugging Face)
+# Injetar: op inject -i env-ai-stack.template -o .env
+# Last Updated: 2025-10-31
+# Version: 1.0.0
+
+# === Projeto ===
+PROJECT_SLUG=platform
+PRIMARY_DOMAIN=localhost
+
+# === PostgreSQL (n8n Database) ===
+POSTGRES_USER=op://1p_macos/PostgreSQL/username
+POSTGRES_PASSWORD=op://1p_macos/PostgreSQL/password
+POSTGRES_DB=op://1p_macos/PostgreSQL/database
+
+# === n8n Security ===
+N8N_ENCRYPTION_KEY=op://1p_macos/n8n/encryption_key
+N8N_USER_MANAGEMENT_JWT_SECRET=op://1p_macos/n8n/jwt_secret
+
+# === Ollama Configuration ===
+OLLAMA_HOST=ollama:11434
+OLLAMA_MODEL=llama3.2:1b
+# Para Mac com Ollama local, use: OLLAMA_HOST=host.docker.internal:11434
+
+# === Hugging Face ===
+HUGGINGFACE_TOKEN=op://1p_macos/HuggingFace-Token/credential
+HF_MODEL_ID=mistralai/Mistral-7B-Instruct-v0.2
+# Outros modelos populares:
+# - meta-llama/Llama-2-7b-chat-hf
+# - microsoft/phi-2
+# - google/flan-t5-base
+
+# === API Keys Adicionais (Opcional) ===
+# Deixe vazio se não tiver ou não quiser usar
+OPENAI_API_KEY=${OPENAI_API_KEY:-}
+ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+PERPLEXITY_API_KEY=${PERPLEXITY_API_KEY:-}
+
+# === Traefik (se usar reverse proxy) ===
+TRAEFIK_EMAIL=op://1p_macos/Traefik/email
+

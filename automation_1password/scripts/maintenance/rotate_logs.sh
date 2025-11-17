@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+REPO="${REPO:-$HOME/Dotfiles/automation_1password}"
+
+mkdir -p "$REPO/logs"
+
+find "$REPO/logs" -type f -mtime +30 -print -exec gzip -f {} \; -exec rm -f {} \; || true
+
+find "$REPO/connect" -name "validation-*.log" -mtime +7 -delete || true
+
+echo "✅ Rotação de logs concluída"
+

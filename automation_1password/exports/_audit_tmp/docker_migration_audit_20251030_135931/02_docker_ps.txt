@@ -1,0 +1,12 @@
+CONTAINER ID   IMAGE                           STATUS                          NAMES             PORTS
+12363da1c0d3   1password/connect-sync:latest   Up 27 hours (unhealthy)         op-connect-sync   
+3c0d7523db66   1password/connect-api:latest    Up 27 hours (unhealthy)         op-connect-api    0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp, 0.0.0.0:8443->8443/tcp, [::]:8443->8443/tcp
+d94ca2c3c7c8   nocodb/nocodb:latest            Created                         nocodb            
+07779d32e5ab   portainer/portainer-ce:latest   Created                         portainer         
+fe61075b9e25   postgres:16-alpine              Created                         postgres          
+9a57ed71c1d2   traefik:v2.10                   Created                         traefik           
+7cb83eed8e53   n8nio/n8n:latest                Created                         n8n               
+ab64d3e22a48   langgenius/dify-api:latest      Restarting (3) 30 seconds ago   dify-api          
+1a05f74d81f8   langgenius/dify-web:latest      Up 27 hours                     dify-web          0.0.0.0:3001->80/tcp, [::]:3001->80/tcp
+94e4d1ee25fa   grafana/grafana-oss:latest      Created                         grafana           
+488c2a6669f7   redis:alpine                    Up 27 hours                     redis             6379/tcp

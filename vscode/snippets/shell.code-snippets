@@ -1,0 +1,72 @@
+{
+  "Bash Function": {
+    "prefix": "sh-func",
+    "body": [
+      "${1:function_name}() {",
+      "    local ${2:param}=\"$1\"",
+      "    ${3:# Function body}",
+      "}"
+    ],
+    "description": "Função bash"
+  },
+  "Bash Error Handling": {
+    "prefix": "sh-error",
+    "body": [
+      "set -euo pipefail",
+      "",
+      "# Tratamento de erros",
+      "trap 'echo \"Erro na linha $LINENO\"' ERR"
+    ],
+    "description": "Configuração de tratamento de erros"
+  },
+  "Bash Colors": {
+    "prefix": "sh-colors",
+    "body": [
+      "RED='\\033[0;31m'",
+      "GREEN='\\033[0;32m'",
+      "YELLOW='\\033[1;33m'",
+      "BLUE='\\033[0;34m'",
+      "NC='\\033[0m' # No Color"
+    ],
+    "description": "Definição de cores para output"
+  },
+  "Bash Log": {
+    "prefix": "sh-log",
+    "body": [
+      "log_info() {",
+      "    echo -e \"\${BLUE}ℹ${NC} \$1\"",
+      "}",
+      "",
+      "log_success() {",
+      "    echo -e \"\${GREEN}✓${NC} \$1\"",
+      "}",
+      "",
+      "log_error() {",
+      "    echo -e \"\${RED}✗${NC} \$1\" >&2",
+      "}",
+      "",
+      "log_warning() {",
+      "    echo -e \"\${YELLOW}⚠${NC} \$1\"",
+      "}"
+    ],
+    "description": "Funções de logging colorido"
+  },
+  "Bash Check Command": {
+    "prefix": "sh-check-cmd",
+    "body": [
+      "if ! command -v ${1:command} &>/dev/null; then",
+      "    echo \"Erro: ${1:command} não encontrado\" >&2",
+      "    exit 1",
+      "fi"
+    ],
+    "description": "Verificar se comando existe"
+  },
+  "Bash 1Password Unset": {
+    "prefix": "sh-1p-unset",
+    "body": [
+      "unset OP_CONNECT_HOST OP_CONNECT_TOKEN"
+    ],
+    "description": "Desativar 1Password Connect"
+  }
+}
+

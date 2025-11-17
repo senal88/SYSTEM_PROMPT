@@ -1,0 +1,18 @@
+{
+  "files.watcherExclude": {
+    "**/connect/data/**": true,
+    "**/.git/**": true,
+    "**/context/embeddings/**": true,
+    "**/context/indexes/**": true
+  },
+  "search.exclude": {
+    "**/connect/data/**": true,
+    "**/context/embeddings/**": true,
+    "**/context/indexes/**": true,
+    "**/logs/**": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "markdown.preview.breaks": true,
+  "claudeCodeChat.permissions.yoloMode": true
+}

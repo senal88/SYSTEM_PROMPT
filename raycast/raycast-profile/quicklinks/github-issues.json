@@ -1,0 +1,6 @@
+{
+  "title": "GitHub Issues",
+  "searchTemplate": "https://github.com/search?q={argument name=\"query\"}",
+  "icon": "💻",
+  "keyword": "ghi"
+}

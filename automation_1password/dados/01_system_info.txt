@@ -1,0 +1,16 @@
+=== MACOS SYSTEM INFO ===
+ProductName:		macOS
+ProductVersion:		26.0.1
+BuildVersion:		25A362
+
+=== ARCHITECTURE ===
+arm64
+
+=== CPU CORES ===
+10
+
+=== RAM ===
+24 GB
+
+=== DISK ===
+/dev/disk3s3s1   926Gi    11Gi   540Gi     3%    447k  4.3G    0%   /

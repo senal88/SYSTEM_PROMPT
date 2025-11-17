@@ -1,0 +1,4 @@
+# Arquivos de credenciais e ambiente
+config/gcp-service-account.json
+*.log
+*.tmp

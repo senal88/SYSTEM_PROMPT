@@ -1,0 +1,120 @@
+{
+  "overview": {
+    "title": "env-cloudflare - 01/10/2025",
+    "ainfo": "curl \"https://api.cloudflare.com/client/v4/user/tokens/verify\" \\",
+    "ps": 0,
+    "lh": {
+      "v": 1,
+      "h": [
+        {
+          "i": "6gkcmzg73ndcnml5h4kdz3wt7e",
+          "v": "j7ki25a2bz3ctdxblgcsa6vk2y"
+        }
+      ]
+    }
+  },
+  "details": {
+    "notesPlain": "curl \"https://api.cloudflare.com/client/v4/user/tokens/verify\" \\\n     -H \"Authorization: Bearer c6oR2pFzX8EKzrH-hVHrakpH8m0pA8vlxLgqp1dD\"",
+    "sections": [
+      {
+        "title": "",
+        "name": "add more",
+        "fields": [
+          {
+            "k": "string",
+            "a": {
+              "multiline": "yes"
+            },
+            "n": "75emw7ravycdcwqwjthhmhj6sm",
+            "t": "GMAIL_USERNAME",
+            "inputTraits": {
+              "autocorrection": "no",
+              "autocapitalization": "Sentences"
+            },
+            "v": "luizfernandomoreirasena@gmail.com\n"
+          },
+          {
+            "k": "string",
+            "a": {
+              "multiline": "yes"
+            },
+            "n": "zzgl6emp4zdml3jco567ixnpfq",
+            "t": "TRAEFIK_CLOUDFLARE_API_KEY",
+            "inputTraits": {
+              "autocorrection": "no",
+              "autocapitalization": "Sentences"
+            },
+            "v": "c6oR2pFzX8EKzrH-hVHrakpH8m0pA8vlxLgqp1dD\n"
+          },
+          {
+            "k": "string",
+            "a": {
+              "multiline": "yes"
+            },
+            "n": "ebi4odcybpe76e4nnttzxn66lu",
+            "t": "CLOUDFLARE_ZONE_ID",
+            "inputTraits": {
+              "autocorrection": "no",
+              "autocapitalization": "Sentences"
+            },
+            "v": "752bcd1ee31ef52b136a97313664140c"
+          },
+          {
+            "k": "string",
+            "a": {
+              "multiline": "yes"
+            },
+            "n": "cwjmiuaeyptp3zmtfhlr5l4bbe",
+            "t": "CLOUDFLARE_ACCOUNT_ID",
+            "inputTraits": {
+              "autocorrection": "no",
+              "autocapitalization": "Sentences"
+            },
+            "v": "ba565b911d1c4d7fa28b9b2054a44808"
+          },
+          {
+            "k": "string",
+            "a": {
+              "multiline": "yes"
+            },
+            "n": "r3zln4ujy7w7u33gasqctjd7ue",
+            "t": "TRAEFIK_DOMAIN",
+            "inputTraits": {
+              "autocorrection": "no",
+              "autocapitalization": "Sentences"
+            },
+            "v": "senamfo.com.br\n"
+          },
+          {
+            "k": "string",
+            "n": "238BB34E77D643118E830B9418D9ADE2",
+            "v": "nkpu slpt cxtb wymy",
+            "t": "GMAIL_PASSWORD"
+          },
+          {
+            "k": "string",
+            "n": "EE85C532B227431CB3842BD05207B3B3",
+            "v": "smtp.gmail.com",
+            "t": "GMAIL_SMTP_SERVER"
+          },
+          {
+            "k": "string",
+            "n": "DA01575F15CD42929618CC8A1B0F4ADF",
+            "v": "587",
+            "t": "GMAIL_SMTP_PORT"
+          }
+        ]
+      },
+      {
+        "title": "Itens relacionados",
+        "name": "linked items"
+      }
+    ]
+  },
+  "createdAt": "2025-10-01T19:44:29Z",
+  "updatedAt": "2025-10-01T20:21:16Z",
+  "faveIndex": 1,
+  "trashed": "N",
+  "templateUuid": "003",
+  "uuid": "4abwojobo53adopfk7zesr6y6i"
+}

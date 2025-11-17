@@ -1,0 +1,442 @@
+#!/bin/bash
+################################################################################
+# ATLAS CLI - INSTALADOR E CONFIGURADOR COMPLETO
+# Instala e configura o Atlas CLI da OpenAI seguindo melhores práticas
+################################################################################
+
+set -e
+
+# Cores para output
+readonly GREEN='\033[0;32m'
+readonly BLUE='\033[0;34m'
+readonly RED='\033[0;31m'
+readonly YELLOW='\033[1;33m'
+readonly PURPLE='\033[0;35m'
+readonly CYAN='\033[0;36m'
+readonly NC='\033[0m'
+
+# Configurações
+readonly ATLAS_VERSION="latest"
+readonly INSTALL_DIR="/usr/local/bin"
+readonly CONFIG_DIR="$HOME/.config/atlas-cli"
+readonly DOTFILES_DIR="$HOME/Dotfiles/atlas-cli"
+
+# Funções de log
+log() { echo -e "${GREEN}[$(date +'%H:%M:%S')]${NC} $1"; }
+warn() { echo -e "${YELLOW}[WARNING]${NC} $1"; }
+error() { echo -e "${RED}[ERROR]${NC} $1"; }
+info() { echo -e "${BLUE}[INFO]${NC} $1"; }
+success() { echo -e "${GREEN}[SUCCESS]${NC} $1"; }
+debug() { echo -e "${PURPLE}[DEBUG]${NC} $1"; }
+
+# Banner
+show_banner() {
+    echo -e "${CYAN}╔══════════════════════════════════════════════════════════════╗"
+    echo -e "║                    ATLAS CLI INSTALLER                        ║"
+    echo -e "║                   OpenAI Atlas Browser                        ║"
+    echo -e "║                    macOS Silicon Edition                       ║"
+    echo -e "╚══════════════════════════════════════════════════════════════╝${NC}"
+    echo ""
+}
+
+# Verificar sistema
+check_system() {
+    log "Verificando sistema..."
+    
+    # Verificar macOS
+    if [[ "$OSTYPE" != "darwin"* ]]; then
+        error "Este script é específico para macOS"
+        exit 1
+    fi
+    
+    # Verificar arquitetura
+    local arch=$(uname -m)
+    if [[ "$arch" == "arm64" ]]; then
+        info "✅ Arquitetura: Apple Silicon (ARM64)"
+    elif [[ "$arch" == "x86_64" ]]; then
+        info "✅ Arquitetura: Intel (x86_64)"
+    else
+        warn "⚠️ Arquitetura não reconhecida: $arch"
+    fi
+    
+    # Verificar Homebrew
+    if ! command -v brew >/dev/null 2>&1; then
+        warn "Homebrew não encontrado"
+        info "Instalando Homebrew..."
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    else
+        info "✅ Homebrew encontrado"
+    fi
+    
+    success "Sistema verificado"
+}
+
+# Instalar Atlas CLI
+install_atlas_cli() {
+    log "Instalando Atlas CLI..."
+    
+    # Verificar se já está instalado
+    if command -v atlas-cli >/dev/null 2>&1; then
+        local current_version=$(atlas-cli --version 2>/dev/null || echo "unknown")
+        info "Atlas CLI já instalado: $current_version"
+        
+        read -p "Deseja reinstalar? (y/N): " -n 1 -r
+        echo
+        if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+            info "Pulando instalação"
+            return 0
+        fi
+    fi
+    
+    # Método 1: Tentar via Homebrew (se disponível)
+    if command -v brew >/dev/null 2>&1; then
+        info "Tentando instalar via Homebrew..."
+        if brew install atlas-cli 2>/dev/null; then
+            success "✅ Atlas CLI instalado via Homebrew"
+            return 0
+        else
+            warn "Falha na instalação via Homebrew"
+        fi
+    fi
+    
+    # Método 2: Download direto
+    info "Baixando Atlas CLI..."
+    local download_url="https://github.com/atlas-cli/atlas-cli/releases/latest/download/atlas-cli-macos-arm64.tar.gz"
+    
+    if [[ "$(uname -m)" == "x86_64" ]]; then
+        download_url="https://github.com/atlas-cli/atlas-cli/releases/latest/download/atlas-cli-macos-amd64.tar.gz"
+    fi
+    
+    local temp_dir=$(mktemp -d)
+    cd "$temp_dir"
+    
+    if curl -L -o atlas-cli.tar.gz "$download_url"; then
+        tar -xzf atlas-cli.tar.gz
+        sudo mv atlas-cli "$INSTALL_DIR/"
+        sudo chmod +x "$INSTALL_DIR/atlas-cli"
+        success "✅ Atlas CLI instalado via download direto"
+    else
+        error "Falha no download do Atlas CLI"
+        exit 1
+    fi
+    
+    # Limpar arquivos temporários
+    rm -rf "$temp_dir"
+}
+
+# Configurar ambiente
+setup_environment() {
+    log "Configurando ambiente..."
+    
+    # Criar diretórios
+    mkdir -p "$CONFIG_DIR"
+    mkdir -p "$DOTFILES_DIR"
+    
+    # Criar arquivo de configuração
+    cat > "$CONFIG_DIR/config.yaml" << 'EOF'
+# Atlas CLI Configuration
+api:
+  base_url: "https://api.atlas.anthropic.com"
+  timeout: 30
+  retries: 3
+
+browser:
+  default_profile: "default"
+  headless: false
+  window_size: "1920x1080"
+
+extensions:
+  auto_install: true
+  auto_update: true
+  pinned_extensions:
+    - "Promptheus"
+    - "WebPilot"
+    - "AIPRM"
+
+logging:
+  level: "info"
+  file: "~/.config/atlas-cli/atlas.log"
+  max_size: "10MB"
+  max_files: 5
+
+security:
+  sandbox: true
+  allow_unsafe_scripts: false
+  content_security_policy: "strict"
+EOF
+    
+    # Criar arquivo de aliases
+    cat > "$DOTFILES_DIR/atlas-aliases.sh" << 'EOF'
+# Atlas CLI Aliases
+alias atlas='atlas-cli'
+alias atlas-status='atlas-cli status'
+alias atlas-extensions='atlas-cli extensions list'
+alias atlas-pin='atlas-cli extensions pin'
+alias atlas-unpin='atlas-cli extensions unpin'
+alias atlas-login='atlas-cli login'
+alias atlas-logout='atlas-cli logout'
+alias atlas-config='atlas-cli config'
+alias atlas-version='atlas-cli --version'
+
+# Funções úteis
+atlas-pin-all() {
+    echo "🔧 Fixando todas as extensões..."
+    atlas-cli extensions pin Promptheus
+    atlas-cli extensions pin WebPilot
+    atlas-cli extensions pin AIPRM
+    echo "✅ Extensões fixadas!"
+}
+
+atlas-unpin-all() {
+    echo "🔧 Desfixando todas as extensões..."
+    atlas-cli extensions unpin Promptheus
+    atlas-cli extensions unpin WebPilot
+    atlas-cli extensions unpin AIPRM
+    echo "✅ Extensões desfixadas!"
+}
+
+atlas-restart() {
+    echo "🔄 Reiniciando Atlas CLI..."
+    pkill -f atlas-cli 2>/dev/null || true
+    sleep 2
+    atlas-cli start &
+    echo "✅ Atlas CLI reiniciado!"
+}
+EOF
+    
+    success "Ambiente configurado"
+}
+
+# Configurar autenticação
+setup_authentication() {
+    log "Configurando autenticação..."
+    
+    # Verificar se já está autenticado
+    if atlas-cli status >/dev/null 2>&1; then
+        info "✅ Atlas CLI já autenticado"
+        return 0
+    fi
+    
+    warn "Atlas CLI não está autenticado"
+    info "Para autenticar:"
+    echo "1. Execute: atlas-cli login"
+    echo "2. Siga as instruções na tela"
+    echo "3. Execute este script novamente"
+    
+    read -p "Deseja tentar autenticar agora? (y/N): " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        atlas-cli login
+    fi
+}
+
+# Instalar extensões
+install_extensions() {
+    log "Instalando extensões..."
+    
+    local extensions=("Promptheus" "WebPilot" "AIPRM")
+    
+    for ext in "${extensions[@]}"; do
+        info "Instalando extensão: $ext"
+        if atlas-cli extensions install "$ext" >/dev/null 2>&1; then
+            success "✅ $ext instalada"
+        else
+            warn "⚠️ Falha ao instalar $ext"
+        fi
+    done
+}
+
+# Fixar extensões
+pin_extensions() {
+    log "Fixando extensões..."
+    
+    local extensions=("Promptheus" "WebPilot" "AIPRM")
+    local success_count=0
+    
+    for ext in "${extensions[@]}"; do
+        info "Fixando: $ext"
+        if atlas-cli extensions pin "$ext" >/dev/null 2>&1; then
+            success "✅ $ext fixada"
+            ((success_count++))
+        else
+            warn "⚠️ Falha ao fixar $ext"
+        fi
+    done
+    
+    info "Extensões fixadas: $success_count/${#extensions[@]}"
+}
+
+# Criar scripts de automação
+create_automation_scripts() {
+    log "Criando scripts de automação..."
+    
+    # Script de pinagem rápida
+    cat > "$DOTFILES_DIR/pin-extensions.sh" << 'EOF'
+#!/bin/bash
+# Script de pinagem rápida das extensões Atlas CLI
+
+echo "🔧 Fixando extensões Atlas CLI..."
+
+extensions=("Promptheus" "WebPilot" "AIPRM")
+success_count=0
+
+for ext in "${extensions[@]}"; do
+    echo "Fixando: $ext"
+    if atlas-cli extensions pin "$ext" >/dev/null 2>&1; then
+        echo "✅ $ext fixada"
+        ((success_count++))
+    else
+        echo "❌ Falha ao fixar $ext"
+    fi
+done
+
+echo "✅ $success_count extensões fixadas com sucesso!"
+EOF
+    
+    # Script de status
+    cat > "$DOTFILES_DIR/atlas-status.sh" << 'EOF'
+#!/bin/bash
+# Script de status do Atlas CLI
+
+echo "🔍 Status do Atlas CLI"
+echo "====================="
+
+# Verificar se está instalado
+if command -v atlas-cli >/dev/null 2>&1; then
+    echo "✅ Atlas CLI instalado: $(atlas-cli --version 2>/dev/null || echo 'unknown')"
+else
+    echo "❌ Atlas CLI não instalado"
+    exit 1
+fi
+
+# Verificar autenticação
+if atlas-cli status >/dev/null 2>&1; then
+    echo "✅ Atlas CLI autenticado"
+else
+    echo "❌ Atlas CLI não autenticado"
+fi
+
+# Listar extensões instaladas
+echo ""
+echo "📦 Extensões instaladas:"
+atlas-cli extensions list 2>/dev/null || echo "Erro ao listar extensões"
+
+# Listar extensões fixadas
+echo ""
+echo "📌 Extensões fixadas:"
+atlas-cli extensions pinned 2>/dev/null || echo "Erro ao listar extensões fixadas"
+EOF
+    
+    # Tornar executáveis
+    chmod +x "$DOTFILES_DIR"/*.sh
+    
+    success "Scripts de automação criados"
+}
+
+# Configurar integração com shell
+setup_shell_integration() {
+    log "Configurando integração com shell..."
+    
+    local shell_rc=""
+    
+    # Detectar shell
+    if [[ "$SHELL" == *"zsh"* ]]; then
+        shell_rc="$HOME/.zshrc"
+    elif [[ "$SHELL" == *"bash"* ]]; then
+        shell_rc="$HOME/.bashrc"
+    else
+        warn "Shell não reconhecido: $SHELL"
+        return 0
+    fi
+    
+    # Adicionar aliases ao shell
+    if [[ -f "$shell_rc" ]]; then
+        if ! grep -q "atlas-aliases" "$shell_rc"; then
+            echo "" >> "$shell_rc"
+            echo "# Atlas CLI Aliases" >> "$shell_rc"
+            echo "source $DOTFILES_DIR/atlas-aliases.sh" >> "$shell_rc"
+            success "Aliases adicionados ao $shell_rc"
+        else
+            info "Aliases já configurados no $shell_rc"
+        fi
+    else
+        warn "Arquivo de configuração do shell não encontrado: $shell_rc"
+    fi
+}
+
+# Testar instalação
+test_installation() {
+    log "Testando instalação..."
+    
+    # Verificar comando
+    if ! command -v atlas-cli >/dev/null 2>&1; then
+        error "Atlas CLI não encontrado no PATH"
+        return 1
+    fi
+    
+    # Verificar versão
+    local version=$(atlas-cli --version 2>/dev/null || echo "unknown")
+    info "Versão instalada: $version"
+    
+    # Verificar autenticação
+    if atlas-cli status >/dev/null 2>&1; then
+        success "✅ Atlas CLI funcionando corretamente"
+    else
+        warn "⚠️ Atlas CLI não autenticado"
+    fi
+    
+    success "Teste concluído"
+}
+
+# Mostrar resumo
+show_summary() {
+    echo ""
+    echo -e "${CYAN}╔══════════════════════════════════════════════════════════════╗"
+    echo -e "║                    INSTALAÇÃO CONCLUÍDA                        ║"
+    echo -e "╚══════════════════════════════════════════════════════════════╝${NC}"
+    echo ""
+    
+    info "📁 Arquivos criados:"
+    echo "  • $CONFIG_DIR/config.yaml"
+    echo "  • $DOTFILES_DIR/atlas-aliases.sh"
+    echo "  • $DOTFILES_DIR/pin-extensions.sh"
+    echo "  • $DOTFILES_DIR/atlas-status.sh"
+    echo ""
+    
+    info "🔧 Comandos úteis:"
+    echo "  • atlas-status          - Verificar status"
+    echo "  • atlas-extensions      - Listar extensões"
+    echo "  • atlas-pin-all         - Fixar todas as extensões"
+    echo "  • atlas-unpin-all       - Desfixar todas as extensões"
+    echo "  • atlas-restart         - Reiniciar Atlas CLI"
+    echo ""
+    
+    info "📋 Próximos passos:"
+    echo "  1. Reinicie o terminal ou execute: source ~/.zshrc"
+    echo "  2. Execute: atlas-login (se não autenticado)"
+    echo "  3. Execute: atlas-pin-all (para fixar extensões)"
+    echo "  4. Execute: atlas-status (para verificar)"
+    echo ""
+    
+    success "🎉 Atlas CLI configurado com sucesso!"
+}
+
+# --- Execução Principal ---
+main() {
+    show_banner
+    check_system
+    install_atlas_cli
+    setup_environment
+    setup_authentication
+    install_extensions
+    pin_extensions
+    create_automation_scripts
+    setup_shell_integration
+    test_installation
+    show_summary
+}
+
+# Executar se chamado diretamente
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi

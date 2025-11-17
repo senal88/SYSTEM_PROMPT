@@ -1,0 +1,13 @@
+Client Version: v1.34.1
+Kustomize Version: v5.7.1
+
+--- kubectl config get-contexts ---
+CURRENT   NAME   CLUSTER   AUTHINFO   NAMESPACE
+
+--- kubectl config current-context ---
+
+--- kubectl get nodes -A ---
+
+--- kubectl get ns ---
+
+--- kubectl get storageclass ---

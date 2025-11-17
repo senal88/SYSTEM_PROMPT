@@ -1,7 +1,18 @@
 {
   "recommendations": [
-    "dbaeumer.vscode-eslint",
+    "1password.op-vscode",
+    "ms-python.python",
+    "ms-python.black-formatter",
+    "ms-python.isort",
+    "timonwong.shellcheck",
+    "ms-azuretools.vscode-docker",
+    "eamodio.gitlens",
+    "ms-vscode-remote.remote-ssh",
+    "ms-vscode-remote.remote-containers",
+    "ms-vscode.vscode-json",
+    "redhat.vscode-yaml",
     "esbenp.prettier-vscode",
-    "ms-python.python"
+    "streetsidesoftware.code-spell-checker",
+    "streetsidesoftware.code-spell-checker-portuguese-brazilian"
   ]
 }

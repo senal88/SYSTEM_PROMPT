@@ -1,0 +1,12 @@
+Cleanup de Arquivos Obsoletos
+Data: 2025-10-29
+Realizado por: scripts/maintenance/cleanup-obsolete-files.sh
+
+Arquivos em Backup:
+1password-credentials.json (1.1K)
+MANIFEST.txt (0B)
+cleanup.log (188B)
+
+Para restaurar:
+  cp -r "/Users/luiz.sena88/Dotfiles/automation_1password/.backups/cleanup-20251029-181817"/* "/Users/luiz.sena88/Dotfiles/automation_1password/"
+

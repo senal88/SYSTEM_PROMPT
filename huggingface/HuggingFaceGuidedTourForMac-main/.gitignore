@@ -1,0 +1,6 @@
+# Byte-compiled / optimized / DLL files
+.venv/
+.ipynb_checkpoints/
+.virtual_documents/
+Untitled*.ipynb
+.DS_Store

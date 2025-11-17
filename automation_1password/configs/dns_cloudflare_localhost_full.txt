@@ -1,0 +1,108 @@
+;;
+;; Domain:     localhost.
+;; Exported:   2025-10-28 00:00:00
+;;
+;; Arquivo de zona DNS completo para macOS Silicon, equivalente à VPS, sem abreviações.
+;; Todos os subdomínios e stacks convertidos 1:1 para localhost.
+;;
+;; SOA Record
+localhost	3600	IN	SOA	aisha.ns.localhost. dns.localhost.com. 2051284391 10000 2400 604800 3600
+
+;; NS Records
+localhost.	86400	IN	NS	aisha.ns.localhost.
+localhost.	86400	IN	NS	kellen.ns.localhost.
+
+;; A Records
+manager.localhost.	1	IN	A	127.0.0.1 ; Apontamento único para o IP principal
+
+;; CNAME Records
+activepieces.localhost.	1	IN	CNAME	manager.localhost.
+agent-api.localhost.	1	IN	CNAME	manager.localhost.
+agent-app.localhost.	1	IN	CNAME	manager.localhost.
+agent-ui.localhost.	1	IN	CNAME	manager.localhost.
+agno-playground.localhost.	1	IN	CNAME	manager.localhost.
+anythingllm.localhost.	1	IN	CNAME	manager.localhost.
+api.localhost.	1	IN	CNAME	manager.localhost.
+app-contabil.localhost.	1	IN	CNAME	manager.localhost.
+appsmith.localhost.	1	IN	CNAME	manager.localhost.
+auto.localhost.	1	IN	CNAME	manager.localhost.
+autowebhook.localhost.	1	IN	CNAME	manager.localhost.
+baserow.localhost.	1	IN	CNAME	manager.localhost.
+bookstack.localhost.	1	IN	CNAME	manager.localhost.
+budibase.localhost.	1	IN	CNAME	manager.localhost.
+chat.localhost.	1	IN	CNAME	manager.localhost.
+chromadb.localhost.	1	IN	CNAME	manager.localhost.
+cloudflare.localhost.	1	IN	CNAME	manager.localhost.
+dashboards.localhost.	1	IN	CNAME	manager.localhost.
+dash-default.localhost.	1	IN	CNAME	manager.localhost.
+datasources.localhost.	1	IN	CNAME	manager.localhost.
+dify-api.localhost.	1	IN	CNAME	manager.localhost.
+dify.localhost.	1	IN	CNAME	manager.localhost.
+dify-web.localhost.	1	IN	CNAME	manager.localhost.
+dillinger.localhost.	1	IN	CNAME	manager.localhost.
+directus.localhost.	1	IN	CNAME	manager.localhost.
+doc-contabil.localhost.	1	IN	CNAME	manager.localhost.
+doc_contabil.localhost.	1	IN	CNAME	manager.localhost.
+docusaurus.localhost.	1	IN	CNAME	manager.localhost.
+easypanel.localhost.	1	IN	CNAME	manager.localhost.
+edge.localhost.	1	IN	CNAME	manager.localhost.
+evolutionapi.localhost.	1	IN	CNAME	manager.localhost.
+fastapi.localhost.	1	IN	CNAME	manager.localhost.
+flask-api.localhost.	1	IN	CNAME	manager.localhost.
+flask.localhost.	1	IN	CNAME	manager.localhost.
+flowise.localhost.	1	IN	CNAME	manager.localhost.
+frontend.localhost.	1	IN	CNAME	manager.localhost.
+google.localhost.	1	IN	CNAME	manager.localhost.
+goose.localhost.	1	IN	CNAME	manager.localhost.
+grafana.localhost.	1	IN	CNAME	manager.localhost.
+huggingface.localhost.	1	IN	CNAME	manager.localhost.
+jina.localhost.	1	IN	CNAME	manager.localhost.
+lens.localhost.	1	IN	CNAME	manager.localhost.
+librechat.localhost.	1	IN	CNAME	manager.localhost.
+lmstudio.localhost.	1	IN	CNAME	manager.localhost.
+logseq.localhost.	1	IN	CNAME	manager.localhost.
+loki.localhost.	1	IN	CNAME	manager.localhost.
+minio.localhost.	1	IN	CNAME	manager.localhost.
+mkdocs-material.localhost.	1	IN	CNAME	manager.localhost.
+mongodb.localhost.	1	IN	CNAME	manager.localhost.
+mongo-express.localhost.	1	IN	CNAME	manager.localhost.
+mpt_streamlit.localhost.	1	IN	CNAME	manager.localhost.
+msql.localhost.	1	IN	CNAME	manager.localhost.
+my.n8n.localhost.	1	IN	CNAME	manager.localhost.
+n8n.localhost.	1	IN	CNAME	manager.localhost.
+nextcloud.localhost.	1	IN	CNAME	manager.localhost.
+nextjs.localhost.	1	IN	CNAME	manager.localhost.
+nginx.localhost.	1	IN	CNAME	manager.localhost.
+nocodb.localhost.	1	IN	CNAME	manager.localhost.
+node-red.localhost.	1	IN	CNAME	manager.localhost.
+ollama.localhost.	1	IN	CNAME	manager.localhost.
+pgvector.localhost.	1	IN	CNAME	manager.localhost.
+portainer.localhost.	1	IN	CNAME	manager.localhost.
+postgres.localhost.	1	IN	CNAME	manager.localhost.
+postman.localhost.	1	IN	CNAME	manager.localhost.
+prometheus.localhost.	1	IN	CNAME	manager.localhost.
+promtail-config.localhost.	1	IN	CNAME	manager.localhost.
+rabbitmq.localhost.	1	IN	CNAME	manager.localhost.
+redis.localhost.	1	IN	CNAME	manager.localhost.
+s3.localhost.	1	IN	CNAME	manager.localhost.
+stack.localhost.	1	IN	CNAME	manager.localhost.
+streamlit.localhost.	1	IN	CNAME	manager.localhost.
+supabase.localhost.	1	IN	CNAME	manager.localhost.
+terraform.localhost.	1	IN	CNAME	manager.localhost.
+traefik.localhost.	1	IN	CNAME	manager.localhost.
+vault.localhost.	1	IN	CNAME	manager.localhost.
+vectorstore.localhost.	1	IN	CNAME	manager.localhost.
+vpc.localhost.	1	IN	CNAME	manager.localhost.
+webgpt.localhost.	1	IN	CNAME	manager.localhost.
+webwook.localhost.	1	IN	CNAME	manager.localhost.
+whatsapp.localhost.	1	IN	CNAME	manager.localhost.
+worker.localhost.	1	IN	CNAME	manager.localhost.
+
+;; MX Records
+localhost.	1	IN	MX	10 mail.localhost.
+localhost.	1	IN	MX	5 backupmail.localhost.
+
+;; TXT Records
+_acme-challenge.manager.localhost.	120	IN	TXT	"challenge-token"
+_dmarc.localhost.	1	IN	TXT	"v=DMARC1; p=none; rua=mailto:admin@localhost"
+localhost.	1	IN	TXT	"v=spf1 ip4:127.0.0.1 ~all"

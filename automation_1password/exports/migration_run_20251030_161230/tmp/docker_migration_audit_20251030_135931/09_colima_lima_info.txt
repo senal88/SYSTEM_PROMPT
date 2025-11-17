@@ -1,0 +1,14 @@
+
+--- colima list ---
+
+--- limactl --version ---
+
+--- limactl list ---
+
+--- colima status default ---
+
+--- colima ssh (os-release) ---
+
+--- colima ssh (docker version) ---
+
+--- nerdctl version ---

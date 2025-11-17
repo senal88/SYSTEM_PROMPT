@@ -1,0 +1,99 @@
+# Justfile - Automação híbrida macOS + VPS Ubuntu
+
+set shell := ["bash", "-eu", "-o", "pipefail", "-c"]
+set dotenv-load := true
+
+project := env_var_or_default("PROJECT_SLUG", "app")
+vault := env_var_or_default("VAULT_DEVOPS", "1p_macos")
+vps_host := env_var_or_default("VPS_HOST", "")
+vps_user := env_var_or_default("VPS_USER", "")
+primary_domain := env_var_or_default("PRIMARY_DOMAIN", "")
+
+default:
+  @just --list
+
+# === Diagnóstico e Auditoria ===
+
+validate:
+  bash scripts/validation/validate_architecture.sh
+
+inventory-1p:
+  mkdir -p reports/macOS
+  op account list --format=json > reports/macOS/op_accounts.json
+  op vault list --format=json > reports/macOS/op_vaults.json
+  echo "Inventário salvo em reports/macOS/"
+
+diagnostics:
+  make diagnostics.report
+
+audit:
+  make secrets.audit
+
+# === 1Password ===
+
+login-1p:
+  make op.login
+
+test-1p-local:
+  echo "🔐 Testando 1Password local..."
+  op whoami
+  ssh-add -l
+
+test-1p-remote:
+  if [ -z "{{vps_host}}" ] || [ -z "{{vps_user}}" ]; then echo "Defina VPS_HOST e VPS_USER no ambiente"; exit 1; fi
+  echo "🔐 Testando 1Password no VPS..."
+  ssh -A {{vps_user}}@{{vps_host}} 'op whoami && ssh-add -l'
+
+# === Docker / Colima ===
+
+colima-start:
+  make colima.start
+
+colima-stop:
+  make colima.stop
+
+env-generate:
+  make compose.env
+
+deploy-local:
+  make deploy.local
+
+deploy-remote:
+  if [ -z "{{vps_host}}" ] || [ -z "{{vps_user}}" ]; then echo "Defina VPS_HOST e VPS_USER no ambiente"; exit 1; fi
+  make deploy.remote VPS_HOST={{vps_host}} VPS_USER={{vps_user}}
+
+logs-local service="web":
+  make logs.local SERVICE={{service}}
+
+logs-remote service="web":
+  if [ -z "{{vps_host}}" ] || [ -z "{{vps_user}}" ]; then echo "Defina VPS_HOST e VPS_USER no ambiente"; exit 1; fi
+  make logs.remote SERVICE={{service}} VPS_HOST={{vps_host}} VPS_USER={{vps_user}}
+
+# === DNS Cloudflare ===
+
+update-dns:
+  if [ -z "{{primary_domain}}" ]; then echo "Defina PRIMARY_DOMAIN no ambiente"; exit 1; fi
+  make update.dns DOMAIN={{primary_domain}}
+
+check-dns:
+  if [ -z "{{primary_domain}}" ]; then echo "Defina PRIMARY_DOMAIN no ambiente"; exit 1; fi
+  make check.dns DOMAIN={{primary_domain}}
+
+# === Workflows completos ===
+
+setup-macos:
+  just validate
+  just inventory-1p
+  just test-1p-local
+  just colima-start
+
+deploy-all:
+  if [ -z "{{vps_host}}" ] || [ -z "{{vps_user}}" ]; then echo "Defina VPS_HOST e VPS_USER no ambiente"; exit 1; fi
+  if [ -z "{{primary_domain}}" ]; then echo "Defina PRIMARY_DOMAIN no ambiente"; exit 1; fi
+  just deploy-local
+  just deploy-remote
+  just update-dns
+  just check-dns
+
+llm-context:
+  bash scripts/llm/collect_system_context.sh

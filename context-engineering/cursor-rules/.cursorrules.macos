@@ -1,0 +1,45 @@
+# Cursor Rules - macOS Silicon Específico
+
+## AMBIENTE
+- OS: macOS (darwin)
+- Architecture: Apple Silicon (arm64)
+- Shell: Zsh
+- Homebrew: `/opt/homebrew`
+
+## CONFIGURAÇÕES ESPECÍFICAS
+
+### Paths
+- Python: `/opt/homebrew/bin/python3`
+- Node: via nvm (NVM_DIR)
+- Dotfiles: `~/Dotfiles/`
+- 1Password: `~/.config/op/`
+
+### Ferramentas
+- Raycast: Instalado e configurado
+- iTerm2 ou Terminal.app
+- VSCode/Cursor: Instalado
+
+### Automação
+- Scripts em `~/Dotfiles/automation_1password/scripts/`
+- Funções em `~/.zshrc`
+- Aliases em `~/.zshrc`
+
+## COMANDOS ÚTEIS
+
+```bash
+# 1Password
+op-config-check
+op-signin-auto
+
+# Raycast
+ray-pass          # Buscar senha
+ray-gen           # Gerar senha
+
+# Sistema
+brew upgrade      # Atualizar Homebrew
+```
+
+## ATALHOS PERSONALIZADOS
+- Raycast: `⌘+Space` (padrão)
+- Terminal: `⌘+T` (novo terminal)
+

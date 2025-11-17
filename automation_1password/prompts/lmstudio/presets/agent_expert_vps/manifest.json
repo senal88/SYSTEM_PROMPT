@@ -1,0 +1,9 @@
+{
+  "type": "preset",
+  "owner": "automation-1password",
+  "name": "agent-expert-vps",
+  "revision": 1,
+  "description": "Agent Expert especializado em configuração e operação VPS Ubuntu para automation_1password",
+  "tags": ["vps", "ubuntu", "ssh", "1password", "automation"]
+}
+

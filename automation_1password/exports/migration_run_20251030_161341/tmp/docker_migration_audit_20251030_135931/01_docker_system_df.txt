@@ -1,0 +1,67 @@
+Images space usage:
+
+REPOSITORY                                        TAG             IMAGE ID       CREATED         SIZE      SHARED SIZE   UNIQUE SIZE   CONTAINERS
+n8nio/n8n                                         latest          90bf64ec238b   2 days ago      1.62GB    236.3MB       1.38GB        1
+<none>                                            <none>          c7dae935e865   3 days ago      1.62GB    236.3MB       1.38GB        0
+langgenius/dify-api                               latest          9546c6d9d1ab   6 days ago      3.26GB    0B            3.259GB       1
+langgenius/dify-web                               latest          85c2e857e8a5   6 days ago      821MB     0B            821.2MB       1
+infra-varela-tax-frontend                         latest          f09fd1d7449e   7 days ago      537MB     0B            537.1MB       0
+grafana/grafana-oss                               latest          35c41e0fd029   10 days ago     909MB     9.175MB       900.1MB       1
+postgres                                          16-alpine       029660641a0c   2 weeks ago     381MB     9.175MB       371.9MB       1
+alpine                                            latest          4b7ce07002c6   3 weeks ago     13.3MB    9.175MB       4.14MB        0
+redis                                             alpine          59b6e6946534   3 weeks ago     98.9MB    9.175MB       89.71MB       1
+portainer/portainer-ce                            latest          264443d4063e   5 weeks ago     238MB     0B            237.7MB       1
+1password/connect-sync                            latest          d5e937b2b7e3   6 weeks ago     78MB      35.25MB       42.74MB       1
+1password/connect-api                             latest          8fe7bcd50c9e   6 weeks ago     88.8MB    35.25MB       53.55MB       1
+nocodb/nocodb                                     latest          8fd57018accf   8 weeks ago     881MB     0B            880.7MB       1
+mcr.microsoft.com/devcontainers/typescript-node   1-22-bookworm   7c2e711a4f7b   5 months ago    2.51GB    0B            2.513GB       0
+traefik                                           v2.10           6341b98aec5e   21 months ago   193MB     0B            192.8MB       1
+
+Containers space usage:
+
+CONTAINER ID   IMAGE                           COMMAND                  LOCAL VOLUMES   SIZE      CREATED        STATUS                          NAMES
+12363da1c0d3   1password/connect-sync:latest   "connect-sync"           0               24.6kB    27 hours ago   Up 27 hours (unhealthy)         op-connect-sync
+3c0d7523db66   1password/connect-api:latest    "connect-api"            0               28.7kB    27 hours ago   Up 27 hours (unhealthy)         op-connect-api
+d94ca2c3c7c8   nocodb/nocodb:latest            "/usr/bin/dumb-init …"   0               4.1kB     2 days ago     Created                         nocodb
+07779d32e5ab   portainer/portainer-ce:latest   "/portainer -H unix:…"   0               4.1kB     2 days ago     Created                         portainer
+fe61075b9e25   postgres:16-alpine              "docker-entrypoint.s…"   0               4.1kB     2 days ago     Created                         postgres
+9a57ed71c1d2   traefik:v2.10                   "/entrypoint.sh --pr…"   0               4.1kB     2 days ago     Created                         traefik
+7cb83eed8e53   n8nio/n8n:latest                "tini -- /docker-ent…"   0               4.1kB     2 days ago     Created                         n8n
+ab64d3e22a48   langgenius/dify-api:latest      "/bin/bash /entrypoi…"   0               46.8MB    2 days ago     Restarting (3) 30 seconds ago   dify-api
+1a05f74d81f8   langgenius/dify-web:latest      "/bin/sh ./entrypoin…"   0               49.2kB    2 days ago     Up 27 hours                     dify-web
+94e4d1ee25fa   grafana/grafana-oss:latest      "/run.sh"                0               4.1kB     2 days ago     Created                         grafana
+488c2a6669f7   redis:alpine                    "docker-entrypoint.s…"   1               4.1kB     2 days ago     Up 27 hours                     redis
+
+Local Volumes space usage:
+
+VOLUME NAME                                                        LINKS     SIZE
+429e44a31110350d405f387aaf39b5aea3bdd56bb8dbc7b4cda58a69add7db22   0         88B
+6fce7c43acac62298624e5f336e4a6757ff88ca77241ab801bfadf290b45fa39   0         88B
+8a881603326d3a99d9998211e51b61e94de36122971c7f0ce07c49afa3cdc336   0         34.55kB
+8e786f41d0abc4561a9ce61890d344e255f1d4c9e333d157555db471b8bb3197   0         300.6kB
+ac84f24fa66b4aa12bbdd4de78fe43280540824a270b1a0d992f5dc99654f5b6   0         0B
+ec10fd73d69631153ee93a815dcdfafea1357e239df47c6f72adea462911a4d0   0         88B
+18043a5fd8815a04379f19ffac04dd93b23a3bd03f6ee455fddc13b6f17b1cc0   0         69.35MB
+66bba99f3c43ae1f6433d9e27b3580270595b2e7c8f51b3a82867e5f284529bf   1         88B
+d6a6cd65170410569b8ba2d4b54e9dbd6c37dae6435ae5e3dc5a4a0e35ae0081   0         34.55kB
+a5d1059074b09694fccd3fffb4c990667922b7ccbc320def11d19a8d2f304ecf   0         69.35MB
+dcf1574f266aa82547fef7730538bd205f090b2978f9e0d29923727db173ea82   0         69.35MB
+de55a637bcae1758712899f52f4b0738205a29ebc7e02b10bde585a716bf41bc   0         88B
+infra_portainer_data                                               0         263.9kB
+02f4ac7280977981c601b8850a41ca81605fe7b4290021d4e98e6547eb8d094f   0         0B
+8210adeb326f7417b11b611f492bf5e09716222bfbceee91c9711400dde14a86   0         88B
+9f21b154874aa64961505f373ae98ded3a8a473376f79cc6d85bef1331c15d59   0         88B
+0f8bbeab9ce21f5765a28686efe8e512c2156e5648af4eb8bd916b286cbcf3b2   0         34.55kB
+
+Build cache usage: 0B
+
+CACHE ID       CACHE TYPE   SIZE      CREATED      LAST USED    USAGE     SHARED
+w2fmtx3ol7n9   regular      12.8MB    7 days ago   7 days ago   1         true
+i2w8kq16uvrd   regular      160MB     7 days ago   7 days ago   1         true
+l3nnl7r391yl   regular      6.73MB    7 days ago   7 days ago   1         true
+s54w89dc4iys   regular      20.9kB    7 days ago   7 days ago   1         true
+a7oc5pdhi7xt   regular      8.29kB    7 days ago   7 days ago   3         true
+slpi0tj7t3c8   regular      332MB     7 days ago   7 days ago   1         true
+bjv2v1zscae1   regular      12.6kB    7 days ago   7 days ago   1         true
+s3ya4uu3ptsa   regular      25.5MB    7 days ago   7 days ago   1         true
+qyyekapaieev   regular      12.4kB    7 days ago   7 days ago   2         true

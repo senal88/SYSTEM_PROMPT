@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Exemplo de Tarefa: Monitoramento de Saúde Docker
+  Demonstra como monitorar contêineres e responder a problemas
+-->
+
+<exemplo_tarefa>
+    <descricao>
+        Monitorar saúde de todos os contêineres Docker e corrigir op-connect-api que está unhealthy.
+    </descricao>
+    
+    <entrada>
+        <problema>op-connect-api está com status unhealthy há 2 dias</problema>
+        <ambiente>macOS Silicon (Desenvolvimento)</ambiente>
+    </entrada>
+    
+    <processo>
+        <passo ordem="1">
+            <acao>Listar status de todos os contêineres</acao>
+            <comando>docker ps --format "table {{.Names}}\t{{.Status}}"</comando>
+            <saida_esperada>Tabela com nomes e status de todos os contêineres</saida_esperada>
+        </passo>
+        
+        <passo ordem="2">
+            <acao>Identificar contêineres unhealthy</acao>
+            <comando>docker ps --format "{{.Names}}\t{{.Status}}" | grep unhealthy</comando>
+            <esperado>Lista de contêineres com problemas</esperado>
+        </passo>
+        
+        <passo ordem="3">
+            <acao>Coletar logs de erro do op-connect-api</acao>
+            <comando>docker logs op-connect-api --tail 50</comando>
+            <analise>Procurar por erros de autenticação, conexão ou configuração</analise>
+        </passo>
+        
+        <passo ordem="4">
+            <acao>Inspecionar estado de saúde detalhado</acao>
+            <comando>docker inspect op-connect-api | jq '.[].State.Health'</comando>
+            <esperado>Status detalhado da health check</esperado>
+        </passo>
+        
+        <passo ordem="5">
+            <acao>Verificar autenticação 1Password CLI</acao>
+            <comando>op whoami</comando>
+            <validacao>Deve retornar usuário autenticado</validacao>
+        </passo>
+        
+        <passo ordem="6">
+            <acao>Verificar credentials.json do OP Connect</acao>
+            <comando>cat ~/Dotfiles/automation_1password/connect/credentials.json | jq</comando>
+            <validacao>Arquivo deve existir e ser JSON válido</validacao>
+        </passo>
+        
+        <passo ordem="7">
+            <acao>Re-injetar secrets do 1Password</acao>
+            <comando>~/Dotfiles/automation_1password/scripts/secrets/inject_secrets_macos.sh</comando>
+            <esperado>Script executa com sucesso</esperado>
+        </passo>
+        
+        <passo ordem="8">
+            <acao>Reiniciar contêiner op-connect-api</acao>
+            <comando>docker restart op-connect-api</comando>
+            <esperado>Contêiner reinicia sem erros</esperado>
+        </passo>
+        
+        <passo ordem="9">
+            <acao>Aguardar e verificar status após 30 segundos</acao>
+            <comando>sleep 30 &amp;&amp; docker ps --format "{{.Names}}\t{{.Status}}" | grep op-connect-api</comando>
+            <esperado>Status deve ser "healthy" ou "starting" (aguardar mais se starting)</esperado>
+        </passo>
+    </processo>
+    
+    <saida_esperada>
+        {
+            "contêineres_total": 9,
+            "contêineres_unhealthy": ["op-connect-api", "op-connect-sync"],
+            "erro_detectado": "Falha de autenticação com 1Password",
+            "autenticacao_1p": "luiz.sena88@icloud.com",
+            "credentials_validos": true,
+            "secrets_reinjecionados": true,
+            "contêiner_reiniciado": true,
+            "status_final": "healthy",
+            "tempo_resolucao": "~60 segundos"
+        }
+    </saida_esperada>
+    
+    <resolucao_alternativa>
+        <se condicao="op whoami falhar">
+            <acao>Autenticar 1Password CLI primeiro</acao>
+            <comando>op signin</comando>
+            <depois>Repetir passo 7 em diante</depois>
+        </se>
+        
+        <se condicao="credentials.json não existir ou inválido">
+            <acao>Regenerar credentials do OP Connect</acao>
+            <comando>cd ~/Dotfiles/automation_1password/connect &amp;&amp; ./validate-and-deploy.sh</comando>
+            <depois>Repetir passo 7 em diante</depois>
+        </se>
+        
+        <se condicao="contêiner ainda unhealthy após reinício">
+            <acao>Verificar logs novamente e escalar problema</acao>
+            <comando>docker logs op-connect-api --tail 100 > /tmp/op-connect-debug.log</comando>
+            <acao_manual>Revisar log manualmente e verificar configuração do docker-compose.yml</acao_manual>
+        </se>
+    </resolucao_alternativa>
+</exemplo_tarefa>

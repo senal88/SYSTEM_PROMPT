@@ -1,0 +1,277 @@
+# ============================================================================
+# AI Stack Integrada - n8n Self-hosted AI Starter Kit + Hugging Face
+# ============================================================================
+# Este arquivo integra:
+# - n8n (low-code automation)
+# - Ollama (LLMs locais)
+# - Qdrant (vector store)
+# - Hugging Face (models e datasets)
+# - PostgreSQL + pgvector (banco vetorial)
+# 
+# Uso: docker compose -f docker-compose-ai-stack.yml up -d
+# Perfil CPU (Mac/Apple Silicon): docker compose --profile cpu -f docker-compose-ai-stack.yml up -d
+# Perfil GPU NVIDIA: docker compose --profile gpu-nvidia -f docker-compose-ai-stack.yml up -d
+# ============================================================================
+
+services:
+  # === PostgreSQL 16 + pgvector ===
+  postgres-ai:
+    image: pgvector/pgvector:pg16
+    container_name: ${PROJECT_SLUG:-platform}_postgres_ai
+    platform: linux/arm64
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-n8n}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB:-n8n}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_ai_data:/var/lib/postgresql/data
+    networks:
+      - ai_network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-n8n} -d ${POSTGRES_DB:-n8n}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # === n8n (Self-hosted Automation) ===
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: ${PROJECT_SLUG:-platform}_n8n
+    platform: linux/arm64
+    environment:
+      # Database
+      DB_TYPE: postgresdb
+      DB_POSTGRESDB_HOST: postgres-ai
+      DB_POSTGRESDB_PORT: 5432
+      DB_POSTGRESDB_DATABASE: ${POSTGRES_DB:-n8n}
+      DB_POSTGRESDB_USER: ${POSTGRES_USER:-n8n}
+      DB_POSTGRESDB_PASSWORD: ${POSTGRES_PASSWORD}
+      
+      # Security
+      N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY}
+      N8N_USER_MANAGEMENT_JWT_SECRET: ${N8N_USER_MANAGEMENT_JWT_SECRET}
+      
+      # Features
+      N8N_DIAGNOSTICS_ENABLED: "false"
+      N8N_PERSONALIZATION_ENABLED: "false"
+      GENERIC_TIMEZONE: America/Sao_Paulo
+      
+      # AI Integrations
+      OLLAMA_HOST: ${OLLAMA_HOST:-ollama:11434}
+      HUGGINGFACE_API_TOKEN: ${HUGGINGFACE_TOKEN}
+      QDRANT_URL: http://qdrant:6333
+      
+      # Hugging Face Configuration
+      HF_HOME: /data/huggingface
+      HF_DATASETS_CACHE: /data/huggingface/datasets
+      HF_HUB_CACHE: /data/huggingface/hub
+      TRANSFORMERS_CACHE: /data/huggingface/transformers
+      
+      # API Keys (via 1Password)
+      HUGGINGFACE_TOKEN: ${HUGGINGFACE_TOKEN}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      PERPLEXITY_API_KEY: ${PERPLEXITY_API_KEY:-}
+      
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - n8n_shared:/data/shared
+      - huggingface_cache:/data/huggingface
+      - ./n8n-ai-starter/n8n/demo-data:/demo-data:ro
+    networks:
+      - ai_network
+    restart: unless-stopped
+    ports:
+      - "5678:5678"
+    depends_on:
+      postgres-ai:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.n8n.rule=Host(`n8n.${PRIMARY_DOMAIN}`)"
+      - "traefik.http.routers.n8n.entrypoints=websecure"
+      - "traefik.http.routers.n8n.tls.certresolver=letsencrypt"
+      - "traefik.http.services.n8n.loadbalancer.server.port=5678"
+
+  # === Ollama (Local LLMs) ===
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ${PROJECT_SLUG:-platform}_ollama
+    platform: linux/arm64
+    networks:
+      - ai_network
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    profiles:
+      - cpu
+      - default
+
+  ollama-gpu-nvidia:
+    image: ollama/ollama:latest
+    container_name: ${PROJECT_SLUG:-platform}_ollama_gpu
+    networks:
+      - ai_network
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    profiles:
+      - gpu-nvidia
+
+  # === Qdrant (Vector Store) ===
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: ${PROJECT_SLUG:-platform}_qdrant
+    platform: linux/arm64
+    networks:
+      - ai_network
+    restart: unless-stopped
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    environment:
+      QDRANT__SERVICE__GRPC_PORT: 6334
+      QDRANT__TELEMETRY_DISABLED: "true"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:6333/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.qdrant.rule=Host(`qdrant.${PRIMARY_DOMAIN}`)"
+      - "traefik.http.routers.qdrant.entrypoints=websecure"
+      - "traefik.http.routers.qdrant.tls.certresolver=letsencrypt"
+      - "traefik.http.services.qdrant.loadbalancer.server.port=6333"
+
+  # === Hugging Face Inference Server (Opcional) ===
+  huggingface-inference:
+    image: huggingface/text-generation-inference:1.4.3
+    container_name: ${PROJECT_SLUG:-platform}_hf_inference
+    platform: linux/arm64
+    networks:
+      - ai_network
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      - MODEL_ID=${HF_MODEL_ID:-mistralai/Mistral-7B-Instruct-v0.2}
+      - HUGGING_FACE_HUB_TOKEN=${HUGGINGFACE_TOKEN}
+      - MAX_INPUT_LENGTH=2048
+      - MAX_TOTAL_TOKENS=4096
+    volumes:
+      - huggingface_models:/data/models
+    profiles:
+      - hf-inference
+      - optional
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.hf-inference.rule=Host(`hf.${PRIMARY_DOMAIN}`)"
+      - "traefik.http.routers.hf-inference.entrypoints=websecure"
+      - "traefik.http.routers.hf-inference.tls.certresolver=letsencrypt"
+      - "traefik.http.services.hf-inference.loadbalancer.server.port=80"
+
+  # === Ollama Model Puller (Inicialização) ===
+  ollama-pull-llama:
+    image: ollama/ollama:latest
+    container_name: ${PROJECT_SLUG:-platform}_ollama_pull
+    platform: linux/arm64
+    networks:
+      - ai_network
+    volumes:
+      - ollama_data:/root/.ollama
+    entrypoint: /bin/sh
+    environment:
+      - OLLAMA_HOST=ollama:11434
+    command:
+      - "-c"
+      - "sleep 10 && ollama pull ${OLLAMA_MODEL:-llama3.2:1b} || true"
+    depends_on:
+      - ollama
+    profiles:
+      - cpu
+      - default
+
+  ollama-pull-llama-gpu:
+    image: ollama/ollama:latest
+    container_name: ${PROJECT_SLUG:-platform}_ollama_pull_gpu
+    networks:
+      - ai_network
+    volumes:
+      - ollama_data:/root/.ollama
+    entrypoint: /bin/sh
+    environment:
+      - OLLAMA_HOST=ollama-gpu-nvidia:11434
+    command:
+      - "-c"
+      - "sleep 10 && ollama pull ${OLLAMA_MODEL:-llama3.2} || true"
+    depends_on:
+      - ollama-gpu-nvidia
+    profiles:
+      - gpu-nvidia
+
+  # === n8n Workflow Importer (One-time) ===
+  n8n-import:
+    image: n8nio/n8n:latest
+    container_name: ${PROJECT_SLUG:-platform}_n8n_import
+    platform: linux/arm64
+    environment:
+      DB_TYPE: postgresdb
+      DB_POSTGRESDB_HOST: postgres-ai
+      DB_POSTGRESDB_PORT: 5432
+      DB_POSTGRESDB_DATABASE: ${POSTGRES_DB:-n8n}
+      DB_POSTGRESDB_USER: ${POSTGRES_USER:-n8n}
+      DB_POSTGRESDB_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - ./n8n-ai-starter/n8n/demo-data:/demo-data:ro
+    networks:
+      - ai_network
+    entrypoint: /bin/sh
+    command:
+      - "-c"
+      - "n8n import:credentials --separate --input=/demo-data/credentials && n8n import:workflow --separate --input=/demo-data/workflows || echo 'Import skipped - workflows may already exist'"
+    depends_on:
+      postgres-ai:
+        condition: service_healthy
+    profiles:
+      - init
+      - optional
+
+networks:
+  ai_network:
+    driver: bridge
+    name: ${PROJECT_SLUG:-platform}_ai_network
+
+volumes:
+  postgres_ai_data:
+    name: ${PROJECT_SLUG:-platform}_postgres_ai_data
+  n8n_data:
+    name: ${PROJECT_SLUG:-platform}_n8n_data
+  n8n_shared:
+    name: ${PROJECT_SLUG:-platform}_n8n_shared
+  ollama_data:
+    name: ${PROJECT_SLUG:-platform}_ollama_data
+  qdrant_data:
+    name: ${PROJECT_SLUG:-platform}_qdrant_data
+  huggingface_cache:
+    name: ${PROJECT_SLUG:-platform}_huggingface_cache
+  huggingface_models:
+    name: ${PROJECT_SLUG:-platform}_huggingface_models
+

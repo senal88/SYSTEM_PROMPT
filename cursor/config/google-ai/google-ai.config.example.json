@@ -1,0 +1,13 @@
+{
+  "google_cloud": {
+    "project_id": "gcp-ai-setup-24410",
+    "region": "us-central1"
+  },
+  "ai_studio": {
+    "api_key": "${AI_STUDIO_API_KEY}"
+  },
+  "credentials": {
+    "oauth_client_secret_path": "/Users/luiz.sena88/Dotfiles/credentials/oauth_client_secret.json",
+    "service_account_credentials_path": "/Users/luiz.sena88/Dotfiles/credentials/service_account.json"
+  }
+}

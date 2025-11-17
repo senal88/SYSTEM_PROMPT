@@ -1,0 +1,58 @@
+# Cursor Rules - GitHub Codespaces
+
+## AMBIENTE
+- OS: Linux (Ubuntu base)
+- Shell: Bash (padrão)
+- VSCode: Integrado
+- Git: Configurado
+
+## CONFIGURAÇÕES ESPECÍFICAS
+
+### Setup Automático
+- Via `.devcontainer/devcontainer.json`
+- Dotfiles: Clonar automaticamente
+- Extensões: Instaladas automaticamente
+
+### Persistência
+- Configurações em `.vscode/settings.json`
+- Snippets em `.vscode/snippets/`
+- Extensões recomendadas em `.vscode/extensions.json`
+
+### 1Password
+- CLI instalado via devcontainer
+- Configuração via dotfiles
+- Vault padrão: 1p_vps ou conforme contexto
+
+## ESTRUTURA DE PROJETO
+
+```
+.devcontainer/
+├── devcontainer.json
+├── Dockerfile (opcional)
+└── setup.sh
+
+.vscode/
+├── settings.json
+├── snippets/
+└── extensions.json
+```
+
+## COMANDOS ÚTEIS
+
+```bash
+# Codespace
+gh codespace list
+gh codespace ssh <name>
+
+# 1Password
+op-config-check
+op-signin-auto
+```
+
+## EXTENSÕES RECOMENDADAS
+- 1Password (op-vscode)
+- Python
+- Docker
+- GitLens
+- Remote - Containers
+

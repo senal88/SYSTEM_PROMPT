@@ -1,0 +1,225 @@
+#!/bin/bash
+# emergency-credential-rotation.sh
+# Script de emergência para rotação de credenciais expostas
+# Last Updated: 2025-11-01
+# Version: 1.0.0
+
+set -euo pipefail
+
+# ============================================================================
+# SOURCING LIB
+# ============================================================================
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
+source "${SCRIPT_DIR}/../lib/logging.sh"
+
+# ============================================================================
+# ALERTA DE SEGURANÇA
+# ============================================================================
+
+log_section "🚨 ALERTA DE SEGURANÇA - ROTAÇÃO DE CREDENCIAIS"
+
+log_error "Credenciais foram expostas no terminal!"
+echo ""
+echo "Tokens expostos identificados:"
+echo "  - OPENAI_API_KEY"
+echo "  - ANTHROPIC_API_KEY"
+echo "  - HF_TOKEN (Hugging Face)"
+echo "  - CURSOR_API_KEY"
+echo "  - PERPLEXITY_API_KEY"
+echo ""
+log_warning "AÇÃO IMEDIATA NECESSÁRIA:"
+echo "  1. Rotacionar TODAS as credenciais expostas"
+echo "  2. Remover do histórico do terminal"
+echo "  3. Verificar se foram commitadas no Git"
+echo "  4. Mover para 1Password e limpar arquivos locais"
+echo ""
+
+# ============================================================================
+# VERIFICAÇÃO DE COMMITS
+# ============================================================================
+
+check_git_history() {
+    log_section "🔍 Verificando histórico Git"
+    
+    local exposed_patterns=(
+        "sk-proj-eVehrnY"
+        "sk-ant-admin01"
+        "hf_GEQToMB"
+        "pplx-EWgsR7DoJs"
+        "con-4b675d386275cbe80dd3d7f729e845ad5f9db2ae"
+    )
+    
+    local found_in_git=false
+    
+    for pattern in "${exposed_patterns[@]}"; do
+        if git log --all --source --full-history -p -S "${pattern}" 2>/dev/null | grep -q "${pattern}"; then
+            log_error "⚠️ Token encontrado no histórico Git: ${pattern:0:20}..."
+            found_in_git=true
+        fi
+    done
+    
+    if [ "${found_in_git}" = true ]; then
+        log_error "❌ CRÍTICO: Tokens foram commitados no Git!"
+        echo ""
+        echo "Ações necessárias:"
+        echo "  1. Rotacionar credenciais IMEDIATAMENTE"
+        echo "  2. Usar git-filter-repo para remover do histórico (se for privado)"
+        echo "  3. Se repositório é público, considerar como comprometido"
+    else
+        log_success "✅ Tokens não encontrados no histórico Git"
+    fi
+    
+    return 0
+}
+
+# ============================================================================
+# VERIFICAÇÃO DE ARQUIVOS LOCAIS
+# ============================================================================
+
+check_local_files() {
+    log_section "📁 Verificando arquivos locais"
+    
+    local suspicious_files=(
+        "${REPO_ROOT}/add-1password-vps-macos.md"
+        "${REPO_ROOT}/compose/.env"
+        "${REPO_ROOT}/**/*.env"
+        "${REPO_ROOT}/**/*.log"
+    )
+    
+    local found_files=()
+    
+    for pattern in "${suspicious_files[@]}"; do
+        while IFS= read -r file; do
+            if [ -f "${file}" ]; then
+                if grep -q "sk-proj-eVehrnY\|sk-ant-admin01\|hf_GEQToMB\|pplx-EWgsR7DoJs" "${file}" 2>/dev/null; then
+                    found_files+=("${file}")
+                fi
+            fi
+        done < <(find "${REPO_ROOT}" -type f -name "$(basename "${pattern}")" 2>/dev/null | head -10)
+    done
+    
+    if [ ${#found_files[@]} -gt 0 ]; then
+        log_warning "⚠️ Tokens encontrados nos seguintes arquivos:"
+        for file in "${found_files[@]}"; do
+            echo "  - ${file}"
+        done
+    else
+        log_success "✅ Nenhum token encontrado em arquivos locais"
+    fi
+    
+    return 0
+}
+
+# ============================================================================
+# PROCEDIMENTO DE ROTAÇÃO
+# ============================================================================
+
+show_rotation_procedure() {
+    log_section "📋 Procedimento de Rotação de Credenciais"
+    
+    cat << 'EOF'
+
+## 🔄 Rotação de Credenciais - Passo a Passo
+
+### 1. Rotacionar Tokens nas Plataformas
+
+**OpenAI:**
+- Acesse: https://platform.openai.com/api-keys
+- Revogue o token exposto: sk-proj-eVehrnY-...
+- Crie novo token
+- Atualize no 1Password: 1p_macos/OpenAI-API/credential
+
+**Anthropic:**
+- Acesse: https://console.anthropic.com/settings/keys
+- Revogue o token exposto: sk-ant-admin01-...
+- Crie novo token
+- Atualize no 1Password: 1p_macos/Anthropic-API/credential
+
+**Hugging Face:**
+- Acesse: https://huggingface.co/settings/tokens
+- Revogue o token exposto: hf_GEQToMBgn...
+- Crie novo token
+- Atualize no 1Password: 1p_macos/HuggingFace-Token/credential
+
+**Perplexity:**
+- Acesse: https://www.perplexity.ai/settings/api
+- Revogue o token exposto: pplx-EWgsR7DoJs...
+- Crie novo token
+- Atualize no 1Password: 1p_macos/Perplexity-API/credential
+
+**Cursor:**
+- Acesse: https://cursor.sh/settings
+- Revogue o token exposto: con-4b675d38...
+- Crie novo token se necessário
+- Atualize no 1Password: 1p_macos/Cursor-API/credential
+
+### 2. Limpar Arquivos Locais
+
+```bash
+# Remover arquivo com tokens expostos
+rm ~/Dotfiles/automation_1password/add-1password-vps-macos.md
+
+# Limpar histórico do terminal (zsh)
+history -c
+rm ~/.zsh_history
+exec zsh
+```
+
+### 3. Atualizar 1Password
+
+```bash
+# Verificar se tokens estão no 1Password
+op item list --vault 1p_macos | grep -i "openai\|anthropic\|hugging\|perplexity\|cursor"
+
+# Se não estiverem, criar:
+# op item create --vault 1p_macos --category "API Credential" \
+#   --title "OpenAI-API" --field credential="NOVO_TOKEN"
+```
+
+### 4. Regenerar .env
+
+```bash
+cd ~/Dotfiles/automation_1password/compose
+op inject -i env-ai-stack.template -o .env
+chmod 600 .env
+```
+
+### 5. Verificar Git
+
+```bash
+# Se tokens foram commitados:
+git log --all --source --full-history -p | grep -i "sk-proj\|sk-ant\|hf_\|pplx-"
+
+# Se repositório é privado, considerar usar git-filter-repo
+# ATENÇÃO: Isso reescreve o histórico
+```
+
+EOF
+}
+
+# ============================================================================
+# MAIN
+# ============================================================================
+
+main() {
+    check_git_history
+    echo ""
+    
+    check_local_files
+    echo ""
+    
+    show_rotation_procedure
+    echo ""
+    
+    log_section "⚠️ AÇÃO IMEDIATA REQUERIDA"
+    log_error "Rotacione todas as credenciais expostas ANTES de continuar!"
+    echo ""
+    echo "Este script apenas identifica o problema."
+    echo "Você DEVE rotacionar as credenciais manualmente nas plataformas."
+    
+    return 0
+}
+
+main "$@"
+

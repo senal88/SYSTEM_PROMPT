@@ -1,0 +1,293 @@
+[
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/ARCHITECTURE_REPORT.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 6741, "modified": "2025-10-29 19:22:47", "sha256": "65011d465fce9199677c855d21b971410d9313dd6284830c596dc5bafc81476e"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/.tmp_tree.txt", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 484, "modified": "2025-10-29 19:22:47", "sha256": "1f73d61bd96dc8c0d4fe6f0887c03ba183686eca669c28c571c88d4c9fdcb233"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/.DS_Store", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 12292, "modified": "2025-10-30 08:55:14", "sha256": "76c6a038130ddeeef2661bf639bf3453b5550f57957595b67b1d09e991879f85"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/context/.DS_Store", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 8196, "modified": "2025-10-29 19:33:01", "sha256": "eed043f9b901bdfab69e326554312889c2f9941c42744077267e97bea1bbcc3c"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/context/metadata/schemas/context_note_template.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 507, "modified": "2025-10-29 19:34:25", "sha256": "9494b998063605e34cf51f6ec8a41d164181a2341896c10dfb44c9ca28a8003d"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/Makefile", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 1772, "modified": "2025-10-29 19:34:25", "sha256": "e02181728f9c558299f876f3102fcb12c4d0beaac8dbfb71d01fa68cb24e0029"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/1Password.opvault/default/profile.js", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 908, "modified": "2025-10-27 20:17:37", "sha256": "79c736806c712e5f79c414617279d1f6fb848d818ee2e1d2ff2377b759583e77"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/1Password.opvault/default/band_A.js", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 783, "modified": "2025-10-27 20:17:37", "sha256": "ff02dfe7d9731000d222b1dc6aba2fe0b7e14a5b206986f2fed5abce3e1a60a3"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/IMPLEMENTACAO_COMPLETA.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 5685, "modified": "2025-10-27 11:03:41", "sha256": "e6f35a2a61a6e3fd766acc836b15c67c4a0610146096f253fd8371961b31e722"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/RESUMO_CLEANUP_20251029.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 5448, "modified": "2025-10-29 18:19:11", "sha256": "2f833344cadd6432046b917d2c8164fd60856e5445a2423e81fe5afb3bd16daa"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/overview.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 6951, "modified": "2025-10-23 20:13:51", "sha256": "960328d7739cac8f6749d9f56243b64a31ab2e7108f50392a0d31c4c8aa51b6a"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/.DS_Store", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 6148, "modified": "2025-10-30 06:54:16", "sha256": "3d6a9d2757fdce4116501511aa73d2763e3b901e601a6f8e8bcf188483da8bae"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/archive/1password-automacao-completa.pdf", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 397702, "modified": "2025-10-23 20:14:04", "sha256": "a82a4a2a80cb26cdbbc5a55379cbe3b8993e71866350b39338bb163f63c4567c"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/archive/processo-unico-implantacao.pdf", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 142937, "modified": "2025-10-23 20:14:14", "sha256": "4cf6ca8bc3f7ba250229d33d89d24cd4db7e77b0a8f1c2f082ce1ff8691015af"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/archive/processo-unico-implantacao-compacto.pdf", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 142937, "modified": "2025-10-23 20:14:04", "sha256": "4cf6ca8bc3f7ba250229d33d89d24cd4db7e77b0a8f1c2f082ce1ff8691015af"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/archive/gemini-cloud-assist-iam.pdf", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 2940033, "modified": "2025-10-23 20:14:14", "sha256": "331efc40dc8115067b22a9a159ee17d7adafb3a23721e27440ef15c39bb73699"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/archive/cloud-google-2025-10-22.txt", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 30810, "modified": "2025-10-23 20:14:16", "sha256": "0571d7146fdfd1d8dac82c9abcad4293b10a3a78f06e18aa736665e748bf2952"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/archive/readme_parcial_v1.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 22924, "modified": "2025-10-23 20:14:01", "sha256": "0e5770318b001e62d91e0d9321f5bba4bf7bbfab8858cd7b6b3ab5845496cbf7"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/archive/volumes-raycast-investigar.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 151965, "modified": "2025-10-24 19:16:51", "sha256": "13664c4cb2d0d93e653ceca83eb1d75809b768f2b66a74538f3bc96a87ecc227"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/archive/apis-google-iam.pdf", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 578894, "modified": "2025-10-23 20:14:14", "sha256": "a4828bf543803f7bb59db2c047bf839f9609e7074df80958e72c882524b4a275"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/runbooks/automacao-macos.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 19986, "modified": "2025-10-23 20:13:51", "sha256": "510331ac39aeb74696828062a7fc1d5bc7085e673099de06aa9fa6b23515d375"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/runbooks/automacao-dual.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 15084, "modified": "2025-10-23 20:13:51", "sha256": "aff8779720bd36793fd55ace368e09055cba450a5a01e250f9928d572d2e7733"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/runbooks/automacao-vps.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 13140, "modified": "2025-10-23 20:13:51", "sha256": "875babd074e94d572f3c074c1127b3e73bc009b2d7acf3ae63e76b99a961ca78"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/PLANO_ACAO_COMPLETO.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 11151, "modified": "2025-10-29 19:30:39", "sha256": "864d06bce30af10b8d0b6f91a822185879d5fda7aca30d727ed7ed894eba945e"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/operations/.DS_Store", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 6148, "modified": "2025-10-30 06:55:05", "sha256": "363e487c5e0cbe03e77855c406165058ab6d46401e6da201e8a4eec8ee96e731"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/operations/dns-records.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 9550, "modified": "2025-10-24 19:03:59", "sha256": "718a0059f7b6d0afa326602b3f7f6cb73a96c49aee48af8548fa9ce5fa19cf95"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/operations/integracao-docker-traefik.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 15888, "modified": "2025-10-23 20:13:51", "sha256": "bdc2c1734d15c0cea6436071fa8fd7d670a6d980a98cfa2b5d7b221771be4278"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/operations/direnv-op-workflow.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 1688, "modified": "2025-10-24 18:51:01", "sha256": "c0ca6e9106079b44aa6b62845fb21012afec3e6e8e92c6763a55cac1782a443b"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/operations/analisar_adequar_automation_1password/master-setup.sh", "perm": "600", "owner": "luiz.sena88", "group": "staff", "size": 21308, "modified": "2025-10-29 21:56:42", "sha256": "86f9ffedf80e5983e9e3f7b0573afcdc8fe422003a18d99c638b74db25a13fc1"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/operations/analisar_adequar_automation_1password/IMPLEMENTATION-SCRIPTS.md", "perm": "600", "owner": "luiz.sena88", "group": "staff", "size": 10488, "modified": "2025-10-29 21:56:42", "sha256": "8b6e264c304cb39347056bb01040ccd1fa6d04825aef5d9c4f1ca545bcbde1f6"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/operations/analisar_adequar_automation_1password/organize-project.sh", "perm": "600", "owner": "luiz.sena88", "group": "staff", "size": 6690, "modified": "2025-10-29 21:56:42", "sha256": "d3732bb878e4a3401d89fb8f18b25a89132c90b4aa99d9b8cfe28e8672388f8f"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/operations/master-plan.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 7628, "modified": "2025-10-24 19:16:44", "sha256": "a42029dc4d8c6d4cdfc54a0b4e114d06f77de7fbe035ce7d62b27a6c8d3794a1"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/README.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 4841, "modified": "2025-10-27 10:44:10", "sha256": "ee3bf9774deb47db3fa98739110dfa0c467e239d8b78aed2ef86e150525b42b3"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/prompts/prompt_codex_automation_1password_macos.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 5797, "modified": "2025-10-24 16:53:13", "sha256": "9b7927f7bc2d6cde64e092083f2d32fb10d7a67ad6c5d16efa2a6bbe0fe378dd"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/prompts/prompt_guia-nomenclatura-1p.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 12762, "modified": "2025-10-24 19:18:28", "sha256": "5245daf7355ac3477caf9cdcf27ceb00c636408d85ad828ad674b7fdd9c07c02"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/prompts/prompt_codex_automation_1password_macos.txt", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 5797, "modified": "2025-10-24 16:53:13", "sha256": "9b7927f7bc2d6cde64e092083f2d32fb10d7a67ad6c5d16efa2a6bbe0fe378dd"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/prompts/PROMPT OTIMIZADO PARA GERAÇÃO DE DOCUMENTO__Gere u.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 28326, "modified": "2025-10-24 18:51:35", "sha256": "6d462cdc8e7c94c56cf42c00d3c4a42a69438cbb3e3f66f892da42a68363d344"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/prompts/prompt-v3-em-analise-framework-implantacao-1p.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 13862, "modified": "2025-10-25 12:03:21", "sha256": "37665682116371ae3258db94b819e6559f1c87c222e95fffe0d7ef02b56af774"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/prompts/sumarizar_versao_final.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 183256, "modified": "2025-10-25 13:49:10", "sha256": "c3ce117b7a0c4e31490942a77275fff6d2472237f298918c28111292bd3b7d83"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/prompts/Prompt Completo para Codex_ Automação do 1Password.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 8365, "modified": "2025-10-24 16:59:03", "sha256": "c021ede6a1be0cb0c75b07ea8bbe1aad1c1a2783d6fa08cf4525d8e00cac7471"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/docs/prompts/agent-expert.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 14328, "modified": "2025-10-23 20:13:51", "sha256": "775ee13a26945fab66af0147407889a90fd8894ef850938e9b0488f7b5efcff4"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/.devcontainer/devcontainer.json", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 63062, "modified": "2025-10-25 12:57:05", "sha256": "39422ec6369551cebfc1f0e797eaa26acaf595b2327adf99e60a5505e3e2ed97"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/.cursorrules", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 12070, "modified": "2025-10-29 19:34:32", "sha256": "7bdf58c3e2592c9e6cc5635844247733e72d24fe8faa971091bf1d64415901ab"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/exports/export_full_20251030_112212.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 306, "modified": "2025-10-30 11:22:12", "sha256": "54b6060c8f4b86ffe2e42d016157574ed0d0c50090ea2a6f619bff3644c40100"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/exports/metadata_20251030_112252.json", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 12558, "modified": "2025-10-30 11:22:53", "sha256": "15fe72ac7301278e7702063b4e799ffad8ad773a671ab057e83a1a4b51eea0de"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/env/vps.env", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 1044, "modified": "2025-10-27 13:03:07", "sha256": "8760800d8e7bdb32e2cc78c71d4a640ec37ef5b2ab8024fa37f103590b32bda8"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/env/macos.env", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 1158, "modified": "2025-10-27 13:02:29", "sha256": "5a49df5c8e2e5e5bfe4f942e013197c5b6f2d39c5e7070401f9adfb78233c704"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/env/README.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 17874, "modified": "2025-10-29 18:40:18", "sha256": "1cb502221b4930639c8aca0b9aa41b75e7347c72495c14a3144e98172841e90c"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/env/infra.example.env.op", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 2017, "modified": "2025-10-29 18:40:16", "sha256": "dc9fbebd7489044a417f73c3177bb10e5c148ad7e2f31cbf4a9439f12d8718b7"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/env/shared.env", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 1549, "modified": "2025-10-27 13:01:38", "sha256": "b9b07d0187888cbd1f64041c9cd23bd96279455bd32ee551d007ae3a11961339"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/logs/validate_permissions_20251030_112229.log", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 16961, "modified": "2025-10-30 11:22:30", "sha256": "171a014f1af61492a4a0395c0908c1cc2a46bb9e26eb9de6ac5ec1575e73fedb"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/logs/.gitkeep", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 0, "modified": "2025-10-27 12:57:19", "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/logs/validate_dependencies_20251030_112241.log", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 114, "modified": "2025-10-30 11:22:41", "sha256": "fa5cb1a6a0ae1f77c1f25c17728bba128219b4f954aadda10e056fbb33b67262"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/.gitignore", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 877, "modified": "2025-10-29 19:32:42", "sha256": "d286a7b90f3c15325fff7734478c40d6c70c7faaa130505e7b47a94f5460783d"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/INDEX.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 9434, "modified": "2025-10-29 18:23:31", "sha256": "3536564686d21bf53951d1f4d1e8cab42850fa0eb6b662b4149606d2d0f76e7c"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/README-COMPLETE.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 19533, "modified": "2025-10-29 13:29:18", "sha256": "e151f5915c504452254e2e24fe7edd2cadbdaf44d14fd078690892fce3e78991"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/configs/marketplace.1password.com_24th_Oct_2025.txt", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 8021, "modified": "2025-10-24 19:00:34", "sha256": "9c530df3e220f5bec65439f17ba63e3485aad1b337705e9424daf973c55710bb"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/configs/template.env.op", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 5000, "modified": "2025-10-23 20:13:57", "sha256": "2447e89492544a91a51bd8bd3affa0aafb8a22da7bc3789df9e2d8c1dc5e0d0d"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/configs/vps_registros_dns_cloudflare.txt", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 9270, "modified": "2025-10-23 20:13:57", "sha256": "76fa030c6821cedc130cff6c17868b567b5a1fa7cb33f163d806fbf44ce269e4"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/configs/1password_automation_complete.json", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 11711, "modified": "2025-10-23 20:13:57", "sha256": "1431b10667f78a91c019ee61f1e0c9f7189e351a410a6de521136411f9c1e615"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/configs/dns_cloudflare_localhost_full.txt", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 4886, "modified": "2025-10-28 02:38:51", "sha256": "fe1c48f33b66fb416d2595de415726f6721a6b3406c0e7b38e67afff76b3d03e"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/configs/dns_cloudflare_localhost_template.txt", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 2136, "modified": "2025-10-28 02:07:35", "sha256": "8fcbdfa253716233c13e53044055f167bced46218cc45bb8a7bc40eb7c3a0d51"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/.DS_Store", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 8196, "modified": "2025-10-29 19:33:16", "sha256": "cb40d012065685d6fbc3e2d6692c0808f3afe00d48b26f76cf88093ca856d4db"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/context/validate_env_paths.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 250, "modified": "2025-10-29 19:34:25", "sha256": "68db0f4c66ee327a0e2fbd6438d6eff8b01fc9e80a69c4245b77a1befc05883a"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/context/new_context_note.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 610, "modified": "2025-10-29 19:34:25", "sha256": "8a6645449229e41a6908268d1b789d573be44f52a1bd2bd45fbde32b1968437b"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/context/build_index.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 745, "modified": "2025-10-29 19:34:25", "sha256": "a4d7d000ef675ef071bc043044dedd369d7698ea1d1c0d794d741822fdad5350"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/bootstrap/setup-macos-complete.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 8051, "modified": "2025-10-29 18:18:33", "sha256": "00b8ff800abf5912927f8730589e1ae4117389c86f3af27d150a584c292c12b6"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/bootstrap/zshrc_1password_config.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 8779, "modified": "2025-10-29 18:18:33", "sha256": "2b506b54f756de38c9f017464bb465b7fc721f672315438b7c9647cd2586a5fd"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/bootstrap/init_1password_macos.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 10388, "modified": "2025-10-29 18:18:33", "sha256": "a88745087fc21397199bb44f9cb1c6080d9a510454bb2b8cebb987a5f744f330"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/bootstrap/setup-macos.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 1624, "modified": "2025-10-29 18:18:33", "sha256": "aa71996d91d1f735d76a9df379a4e7ce06d83435315756aa737fb37d56bc46b4"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/bootstrap/init_1password_ubuntu.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 9669, "modified": "2025-10-29 18:18:33", "sha256": "f51b1ce7003fe7d7756616d9af6413b895830792fd30e4c30838a74408ab04ba"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/bootstrap/setup-complete.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 7375, "modified": "2025-10-29 18:18:33", "sha256": "4085d8a1a47b9766ca375e3129e52cfa492d927350ca273ef2ff0fcf0eb5f0d0"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/bootstrap/setup-vps-complete.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 11637, "modified": "2025-10-29 18:18:33", "sha256": "6deb74a4c1e6eb6d7f1fe9e35bb58ee9efe9c48e442e57bcbb9b76633c2c1463"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/bootstrap/setup-vps.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 1607, "modified": "2025-10-29 18:18:33", "sha256": "130405d5f2533e68a6573e918df9c53bada6ebd29ea19829b7856a4c8d01bcfb"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/bootstrap/bashrc_1password_config.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 8417, "modified": "2025-10-29 18:18:33", "sha256": "abad00ed6988dc71f60a954786f4f7bc74489809a0f2f89ceeac26c925456138"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/export_architecture.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 3134, "modified": "2025-10-29 19:22:58", "sha256": "d74cdd5f2665ce24c810bdb0d9e35de100f125f6f088787cf5ccb4f780662556"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/secrets/load-secure-env.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 2412, "modified": "2025-10-29 18:18:33", "sha256": "fb24bc0a42c8f46eeacc1f3fd2cb24e424fa1e14f047912381edf0370f606a2e"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/secrets/inject_secrets_ubuntu.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 9551, "modified": "2025-10-29 18:18:33", "sha256": "3a3a349e8d50f9a39230e61242f2e44adba0a6848876c50c121932d98576c60a"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/secrets/export_1password_env.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 1476, "modified": "2025-10-29 18:18:33", "sha256": "9726a93e9ca37fa0f2cd94b54be31057e5d504b26c21ae7019cb5e0092e0c5ad"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/secrets/inject_secrets_macos.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 9478, "modified": "2025-10-29 18:18:33", "sha256": "7bf668409fa3dc7f8058e943e5550196f8353fcce267b398893568df99b22aa0"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/secrets/sync_1password_env.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 3918, "modified": "2025-10-29 18:18:33", "sha256": "55011cdd96d325856b34041d1821db71d255ac89d2608f43d7a4a06c53847bcf"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/secrets/load-infra-env.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 3434, "modified": "2025-10-29 18:40:16", "sha256": "9736c4eb4c92746f0ec4c73896f1f11557395439a5d53f535566160a13c71df0"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/audit/audit_full.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 2828, "modified": "2025-10-30 11:21:16", "sha256": "ff0b2fe64bd0f58b4c62e5a217f0ebc7920ecd174085f75dad67a7fb6c68a80a"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/audit/collect_metadata.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 1076, "modified": "2025-10-30 11:21:16", "sha256": "a55a31884b0aed03960da773f74cde9365fbe724c47440f471a353250af6638f"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/audit/validate_permissions.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 725, "modified": "2025-10-30 11:21:16", "sha256": "8cbfe767198401fe1ffc0110e4394af67cbbeda1692d23f82ff182209b8f86fd"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/audit/validate_dependencies.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 377, "modified": "2025-10-30 11:21:16", "sha256": "f3250339ae705e2b7b578b36e529b719efdc73a992a1311281e63afaaf153c7e"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/maintenance/rotate_logs.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 321, "modified": "2025-10-29 19:34:25", "sha256": "080f9d9931d417514ab1c95b9ab7a55536f432f06b685e3b82ed0a4057cb750f"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/maintenance/cleanup-obsolete-files.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 5190, "modified": "2025-10-29 18:19:11", "sha256": "9680b683a3280c80feb8534c674c06a46c4dd002a3699eed8da205aa8265660b"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/connect/start-connect.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 314, "modified": "2025-10-29 18:18:33", "sha256": "0355daafa10e6d9aea6865bbfb4d832133569c91002afd4b4be4288a325a0312"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/connect/setup-1password-connect-secure.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 5215, "modified": "2025-10-29 18:18:33", "sha256": "7f1f20c38543ab6b5bcb046d8fa8d2518aa1bd6980e6d46112db1852280ccb4a"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/connect/setup-connect-complete.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 4383, "modified": "2025-10-29 18:18:33", "sha256": "2cceaab3885e4d1f4fa8710d75db10c96b46b8905e9015141a892b4770a39069"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/connect/setup-connect-local.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 3049, "modified": "2025-10-29 18:18:33", "sha256": "8b7c6ff2da2043205533194c5c3057901ef28d4361b9b882448da9517c3dea93"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/connect/stop-connect.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 457, "modified": "2025-10-29 18:18:33", "sha256": "051adc96bdc136546d98c30acf33ac1e94cbf840168d67c25babe33e38202fd0"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/validation/validate_organization.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 2662, "modified": "2025-10-29 18:18:33", "sha256": "5d6cd7d9abb90e4a3498e98d30ea968973b5f0ae968babe4c0802c86789c6e8f"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/validation/validate_architecture.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 7961, "modified": "2025-10-29 18:18:33", "sha256": "36b0930c7eaf908e9a30f8e85ef909288be41d058320ed2458609fe23f582fe7"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/validation/validate-setup.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 141, "modified": "2025-10-29 18:18:33", "sha256": "485b176a0d888639b50698646b9e84b64eca76275d4d2842c6b30e82b1d64912"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/scripts/validation/validate_environment_macos.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 14696, "modified": "2025-10-29 18:18:33", "sha256": "ed8860c42eccf119e131198b3e4539cc061a1ffbdf0fa0dea7bbeb8e9fb991bc"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/.github/dependabot.yml", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 467, "modified": "2025-10-25 12:56:12", "sha256": "20284d1c7b5612329006dc308c4e17888df902f0d255d59adf98b742bda2ea3f"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/cursor-ide-config.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 36082, "modified": "2025-10-29 16:23:39", "sha256": "24974827dee1a4863b0749dba703015a451feb593d8c058050c6cd35306bf3f0"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/templates/.DS_Store", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 6148, "modified": "2025-10-28 14:18:55", "sha256": "c6584aa4fbcfcd59ef7730f503dfcb230fdb82e5baa67ccf77be704028031006"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/templates/env/vps.secrets.env.op", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 1656, "modified": "2025-10-28 10:17:33", "sha256": "be76710bd9caf0eb241e05eb64d6b60c8908aa3d9f4d2f92d524259ae0f20515"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/templates/env/macos.secrets.env.op", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 878, "modified": "2025-10-28 10:17:33", "sha256": "53d85f5db7fd7b2728909d8ad1d54195a18662a699542e79680eae8635be26f5"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/.backups/cleanup-20251029-181817/MANIFEST.txt", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 364, "modified": "2025-10-29 18:18:17", "sha256": "1a3131ed20c1551a7b3ad36bb73cad2ccaa02de3afae763953e065426a5b3914"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/.backups/cleanup-20251029-181817/cleanup.log", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 188, "modified": "2025-10-29 18:18:17", "sha256": "088eca2a83226023d2c1aa52b135c1bbb1de4b82b26cb0ac7daca29475abfadb"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/.backups/cleanup-20251029-181817/1password-credentials.json", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 1087, "modified": "2025-10-29 18:18:17", "sha256": "6a2fb050ec6c100df59030e22ae3785323a9040f72e52fd553b814caa92cf9a1"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/.vscode/settings.json", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 441, "modified": "2025-10-29 19:34:25", "sha256": "a1d982c382e64f9f5381105c798d122c227c5264f4d2518faa1c26db526556c1"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/.vscode/tasks.json", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 936, "modified": "2025-10-29 19:34:25", "sha256": "04c2b1c053c21f9754d9d77305bab3807abda1b233f0984d1f1e497b383aaf34"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/RESUMO_CORRECOES_ARQUITETURA.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 6137, "modified": "2025-10-29 18:03:42", "sha256": "617595dcb9017ebef46af0b13f18760bb21fd8e71f0d5322d66a4c839d723c95"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/connect/validate-and-deploy.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 19631, "modified": "2025-10-29 18:18:33", "sha256": "4fb37d97800b65385c49d13e4c0b8b574886fd41ffa6f2849b189c35eb582b93"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/connect/validation-20251029-102030.log", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 3769, "modified": "2025-10-29 10:20:33", "sha256": "653f94a297ea7c6106e2615650bf40fe70adf5d70638df732d2f0d8c7053f96e"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/connect/.DS_Store", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 10244, "modified": "2025-10-29 18:03:02", "sha256": "eb9f3c84fbc5c845425edb3839e32395cb8750e9b0386e31d9bf34beffb366ac"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/connect/validation-20251029-104901.log", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 4711, "modified": "2025-10-29 10:49:05", "sha256": "8ebecf39bea2868423794ab220e08264cb34b1029752f6d8d7ac74b31ea7515b"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/connect/validation-20251029-104422.log", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 3828, "modified": "2025-10-29 10:45:28", "sha256": "23bd681a70b034f57c5b38c6e4c5cd6cf73bc0c19d75f89a4944321d6794253f"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/connect/Makefile", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 3499, "modified": "2025-10-29 18:03:42", "sha256": "40a504456d5726e0765ee14290f443a7c9813e8b1d6b962424e9c2f7894f11b6"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/connect/macos_connect_server/.DS_Store", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 6148, "modified": "2025-10-29 17:53:39", "sha256": "d65165279105ca6773180500688df4bdc69a2c7b771752f0a46ef120b7fd8ec3"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/connect/.cursorrules", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 7813, "modified": "2025-10-29 10:14:54", "sha256": "f1d4dd2e9ee5839b50dc2c1a753f302eac810a81df13ebad9665f744767f2c78"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/connect/validation-20251029-101553.log", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 1901, "modified": "2025-10-29 10:15:54", "sha256": "d8f28744a7380ca883a703e78938a47d5471577b720bfc10985472c427c1b4fd"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/connect/validation-20251029-104614.log", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 4663, "modified": "2025-10-29 10:46:20", "sha256": "b2d26f14a3724538ee0a39405e6a89f4c3eb803f5f00cea5835cc0515ceafcb1"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/connect/validation-20251029-115255.log", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 4754, "modified": "2025-10-29 11:53:04", "sha256": "21c565a7f3b99e7ee6bc57a4ddef7164795c01d5e2a442b8c6bc0abb054e2137"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/connect/vps-setup.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 8354, "modified": "2025-10-29 18:18:33", "sha256": "ea5e44067297eeae722277db46d4373295e79f61e72242b8300566f0aaba9107"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/connect/certs/.gitkeep", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 0, "modified": "2025-10-27 13:07:53", "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/connect/.gitignore", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 500, "modified": "2025-10-27 11:03:41", "sha256": "efbe746e8de5e57949b6f04441c47197933d6a70861fd1b6c349806d5c541e6b"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/connect/.env", "perm": "600", "owner": "luiz.sena88", "group": "staff", "size": 1525, "modified": "2025-10-29 10:20:25", "sha256": "73ca2026b6b0d190772812c7c09c924de31e26b9fb66308de64aaf717b526662"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/connect/dns.template.env", "perm": "600", "owner": "luiz.sena88", "group": "staff", "size": 1224, "modified": "2025-10-29 10:19:52", "sha256": "fbc2b8e421b96e801cb5a702290b070a1e392e18620a192d8259bb2e29e9a2c1"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/connect/validation-20251029-101556.log", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 1901, "modified": "2025-10-29 10:15:57", "sha256": "5f1122a67583428ee9cca2bc498f885ee2d43257e766b469cf056a7276b9b554"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/connect/credentials.json", "perm": "600", "owner": "luiz.sena88", "group": "staff", "size": 1087, "modified": "2025-10-29 10:50:24", "sha256": "698866820a0f63ce542b546fdab85b6392c3dc32f5c0f85e1c11e2fa6e024e97"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/connect/docker-compose.yml", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 1868, "modified": "2025-10-29 10:46:03", "sha256": "165dd2dfa59ec25d16907347ef77a3ff559dcfb306eb2f06e60ed1539acd68d3"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/connect/data/1password.sqlite", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 4096, "modified": "2025-10-29 10:46:18", "sha256": "e3ba06536f7dbba337dee3c1c5f01b43660ce276abb54c5cee2d5defc5b970aa"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/connect/data/1password.sqlite-shm", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 32768, "modified": "2025-10-29 11:53:18", "sha256": "0710b353734b0a717ad0d9010fc755adbb08ff0eff5a305d6b7f97cd39e4a02e"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/connect/data/1password.sqlite-wal", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 313152, "modified": "2025-10-29 11:53:04", "sha256": "a73a3ff045f2ad4f4f49427513fc10e47643a335f690ebf3b53a617ebe05b5ae"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/connect/data/.gitkeep", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 0, "modified": "2025-10-27 13:08:12", "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/connect/validation-20251029-105035.log", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 4715, "modified": "2025-10-29 10:50:49", "sha256": "1df5f638fb7caa807ab28a71980ef7e5e9fd79799117d8a1d9e8dd94530899cd"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/organized/README.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 4841, "modified": "2025-10-27 10:44:04", "sha256": "ee3bf9774deb47db3fa98739110dfa0c467e239d8b78aed2ef86e150525b42b3"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/organized/ORGANIZACAO_CONCLUIDA.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 4859, "modified": "2025-10-27 10:44:28", "sha256": "6f43f4354b6ab4209561ed270e13af176aeddd05480bd9f5b86df9937bfc46f6"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/tokens/status-final.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 4235, "modified": "2025-10-27 13:17:47", "sha256": "77826923a69ef0f5623462fe03b3797dfb521467428c8ce1145bf24f92d3ea75"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/tokens/extract-tokens.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 7637, "modified": "2025-10-27 13:03:31", "sha256": "3b2dbbd638ca00987dd1a01afc6fc099a1592277cd6189acadfd61031c58fea6"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/tokens/CONFIGURACAO_TOKENS.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 5075, "modified": "2025-10-29 18:15:44", "sha256": "f10e9d96652d64665adf4a42fe255cda5794992efb86b938b6247489114318a8"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/tokens/fix-1password-real.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 5012, "modified": "2025-10-27 13:25:00", "sha256": "f1f82c9ba4694fb151dfa2f9d2ffe176f8897c669104b9028769dc1abcf7b624"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/tokens/configure-both-tokens.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 10203, "modified": "2025-10-27 13:05:49", "sha256": "9b6d7f3e9dd33c1ea46d4cdf25287e1b350f62c831dd6bf54079f8793af2f690"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/tokens/.gitkeep", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 0, "modified": "2025-10-27 12:57:19", "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/tokens/README.md", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 8491, "modified": "2025-10-29 18:15:44", "sha256": "2d4f1f0b19f6453b4d1cb0cb3f10cfac3fe9c55f951f0db3fab5aa0a33afe40f"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/tokens/export-summary.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 3793, "modified": "2025-10-27 13:09:21", "sha256": "b9fa59016c5d6bfcd83a5257825dc9709d1c60e9c76e80fab6598478db7bd778"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/tokens/test-installation.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 6136, "modified": "2025-10-27 12:57:09", "sha256": "7e61649fdb5c2d4cb77eaab4c18935901971182a024d8407b535b76ad989d272"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/tokens/configure-1password-with-token.sh", "perm": "755", "owner": "luiz.sena88", "group": "staff", "size": 7304, "modified": "2025-10-27 13:04:24", "sha256": "35691e30b3298ddc635df818904c760c870df6d9fea89a1bd4766aca51f11311"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/tokens/.gitignore", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 423, "modified": "2025-10-25 13:18:05", "sha256": "8fb1018a6ba68560ecec36a2efebff1cf0727c67420825c179bb0a69d3e81782"}
+,
+{"path": "/Users/luiz.sena88/Dotfiles/automation_1password/tokens/tokens-summary.json", "perm": "644", "owner": "luiz.sena88", "group": "staff", "size": 2285, "modified": "2025-10-29 18:12:59", "sha256": "a858185236fe662eb6d508e5a6672e4212194f0e050f2097c8d4381c9b2426e5"}
+]

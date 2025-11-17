@@ -1,0 +1,23 @@
+{
+  "timestamp": "2025-10-30T14:05:30Z",
+  "version": "2.0.0",
+  "context_packs": {
+    "priority_high": [
+      "./context/curated/**",
+      "./docs/runbooks/**",
+      "./scripts/**",
+      "./connect/docker-compose.yml"
+    ],
+    "priority_medium": [
+      "./env/*.env",
+      "./templates/**",
+      "./docs/operations/**"
+    ],
+    "exclusions": [
+      "./logs/**",
+      "./connect/data/**",
+      "./tokens/**",
+      "./**/*.sqlite*"
+    ]
+  }
+}

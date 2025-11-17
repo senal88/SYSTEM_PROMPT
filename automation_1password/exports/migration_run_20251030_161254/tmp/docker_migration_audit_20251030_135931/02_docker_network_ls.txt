@@ -1,0 +1,7 @@
+NETWORK ID     NAME                      DRIVER    SCOPE
+017f35177a33   bridge                    bridge    local
+7bea39d45142   connect_net               bridge    local
+845d9d41e16a   host                      host      local
+661b69a98f7f   none                      null      local
+2ef5589fb191   stack-local_traefik_net   bridge    local
+ad0525007399   traefik_net               bridge    local

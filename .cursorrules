@@ -1,0 +1,364 @@
+# Cursor Rules - Execução Automática de Planejamentos Aprovados
+
+## 🎯 REGRA PRINCIPAL: Execução Automática
+
+**PLANEJAMENTOS APROVADOS DEVEM SER EXECUTADOS AUTOMATICAMENTE ATÉ A PARTE MANUAL**
+
+Quando um planejamento é aprovado pelo usuário, você DEVE executar automaticamente seguindo a sequência lógica abaixo, SEM perguntar novamente sobre cada etapa.
+
+---
+
+## 📋 SEQUÊNCIA LÓGICA DE EXECUÇÃO OBRIGATÓRIA
+
+### FASE 1: Atualização de Contexto e Sistema
+
+#### 1.1 Contexto Global
+- ✅ Atualizar `~/Dotfiles/context/global/CONTEXTO_GLOBAL_COMPLETO.md`
+- ✅ Atualizar `~/Dotfiles/context/cursor/CONTEXTO_CURSOR.md`
+- ✅ Atualizar `~/Dotfiles/context/vscode/CONTEXTO_VSCODE.md`
+- ✅ Atualizar `~/Dotfiles/context/claude/CONTEXTO_CLAUDE.md`
+- ✅ Atualizar `~/Dotfiles/context/gemini/CONTEXTO_GEMINI.md`
+- ✅ Atualizar `~/Dotfiles/context/chatgpt/CONTEXTO_CHATGPT.md`
+- ✅ Executar: `~/Dotfiles/scripts/context/update-global-context.sh`
+
+#### 1.2 Sistema e Projetos
+- ✅ Verificar e atualizar informações do sistema (macOS/VPS)
+- ✅ Validar estrutura de projetos
+- ✅ Atualizar `~/Dotfiles/context/global/system-info.json`
+
+### FASE 2: Cofres e Credenciais (1Password)
+
+#### 2.1 Validação de Cofres
+- ✅ Verificar vaults disponíveis: `op vault list`
+- ✅ Detectar vault correto (1p_macos → Personal → fallback)
+- ✅ Validar autenticação: `op whoami`
+
+#### 2.2 Validação de Credenciais
+- ✅ Verificar API Keys existentes:
+  - `API-VPS-HOSTINGER`
+  - `Gemini-API-Keys`
+  - `GitHub-Token`
+  - `HuggingFace-Token`
+  - Outras conforme necessário
+- ✅ Validar expiração (remover se expiradas)
+- ✅ Sincronizar: `~/Dotfiles/scripts/sync/sync-1password-to-dotfiles.sh`
+
+### FASE 3: Terminais e Sistemas
+
+#### 3.1 macOS (Zsh)
+- ✅ Validar `~/Dotfiles/scripts/shell/zshrc-macos.sh`
+- ✅ Aplicar ao `~/.zshrc` se necessário
+- ✅ Verificar variáveis de ambiente:
+  - `DOTFILES_DIR`
+  - `GCP_PROJECT_ID`
+  - `HOSTINGER_API_TOKEN`
+  - `GOOGLE_API_KEY`
+  - `GITHUB_TOKEN`
+  - `HF_TOKEN`
+
+#### 3.2 Ubuntu VPS (Bash)
+- ✅ Validar `~/Dotfiles/scripts/shell/bashrc-ubuntu.sh`
+- ✅ Sincronizar para VPS: `~/Dotfiles/scripts/sync/sync-global-configs.sh vps`
+- ✅ Aplicar no VPS via SSH
+
+### FASE 4: IDEs (Cursor e VSCode)
+
+#### 4.1 Cursor 2.0
+- ✅ Validar `~/Dotfiles/configs/cursor/settings.json`
+- ✅ Validar `~/Dotfiles/configs/cursor/keybindings.json`
+- ✅ Aplicar: `~/Dotfiles/scripts/install/cursor.sh`
+- ✅ Atualizar contexto Cursor
+
+#### 4.2 VSCode
+- ✅ Validar `~/Dotfiles/configs/vscode/settings.json`
+- ✅ Validar extensões: `~/Dotfiles/configs/extensions/recommended.json`
+- ✅ Aplicar configurações
+
+### FASE 5: Contexto Global VPS/macOS
+
+#### 5.1 Contexto VPS
+- ✅ Validar informações do VPS:
+  - IP: 147.79.81.59
+  - Domínio: senamfo.com.br
+  - Usuários: root, admin
+  - Stack: Coolify, n8n, Chatwoot
+- ✅ Atualizar contexto global com informações VPS
+
+#### 5.2 Contexto macOS
+- ✅ Validar informações do macOS:
+  - Path: `/Users/luiz.sena88/Dotfiles`
+  - Shell: zsh
+  - Ferramentas: Raycast, Karabiner
+- ✅ Atualizar contexto global com informações macOS
+
+### FASE 6: Automação 1Password e GitHub
+
+#### 6.1 1Password
+- ✅ Validar CLI instalado: `command -v op`
+- ✅ Validar autenticação: `op whoami`
+- ✅ Validar scripts de automação:
+  - `~/Dotfiles/scripts/sync/sync-1password-to-dotfiles.sh`
+  - `~/Dotfiles/scripts/governance/setup-oauth-local.sh`
+- ✅ Executar sincronização se necessário
+
+#### 6.2 GitHub
+- ✅ Validar CLI instalado: `command -v gh`
+- ✅ Validar autenticação: `gh auth status`
+- ✅ Validar repositório: `gh repo view senal88/infraestrutura-vps`
+- ✅ Validar secrets e variables configurados
+- ✅ Validar workflows GitHub Actions
+
+### FASE 7: Codespaces e DevContainers
+
+#### 7.1 DevContainers
+- ✅ Validar `~/Dotfiles/templates/devcontainer/devcontainer.json`
+- ✅ Validar `~/Dotfiles/templates/devcontainer/post-create.sh`
+- ✅ Validar variáveis de ambiente no devcontainer
+- ✅ Validar contexto setup: `~/Dotfiles/templates/devcontainer/context-setup.sh`
+
+#### 7.2 GitHub Codespaces
+- ✅ Validar `~/Dotfiles/templates/github/workflows/codespace-setup.yml`
+- ✅ Validar variáveis de ambiente configuradas
+- ✅ Validar contexto carregado automaticamente
+
+### FASE 8: MCP Servers
+
+#### 8.1 Validação de MCP Servers
+- ✅ Validar `~/Dotfiles/configs/mcp-servers.json`
+- ✅ Validar configuração Cursor: `~/Dotfiles/configs/mcp/cursor-mcp-servers.json`
+- ✅ Validar configuração Claude: `~/Dotfiles/configs/mcp/claude-mcp-servers.json`
+- ✅ Verificar servidores configurados:
+  - `hostinger-mcp` (API Token validado)
+  - `filesystem`
+  - `git`
+  - `github`
+  - `docker`
+  - Outros conforme necessário
+
+#### 8.2 Teste de MCP Servers
+- ✅ Verificar se servidores estão acessíveis
+- ✅ Validar variáveis de ambiente dos servidores
+- ✅ Testar conexão quando possível
+
+### FASE 9: APIs e Chaves Validadas
+
+#### 9.1 Validação de API Keys
+- ✅ **Gemini**: Validar `GOOGLE_API_KEY` e `GEMINI_API_KEY`
+  - Verificar no 1Password: `Gemini-API-Keys`
+  - Validar expiração (sem necessidade de expiração)
+  - Testar conexão se possível
+
+- ✅ **Claude**: Validar autenticação e API
+  - Verificar configuração MCP
+  - Validar sem necessidade de expiração
+
+- ✅ **Cursor**: Validar configuração
+  - Verificar settings e keybindings
+  - Validar extensões
+
+- ✅ **ChatGPT Plus**: Validar API key se configurada
+  - Verificar no 1Password
+  - Validar sem necessidade de expiração
+
+- ✅ **Hostinger**: Validar `HOSTINGER_API_TOKEN`
+  - Verificar no 1Password: `API-VPS-HOSTINGER`
+  - Testar API: `curl -X GET "https://developers.hostinger.com/api/vps/v1/virtual-machines"`
+
+- ✅ **GitHub**: Validar `GITHUB_TOKEN`
+  - Verificar no 1Password
+  - Testar: `gh api user`
+
+- ✅ **HuggingFace**: Validar `HF_TOKEN`
+  - Verificar no 1Password
+  - Validar sem necessidade de expiração
+
+#### 9.2 Remoção de Chaves Expiradas
+- ✅ Identificar chaves expiradas no 1Password
+- ✅ Remover chaves obsoletas
+- ✅ Atualizar documentação
+
+### FASE 10: Protocolos Validados
+
+#### 10.1 Protocolos de Comunicação
+- ✅ **SSH**: Validar configuração `~/.ssh/config`
+  - Aliases: vps, admin-vps, github.com, hf.co
+  - Chave: `id_ed25519_universal`
+  - Permissões corretas (600 para chaves, 644 para config)
+
+- ✅ **HTTPS/HTTP**: Validar certificados SSL
+  - Verificar domínios: senamfo.com.br, coolify.senamfo.com.br
+  - Validar Let's Encrypt se aplicável
+  - Testar conectividade HTTPS
+
+- ✅ **Git**: Validar configuração
+  - Verificar remotes
+  - Validar autenticação SSH
+  - Testar push/pull
+
+#### 10.2 Protocolos de API
+- ✅ Validar REST APIs configuradas
+- ✅ Validar autenticação Bearer Token
+- ✅ Validar rate limits e timeouts
+
+### FASE 11: Navegadores e HTTP/HTTPS
+
+#### 11.1 Validação de Navegadores
+- ✅ Verificar configurações de navegador (se aplicável)
+- ✅ Validar extensões necessárias
+- ✅ Validar certificados SSL
+
+#### 11.2 Validação HTTP/HTTPS
+- ✅ Testar endpoints principais:
+  - `https://senamfo.com.br`
+  - `https://coolify.senamfo.com.br`
+  - `https://n8n.senamfo.com.br`
+  - `https://chatwoot.senamfo.com.br`
+- ✅ Validar redirecionamentos HTTP → HTTPS
+- ✅ Validar certificados SSL válidos
+
+### FASE 12: Melhores Práticas do Framework
+
+#### 12.1 Nomenclaturas Padronizadas
+- ✅ Seguir padrão: `<prefixo>-<tipo>-<ambiente>-<versao>-<timestamp>.<extensao>`
+- ✅ Prefixos: `op-`, `vps-`, `sys-`, `api-`, `email-`, `db-`, `docker-`, `traefik-`
+- ✅ Tipos: `config`, `export`, `diag`, `audit`, `log`, `key`, `mapping`
+- ✅ Ambientes: `dev`, `prod`, `macos`, `vps`, `all`
+
+#### 12.2 Estrutura de Diretórios
+- ✅ Seguir estrutura padrão `~/Dotfiles`
+- ✅ Separar: `configs/`, `scripts/`, `credentials/`, `context/`, `docs/`
+- ✅ Manter organização hierárquica
+
+#### 12.3 Versionamento
+- ✅ Commits com mensagens padronizadas:
+  - `feat:` para novas funcionalidades
+  - `fix:` para correções
+  - `docs:` para documentação
+  - `refactor:` para refatorações
+- ✅ Incluir timestamp e log reference nos commits
+- ✅ Seguir framework das aulas com comentários descritivos
+
+#### 12.4 Segurança
+- ✅ NUNCA commitar credenciais
+- ✅ Usar 1Password para todas as credenciais
+- ✅ Permissões corretas (600 para credenciais, 755 para scripts)
+- ✅ Validação de integridade (SHA-256 quando aplicável)
+
+### FASE 13: Documentos Obsoletos Arquivados
+
+#### 13.1 Identificação de Documentos Obsoletos
+- ✅ Procurar documentos com data antiga (> 6 meses sem atualização)
+- ✅ Identificar documentos duplicados
+- ✅ Identificar documentos substituídos
+
+#### 13.2 Arquivamento
+- ✅ Mover para `~/Dotfiles/docs/archived/` ou `~/10_INFRAESTRUTURA_VPS/documentacao/archived/`
+- ✅ Adicionar prefixo `[ARCHIVED]` no nome
+- ✅ Adicionar nota de arquivamento no conteúdo
+- ✅ Atualizar referências nos documentos ativos
+
+### FASE 14: Acompanhamento Claro de Etapas
+
+#### 14.1 Logging
+- ✅ Criar logs em `~/Dotfiles/logs/` ou `~/10_INFRAESTRUTURA_VPS/logs/`
+- ✅ Formato: `setup-YYYYMMDD_HHMMSS.log`
+- ✅ Incluir timestamp em cada entrada
+- ✅ Níveis: INFO, SUCCESS, WARNING, ERROR
+
+#### 14.2 Documentação de Progresso
+- ✅ Criar `RESUMO_EXECUCAO_YYYYMMDD.md` após execução
+- ✅ Listar todas as etapas executadas
+- ✅ Indicar status de cada etapa (✅, ❌, ⚠️)
+- ✅ Documentar próximos passos manuais
+
+#### 14.3 Status Updates
+- ✅ Atualizar status em tempo real durante execução
+- ✅ Usar emojis para clareza visual:
+  - ✅ Sucesso
+  - ❌ Erro
+  - ⚠️ Aviso
+  - 🔄 Em progresso
+  - ⏳ Pendente
+
+---
+
+## 🚨 REGRAS DE EXECUÇÃO
+
+### Regra 1: Execução Automática
+Quando um planejamento é aprovado:
+1. **NÃO perguntar** sobre cada etapa individual
+2. **EXECUTAR automaticamente** seguindo a sequência acima
+3. **PARAR apenas** quando chegar à parte manual
+4. **DOCUMENTAR** tudo que foi executado
+
+### Regra 2: Validação Obrigatória
+Antes de executar cada fase:
+- ✅ Validar pré-requisitos
+- ✅ Verificar dependências
+- ✅ Confirmar credenciais disponíveis
+- ✅ Validar conectividade quando necessário
+
+### Regra 3: Tratamento de Erros
+Se uma etapa falhar:
+- ✅ Registrar erro no log
+- ✅ Continuar com próximas etapas quando possível
+- ✅ Documentar erro e solução proposta
+- ✅ Não interromper execução completa a menos que crítico
+
+### Regra 4: Parte Manual
+Quando chegar à parte manual:
+- ✅ Parar execução automática
+- ✅ Documentar claramente o que precisa ser feito manualmente
+- ✅ Fornecer instruções passo a passo
+- ✅ Listar pré-requisitos e verificações necessárias
+
+---
+
+## 📋 CHECKLIST DE EXECUÇÃO
+
+Ao executar um planejamento aprovado, seguir esta checklist:
+
+- [ ] FASE 1: Contexto atualizado
+- [ ] FASE 2: Cofres validados
+- [ ] FASE 3: Terminais configurados
+- [ ] FASE 4: IDEs configuradas
+- [ ] FASE 5: Contexto global atualizado
+- [ ] FASE 6: Automação 1Password/GitHub validada
+- [ ] FASE 7: Codespaces/DevContainers validados
+- [ ] FASE 8: MCP Servers verificados
+- [ ] FASE 9: APIs validadas
+- [ ] FASE 10: Protocolos validados
+- [ ] FASE 11: Navegadores/HTTP/HTTPS validados
+- [ ] FASE 12: Melhores práticas aplicadas
+- [ ] FASE 13: Documentos obsoletos arquivados
+- [ ] FASE 14: Acompanhamento documentado
+
+---
+
+## 🎯 EXEMPLO DE EXECUÇÃO
+
+Quando o usuário aprovar um planejamento:
+
+1. **Iniciar**: "Executando planejamento aprovado automaticamente..."
+2. **FASE 1**: Atualizar contexto → ✅ Concluído
+3. **FASE 2**: Validar cofres → ✅ Concluído
+4. **FASE 3**: Configurar terminais → ✅ Concluído
+5. ... (continuar automaticamente)
+6. **FASE 14**: Documentar progresso → ✅ Concluído
+7. **PARAR**: "Chegamos à parte manual. Próximos passos: [lista]"
+
+---
+
+## ⚠️ IMPORTANTE
+
+- **SEMPRE** seguir a sequência lógica acima
+- **NUNCA** pular etapas sem validação
+- **SEMPRE** documentar o que foi executado
+- **SEMPRE** parar na parte manual com instruções claras
+- **SEMPRE** usar nomenclaturas padronizadas
+- **SEMPRE** seguir melhores práticas do framework
+
+---
+
+**Última atualização**: 2025-11-17  
+**Versão**: 2.0.0 - Execução Automática Parametrizada

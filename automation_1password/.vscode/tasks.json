@@ -1,0 +1,36 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "ENV: macos",
+      "type": "shell",
+      "command": "source ${workspaceFolder}/scripts/secrets/load-infra-env.sh macos"
+    },
+    {
+      "label": "ENV: vps",
+      "type": "shell",
+      "command": "source ${workspaceFolder}/scripts/secrets/load-infra-env.sh vps"
+    },
+    {
+      "label": "CTX: Nota",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/context/new_context_note.sh kb connect rotacao-credenciais v01"
+    },
+    {
+      "label": "CTX: Index",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/context/build_index.sh"
+    },
+    {
+      "label": "ARCH: Exp",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/validation/export_architecture.sh"
+    },
+    {
+      "label": "ARCH: Val",
+      "type": "shell",
+      "command": "${workspaceFolder}/scripts/validation/validate_architecture.sh"
+    }
+  ]
+}
+

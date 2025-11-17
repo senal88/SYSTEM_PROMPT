@@ -1,0 +1,202 @@
+{
+  "platform": {
+    "os": "Darwin",
+    "arch": "arm64",
+    "home": "/Users/luiz.sena88",
+    "workspace": "/Users/luiz.sena88/Dotfiles/automation_1password"
+  },
+  "docker": {
+    "version": "28.4.0",
+    "compose_version": "v2.40.2-desktop.1",
+    "engine": "Colima",
+    "context": "macos-colima",
+    "socket": "unix:///Users/luiz.sena88/.colima/default/docker.sock"
+  },
+  "colima": {
+    "status": "running",
+    "arch": "aarch64",
+    "runtime": "docker",
+    "mount_type": "virtiofs",
+    "socket": "unix:///Users/luiz.sena88/.colima/default/docker.sock"
+  },
+  "containers": [
+    {
+      "name": "op-connect-sync",
+      "image": "1password/connect-sync:latest",
+      "status": "Up 16 hours (unhealthy)",
+      "ports": "",
+      "id": "f4a804669bc9",
+      "health": "unhealthy"
+    },
+    {
+      "name": "op-connect-api",
+      "image": "1password/connect-api:latest",
+      "status": "Up 16 hours (unhealthy)",
+      "ports": "0.0.0.0:8081->8080/tcp, 0.0.0.0:8444->8443/tcp",
+      "id": "b409ee5c9d25",
+      "health": "unhealthy"
+    },
+    {
+      "name": "platform_portainer",
+      "image": "portainer/portainer-ce:latest",
+      "status": "Up 18 hours",
+      "ports": "0.0.0.0:9000->9000/tcp",
+      "id": "d2036edbc567",
+      "health": "running"
+    },
+    {
+      "name": "platform_n8n",
+      "image": "n8nio/n8n:latest",
+      "status": "Up 19 hours",
+      "ports": "0.0.0.0:5678->5678/tcp",
+      "id": "c019022ef78f",
+      "health": "running"
+    },
+    {
+      "name": "platform_redis",
+      "image": "redis:7-alpine",
+      "status": "Up 19 hours (healthy)",
+      "ports": "6379/tcp",
+      "id": "9c64c8871e37",
+      "health": "healthy"
+    },
+    {
+      "name": "platform_postgres",
+      "image": "pgvector/pgvector:pg16",
+      "status": "Up 19 hours (healthy)",
+      "ports": "5432/tcp",
+      "id": "bb47f6b9f293",
+      "health": "healthy"
+    },
+    {
+      "name": "platform_traefik",
+      "image": "traefik:v3.1",
+      "status": "Up 19 hours",
+      "ports": "0.0.0.0:80->80/tcp, 0.0.0.0:8080->8080/tcp",
+      "id": "1417a3610c8d",
+      "health": "running"
+    },
+    {
+      "name": "platform_mongodb",
+      "image": "mongo:7",
+      "status": "Up 16 hours (healthy)",
+      "ports": "27017/tcp",
+      "id": "b862b1b3fc6e",
+      "health": "healthy"
+    },
+    {
+      "name": "platform_chromadb",
+      "image": "chromadb/chroma:latest",
+      "status": "Up 19 hours",
+      "ports": "0.0.0.0:8000->8000/tcp",
+      "id": "cff904120dce",
+      "health": "running"
+    }
+  ],
+  "volumes": [
+    {"name": "compose_appsmith_data", "driver": "local"},
+    {"name": "compose_chromadb_data", "driver": "local"},
+    {"name": "compose_mongodb_data", "driver": "local"},
+    {"name": "compose_n8n_data", "driver": "local"},
+    {"name": "compose_nocodb_data", "driver": "local"},
+    {"name": "compose_portainer_data", "driver": "local"},
+    {"name": "compose_postgres_data", "driver": "local"},
+    {"name": "compose_redis_data", "driver": "local"},
+    {"name": "compose_traefik_certs", "driver": "local"}
+  ],
+  "networks": [
+    {"name": "bridge", "driver": "bridge", "scope": "local"},
+    {"name": "compose_app_network", "driver": "bridge", "scope": "local"},
+    {"name": "connect_net", "driver": "bridge", "scope": "local"},
+    {"name": "traefik_net", "driver": "bridge", "scope": "local"}
+  ],
+  "1password": {
+    "status": "connected_via_connect",
+    "connect_host": "http://localhost:8080",
+    "connect_token": "configured",
+    "vaults_accessible": ["via Connect API"],
+    "cli_mode": "connect_api",
+    "issue": "Connect containers unhealthy (op-connect-api, op-connect-sync)",
+    "cli_direct_access": "blocked_by_connect_env"
+  },
+  "environment": {
+    "op_connect_host": "http://localhost:8080",
+    "op_connect_token": "configured",
+    "home": "/Users/luiz.sena88",
+    "workspace_path": "/Users/luiz.sena88/Dotfiles/automation_1password",
+    "path_includes": [
+      "/Users/luiz.sena88/Dotfiles/automation_1password/scripts",
+      "/opt/homebrew/bin",
+      "/Users/luiz.sena88/.lmstudio/bin",
+      "/Applications/Cursor.app/Contents/Resources/app/bin"
+    ]
+  },
+  "compose_files": {
+    "ai_stack": "compose/docker-compose-ai-stack.yml",
+    "local": "compose/docker-compose-local.yml",
+    "platform_completa": "compose/docker-compose-platform-completa.yml",
+    "portainer_fixed": "compose/docker-compose-portainer-fixed.yml",
+    "main": "compose/docker-compose.yml",
+    "n8n_starter": "compose/n8n-ai-starter/docker-compose.yml"
+  },
+  "services_running": [
+    "chromadb",
+    "mongodb",
+    "n8n",
+    "portainer",
+    "postgres",
+    "redis",
+    "traefik"
+  ],
+  "services_ai_stack_defined": [
+    "qdrant",
+    "postgres-ai",
+    "n8n"
+  ],
+  "ports_in_use": [
+    {"port": 9000, "command": "ssh", "pid": 57693, "type": "tunnel"},
+    {"port": 8080, "command": "ssh", "pid": 57693, "type": "tunnel"},
+    {"port": 5678, "command": "ssh", "pid": 57693, "type": "tunnel"}
+  ],
+  "issues": [
+    {
+      "severity": "high",
+      "component": "1password-connect",
+      "description": "Connect containers unhealthy (op-connect-api, op-connect-sync)",
+      "impact": "1Password CLI bloqueado - requer Connect mas containers estão unhealthy"
+    },
+    {
+      "severity": "medium",
+      "component": "ports",
+      "description": "Portas 9000, 8080, 5678 em uso por túnel SSH (PID 57693)",
+      "impact": "Pode causar conflito com Portainer (9000), Traefik (8080), n8n (5678)"
+    },
+    {
+      "severity": "low",
+      "component": "configuration",
+      "description": "HUGGINGFACE_TOKEN não configurado no .env",
+      "impact": "Funcionalidade Hugging Face limitada (mas Ollama disponível)"
+    },
+    {
+      "severity": "low",
+      "component": "docker-compose",
+      "description": "Template docker-compose usando versão obsoleta 'version: 3.9'",
+      "impact": "Warning no Docker Compose (não crítico)"
+    }
+  ],
+  "workspace_structure": {
+    "compose_dir": "compose/",
+    "compose_files_count": 11,
+    "templates": ["env-ai-stack.template", "env.template", "env-platform-completa.template"],
+    "subdirectories": ["n8n-ai-starter/"],
+    "env_file_exists": true,
+    "env_file_location": "compose/.env"
+  },
+  "cursor": {
+    "status": "active",
+    "bin_path": "/Applications/Cursor.app/Contents/Resources/app/bin",
+    "in_path": true
+  },
+  "timestamp": "2025-11-01T12:16:55-03:00"
+}
+

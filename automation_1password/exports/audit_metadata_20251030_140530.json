@@ -1,0 +1,21 @@
+{
+  "timestamp": "2025-10-30T14:05:30Z",
+  "version": "2.0.0",
+  "lastUpdatedStandard": "2025-10-30",
+  "summary": {
+    "filesScanned": 148,
+    "docsWithHeader": 2,
+    "docsWithoutHeader": "maioria"
+  },
+  "criticalSamples": [
+    "README-COMPLETE.md",
+    "INDEX.md",
+    "ARCHITECTURE_REPORT.md",
+    "docs/overview.md",
+    "docs/runbooks/automacao-macos.md",
+    "docs/runbooks/automacao-vps.md",
+    "docs/runbooks/automacao-dual.md",
+    "RESUMO_CLEANUP_20251029.md",
+    "docs/prompts/sumarizar_versao_final.md"
+  ]
+}

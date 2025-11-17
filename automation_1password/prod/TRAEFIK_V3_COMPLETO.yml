@@ -1,0 +1,78 @@
+# Docker Compose - Traefik v3.1 Completo (Substituir Traefik v2.10)
+# Inclui: ACME completo, dashboard seguro, todos os middlewares necessários
+# Substitui: Traefik existente na VPS
+
+services:
+  # === Traefik v3.1 (Reverse Proxy Completo) ===
+  traefik:
+    image: traefik:v3.1
+    container_name: platform_traefik_v3
+    command:
+      # Providers
+      - "--api.dashboard=true"
+      - "--api.insecure=false"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--providers.docker.network=stack-prod_traefik_net"
+      
+      # Entrypoints
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      
+      # ACME - Let's Encrypt (TLS Challenge)
+      - "--certificatesresolvers.letsencrypt.acme.tlschallenge=true"
+      - "--certificatesresolvers.letsencrypt.acme.email=luizfernandomoreirasena@gmail.com"
+      - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
+      
+      # ACME - Cloudflare (DNS Challenge - Alternativo)
+      - "--certificatesresolvers.cloudflare.acme.dnschallenge=true"
+      - "--certificatesresolvers.cloudflare.acme.dnschallenge.provider=cloudflare"
+      - "--certificatesresolvers.cloudflare.acme.email=luizfernandomoreirasena@gmail.com"
+      - "--certificatesresolvers.cloudflare.acme.storage=/letsencrypt/acme.json"
+      
+      # Logs
+      - "--accesslog=true"
+      - "--log.level=INFO"
+      - "--log.filePath=/var/log/traefik/traefik.log"
+      
+      # Middlewares globais
+      - "--entrypoints.websecure.http.tls=true"
+      
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080" # Dashboard (interno)
+    
+    networks:
+      - stack-prod_traefik_net
+    
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - traefik_certs_v3:/letsencrypt
+      - traefik_logs_v3:/var/log/traefik
+      # Usar certificados existentes se disponível
+      - /home/luiz.sena88/infra/stack-prod/data/letsencrypt:/letsencrypt/backup:ro
+    
+    restart: unless-stopped
+    
+    labels:
+      # Dashboard próprio do Traefik
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik-dashboard.rule=Host(`traefik.senamfo.com.br`)"
+      - "traefik.http.routers.traefik-dashboard.entrypoints=websecure"
+      - "traefik.http.routers.traefik-dashboard.tls.certresolver=cloudflare"
+      - "traefik.http.routers.traefik-dashboard.service=api@internal"
+      # Basic Auth opcional (remover comentário se quiser)
+      # - "traefik.http.routers.traefik-dashboard.middlewares=traefik-auth"
+      # - "traefik.http.middlewares.traefik-auth.basicauth.users=admin:$$apr1$$senha_hash"
+
+networks:
+  stack-prod_traefik_net:
+    external: true
+
+volumes:
+  traefik_certs_v3:
+    driver: local
+  traefik_logs_v3:
+    driver: local
+

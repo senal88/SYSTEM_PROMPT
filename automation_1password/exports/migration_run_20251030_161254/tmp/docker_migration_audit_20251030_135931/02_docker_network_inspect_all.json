@@ -1,0 +1,222 @@
+[
+    {
+        "Name": "bridge",
+        "Id": "017f35177a3399e4f5a82ac16a92385a25c552e99ea694df813e43c3b2408ca3",
+        "Created": "2025-10-29T13:44:07.284387085Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.17.0.0/16",
+                    "Gateway": "172.17.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {
+            "com.docker.network.bridge.default_bridge": "true",
+            "com.docker.network.bridge.enable_icc": "true",
+            "com.docker.network.bridge.enable_ip_masquerade": "true",
+            "com.docker.network.bridge.host_binding_ipv4": "0.0.0.0",
+            "com.docker.network.bridge.name": "docker0",
+            "com.docker.network.driver.mtu": "65535"
+        },
+        "Labels": {}
+    },
+    {
+        "Name": "connect_net",
+        "Id": "7bea39d4514249b9992c12529c2fd91d9fbfc961b4385810e76ef3c7f3973ddd",
+        "Created": "2025-10-29T13:51:30.604067554Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.20.0.0/16",
+                    "Gateway": "172.20.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "12363da1c0d3fa9953111b2b5f70947a8eac849e0f560416f88870e9e87d40de": {
+                "Name": "op-connect-sync",
+                "EndpointID": "7a1389247e742c20bce1b836b2c9c47b50c990ed271e93ed0f34c7a6ffcbf7ff",
+                "MacAddress": "22:20:c8:e4:40:a2",
+                "IPv4Address": "172.20.0.3/16",
+                "IPv6Address": ""
+            },
+            "3c0d7523db66568a7c7482756a1aa9761405ec29f8c1dc2791d1350057d22e24": {
+                "Name": "op-connect-api",
+                "EndpointID": "889fab1005c5d8ea28fe20e295a2cef67bd36238863736a02fc787e863a7e716",
+                "MacAddress": "e6:77:68:a2:a4:f1",
+                "IPv4Address": "172.20.0.2/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {
+            "com.docker.network.enable_ipv4": "true",
+            "com.docker.network.enable_ipv6": "false"
+        },
+        "Labels": {
+            "com.docker.compose.config-hash": "715d95412dac62ee10630234ef89a89ef00fb19cda05dc27f28ad624c823948b",
+            "com.docker.compose.network": "connect_net",
+            "com.docker.compose.project": "connect",
+            "com.docker.compose.version": "2.40.2"
+        }
+    },
+    {
+        "Name": "host",
+        "Id": "845d9d41e16a4579654aed846a2ec6ffa9eb2656d376db7af4f40821288c68e6",
+        "Created": "2025-10-14T12:21:56.901121875Z",
+        "Scope": "local",
+        "Driver": "host",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": null
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {},
+        "Labels": {}
+    },
+    {
+        "Name": "none",
+        "Id": "661b69a98f7f746b33e642a0ca727304eda998fca636022420cf4dfca066b8e9",
+        "Created": "2025-10-14T12:21:56.898334458Z",
+        "Scope": "local",
+        "Driver": "null",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": null
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {},
+        "Labels": {}
+    },
+    {
+        "Name": "stack-local_traefik_net",
+        "Id": "2ef5589fb1913bc912ec770b97a94309a1948bacac1af50774b08515372c8165",
+        "Created": "2025-10-28T16:41:16.131455631Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "172.18.0.0/16",
+                    "Gateway": "172.18.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {
+            "1a05f74d81f89092bd0ea060a5d4df0b7476d3a4de687fba4735b507c784f6a5": {
+                "Name": "dify-web",
+                "EndpointID": "bf9f5550129dbabe886995531bef4d891bfd5a414ce89913f97402375ae64e39",
+                "MacAddress": "9e:8c:6b:ec:f4:0a",
+                "IPv4Address": "172.18.0.2/16",
+                "IPv6Address": ""
+            },
+            "488c2a6669f78bc453e412d5174f53b3e025a15c8c58a8fcde2395dcc5afe239": {
+                "Name": "redis",
+                "EndpointID": "4caf1311f6185ef70bbfaee3cd94b3dd59a619ca2c86f6bb815cf183f7c0c7ca",
+                "MacAddress": "c6:14:a4:44:28:46",
+                "IPv4Address": "172.18.0.4/16",
+                "IPv6Address": ""
+            }
+        },
+        "Options": {
+            "com.docker.network.enable_ipv4": "true",
+            "com.docker.network.enable_ipv6": "false"
+        },
+        "Labels": {
+            "com.docker.compose.config-hash": "dfcd10667283643b0f3e4f4026242d2f156bed9710a02a4738312eb5a032d9c2",
+            "com.docker.compose.network": "traefik_net",
+            "com.docker.compose.project": "stack-local",
+            "com.docker.compose.version": "2.40.2"
+        }
+    },
+    {
+        "Name": "traefik_net",
+        "Id": "ad05250073992286c7a1719fbc87026962919fbd8fa158a6beb2d7184c4edcf7",
+        "Created": "2025-10-28T16:25:00.894296013Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.19.0.0/16",
+                    "Gateway": "172.19.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {
+            "com.docker.network.enable_ipv4": "true",
+            "com.docker.network.enable_ipv6": "false"
+        },
+        "Labels": {}
+    }
+]

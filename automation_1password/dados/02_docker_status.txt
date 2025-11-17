@@ -1,0 +1,42 @@
+=== COLIMA STATUS ===
+time="2025-11-02T20:57:46-03:00" level=info msg="colima is running using macOS Virtualization.Framework"
+time="2025-11-02T20:57:46-03:00" level=info msg="arch: aarch64"
+time="2025-11-02T20:57:46-03:00" level=info msg="runtime: docker"
+time="2025-11-02T20:57:46-03:00" level=info msg="mountType: virtiofs"
+time="2025-11-02T20:57:46-03:00" level=info msg="docker socket: unix:///Users/luiz.sena88/.colima/default/docker.sock"
+time="2025-11-02T20:57:46-03:00" level=info msg="containerd socket: unix:///Users/luiz.sena88/.colima/default/containerd.sock"
+
+=== DOCKER VERSION ===
+Docker version 28.5.1, build e180ab8ab8
+
+=== COLIMA VERSION ===
+colima version 0.9.1
+
+=== DOCKER PS ===
+NAMES                IMAGE                           STATUS
+op-connect-sync      1password/connect-sync:latest   Up 2 days (unhealthy)
+op-connect-api       1password/connect-api:latest    Up 2 days (unhealthy)
+platform_portainer   portainer/portainer-ce:latest   Up 2 days
+platform_n8n         n8nio/n8n:latest                Up 2 days
+platform_redis       redis:7-alpine                  Up 2 days (healthy)
+platform_postgres    pgvector/pgvector:pg16          Up 2 days (healthy)
+platform_traefik     traefik:v3.1                    Up 2 days
+platform_mongodb     mongo:7                         Up 2 days (healthy)
+platform_chromadb    chromadb/chroma:latest          Up 2 days
+
+=== DOCKER IMAGES ===
+REPOSITORY               TAG               SIZE
+portainer/portainer-ce   latest            238MB
+appsmith/appsmith-ce     latest            4.36GB
+chromadb/chroma          latest            786MB
+n8nio/n8n                latest            1.62GB
+alpine                   latest            13.3MB
+moby/buildkit            buildx-stable-1   324MB
+mongo                    7                 1.07GB
+redis                    7-alpine          61.4MB
+1password/connect-sync   latest            78MB
+1password/connect-api    latest            88.8MB
+pgvector/pgvector        pg16              644MB
+nocodb/nocodb            latest            881MB
+traefik                  v3.1              225MB
+busybox                  latest            6.21MB

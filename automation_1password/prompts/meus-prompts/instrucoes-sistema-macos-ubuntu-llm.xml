@@ -1,0 +1,1304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Instruções de Sistema Detalhadas: macOS Silicon e Ubuntu
+  Documento estruturado para máxima eficiência de interpretação por LLMs
+  
+  Data de Criação: 2025-11-03
+  Versão: 1.0.0
+  Formato: XML estruturado para parsing otimizado por LLMs
+-->
+
+<instrucoes_sistema>
+    <metadados>
+        <nome>Instruções de Sistema macOS Silicon e Ubuntu</nome>
+        <versao>1.0.0</versao>
+        <data_criacao>2025-11-03</data_criacao>
+        <formato>XML estruturado para LLMs</formato>
+        <idioma>pt-BR</idioma>
+        <tags>macos, apple-silicon, ubuntu, linux, setup, instalação, configuração, docker, 1password, cursor</tags>
+    </metadados>
+
+    <!-- ========================================================================
+         SEÇÃO 1: macOS SILICON (Apple Silicon M1/M2/M3/M4)
+         ======================================================================== -->
+    
+    <sistema nome="macos_silicon" tipo="desktop" arquitetura="arm64">
+        <identificacao>
+            <nome_completo>macOS com Apple Silicon (M1/M2/M3/M4)</nome_completo>
+            <arquitetura_cpu>arm64 (aarch64)</arquitetura_cpu>
+            <endianness>little-endian</endianness>
+            <kernel>Darwin (XNU)</kernel>
+            <shell_padrao>zsh</shell_padrao>
+            <gerenciador_pacotes>Homebrew</gerenciador_pacotes>
+            <virtualizacao>Docker Desktop (com Rosetta 2 para x86_64)</virtualizacao>
+        </identificacao>
+
+        <requisitos_sistema>
+            <requisito id="REQ_MACOS_01" nivel="CRITICO">
+                <tipo>Sistema Operacional</tipo>
+                <valor_minimo>macOS 11.0 (Big Sur)</valor_minimo>
+                <valor_recomendado>macOS 14.0+ (Sonoma) ou superior</valor_recomendado>
+                <comando_verificacao>sw_vers -productVersion</comando_verificacao>
+                <saida_esperada>Versão no formato: MAJOR.MINOR.PATCH (ex: 14.2.1)</saida_esperada>
+            </requisito>
+
+            <requisito id="REQ_MACOS_02" nivel="CRITICO">
+                <tipo>Arquitetura do Processador</tipo>
+                <valor_exato>Apple Silicon (arm64)</valor_exato>
+                <chips_suportados>M1, M1 Pro, M1 Max, M1 Ultra, M2, M2 Pro, M2 Max, M2 Ultra, M3, M3 Pro, M3 Max, M4</chips_suportados>
+                <comando_verificacao>uname -m</comando_verificacao>
+                <saida_esperada>arm64</saida_esperada>
+                <comando_alternativo>sysctl -n machdep.cpu.brand_string</comando_alternativo>
+            </requisito>
+
+            <requisito id="REQ_MACOS_03" nivel="ALTO">
+                <tipo>Memória RAM</tipo>
+                <valor_minimo>8 GB</valor_minimo>
+                <valor_recomendado>16 GB ou superior</valor_recomendado>
+                <comando_verificacao>sysctl hw.memsize | awk '{print $2/1024/1024/1024 " GB"}'</comando_verificacao>
+            </requisito>
+
+            <requisito id="REQ_MACOS_04" nivel="MEDIO">
+                <tipo>Espaço em Disco</tipo>
+                <valor_minimo>20 GB livres</valor_minimo>
+                <valor_recomendado>50 GB livres</valor_recomendado>
+                <comando_verificacao>df -h / | tail -1 | awk '{print $4}'</comando_verificacao>
+            </requisito>
+
+            <requisito id="REQ_MACOS_05" nivel="CRITICO">
+                <tipo>Xcode Command Line Tools</tipo>
+                <valor_requerido>Instalado</valor_requerido>
+                <comando_verificacao>xcode-select -p</comando_verificacao>
+                <saida_esperada>Caminho para /Library/Developer/CommandLineTools</saida_esperada>
+                <comando_instalacao>xcode-select --install</comando_instalacao>
+            </requisito>
+
+            <requisito id="REQ_MACOS_06" nivel="CRITICO">
+                <tipo>Homebrew</tipo>
+                <valor_requerido>Instalado e atualizado</valor_requerido>
+                <comando_verificacao>brew --version</comando_verificacao>
+                <comando_instalacao>/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</comando_instalacao>
+                <path_padrao>/opt/homebrew (Apple Silicon) ou /usr/local (Intel)</path_padrao>
+            </requisito>
+        </requisitos_sistema>
+
+        <instalacao_dependencias>
+            <etapa id="INST_MACOS_01" ordem="1">
+                <nome>Instalação do Homebrew (se necessário)</nome>
+                <comando>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Verificar arquitetura
+ARCH=$(uname -m)
+if [[ "$ARCH" != "arm64" ]]; then
+    echo "❌ Erro: Este script requer Apple Silicon (arm64)"
+    exit 1
+fi
+
+# Instalar Homebrew se não existir
+if ! command -v brew &> /dev/null; then
+    echo "📦 Instalando Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    
+    # Adicionar Homebrew ao PATH
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
+# Verificar instalação
+brew --version
+                    </script>
+                </comando>
+                <validacao>brew --version deve retornar versão do Homebrew</validacao>
+            </etapa>
+
+            <etapa id="INST_MACOS_02" ordem="2">
+                <nome>Instalação de Ferramentas Essenciais</nome>
+                <comando>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Atualizar Homebrew
+brew update
+
+# Instalar ferramentas essenciais
+brew install \
+    git \
+    curl \
+    wget \
+    jq \
+    yq \
+    gnu-sed \
+    coreutils \
+    findutils \
+    gzip \
+    openssl \
+    ca-certificates \
+    gnupg
+
+# Verificar instalações
+git --version
+curl --version
+jq --version
+                    </script>
+                </comando>
+                <validacao>Todas as ferramentas devem responder a --version</validacao>
+            </etapa>
+
+            <etapa id="INST_MACOS_03" ordem="3">
+                <nome>Instalação do Docker Desktop</nome>
+                <comando>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Verificar se Docker já está instalado
+if command -v docker &> /dev/null; then
+    echo "✅ Docker já está instalado"
+    docker --version
+    exit 0
+fi
+
+# Instalar Docker Desktop via Homebrew
+echo "🐳 Instalando Docker Desktop para Apple Silicon..."
+brew install --cask docker
+
+# Iniciar Docker Desktop
+open /Applications/Docker.app
+
+# Aguardar Docker iniciar (máximo 60 segundos)
+echo "⏳ Aguardando Docker iniciar..."
+for i in {1..60}; do
+    if docker info &> /dev/null; then
+        echo "✅ Docker está rodando"
+        break
+    fi
+    sleep 1
+done
+
+# Verificar instalação
+docker --version
+docker compose version
+                    </script>
+                </comando>
+                <validacao>docker --version e docker compose version devem funcionar</validacao>
+                <notas>
+                    <nota>Docker Desktop para Apple Silicon usa QEMU para emulação x86_64 quando necessário</nota>
+                    <nota>Prefira imagens ARM64 nativas para melhor performance</nota>
+                </notas>
+            </etapa>
+
+            <etapa id="INST_MACOS_04" ordem="4">
+                <nome>Instalação do 1Password CLI</nome>
+                <comando>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Instalar 1Password CLI via Homebrew
+brew install --cask 1password-cli
+
+# Verificar instalação
+op --version
+
+# Autenticar (manual)
+echo "🔐 Execute 'op signin' para autenticar"
+                    </script>
+                </comando>
+                <validacao>op --version deve retornar versão do CLI</validacao>
+            </etapa>
+
+            <etapa id="INST_MACOS_05" ordem="5">
+                <nome>Configuração do Shell (zsh)</nome>
+                <comando>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Verificar shell atual
+CURRENT_SHELL=$(echo $SHELL)
+if [[ "$CURRENT_SHELL" != *"zsh"* ]]; then
+    echo "⚠️  Shell atual: $CURRENT_SHELL"
+    echo "💡 Recomendado: zsh (padrão no macOS moderno)"
+fi
+
+# Configurar .zshrc se não existir
+if [[ ! -f ~/.zshrc ]]; then
+    touch ~/.zshrc
+fi
+
+# Adicionar Homebrew ao PATH
+if ! grep -q "brew shellenv" ~/.zshrc; then
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zshrc
+fi
+
+# Carregar configurações
+source ~/.zshrc
+                    </script>
+                </comando>
+                <validacao>echo $SHELL deve retornar /bin/zsh ou similar</validacao>
+            </etapa>
+        </instalacao_dependencias>
+
+        <configuracao_docker>
+            <etapa id="DOCKER_MACOS_01" ordem="1">
+                <nome>Configuração do Docker para Apple Silicon</nome>
+                <comandos>
+                    <comando>docker info | grep -i architecture</comando>
+                    <descricao>Verificar arquitetura do Docker</descricao>
+                    <saida_esperada>Architecture: aarch64 ou arm64</saida_esperada>
+                </comandos>
+
+                <comandos>
+                    <comando>docker buildx ls</comando>
+                    <descricao>Listar builders disponíveis</descricao>
+                </comandos>
+
+                <comandos>
+                    <comando>docker buildx create --name multiplatform --use</comando>
+                    <descricao>Criar builder multiplataforma (opcional)</descricao>
+                </comandos>
+            </etapa>
+
+            <etapa id="DOCKER_MACOS_02" ordem="2">
+                <nome>Otimizações de Performance</nome>
+                <configuracoes>
+                    <configuracao>
+                        <parametro>VirtioFS</parametro>
+                        <descricao>Usar VirtioFS para compartilhamento de arquivos (mais rápido que gRPC FUSE)</descricao>
+                        <localizacao>Docker Desktop → Settings → General → Use VirtioFS for file sharing</localizacao>
+                        <valor>Habilitado</valor>
+                    </configuracao>
+
+                    <configuracao>
+                        <parametro>Recursos de CPU</parametro>
+                        <descricao>Alocar CPUs para Docker</descricao>
+                        <localizacao>Docker Desktop → Settings → Resources → Advanced</localizacao>
+                        <valor_recomendado>50% ou mais (se disponível)</valor_recomendado>
+                    </configuracao>
+
+                    <configuracao>
+                        <parametro>Memória RAM</parametro>
+                        <descricao>Alocar memória para Docker</descricao>
+                        <localizacao>Docker Desktop → Settings → Resources → Advanced</localizacao>
+                        <valor_minimo>4 GB</valor_minimo>
+                        <valor_recomendado>8 GB (se sistema tem 16 GB+)</valor_recomendado>
+                    </configuracao>
+
+                    <configuracao>
+                        <parametro>Swap</parametro>
+                        <descricao>Configurar swap para containers</descricao>
+                        <valor_recomendado>2 GB</valor_recomendado>
+                    </configuracao>
+                </configuracoes>
+            </etapa>
+
+            <etapa id="DOCKER_MACOS_03" ordem="3">
+                <nome>Configuração de Docker Compose</nome>
+                <comandos>
+                    <comando>docker compose version</comando>
+                    <descricao>Verificar versão do Docker Compose</descricao>
+                    <saida_esperada>Versão 2.x ou superior</saida_esperada>
+                </comandos>
+
+                <comandos>
+                    <comando>mkdir -p ~/.docker/cli-plugins</comando>
+                    <descricao>Criar diretório para plugins (se necessário)</descricao>
+                </comandos>
+
+                <exemplo_docker_compose>
+                    <descricao>Exemplo de docker-compose.yml otimizado para Apple Silicon</descricao>
+                    <conteudo>
+version: '3.8'
+
+services:
+  app:
+    image: your-image:tag
+    platform: linux/arm64  # Especificar ARM64 para Apple Silicon
+    volumes:
+      - ./data:/data
+    environment:
+      - ARCH=arm64
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '1'
+          memory: 1G
+                    </conteudo>
+                </exemplo_docker_compose>
+            </etapa>
+        </configuracao_docker>
+
+        <comandos_verificacao>
+            <comando id="VERIF_MACOS_01">
+                <descricao>Verificar versão do macOS</descricao>
+                <comando>sw_vers</comando>
+                <saida_esperada>
+ProductName:	Mac OS X
+ProductVersion:	14.2.1
+BuildVersion:	23C71
+                </saida_esperada>
+            </comando>
+
+            <comando id="VERIF_MACOS_02">
+                <descricao>Verificar arquitetura do sistema</descricao>
+                <comando>uname -m</comando>
+                <saida_esperada>arm64</saida_esperada>
+            </comando>
+
+            <comando id="VERIF_MACOS_03">
+                <descricao>Verificar informações do chip</descricao>
+                <comando>sysctl -n machdep.cpu.brand_string</comando>
+                <saida_esperada>Apple M1, Apple M2, Apple M3, etc.</saida_esperada>
+            </comando>
+
+            <comando id="VERIF_MACOS_04">
+                <descricao>Verificar memória RAM</descricao>
+                <comando>sysctl hw.memsize</comando>
+                <saida_esperada>Número em bytes (ex: 17179869184 para 16 GB)</saida_esperada>
+            </comando>
+
+            <comando id="VERIF_MACOS_05">
+                <descricao>Verificar Docker</descricao>
+                <comando>docker --version && docker compose version</comando>
+                <saida_esperada>Versões do Docker e Docker Compose</saida_esperada>
+            </comando>
+        </comandos_verificacao>
+
+        <troubleshooting>
+            <problema id="PROB_MACOS_01">
+                <sintoma>Docker não inicia ou está lento</sintoma>
+                <causa_possivel>Rosetta 2 emulando x86_64 em vez de usar ARM64 nativo</causa_possivel>
+                <solucao>
+                    <passo ordem="1">Verificar se imagens são ARM64: docker images --format "{{.Repository}}:{{.Tag}} {{.Architecture}}"</passo>
+                    <passo ordem="2">Usar imagens nativas ARM64 quando disponíveis</passo>
+                    <passo ordem="3">Habilitar VirtioFS no Docker Desktop</passo>
+                    <passo ordem="4">Aumentar recursos alocados para Docker</passo>
+                </solucao>
+            </problema>
+
+            <problema id="PROB_MACOS_02">
+                <sintoma>Homebrew não encontra comandos após instalação</sintoma>
+                <causa_possivel>PATH não configurado corretamente</causa_possivel>
+                <solucao>
+                    <passo ordem="1">Adicionar ao ~/.zshrc: eval "$(/opt/homebrew/bin/brew shellenv)"</passo>
+                    <passo ordem="2">Executar: source ~/.zshrc</passo>
+                    <passo ordem="3">Verificar: echo $PATH | grep homebrew</passo>
+                </solucao>
+            </problema>
+
+            <problema id="PROB_MACOS_03">
+                <sintoma>Porta já em uso (ex: 8080)</sintoma>
+                <causa_possivel>Outro serviço usando a porta</causa_possivel>
+                <solucao>
+                    <passo ordem="1">Identificar processo: lsof -i :8080</passo>
+                    <passo ordem="2">Parar processo ou usar outra porta</passo>
+                    <passo ordem="3">Alterar porta no docker-compose.yml</passo>
+                </solucao>
+            </problema>
+        </troubleshooting>
+    </sistema>
+
+    <!-- ========================================================================
+         SEÇÃO 2: UBUNTU (Linux)
+         ======================================================================== -->
+    
+    <sistema nome="ubuntu" tipo="servidor" arquitetura="x86_64">
+        <identificacao>
+            <nome_completo>Ubuntu Linux (LTS)</nome_completo>
+            <arquitetura_cpu>x86_64 (amd64)</arquitetura_cpu>
+            <endianness>little-endian</endianness>
+            <kernel>Linux</kernel>
+            <shell_padrao>bash</shell_padrao>
+            <gerenciador_pacotes>apt (Advanced Package Tool)</gerenciador_pacotes>
+            <gerenciador_servicos>systemd</gerenciador_servicos>
+            <init_system>systemd</init_system>
+        </identificacao>
+
+        <versoes_suportadas>
+            <versao id="UBUNTU_20_04">
+                <codigo>20.04 LTS</codigo>
+                <nome>Focal Fossa</nome>
+                <data_lancamento>2020-04-23</data_lancamento>
+                <suporte_ate>2025-04-23</suporte_ate>
+                <status>Recomendado para produção (legado)</status>
+            </versao>
+
+            <versao id="UBUNTU_22_04">
+                <codigo>22.04 LTS</codigo>
+                <nome>Jammy Jellyfish</nome>
+                <data_lancamento>2022-04-21</data_lancamento>
+                <suporte_ate>2027-04-21</suporte_ate>
+                <status>Recomendado para produção</status>
+            </versao>
+
+            <versao id="UBUNTU_24_04">
+                <codigo>24.04 LTS</codigo>
+                <nome>Noble Numbat</nome>
+                <data_lancamento>2024-04-25</data_lancamento>
+                <suporte_ate>2029-04-25</suporte_ate>
+                <status>Mais recente, recomendado para novos projetos</status>
+            </versao>
+        </versoes_suportadas>
+
+        <requisitos_sistema>
+            <requisito id="REQ_UBUNTU_01" nivel="CRITICO">
+                <tipo>Sistema Operacional</tipo>
+                <valor_minimo>Ubuntu 20.04 LTS</valor_minimo>
+                <valor_recomendado>Ubuntu 22.04 LTS ou 24.04 LTS</valor_recomendado>
+                <comando_verificacao>lsb_release -a</comando_verificacao>
+                <saida_esperada>
+Distributor ID:	Ubuntu
+Description:	Ubuntu 22.04.3 LTS
+Release:	22.04
+Codename:	jammy
+                </saida_esperada>
+            </requisito>
+
+            <requisito id="REQ_UBUNTU_02" nivel="CRITICO">
+                <tipo>Arquitetura do Processador</tipo>
+                <valor_exato>x86_64 (amd64)</valor_exato>
+                <comando_verificacao>uname -m</comando_verificacao>
+                <saida_esperada>x86_64</saida_esperada>
+                <comando_alternativo>dpkg --print-architecture</comando_alternativo>
+            </requisito>
+
+            <requisito id="REQ_UBUNTU_03" nivel="ALTO">
+                <tipo>Memória RAM</tipo>
+                <valor_minimo>2 GB</valor_minimo>
+                <valor_recomendado>4 GB ou superior</valor_recomendado>
+                <comando_verificacao>free -h</comando_verificacao>
+                <saida_esperada>Memória total, usada e disponível em formato legível</saida_esperada>
+            </requisito>
+
+            <requisito id="REQ_UBUNTU_04" nivel="MEDIO">
+                <tipo>Espaço em Disco</tipo>
+                <valor_minimo>10 GB livres</valor_minimo>
+                <valor_recomendado>20 GB livres</valor_recomendado>
+                <comando_verificacao>df -h /</comando_verificacao>
+            </requisito>
+
+            <requisito id="REQ_UBUNTU_05" nivel="CRITICO">
+                <tipo>Acesso Root/Sudo</tipo>
+                <valor_requerido>Usuário com privilégios sudo</valor_requerido>
+                <comando_verificacao>sudo -v</comando_verificacao>
+                <saida_esperada>Sem erros (usuário tem privilégios sudo)</saida_esperada>
+            </requisito>
+
+            <requisito id="REQ_UBUNTU_06" nivel="CRITICO">
+                <tipo>Conexão de Rede</tipo>
+                <valor_requerido>Internet funcional</valor_requerido>
+                <comando_verificacao>ping -c 3 8.8.8.8</comando_verificacao>
+                <comando_alternativo>curl -I https://www.google.com</comando_alternativo>
+            </requisito>
+        </requisitos_sistema>
+
+        <instalacao_dependencias>
+            <etapa id="INST_UBUNTU_01" ordem="1">
+                <nome>Atualização do Sistema</nome>
+                <comando>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Atualizar lista de pacotes
+echo "📦 Atualizando lista de pacotes..."
+sudo apt update
+
+# Atualizar sistema (sem reiniciar)
+echo "🔄 Atualizando pacotes instalados..."
+sudo apt upgrade -y
+
+# Instalar atualizações de segurança
+echo "🔒 Aplicando atualizações de segurança..."
+sudo apt dist-upgrade -y
+
+# Limpar cache
+echo "🧹 Limpando cache..."
+sudo apt autoremove -y
+sudo apt autoclean
+
+# Verificar versão
+lsb_release -a
+                    </script>
+                </comando>
+                <validacao>lsb_release -a deve mostrar versão do Ubuntu</validacao>
+            </etapa>
+
+            <etapa id="INST_UBUNTU_02" ordem="2">
+                <nome>Instalação de Ferramentas Essenciais</nome>
+                <comando>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Instalar ferramentas essenciais
+echo "📦 Instalando ferramentas essenciais..."
+sudo apt install -y \
+    curl \
+    wget \
+    git \
+    vim \
+    nano \
+    tree \
+    htop \
+    net-tools \
+    jq \
+    yq \
+    ca-certificates \
+    gnupg \
+    lsb-release \
+    software-properties-common \
+    apt-transport-https \
+    unzip \
+    zip \
+    build-essential \
+    openssl \
+    ufw
+
+# Verificar instalações
+git --version
+curl --version
+jq --version
+                    </script>
+                </comando>
+                <validacao>Todas as ferramentas devem responder a --version</validacao>
+            </etapa>
+
+            <etapa id="INST_UBUNTU_03" ordem="3">
+                <nome>Instalação do Docker</nome>
+                <comando>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Verificar se Docker já está instalado
+if command -v docker &> /dev/null; then
+    echo "✅ Docker já está instalado"
+    docker --version
+    exit 0
+fi
+
+# Remover versões antigas (se existirem)
+sudo apt remove -y docker docker-engine docker.io containerd runc 2>/dev/null || true
+
+# Adicionar chave GPG do Docker
+echo "🔑 Adicionando chave GPG do Docker..."
+sudo mkdir -p /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
+# Adicionar repositório do Docker
+echo "📦 Adicionando repositório do Docker..."
+ARCH=$(dpkg --print-architecture)
+CODENAME=$(lsb_release -cs)
+echo "deb [arch=$ARCH signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $CODENAME stable" | \
+    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# Atualizar lista de pacotes
+sudo apt update
+
+# Instalar Docker
+echo "🐳 Instalando Docker..."
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+# Adicionar usuário ao grupo docker
+echo "👤 Adicionando usuário ao grupo docker..."
+sudo usermod -aG docker $USER
+
+# Iniciar e habilitar Docker
+echo "🚀 Iniciando Docker..."
+sudo systemctl enable docker
+sudo systemctl start docker
+
+# Verificar instalação
+docker --version
+docker compose version
+
+# Verificar status
+sudo systemctl status docker --no-pager
+
+echo "⚠️  IMPORTANTE: Faça logout e login novamente para aplicar mudanças no grupo docker"
+                    </script>
+                </comando>
+                <validacao>docker --version e docker compose version devem funcionar</validacao>
+                <notas>
+                    <nota>Usuário precisa fazer logout/login após adicionar ao grupo docker</nota>
+                    <nota>Teste sem sudo: docker run hello-world (após logout/login)</nota>
+                </notas>
+            </etapa>
+
+            <etapa id="INST_UBUNTU_04" ordem="4">
+                <nome>Instalação do 1Password CLI</nome>
+                <comando>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Instalar 1Password CLI
+echo "🔐 Instalando 1Password CLI..."
+
+# Detectar arquitetura
+ARCH=$(dpkg --print-architecture)
+if [[ "$ARCH" == "amd64" ]]; then
+    ARCH="amd64"
+elif [[ "$ARCH == "arm64" ]]; then
+    ARCH="arm64"
+else
+    echo "❌ Arquitetura não suportada: $ARCH"
+    exit 1
+fi
+
+# Baixar e instalar
+OP_VERSION="2.24.0"
+wget -O /tmp/op.zip "https://cache.agilebits.com/dist/1P/op2/v${OP_VERSION}/op_linux_${ARCH}_v${OP_VERSION}.zip"
+unzip -q /tmp/op.zip -d /tmp
+sudo mv /tmp/op /usr/local/bin/op
+sudo chmod +x /usr/local/bin/op
+rm /tmp/op.zip
+
+# Verificar instalação
+op --version
+
+echo "🔐 Execute 'op signin' para autenticar"
+                    </script>
+                </comando>
+                <validacao>op --version deve retornar versão do CLI</validacao>
+            </etapa>
+
+            <etapa id="INST_UBUNTU_05" ordem="5">
+                <nome>Configuração do Firewall (UFW)</nome>
+                <comando>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Verificar se UFW está instalado
+if ! command -v ufw &> /dev/null; then
+    echo "📦 Instalando UFW..."
+    sudo apt install -y ufw
+fi
+
+# Configurar regras básicas
+echo "🔥 Configurando firewall..."
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+
+# Permitir SSH (CRÍTICO - não fechar porta SSH)
+sudo ufw allow 22/tcp comment 'SSH'
+
+# Permitir portas comuns (ajustar conforme necessário)
+sudo ufw allow 80/tcp comment 'HTTP'
+sudo ufw allow 443/tcp comment 'HTTPS'
+sudo ufw allow 8080/tcp comment 'App Port 8080'
+sudo ufw allow 8443/tcp comment 'App Port 8443'
+
+# Habilitar firewall
+echo "⚠️  ATENÇÃO: Certifique-se de que SSH está funcionando antes de habilitar!"
+read -p "Habilitar firewall agora? (s/N): " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Ss]$ ]]; then
+    sudo ufw enable
+    sudo ufw status verbose
+else
+    echo "Firewall não habilitado. Execute 'sudo ufw enable' manualmente."
+fi
+                    </script>
+                </comando>
+                <validacao>sudo ufw status deve mostrar regras configuradas</validacao>
+                <aviso>NUNCA habilitar firewall sem confirmar que SSH está funcionando</aviso>
+            </etapa>
+
+            <etapa id="INST_UBUNTU_06" ordem="6">
+                <nome>Configuração de Swap (se necessário)</nome>
+                <comando>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Verificar swap existente
+SWAP_SIZE=$(free -h | grep Swap | awk '{print $2}')
+
+if [[ "$SWAP_SIZE" == "0B" ]] || [[ -z "$SWAP_SIZE" ]]; then
+    echo "💾 Configurando swap..."
+    
+    # Criar arquivo swap (2GB)
+    sudo fallocate -l 2G /swapfile
+    sudo chmod 600 /swapfile
+    sudo mkswap /swapfile
+    sudo swapon /swapfile
+    
+    # Tornar permanente
+    echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+    
+    # Ajustar swappiness
+    echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
+    sudo sysctl vm.swappiness=10
+    
+    echo "✅ Swap configurado"
+else
+    echo "✅ Swap já configurado: $SWAP_SIZE"
+fi
+
+free -h
+                    </script>
+                </comando>
+                <validacao>free -h deve mostrar swap disponível</validacao>
+            </etapa>
+        </instalacao_dependencias>
+
+        <configuracao_docker>
+            <etapa id="DOCKER_UBUNTU_01" ordem="1">
+                <nome>Configuração do Docker para Produção</nome>
+                <comandos>
+                    <comando>docker info | grep -i architecture</comando>
+                    <descricao>Verificar arquitetura do Docker</descricao>
+                    <saida_esperada>Architecture: x86_64</saida_esperada>
+                </comandos>
+
+                <comandos>
+                    <comando>sudo systemctl enable docker</comando>
+                    <descricao>Habilitar Docker para iniciar no boot</descricao>
+                </comandos>
+
+                <comandos>
+                    <comando>sudo systemctl status docker</comando>
+                    <descricao>Verificar status do serviço Docker</descricao>
+                    <saida_esperada>active (running)</saida_esperada>
+                </comandos>
+            </etapa>
+
+            <etapa id="DOCKER_UBUNTU_02" ordem="2">
+                <nome>Configuração do daemon.json</nome>
+                <arquivo>/etc/docker/daemon.json</arquivo>
+                <conteudo>
+{
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "10m",
+    "max-file": "3"
+  },
+  "storage-driver": "overlay2",
+  "default-address-pools": [
+    {
+      "base": "172.17.0.0/16",
+      "size": 24
+    }
+  ]
+}
+                </conteudo>
+                <comando_aplicacao>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Criar arquivo de configuração
+sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json > /dev/null <<EOF
+{
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "10m",
+    "max-file": "3"
+  },
+  "storage-driver": "overlay2",
+  "default-address-pools": [
+    {
+      "base": "172.17.0.0/16",
+      "size": 24
+    }
+  ]
+}
+EOF
+
+# Reiniciar Docker
+sudo systemctl restart docker
+
+# Verificar configuração
+docker info | grep -A 10 "Logging Driver"
+                    </script>
+                </comando_aplicacao>
+            </etapa>
+
+            <etapa id="DOCKER_UBUNTU_03" ordem="3">
+                <nome>Configuração de Docker Compose</nome>
+                <comandos>
+                    <comando>docker compose version</comando>
+                    <descricao>Verificar versão do Docker Compose</descricao>
+                    <saida_esperada>Versão 2.x ou superior</saida_esperada>
+                </comandos>
+
+                <exemplo_docker_compose>
+                    <descricao>Exemplo de docker-compose.yml para Ubuntu</descricao>
+                    <conteudo>
+version: '3.8'
+
+services:
+  app:
+    image: your-image:tag
+    platform: linux/amd64  # x86_64 para Ubuntu
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+    environment:
+      - ARCH=amd64
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 2G
+        reservations:
+          cpus: '1'
+          memory: 1G
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  app-network:
+    driver: bridge
+                    </conteudo>
+                </exemplo_docker_compose>
+            </etapa>
+        </configuracao_docker>
+
+        <configuracao_systemd>
+            <etapa id="SYSTEMD_01" ordem="1">
+                <nome>Criação de Serviço Systemd para Docker Compose</nome>
+                <arquivo>/etc/systemd/system/myapp.service</arquivo>
+                <conteudo>
+[Unit]
+Description=My Application Docker Compose
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+WorkingDirectory=/path/to/your/project
+ExecStart=/usr/bin/docker compose up -d
+ExecStop=/usr/bin/docker compose down
+TimeoutStartSec=0
+
+[Install]
+WantedBy=multi-user.target
+                </conteudo>
+                <comando_aplicacao>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Copiar arquivo de serviço
+sudo cp myapp.service /etc/systemd/system/
+
+# Recarregar systemd
+sudo systemctl daemon-reload
+
+# Habilitar serviço
+sudo systemctl enable myapp.service
+
+# Iniciar serviço
+sudo systemctl start myapp.service
+
+# Verificar status
+sudo systemctl status myapp.service
+                    </script>
+                </comando_aplicacao>
+            </etapa>
+        </configuracao_systemd>
+
+        <comandos_verificacao>
+            <comando id="VERIF_UBUNTU_01">
+                <descricao>Verificar versão do Ubuntu</descricao>
+                <comando>lsb_release -a</comando>
+                <saida_esperada>Informações completas da distribuição</saida_esperada>
+            </comando>
+
+            <comando id="VERIF_UBUNTU_02">
+                <descricao>Verificar arquitetura do sistema</descricao>
+                <comando>uname -m</comando>
+                <saida_esperada>x86_64</saida_esperada>
+            </comando>
+
+            <comando id="VERIF_UBUNTU_03">
+                <descricao>Verificar memória RAM</descricao>
+                <comando>free -h</comando>
+                <saida_esperada>Memória total, usada e disponível</saida_esperada>
+            </comando>
+
+            <comando id="VERIF_UBUNTU_04">
+                <descricao>Verificar espaço em disco</descricao>
+                <comando>df -h</comando>
+                <saida_esperada>Uso de disco de todos os sistemas de arquivos</saida_esperada>
+            </comando>
+
+            <comando id="VERIF_UBUNTU_05">
+                <descricao>Verificar Docker</descricao>
+                <comando>docker --version && docker compose version && sudo systemctl status docker --no-pager</comando>
+                <saida_esperada>Versões e status do Docker</saida_esperada>
+            </comando>
+
+            <comando id="VERIF_UBUNTU_06">
+                <descricao>Verificar conectividade de rede</descricao>
+                <comando>ping -c 3 8.8.8.8 && curl -I https://www.google.com</comando>
+                <saida_esperada>Ping bem-sucedido e resposta HTTP</saida_esperada>
+            </comando>
+        </comandos_verificacao>
+
+        <troubleshooting>
+            <problema id="PROB_UBUNTU_01">
+                <sintoma>Docker não inicia ou erro de permissão</sintoma>
+                <causa_possivel>Usuário não está no grupo docker</causa_possivel>
+                <solucao>
+                    <passo ordem="1">Adicionar usuário ao grupo: sudo usermod -aG docker $USER</passo>
+                    <passo ordem="2">Fazer logout e login novamente</passo>
+                    <passo ordem="3">Verificar: groups (deve mostrar docker)</passo>
+                    <passo ordem="4">Testar sem sudo: docker run hello-world</passo>
+                </solucao>
+            </problema>
+
+            <problema id="PROB_UBUNTU_02">
+                <sintoma>Porta já em uso</sintoma>
+                <causa_possivel>Outro serviço usando a porta</causa_possivel>
+                <solucao>
+                    <passo ordem="1">Identificar processo: sudo lsof -i :8080 ou sudo netstat -tulpn | grep 8080</passo>
+                    <passo ordem="2">Parar processo: sudo kill -9 PID</passo>
+                    <passo ordem="3">Ou alterar porta no docker-compose.yml</passo>
+                </solucao>
+            </problema>
+
+            <problema id="PROB_UBUNTU_03">
+                <sintoma>Falha ao baixar pacotes (erro 404 ou timeout)</sintoma>
+                <causa_possivel>Repositórios desatualizados ou problemas de rede</causa_possivel>
+                <solucao>
+                    <passo ordem="1">Atualizar lista: sudo apt update</passo>
+                    <passo ordem="2">Limpar cache: sudo apt clean</passo>
+                    <passo ordem="3">Verificar DNS: cat /etc/resolv.conf</passo>
+                    <passo ordem="4">Tentar outro mirror: sudo sed -i 's/archive.ubuntu.com/mirror.ubuntu.com/g' /etc/apt/sources.list</passo>
+                </solucao>
+            </problema>
+
+            <problema id="PROB_UBUNTU_04">
+                <sintoma>Serviço systemd não inicia</sintoma>
+                <causa_possivel>Erro no arquivo de serviço ou dependências</causa_possivel>
+                <solucao>
+                    <passo ordem="1">Verificar sintaxe: sudo systemctl daemon-reload</passo>
+                    <passo ordem="2">Ver logs: sudo journalctl -u myapp.service -n 50</passo>
+                    <passo ordem="3">Testar manualmente: docker compose up -d</passo>
+                    <passo ordem="4">Verificar caminhos no arquivo .service</passo>
+                </solucao>
+            </problema>
+        </troubleshooting>
+    </sistema>
+
+    <!-- ========================================================================
+         SEÇÃO 3: COMANDOS COMUNS E UTILITÁRIOS
+         ======================================================================== -->
+    
+    <comandos_comuns>
+        <categoria nome="docker">
+            <comando id="CMD_DOCKER_01">
+                <descricao>Listar containers em execução</descricao>
+                <comando>docker ps</comando>
+                <comando_variante>docker ps -a</comando_variante>
+                <descricao_variante>Listar todos os containers (incluindo parados)</descricao_variante>
+            </comando>
+
+            <comando id="CMD_DOCKER_02">
+                <descricao>Ver logs de um container</descricao>
+                <comando>docker logs CONTAINER_NAME</comando>
+                <comando_variante>docker logs -f CONTAINER_NAME</comando_variante>
+                <descricao_variante>Seguir logs em tempo real (follow)</descricao_variante>
+            </comando>
+
+            <comando id="CMD_DOCKER_03">
+                <descricao>Executar comando em container</descricao>
+                <comando>docker exec -it CONTAINER_NAME /bin/bash</comando>
+                <comando_variante>docker exec -it CONTAINER_NAME /bin/sh</comando_variante>
+                <descricao_variante>Para containers sem bash</descricao_variante>
+            </comando>
+
+            <comando id="CMD_DOCKER_04">
+                <descricao>Parar e remover containers</descricao>
+                <comando>docker compose down</comando>
+                <comando_variante>docker compose down -v</comando_variante>
+                <descricao_variante>Remover também volumes</descricao_variante>
+            </comando>
+
+            <comando id="CMD_DOCKER_05">
+                <descricao>Reconstruir imagens</descricao>
+                <comando>docker compose build</comando>
+                <comando_variante>docker compose build --no-cache</comando_variante>
+                <descricao_variante>Reconstruir sem usar cache</descricao_variante>
+            </comando>
+        </categoria>
+
+        <categoria nome="sistema">
+            <comando id="CMD_SYS_01">
+                <descricao>Ver uso de CPU e memória</descricao>
+                <comando_macos>top -l 1 | head -n 10</comando_macos>
+                <comando_ubuntu>htop</comando_ubuntu>
+                <comando_alternativo>free -h && top -bn1 | head -20</comando_alternativo>
+            </comando>
+
+            <comando id="CMD_SYS_02">
+                <descricao>Ver espaço em disco</descricao>
+                <comando_macos>df -h</comando_macos>
+                <comando_ubuntu>df -h</comando_ubuntu>
+            </comando>
+
+            <comando id="CMD_SYS_03">
+                <descricao>Ver processos</descricao>
+                <comando_macos>ps aux | grep PROCESS_NAME</comando_macos>
+                <comando_ubuntu>ps aux | grep PROCESS_NAME</comando_ubuntu>
+            </comando>
+
+            <comando id="CMD_SYS_04">
+                <descricao>Matar processo</descricao>
+                <comando_macos>kill -9 PID</comando_macos>
+                <comando_ubuntu>sudo kill -9 PID</comando_ubuntu>
+            </comando>
+        </categoria>
+
+        <categoria nome="rede">
+            <comando id="CMD_NET_01">
+                <descricao>Ver portas em uso</descricao>
+                <comando_macos>lsof -i :PORT_NUMBER</comando_macos>
+                <comando_ubuntu>sudo netstat -tulpn | grep PORT_NUMBER</comando_ubuntu>
+                <comando_alternativo>sudo ss -tulpn | grep PORT_NUMBER</comando_alternativo>
+            </comando>
+
+            <comando id="CMD_NET_02">
+                <descricao>Testar conectividade</descricao>
+                <comando_macos>ping -c 3 HOST</comando_macos>
+                <comando_ubuntu>ping -c 3 HOST</comando_ubuntu>
+            </comando>
+
+            <comando id="CMD_NET_03">
+                <descricao>Ver IP do sistema</descricao>
+                <comando_macos>ifconfig | grep "inet " | grep -v 127.0.0.1</comando_macos>
+                <comando_ubuntu>ip addr show | grep "inet " | grep -v 127.0.0.1</comando_ubuntu>
+            </comando>
+        </categoria>
+    </comandos_comuns>
+
+    <!-- ========================================================================
+         SEÇÃO 4: ESTRUTURA DE DIRETÓRIOS E ARQUIVOS
+         ======================================================================== -->
+    
+    <estrutura_arquivos>
+        <sistema nome="macos_silicon">
+            <diretorio path="$HOME/.docker">
+                <descricao>Configurações do Docker Desktop</descricao>
+                <arquivos>
+                    <arquivo>config.json</arquivo>
+                    <arquivo>daemon.json</arquivo>
+                </arquivos>
+            </diretorio>
+
+            <diretorio path="$HOME/.cursor">
+                <descricao>Configurações do Cursor IDE</descricao>
+                <arquivos>
+                    <arquivo>cli-config.json</arquivo>
+                </arquivos>
+            </diretorio>
+
+            <diretorio path="/opt/homebrew">
+                <descricao>Homebrew (Apple Silicon)</descricao>
+                <subdiretorios>
+                    <subdiretorio>bin</subdiretorio>
+                    <subdiretorio>etc</subdiretorio>
+                    <subdiretorio>lib</subdiretorio>
+                    <subdiretorio>share</subdiretorio>
+                </subdiretorios>
+            </diretorio>
+
+            <diretorio path="/Applications/Docker.app">
+                <descricao>Docker Desktop Application</descricao>
+            </diretorio>
+        </sistema>
+
+        <sistema nome="ubuntu">
+            <diretorio path="/etc/docker">
+                <descricao>Configurações do Docker</descricao>
+                <arquivos>
+                    <arquivo>daemon.json</arquivo>
+                </arquivos>
+            </diretorio>
+
+            <diretorio path="/var/lib/docker">
+                <descricao>Dados do Docker (imagens, containers, volumes)</descricao>
+            </diretorio>
+
+            <diretorio path="/etc/systemd/system">
+                <descricao>Serviços systemd personalizados</descricao>
+            </diretorio>
+
+            <diretorio path="$HOME/.local/bin">
+                <descricao>Binários locais do usuário</descricao>
+            </diretorio>
+        </sistema>
+    </estrutura_arquivos>
+
+    <!-- ========================================================================
+         SEÇÃO 5: VARIÁVEIS DE AMBIENTE E CONFIGURAÇÕES
+         ======================================================================== -->
+    
+    <variaveis_ambiente>
+        <variavel nome="DOCKER_HOST" sistema="ambos">
+            <descricao>Endereço do daemon Docker</descricao>
+            <valor_padrao_macos>unix:///var/run/docker.sock</valor_padrao_macos>
+            <valor_padrao_ubuntu>unix:///var/run/docker.sock</valor_padrao_ubuntu>
+        </variavel>
+
+        <variavel nome="PATH" sistema="ambos">
+            <descricao>Caminhos de busca para executáveis</descricao>
+            <adicionar_macos>/opt/homebrew/bin</adicionar_macos>
+            <adicionar_ubuntu>$HOME/.local/bin</adicionar_ubuntu>
+        </variavel>
+
+        <variavel nome="ARCH" sistema="ambos">
+            <descricao>Arquitetura do sistema</descricao>
+            <valor_macos>arm64</valor_macos>
+            <valor_ubuntu>amd64</valor_ubuntu>
+        </variavel>
+    </variaveis_ambiente>
+
+    <!-- ========================================================================
+         SEÇÃO 6: CHECKLIST DE VALIDAÇÃO
+         ======================================================================== -->
+    
+    <checklist_validacao>
+        <checklist nome="macos_silicon">
+            <item id="CHECK_MACOS_01">
+                <descricao>macOS versão 11.0+ instalada</descricao>
+                <comando>sw_vers -productVersion</comando>
+            </item>
+
+            <item id="CHECK_MACOS_02">
+                <descricao>Arquitetura arm64 confirmada</descricao>
+                <comando>uname -m</comando>
+            </item>
+
+            <item id="CHECK_MACOS_03">
+                <descricao>Xcode Command Line Tools instalado</descricao>
+                <comando>xcode-select -p</comando>
+            </item>
+
+            <item id="CHECK_MACOS_04">
+                <descricao>Homebrew instalado e funcionando</descricao>
+                <comando>brew --version</comando>
+            </item>
+
+            <item id="CHECK_MACOS_05">
+                <descricao>Docker Desktop instalado e rodando</descricao>
+                <comando>docker --version && docker info</comando>
+            </item>
+
+            <item id="CHECK_MACOS_06">
+                <descricao>Docker Compose funcionando</descricao>
+                <comando>docker compose version</comando>
+            </item>
+
+            <item id="CHECK_MACOS_07">
+                <descricao>1Password CLI instalado</descricao>
+                <comando>op --version</comando>
+            </item>
+        </checklist>
+
+        <checklist nome="ubuntu">
+            <item id="CHECK_UBUNTU_01">
+                <descricao>Ubuntu 20.04+ LTS instalado</descricao>
+                <comando>lsb_release -a</comando>
+            </item>
+
+            <item id="CHECK_UBUNTU_02">
+                <descricao>Arquitetura x86_64 confirmada</descricao>
+                <comando>uname -m</comando>
+            </item>
+
+            <item id="CHECK_UBUNTU_03">
+                <descricao>Privilégios sudo funcionando</descricao>
+                <comando>sudo -v</comando>
+            </item>
+
+            <item id="CHECK_UBUNTU_04">
+                <descricao>Docker instalado e funcionando</descricao>
+                <comando>docker --version && sudo systemctl status docker</comando>
+            </item>
+
+            <item id="CHECK_UBUNTU_05">
+                <descricao>Docker Compose funcionando</descricao>
+                <comando>docker compose version</comando>
+            </item>
+
+            <item id="CHECK_UBUNTU_06">
+                <descricao>Usuário no grupo docker</descricao>
+                <comando>groups | grep docker</comando>
+            </item>
+
+            <item id="CHECK_UBUNTU_07">
+                <descricao>1Password CLI instalado</descricao>
+                <comando>op --version</comando>
+            </item>
+
+            <item id="CHECK_UBUNTU_08">
+                <descricao>Firewall configurado (se aplicável)</descricao>
+                <comando>sudo ufw status</comando>
+            </item>
+        </checklist>
+    </checklist_validacao>
+
+    <!-- ========================================================================
+         SEÇÃO 7: METADADOS PARA LLMS
+         ======================================================================== -->
+    
+    <metadados_llm>
+        <formato_estruturado>XML hierárquico com tags semânticas</formato_estruturado>
+        <otimizacoes>
+            <otimizacao>IDs únicos para todos os elementos (facilita referência)</otimizacao>
+            <otimizacao>Hierarquia clara com níveis de aninhamento consistentes</otimizacao>
+            <otimizacao>Comandos executáveis completos e testados</otimizacao>
+            <otimizacao>Saídas esperadas documentadas para validação</otimizacao>
+            <otimizacao>Separação clara entre macOS e Ubuntu</otimizacao>
+            <otimizacao>Troubleshooting estruturado com problemas e soluções</otimizacao>
+        </otimizacoes>
+
+        <instrucoes_interpretacao>
+            <instrucao>
+                <tipo>Parsing</tipo>
+                <descricao>Use IDs únicos (ex: REQ_MACOS_01, INST_UBUNTU_03) para referenciar elementos específicos</descricao>
+            </instrucao>
+
+            <instrucao>
+                <tipo>Comandos</tipo>
+                <descricao>Todos os comandos em tags &lt;comando&gt; ou &lt;script&gt; são executáveis diretamente</descricao>
+            </instrucao>
+
+            <instrucao>
+                <tipo>Validação</tipo>
+                <descricao>Use &lt;saida_esperada&gt; para validar se comandos executaram corretamente</descricao>
+            </instrucao>
+
+            <instrucao>
+                <tipo>Ordem</tipo>
+                <descricao>Respeite atributo 'ordem' nas etapas de instalação</descricao>
+            </instrucao>
+
+            <instrucao>
+                <tipo>Sistema</tipo>
+                <descricao>Verifique atributo 'sistema' em comandos para aplicar apenas no sistema correto</descricao>
+            </instrucao>
+        </instrucoes_interpretacao>
+    </metadados_llm>
+</instrucoes_sistema>

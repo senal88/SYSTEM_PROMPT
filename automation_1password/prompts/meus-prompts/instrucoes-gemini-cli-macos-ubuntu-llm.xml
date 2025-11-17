@@ -1,0 +1,975 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Instruções Detalhadas: Gemini CLI - macOS Silicon e Ubuntu
+  Documento estruturado para máxima eficiência de interpretação por LLMs
+  
+  Baseado na documentação oficial do Gemini CLI:
+  https://github.com/google-gemini/gemini-cli
+  
+  Data de Criação: 2025-11-03
+  Versão: 1.0.0
+  Formato: XML estruturado para parsing otimizado por LLMs
+-->
+
+<instrucoes_gemini_cli>
+    <metadados>
+        <nome>Instruções de Instalação e Configuração: Gemini CLI</nome>
+        <versao>1.0.0</versao>
+        <data_criacao>2025-11-03</data_criacao>
+        <ferramenta>Gemini CLI</ferramenta>
+        <fabricante>Google</fabricante>
+        <repositorio>https://github.com/google-gemini/gemini-cli</repositorio>
+        <documentacao_oficial>https://google-gemini.github.io/gemini-cli/</documentacao_oficial>
+        <formato>XML estruturado para LLMs</formato>
+        <idioma>pt-BR</idioma>
+        <tags>gemini, cli, google, ai, repl, terminal, macos, apple-silicon, ubuntu, linux, setup, instalação</tags>
+    </metadados>
+
+    <!-- ========================================================================
+         SEÇÃO 1: VISÃO GERAL DO GEMINI CLI
+         ======================================================================== -->
+    
+    <visao_geral>
+        <descricao>
+            Gemini CLI é uma ferramenta de linha de comando que permite interagir 
+            com modelos Gemini através de uma interface REPL (Read-Eval-Print Loop) 
+            interativa. A ferramenta consiste em uma aplicação cliente (packages/cli) 
+            que se comunica com um servidor local (packages/core), que por sua vez 
+            gerencia requisições para a API Gemini e seus modelos de IA.
+        </descricao>
+
+        <componentes>
+            <componente id="COMP_CLI" nome="CLI Client">
+                <descricao>Aplicação cliente que fornece a interface REPL</descricao>
+                <localizacao>packages/cli</localizacao>
+            </componente>
+
+            <componente id="COMP_CORE" nome="Core Server">
+                <descricao>Servidor local que gerencia requisições à API Gemini</descricao>
+                <localizacao>packages/core</localizacao>
+            </componente>
+
+            <componente id="COMP_TOOLS" nome="Tools">
+                <descricao>Conjunto de ferramentas para operações de sistema de arquivos, shell, web fetching, etc.</descricao>
+                <localizacao>packages/core (gerenciado)</localizacao>
+            </componente>
+        </componentes>
+
+        <recursos_principais>
+            <recurso>Interface REPL interativa</recurso>
+            <recurso>Integração com modelos Gemini</recurso>
+            <recurso>Ferramentas de sistema de arquivos (read_file, write_file, read_many_files)</recurso>
+            <recurso>Shell tool (run_shell_command)</recurso>
+            <recurso>Web fetch e web search</recurso>
+            <recurso>Memory tool (save_memory)</recurso>
+            <recurso>Todo tool (write_todos)</recurso>
+            <recurso>Suporte a MCP servers</recurso>
+            <recurso>Extensions para funcionalidades customizadas</recurso>
+            <recurso>IDE integration</recurso>
+            <recurso>Checkpointing para recuperação de estado</recurso>
+            <recurso>Token caching e otimização</recurso>
+            <recurso>Trusted Folders para segurança</recurso>
+            <recurso>Policy Engine para controle de execução de ferramentas</recurso>
+        </recursos_principais>
+    </visao_geral>
+
+    <!-- ========================================================================
+         SEÇÃO 2: macOS SILICON (Apple Silicon M1/M2/M3/M4)
+         ======================================================================== -->
+    
+    <sistema nome="macos_silicon" tipo="desktop" arquitetura="arm64">
+        <identificacao>
+            <nome_completo>macOS com Apple Silicon (M1/M2/M3/M4)</nome_completo>
+            <arquitetura_cpu>arm64 (aarch64)</arquitetura_cpu>
+            <shell_padrao>zsh</shell_padrao>
+            <gerenciador_pacotes>Homebrew, npm, pnpm</gerenciador_pacotes>
+        </identificacao>
+
+        <requisitos_sistema>
+            <requisito id="REQ_GEMINI_MACOS_01" nivel="CRITICO">
+                <tipo>Sistema Operacional</tipo>
+                <valor_minimo>macOS 11.0 (Big Sur)</valor_minimo>
+                <valor_recomendado>macOS 14.0+ (Sonoma) ou superior</valor_recomendado>
+                <comando_verificacao>sw_vers -productVersion</comando_verificacao>
+                <saida_esperada>Versão no formato: MAJOR.MINOR.PATCH (ex: 14.2.1)</saida_esperada>
+            </requisito>
+
+            <requisito id="REQ_GEMINI_MACOS_02" nivel="CRITICO">
+                <tipo>Arquitetura do Processador</tipo>
+                <valor_exato>Apple Silicon (arm64)</valor_exato>
+                <chips_suportados>M1, M1 Pro, M1 Max, M1 Ultra, M2, M2 Pro, M2 Max, M2 Ultra, M3, M3 Pro, M3 Max, M4</chips_suportados>
+                <comando_verificacao>uname -m</comando_verificacao>
+                <saida_esperada>arm64</saida_esperada>
+            </requisito>
+
+            <requisito id="REQ_GEMINI_MACOS_03" nivel="CRITICO">
+                <tipo>Node.js</tipo>
+                <valor_minimo>Node.js 18.x ou superior</valor_minimo>
+                <valor_recomendado>Node.js 20.x LTS ou superior</valor_recomendado>
+                <comando_verificacao>node --version</comando_verificacao>
+                <saida_esperada>v20.x.x ou superior</saida_esperada>
+            </requisito>
+
+            <requisito id="REQ_GEMINI_MACOS_04" nivel="CRITICO">
+                <tipo>Gerenciador de Pacotes</tipo>
+                <valor_recomendado>npm ou pnpm</valor_recomendado>
+                <comando_verificacao>npm --version</comando_verificacao>
+                <comando_alternativo>pnpm --version</comando_alternativo>
+            </requisito>
+
+            <requisito id="REQ_GEMINI_MACOS_05" nivel="CRITICO">
+                <tipo>Google Cloud API Key</tipo>
+                <valor_requerido>API Key do Google AI Studio ou Google Cloud</valor_requerido>
+                <obtencao>https://aistudio.google.com/app/apikey ou https://console.cloud.google.com/apis/credentials</obtencao>
+            </requisito>
+
+            <requisito id="REQ_GEMINI_MACOS_06" nivel="ALTO">
+                <tipo>Memória RAM</tipo>
+                <valor_minimo>8 GB</valor_minimo>
+                <valor_recomendado>16 GB ou superior</valor_recomendado>
+            </requisito>
+        </requisitos_sistema>
+
+        <instalacao>
+            <metodo id="INST_MACOS_NPM" nome="Instalação via NPM (Recomendado)" ordem="1">
+                <descricao>Instalação global do Gemini CLI via npm</descricao>
+                <comando>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Verificar Node.js
+if ! command -v node &> /dev/null; then
+    echo "❌ Node.js não encontrado. Instalando via Homebrew..."
+    brew install node
+fi
+
+# Verificar versão do Node.js
+NODE_VERSION=$(node --version | cut -d'v' -f2 | cut -d'.' -f1)
+if [[ "$NODE_VERSION" -lt 18 ]]; then
+    echo "❌ Node.js 18+ necessário. Versão atual: $(node --version)"
+    exit 1
+fi
+
+# Instalar Gemini CLI globalmente
+echo "📦 Instalando Gemini CLI via npm..."
+npm install -g @google/gemini-cli
+
+# Verificar instalação
+gemini --version
+                    </script>
+                </comando>
+                <validacao>gemini --version deve retornar versão do CLI</validacao>
+            </metodo>
+
+            <metodo id="INST_MACOS_PNPM" nome="Instalação via PNPM" ordem="2">
+                <descricao>Instalação via pnpm (alternativa)</descricao>
+                <comando>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Instalar pnpm se não existir
+if ! command -v pnpm &> /dev/null; then
+    echo "📦 Instalando pnpm..."
+    npm install -g pnpm
+fi
+
+# Instalar Gemini CLI
+pnpm add -g @google/gemini-cli
+
+# Verificar instalação
+gemini --version
+                    </script>
+                </comando>
+                <validacao>gemini --version deve retornar versão do CLI</validacao>
+            </metodo>
+
+            <metodo id="INST_MACOS_SOURCE" nome="Instalação a partir do Código Fonte" ordem="3">
+                <descricao>Clone e build do repositório oficial</descricao>
+                <comando>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Criar diretório de desenvolvimento
+mkdir -p ~/Developer
+cd ~/Developer
+
+# Clonar repositório
+if [[ ! -d "gemini-cli" ]]; then
+    git clone https://github.com/google-gemini/gemini-cli.git
+    cd gemini-cli
+else
+    cd gemini-cli
+    git pull origin main
+fi
+
+# Instalar dependências
+npm install
+
+# Build do projeto
+npm run build
+
+# Link global (opcional)
+npm link
+
+# Verificar instalação
+gemini --version
+                    </script>
+                </comando>
+                <validacao>gemini --version deve retornar versão do CLI</validacao>
+                <nota>Método recomendado para desenvolvimento ou uso da versão mais recente</nota>
+            </metodo>
+        </instalacao>
+
+        <autenticacao>
+            <metodo id="AUTH_MACOS_01" nome="Autenticação com API Key" ordem="1">
+                <descricao>Configurar API Key do Google AI Studio</descricao>
+                <passos>
+                    <passo ordem="1">
+                        <acao>Obter API Key</acao>
+                        <detalhes>
+                            <url>https://aistudio.google.com/app/apikey</url>
+                            <instrucoes>
+                                1. Acesse o Google AI Studio
+                                2. Clique em "Get API Key"
+                                3. Crie ou selecione um projeto
+                                4. Copie a API Key gerada
+                            </instrucoes>
+                        </detalhes>
+                    </passo>
+
+                    <passo ordem="2">
+                        <acao>Configurar API Key</acao>
+                        <comando>
+                            <script>
+#!/bin/bash
+set -euo pipefail
+
+# Método 1: Variável de ambiente (recomendado)
+echo "🔑 Configurando API Key via variável de ambiente..."
+read -sp "Cole sua API Key do Google AI Studio: " API_KEY
+echo
+
+# Adicionar ao ~/.zshrc
+if ! grep -q "GEMINI_API_KEY" ~/.zshrc; then
+    echo "export GEMINI_API_KEY=\"$API_KEY\"" >> ~/.zshrc
+    echo "✅ API Key adicionada ao ~/.zshrc"
+else
+    echo "⚠️  GEMINI_API_KEY já existe em ~/.zshrc"
+fi
+
+# Exportar para sessão atual
+export GEMINI_API_KEY="$API_KEY"
+
+# Verificar configuração
+echo "✅ API Key configurada. Execute 'source ~/.zshrc' para aplicar."
+                            </script>
+                        </comando>
+                    </passo>
+
+                    <passo ordem="3">
+                        <acao>Verificar autenticação</acao>
+                        <comando>gemini auth verify</comando>
+                        <saida_esperada>Mensagem de sucesso confirmando autenticação</saida_esperada>
+                    </passo>
+                </passos>
+            </metodo>
+
+            <metodo id="AUTH_MACOS_02" nome="Autenticação com Google Cloud" ordem="2">
+                <descricao>Usar credenciais do Google Cloud Platform</descricao>
+                <comando>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Instalar Google Cloud SDK se não existir
+if ! command -v gcloud &> /dev/null; then
+    echo "📦 Instalando Google Cloud SDK..."
+    brew install --cask google-cloud-sdk
+fi
+
+# Autenticar
+gcloud auth login
+
+# Configurar Application Default Credentials
+gcloud auth application-default login
+
+# Verificar
+gcloud auth list
+                    </script>
+                </comando>
+                <nota>Use este método se já tiver conta Google Cloud configurada</nota>
+            </metodo>
+        </autenticacao>
+
+        <configuracao>
+            <arquivo id="CONFIG_MACOS_01" nome="Configuração Global" localizacao="~/.gemini/config.json">
+                <descricao>Arquivo de configuração global do Gemini CLI</descricao>
+                <conteudo>
+{
+  "apiKey": "${GEMINI_API_KEY}",
+  "defaultModel": "gemini-2.0-flash-exp",
+  "theme": "default",
+  "trustedFolders": [
+    "~/Developer",
+    "~/Documents"
+  ],
+  "extensions": [],
+  "telemetry": true,
+  "tokenCaching": true
+}
+                </conteudo>
+                <comando_criacao>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Criar diretório de configuração
+mkdir -p ~/.gemini
+
+# Criar arquivo de configuração
+cat > ~/.gemini/config.json << 'EOF'
+{
+  "apiKey": "${GEMINI_API_KEY}",
+  "defaultModel": "gemini-2.0-flash-exp",
+  "theme": "default",
+  "trustedFolders": [
+    "~/Developer",
+    "~/Documents"
+  ],
+  "extensions": [],
+  "telemetry": true,
+  "tokenCaching": true
+}
+EOF
+
+# Substituir variável de ambiente se existir
+if [[ -n "${GEMINI_API_KEY:-}" ]]; then
+    sed -i '' "s/\${GEMINI_API_KEY}/$GEMINI_API_KEY/g" ~/.gemini/config.json
+fi
+
+echo "✅ Configuração criada em ~/.gemini/config.json"
+                    </script>
+                </comando_criacao>
+            </arquivo>
+
+            <variavel_ambiente id="ENV_MACOS_01" nome="GEMINI_API_KEY">
+                <descricao>API Key do Google AI Studio</descricao>
+                <valor>API Key obtida em https://aistudio.google.com/app/apikey</valor>
+                <arquivo>~/.zshrc</arquivo>
+                <comando>export GEMINI_API_KEY="sua-api-key-aqui"</comando>
+            </variavel_ambiente>
+
+            <variavel_ambiente id="ENV_MACOS_02" nome="GEMINI_MODEL">
+                <descricao>Modelo padrão do Gemini</descricao>
+                <valor_padrao>gemini-2.0-flash-exp</valor_padrao>
+                <valores_alternativos>
+                    <valor>gemini-1.5-pro</valor>
+                    <valor>gemini-1.5-flash</valor>
+                    <valor>gemini-2.0-flash-exp</valor>
+                </valores_alternativos>
+            </variavel_ambiente>
+        </configuracao>
+
+        <uso_basico>
+            <comando id="USE_MACOS_01" nome="Iniciar REPL">
+                <descricao>Iniciar interface REPL interativa</descricao>
+                <comando>gemini</comando>
+                <comando_variante>gemini repl</comando_variante>
+                <saida_esperada>Interface REPL interativa com prompt do Gemini</saida_esperada>
+            </comando>
+
+            <comando id="USE_MACOS_02" nome="Executar comando único">
+                <descricao>Executar comando único sem entrar no REPL</descricao>
+                <comando>gemini "explicar o que é Python"</comando>
+                <saida_esperada>Resposta do modelo Gemini</saida_esperada>
+            </comando>
+
+            <comando id="USE_MACOS_03" nome="Verificar versão">
+                <descricao>Verificar versão instalada</descricao>
+                <comando>gemini --version</comando>
+                <comando_alternativo>gemini -v</comando_alternativo>
+            </comando>
+
+            <comando id="USE_MACOS_04" nome="Ajuda">
+                <descricao>Mostrar ajuda e comandos disponíveis</descricao>
+                <comando>gemini --help</comando>
+                <comando_alternativo>gemini help</comando_alternativo>
+            </comando>
+        </uso_basico>
+
+        <troubleshooting>
+            <problema id="PROB_GEMINI_MACOS_01">
+                <sintoma>Erro: "command not found: gemini"</sintoma>
+                <causa_possivel>Gemini CLI não está instalado ou não está no PATH</causa_possivel>
+                <solucao>
+                    <passo ordem="1">Verificar instalação: npm list -g @google/gemini-cli</passo>
+                    <passo ordem="2">Reinstalar: npm install -g @google/gemini-cli</passo>
+                    <passo ordem="3">Verificar PATH: echo $PATH | grep node</passo>
+                    <passo ordem="4">Adicionar ao PATH se necessário: export PATH="/opt/homebrew/bin:$PATH"</passo>
+                </solucao>
+            </problema>
+
+            <problema id="PROB_GEMINI_MACOS_02">
+                <sintoma>Erro: "API key not found"</sintoma>
+                <causa_possivel>API Key não configurada ou variável de ambiente não carregada</causa_possivel>
+                <solucao>
+                    <passo ordem="1">Verificar variável: echo $GEMINI_API_KEY</passo>
+                    <passo ordem="2">Carregar configuração: source ~/.zshrc</passo>
+                    <passo ordem="3">Configurar manualmente: export GEMINI_API_KEY="sua-key"</passo>
+                    <passo ordem="4">Verificar arquivo de config: cat ~/.gemini/config.json</passo>
+                </solucao>
+            </problema>
+
+            <problema id="PROB_GEMINI_MACOS_03">
+                <sintoma>Erro: "Permission denied" ao executar</sintoma>
+                <causa_possivel>Problemas de permissão com npm global ou Node.js</causa_possivel>
+                <solucao>
+                    <passo ordem="1">Verificar permissões: ls -la $(npm config get prefix)</passo>
+                    <passo ordem="2">Corrigir permissões: sudo chown -R $(whoami) $(npm config get prefix)/{lib/node_modules,bin,share}</passo>
+                    <passo ordem="3">Ou usar nvm para gerenciar Node.js</passo>
+                </solucao>
+            </problema>
+        </troubleshooting>
+    </sistema>
+
+    <!-- ========================================================================
+         SEÇÃO 3: UBUNTU (Linux)
+         ======================================================================== -->
+    
+    <sistema nome="ubuntu" tipo="servidor" arquitetura="x86_64">
+        <identificacao>
+            <nome_completo>Ubuntu Linux (LTS)</nome_completo>
+            <arquitetura_cpu>x86_64 (amd64)</arquitetura_cpu>
+            <shell_padrao>bash</shell_padrao>
+            <gerenciador_pacotes>apt, npm, pnpm</gerenciador_pacotes>
+            <init_system>systemd</init_system>
+        </identificacao>
+
+        <versoes_suportadas>
+            <versao id="UBUNTU_22_04">
+                <codigo>22.04 LTS</codigo>
+                <nome>Jammy Jellyfish</nome>
+                <status>Recomendado</status>
+            </versao>
+
+            <versao id="UBUNTU_24_04">
+                <codigo>24.04 LTS</codigo>
+                <nome>Noble Numbat</nome>
+                <status>Mais recente</status>
+            </versao>
+        </versoes_suportadas>
+
+        <requisitos_sistema>
+            <requisito id="REQ_GEMINI_UBUNTU_01" nivel="CRITICO">
+                <tipo>Sistema Operacional</tipo>
+                <valor_minimo>Ubuntu 20.04 LTS</valor_minimo>
+                <valor_recomendado>Ubuntu 22.04 LTS ou 24.04 LTS</valor_recomendado>
+                <comando_verificacao>lsb_release -a</comando_verificacao>
+            </requisito>
+
+            <requisito id="REQ_GEMINI_UBUNTU_02" nivel="CRITICO">
+                <tipo>Node.js</tipo>
+                <valor_minimo>Node.js 18.x ou superior</valor_minimo>
+                <valor_recomendado>Node.js 20.x LTS</valor_recomendado>
+                <comando_verificacao>node --version</comando_verificacao>
+            </requisito>
+
+            <requisito id="REQ_GEMINI_UBUNTU_03" nivel="CRITICO">
+                <tipo>Google Cloud API Key</tipo>
+                <valor_requerido>API Key do Google AI Studio</valor_requerido>
+            </requisito>
+
+            <requisito id="REQ_GEMINI_UBUNTU_04" nivel="ALTO">
+                <tipo>Memória RAM</tipo>
+                <valor_minimo>2 GB</valor_minimo>
+                <valor_recomendado>4 GB ou superior</valor_recomendado>
+            </requisito>
+
+            <requisito id="REQ_GEMINI_UBUNTU_05" nivel="CRITICO">
+                <tipo>Acesso Root/Sudo</tipo>
+                <valor_requerido>Usuário com privilégios sudo</valor_requerido>
+            </requisito>
+        </requisitos_sistema>
+
+        <instalacao>
+            <etapa id="INST_UBUNTU_01" ordem="1">
+                <nome>Instalação do Node.js via NodeSource</nome>
+                <comando>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Verificar se Node.js já está instalado
+if command -v node &> /dev/null; then
+    NODE_VERSION=$(node --version | cut -d'v' -f2 | cut -d'.' -f1)
+    if [[ "$NODE_VERSION" -ge 18 ]]; then
+        echo "✅ Node.js já instalado: $(node --version)"
+        exit 0
+    fi
+fi
+
+# Instalar Node.js 20.x LTS via NodeSource
+echo "📦 Instalando Node.js 20.x LTS..."
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# Verificar instalação
+node --version
+npm --version
+                    </script>
+                </comando>
+                <validacao>node --version deve retornar v20.x.x ou superior</validacao>
+            </etapa>
+
+            <etapa id="INST_UBUNTU_02" ordem="2">
+                <nome>Instalação do Gemini CLI via NPM</nome>
+                <comando>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Instalar Gemini CLI globalmente
+echo "📦 Instalando Gemini CLI via npm..."
+sudo npm install -g @google/gemini-cli
+
+# Verificar instalação
+gemini --version
+
+# Verificar localização
+which gemini
+                    </script>
+                </comando>
+                <validacao>gemini --version deve retornar versão do CLI</validacao>
+            </etapa>
+
+            <etapa id="INST_UBUNTU_03" ordem="3">
+                <nome>Instalação via PNPM (Alternativa)</nome>
+                <comando>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Instalar pnpm globalmente
+echo "📦 Instalando pnpm..."
+sudo npm install -g pnpm
+
+# Instalar Gemini CLI via pnpm
+sudo pnpm add -g @google/gemini-cli
+
+# Verificar
+gemini --version
+                    </script>
+                </comando>
+                <nota>Método alternativo caso prefira usar pnpm</nota>
+            </etapa>
+
+            <etapa id="INST_UBUNTU_04" ordem="4">
+                <nome>Instalação a partir do Código Fonte</nome>
+                <comando>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Criar diretório de desenvolvimento
+mkdir -p ~/Developer
+cd ~/Developer
+
+# Clonar repositório
+if [[ ! -d "gemini-cli" ]]; then
+    git clone https://github.com/google-gemini/gemini-cli.git
+    cd gemini-cli
+else
+    cd gemini-cli
+    git pull origin main
+fi
+
+# Instalar dependências
+npm install
+
+# Build do projeto
+npm run build
+
+# Link global (requer sudo ou configuração de permissões)
+sudo npm link
+
+# Verificar
+gemini --version
+                    </script>
+                </comando>
+                <nota>Recomendado para desenvolvimento ou versão mais recente</nota>
+            </etapa>
+        </instalacao>
+
+        <autenticacao>
+            <metodo id="AUTH_UBUNTU_01" nome="Autenticação com API Key" ordem="1">
+                <descricao>Configurar API Key do Google AI Studio</descricao>
+                <comando>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Solicitar API Key
+echo "🔑 Configurando API Key do Google AI Studio..."
+read -sp "Cole sua API Key: " API_KEY
+echo
+
+# Adicionar ao ~/.bashrc
+if ! grep -q "GEMINI_API_KEY" ~/.bashrc; then
+    echo "export GEMINI_API_KEY=\"$API_KEY\"" >> ~/.bashrc
+    echo "✅ API Key adicionada ao ~/.bashrc"
+else
+    echo "⚠️  GEMINI_API_KEY já existe em ~/.bashrc"
+fi
+
+# Exportar para sessão atual
+export GEMINI_API_KEY="$API_KEY"
+
+# Carregar configuração
+source ~/.bashrc
+
+echo "✅ API Key configurada"
+                    </script>
+                </comando>
+            </metodo>
+
+            <metodo id="AUTH_UBUNTU_02" nome="Autenticação com Google Cloud (Headless)" ordem="2">
+                <descricao>Usar Service Account para autenticação sem interação</descricao>
+                <comando>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Instalar Google Cloud SDK
+if ! command -v gcloud &> /dev/null; then
+    echo "📦 Instalando Google Cloud SDK..."
+    curl https://sdk.cloud.google.com | bash
+    exec -l $SHELL
+    gcloud init
+fi
+
+# Autenticar com Service Account
+read -p "Caminho para arquivo de Service Account JSON: " SA_FILE
+
+if [[ -f "$SA_FILE" ]]; then
+    gcloud auth activate-service-account --key-file="$SA_FILE"
+    gcloud auth application-default login --no-launch-browser
+    echo "✅ Autenticação configurada"
+else
+    echo "❌ Arquivo não encontrado: $SA_FILE"
+    exit 1
+fi
+                    </script>
+                </comando>
+                <nota>Recomendado para ambientes VPS/headless</nota>
+            </metodo>
+        </autenticacao>
+
+        <configuracao>
+            <arquivo id="CONFIG_UBUNTU_01" nome="Configuração Global" localizacao="~/.gemini/config.json">
+                <descricao>Arquivo de configuração global</descricao>
+                <comando_criacao>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Criar diretório de configuração
+mkdir -p ~/.gemini
+
+# Criar arquivo de configuração
+cat > ~/.gemini/config.json << 'EOF'
+{
+  "apiKey": "${GEMINI_API_KEY}",
+  "defaultModel": "gemini-2.0-flash-exp",
+  "theme": "default",
+  "trustedFolders": [
+    "~/Developer",
+    "~/Documents"
+  ],
+  "extensions": [],
+  "telemetry": true,
+  "tokenCaching": true
+}
+EOF
+
+# Substituir variável de ambiente se existir
+if [[ -n "${GEMINI_API_KEY:-}" ]]; then
+    sed -i "s/\${GEMINI_API_KEY}/$GEMINI_API_KEY/g" ~/.gemini/config.json
+fi
+
+echo "✅ Configuração criada em ~/.gemini/config.json"
+                    </script>
+                </comando_criacao>
+            </arquivo>
+
+            <variavel_ambiente id="ENV_UBUNTU_01" nome="GEMINI_API_KEY">
+                <descricao>API Key do Google AI Studio</descricao>
+                <arquivo>~/.bashrc</arquivo>
+                <comando>export GEMINI_API_KEY="sua-api-key-aqui"</comando>
+            </variavel_ambiente>
+        </configuracao>
+
+        <servico_systemd>
+            <arquivo id="SYSTEMD_01" nome="Serviço Gemini CLI (Opcional)" localizacao="/etc/systemd/system/gemini-cli.service">
+                <descricao>Serviço systemd para executar Gemini CLI como daemon</descricao>
+                <conteudo>
+[Unit]
+Description=Gemini CLI Service
+After=network.target
+
+[Service]
+Type=simple
+User=seu-usuario
+Environment="GEMINI_API_KEY=SUA_API_KEY_AQUI"
+ExecStart=/usr/bin/gemini repl
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+                </conteudo>
+                <comando_criacao>
+                    <script>
+#!/bin/bash
+set -euo pipefail
+
+# Criar arquivo de serviço
+sudo tee /etc/systemd/system/gemini-cli.service > /dev/null <<EOF
+[Unit]
+Description=Gemini CLI Service
+After=network.target
+
+[Service]
+Type=simple
+User=$USER
+Environment="GEMINI_API_KEY=${GEMINI_API_KEY}"
+ExecStart=$(which gemini) repl
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+# Recarregar systemd
+sudo systemctl daemon-reload
+
+# Habilitar serviço (opcional)
+# sudo systemctl enable gemini-cli.service
+# sudo systemctl start gemini-cli.service
+
+echo "✅ Serviço systemd criado (não habilitado por padrão)"
+                    </script>
+                </comando_criacao>
+                <nota>Serviço opcional para execução em background</nota>
+            </arquivo>
+        </servico_systemd>
+
+        <uso_basico>
+            <comando id="USE_UBUNTU_01" nome="Iniciar REPL">
+                <descricao>Iniciar interface REPL interativa</descricao>
+                <comando>gemini</comando>
+            </comando>
+
+            <comando id="USE_UBUNTU_02" nome="Executar comando único">
+                <descricao>Executar comando único</descricao>
+                <comando>gemini "explicar o que é Docker"</comando>
+            </comando>
+        </uso_basico>
+
+        <troubleshooting>
+            <problema id="PROB_GEMINI_UBUNTU_01">
+                <sintoma>Erro: "EACCES: permission denied" ao instalar globalmente</sintoma>
+                <causa_possivel>Problemas de permissão com npm global</causa_possivel>
+                <solucao>
+                    <passo ordem="1">Configurar prefix do npm: npm config set prefix ~/.local</passo>
+                    <passo ordem="2">Adicionar ao PATH: echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc</passo>
+                    <passo ordem="3">Instalar sem sudo: npm install -g @google/gemini-cli</passo>
+                    <passo ordem="4">Ou usar sudo: sudo npm install -g @google/gemini-cli</passo>
+                </solucao>
+            </problema>
+
+            <problema id="PROB_GEMINI_UBUNTU_02">
+                <sintoma>Node.js versão antiga</sintoma>
+                <causa_possivel>Repositório padrão do Ubuntu tem Node.js antigo</causa_possivel>
+                <solucao>
+                    <passo ordem="1">Remover Node.js antigo: sudo apt remove nodejs npm</passo>
+                    <passo ordem="2">Instalar NodeSource: curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -</passo>
+                    <passo ordem="3">Instalar Node.js: sudo apt-get install -y nodejs</passo>
+                </solucao>
+            </problema>
+        </troubleshooting>
+    </sistema>
+
+    <!-- ========================================================================
+         SEÇÃO 4: FERRAMENTAS E RECURSOS
+         ======================================================================== -->
+    
+    <ferramentas>
+        <ferramenta id="TOOL_01" nome="read_file">
+            <descricao>Ler conteúdo de arquivo</descricao>
+            <uso>Disponível automaticamente no REPL</uso>
+            <exemplo>No REPL: "leia o arquivo README.md"</exemplo>
+        </ferramenta>
+
+        <ferramenta id="TOOL_02" nome="write_file">
+            <descricao>Escrever conteúdo em arquivo</descricao>
+            <uso>Disponível automaticamente no REPL</uso>
+            <exemplo>No REPL: "crie um arquivo teste.txt com o conteúdo 'Hello World'"</exemplo>
+        </ferramenta>
+
+        <ferramenta id="TOOL_03" nome="read_many_files">
+            <descricao>Ler múltiplos arquivos de uma vez</descricao>
+            <uso>Útil para análise de código em múltiplos arquivos</uso>
+        </ferramenta>
+
+        <ferramenta id="TOOL_04" nome="run_shell_command">
+            <descricao>Executar comandos shell</descricao>
+            <uso>Permite executar comandos do sistema dentro do REPL</uso>
+            <exemplo>No REPL: "execute ls -la na pasta atual"</exemplo>
+        </ferramenta>
+
+        <ferramenta id="TOOL_05" nome="web_fetch">
+            <descricao>Buscar conteúdo de URLs</descricao>
+            <uso>Fazer requisições HTTP dentro do REPL</uso>
+        </ferramenta>
+
+        <ferramenta id="TOOL_06" nome="google_web_search">
+            <descricao>Busca na web via Google</descricao>
+            <uso>Realizar buscas na internet</uso>
+        </ferramenta>
+
+        <ferramenta id="TOOL_07" nome="save_memory">
+            <descricao>Salvar memórias para contexto persistente</descricao>
+            <uso>Armazenar informações para uso futuro</uso>
+        </ferramenta>
+
+        <ferramenta id="TOOL_08" nome="write_todos">
+            <descricao>Criar lista de tarefas</descricao>
+            <uso>Gerenciar tarefas dentro do REPL</uso>
+        </ferramenta>
+    </ferramentas>
+
+    <!-- ========================================================================
+         SEÇÃO 5: CHECKLIST DE VALIDAÇÃO
+         ======================================================================== -->
+    
+    <checklist_validacao>
+        <checklist nome="macos_silicon">
+            <item id="CHECK_GEMINI_MACOS_01">
+                <descricao>Node.js 18+ instalado</descricao>
+                <comando>node --version</comando>
+            </item>
+
+            <item id="CHECK_GEMINI_MACOS_02">
+                <descricao>npm ou pnpm instalado</descricao>
+                <comando>npm --version || pnpm --version</comando>
+            </item>
+
+            <item id="CHECK_GEMINI_MACOS_03">
+                <descricao>Gemini CLI instalado</descricao>
+                <comando>gemini --version</comando>
+            </item>
+
+            <item id="CHECK_GEMINI_MACOS_04">
+                <descricao>API Key configurada</descricao>
+                <comando>echo $GEMINI_API_KEY</comando>
+            </item>
+
+            <item id="CHECK_GEMINI_MACOS_05">
+                <descricao>REPL funciona</descricao>
+                <comando>gemini "teste"</comando>
+            </item>
+        </checklist>
+
+        <checklist nome="ubuntu">
+            <item id="CHECK_GEMINI_UBUNTU_01">
+                <descricao>Node.js 18+ instalado</descricao>
+                <comando>node --version</comando>
+            </item>
+
+            <item id="CHECK_GEMINI_UBUNTU_02">
+                <descricao>npm instalado</descricao>
+                <comando>npm --version</comando>
+            </item>
+
+            <item id="CHECK_GEMINI_UBUNTU_03">
+                <descricao>Gemini CLI instalado</descricao>
+                <comando>gemini --version</comando>
+            </item>
+
+            <item id="CHECK_GEMINI_UBUNTU_04">
+                <descricao>API Key configurada</descricao>
+                <comando>echo $GEMINI_API_KEY</comando>
+            </item>
+
+            <item id="CHECK_GEMINI_UBUNTU_05">
+                <descricao>REPL funciona</descricao>
+                <comando>gemini "teste"</comando>
+            </item>
+        </checklist>
+    </checklist_validacao>
+
+    <!-- ========================================================================
+         SEÇÃO 6: METADADOS PARA LLMS
+         ======================================================================== -->
+    
+    <metadados_llm>
+        <formato_estruturado>XML hierárquico com tags semânticas</formato_estruturado>
+        <otimizacoes>
+            <otimizacao>IDs únicos para todos os elementos</otimizacao>
+            <otimizacao>Hierarquia clara com níveis consistentes</otimizacao>
+            <otimizacao>Comandos executáveis completos</otimizacao>
+            <otimizacao>Saídas esperadas documentadas</otimizacao>
+            <otimizacao>Separação clara entre macOS e Ubuntu</otimizacao>
+            <otimizacao>Troubleshooting estruturado</otimizacao>
+            <otimizacao>Múltiplos métodos de instalação documentados</otimizacao>
+        </otimizacoes>
+
+        <instrucoes_interpretacao>
+            <instrucao>
+                <tipo>Parsing</tipo>
+                <descricao>Use IDs únicos (ex: REQ_GEMINI_MACOS_01, INST_UBUNTU_02) para referenciar elementos</descricao>
+            </instrucao>
+
+            <instrucao>
+                <tipo>Comandos</tipo>
+                <descricao>Todos os comandos em tags &lt;script&gt; ou &lt;comando&gt; são executáveis</descricao>
+            </instrucao>
+
+            <instrucao>
+                <tipo>Validação</tipo>
+                <descricao>Use &lt;saida_esperada&gt; e &lt;validacao&gt; para verificar execução</descricao>
+            </instrucao>
+
+            <instrucao>
+                <tipo>Ordem</tipo>
+                <descricao>Respeite atributo 'ordem' nas etapas de instalação</descricao>
+            </instrucao>
+        </instrucoes_interpretacao>
+
+        <referencias_externas>
+            <referencia>
+                <tipo>Repositório GitHub</tipo>
+                <url>https://github.com/google-gemini/gemini-cli</url>
+            </referencia>
+
+            <referencia>
+                <tipo>Documentação Oficial</tipo>
+                <url>https://google-gemini.github.io/gemini-cli/</url>
+            </referencia>
+
+            <referencia>
+                <tipo>Google AI Studio</tipo>
+                <url>https://aistudio.google.com/app/apikey</url>
+            </referencia>
+
+            <referencia>
+                <tipo>Google Cloud Console</tipo>
+                <url>https://console.cloud.google.com/apis/credentials</url>
+            </referencia>
+        </referencias_externas>
+    </metadados_llm>
+</instrucoes_gemini_cli>

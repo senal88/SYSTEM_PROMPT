@@ -1,0 +1,36 @@
+{
+  "timestamp": "2025-10-30T14:05:30Z",
+  "version": "2.0.0",
+  "checks": [
+    {
+      "id": "headers-standard",
+      "description": "Inserir/atualizar headers Last Updated/Version em documentos essenciais",
+      "priority": "high",
+      "targets": [
+        "README-COMPLETE.md",
+        "INDEX.md",
+        "ARCHITECTURE_REPORT.md",
+        "docs/overview.md",
+        "docs/runbooks/*"
+      ]
+    },
+    {
+      "id": "resumo-cleanup-date",
+      "description": "Atualizar RESUMO_CLEANUP_20251029.md para data de hoje",
+      "priority": "high",
+      "targets": ["RESUMO_CLEANUP_20251029.md"]
+    },
+    {
+      "id": "prompts-date-fix",
+      "description": "Corrigir Última Atualização em docs/prompts/sumarizar_versao_final.md",
+      "priority": "high",
+      "targets": ["docs/prompts/sumarizar_versao_final.md"]
+    },
+    {
+      "id": "cursor-rules-packs",
+      "description": "Ampliar .cursorrules com context packs priorizados e exclusões",
+      "priority": "medium",
+      "targets": [".cursorrules"]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "type": "preset",
+  "owner": "automation-1password",
+  "name": "agent-expert-memory",
+  "revision": 1,
+  "description": "Agent Expert em otimização de memória - resolve problemas de esgotamento de RAM em processamento em massa",
+  "tags": ["memory", "optimization", "performance", "batch-processing", "automation"]
+}
+

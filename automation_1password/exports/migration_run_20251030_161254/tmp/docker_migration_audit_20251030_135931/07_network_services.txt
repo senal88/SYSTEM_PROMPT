@@ -1,0 +1,4 @@
+An asterisk (*) denotes that a network service is disabled.
+10/100M LAN
+Thunderbolt Bridge
+Wi-Fi

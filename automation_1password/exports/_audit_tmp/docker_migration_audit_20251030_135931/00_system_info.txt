@@ -1,0 +1,22 @@
+--- sw_vers ---
+ProductName:		macOS
+ProductVersion:		26.0.1
+BuildVersion:		25A362
+
+--- uname -a ---
+Darwin MacBook-Pro.local 25.0.0 Darwin Kernel Version 25.0.0: Wed Sep 17 21:42:08 PDT 2025; root:xnu-12377.1.9~141/RELEASE_ARM64_T8132 arm64
+
+--- sysctl machdep.cpu.brand_string ---
+Apple M4
+
+--- system_profiler SPHardwareDataType (Chip) ---
+Apple M4
+
+--- /usr/bin/arch ---
+arm64
+
+--- brew --version ---
+Homebrew 4.6.19-14-gf69d9a5
+
+--- brew list (colima, lima, docker, etc) ---
+brew: docker 28.5.1

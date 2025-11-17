@@ -1,0 +1,590 @@
+#!/bin/bash
+################################################################################
+# ATLAS CLI - CONFIGURADOR MODERNO
+# Script de configuração e gerenciamento do Atlas CLI
+################################################################################
+
+set -e
+
+# Cores para output
+readonly GREEN='\033[0;32m'
+readonly BLUE='\033[0;34m'
+readonly RED='\033[0;31m'
+readonly YELLOW='\033[1;33m'
+readonly PURPLE='\033[0;35m'
+readonly CYAN='\033[0;36m'
+readonly NC='\033[0m'
+
+# Configurações
+readonly CONFIG_DIR="$HOME/.config/atlas-cli"
+readonly DOTFILES_DIR="$HOME/Dotfiles/atlas-cli"
+readonly LOG_FILE="$CONFIG_DIR/atlas.log"
+
+# Funções de log
+log() { echo -e "${GREEN}[$(date +'%H:%M:%S')]${NC} $1"; }
+warn() { echo -e "${YELLOW}[WARNING]${NC} $1"; }
+error() { echo -e "${RED}[ERROR]${NC} $1"; }
+info() { echo -e "${BLUE}[INFO]${NC} $1"; }
+success() { echo -e "${GREEN}[SUCCESS]${NC} $1"; }
+debug() { echo -e "${PURPLE}[DEBUG]${NC} $1"; }
+
+# Banner
+show_banner() {
+    echo -e "${CYAN}╔══════════════════════════════════════════════════════════════╗"
+    echo -e "║                  ATLAS CLI CONFIGURATOR                       ║"
+    echo -e "║                   OpenAI Atlas Browser                        ║"
+    echo -e "║                    macOS Silicon Edition                       ║"
+    echo -e "╚══════════════════════════════════════════════════════════════╝${NC}"
+    echo ""
+}
+
+# Verificar se Atlas CLI está instalado
+check_atlas_cli() {
+    log "Verificando Atlas CLI..."
+    
+    if ! command -v atlas-cli >/dev/null 2>&1; then
+        error "Atlas CLI não está instalado"
+        info "Execute primeiro: ./install-atlas-cli.sh"
+        exit 1
+    fi
+    
+    local version=$(atlas-cli --version 2>/dev/null || echo "unknown")
+    success "✅ Atlas CLI encontrado: $version"
+}
+
+# Verificar autenticação
+check_authentication() {
+    log "Verificando autenticação..."
+    
+    if atlas-cli status >/dev/null 2>&1; then
+        success "✅ Atlas CLI autenticado"
+        return 0
+    else
+        warn "Atlas CLI não está autenticado"
+        info "Para autenticar:"
+        echo "1. Execute: atlas-cli login"
+        echo "2. Siga as instruções na tela"
+        echo "3. Execute este script novamente"
+        
+        read -p "Deseja tentar autenticar agora? (y/N): " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            atlas-cli login
+            if atlas-cli status >/dev/null 2>&1; then
+                success "✅ Autenticação bem-sucedida"
+            else
+                error "Falha na autenticação"
+                exit 1
+            fi
+        else
+            error "Autenticação necessária para continuar"
+            exit 1
+        fi
+    fi
+}
+
+# Listar extensões disponíveis
+list_available_extensions() {
+    log "Listando extensões disponíveis..."
+    
+    if atlas-cli extensions list >/dev/null 2>&1; then
+        info "Extensões instaladas:"
+        atlas-cli extensions list
+        echo ""
+    else
+        warn "Erro ao listar extensões"
+    fi
+}
+
+# Instalar extensões essenciais
+install_essential_extensions() {
+    log "Instalando extensões essenciais..."
+    
+    local extensions=(
+        "Promptheus"
+        "WebPilot" 
+        "AIPRM"
+        "CodeRunner"
+        "PDFReader"
+        "ImageGenerator"
+    )
+    
+    local success_count=0
+    
+    for ext in "${extensions[@]}"; do
+        info "Instalando: $ext"
+        if atlas-cli extensions install "$ext" >/dev/null 2>&1; then
+            success "✅ $ext instalada"
+            ((success_count++))
+        else
+            warn "⚠️ Falha ao instalar $ext (pode já estar instalada)"
+        fi
+    done
+    
+    info "Extensões instaladas: $success_count/${#extensions[@]}"
+}
+
+# Fixar extensões na barra
+pin_extensions() {
+    log "Fixando extensões na barra..."
+    
+    local extensions=("Promptheus" "WebPilot" "AIPRM")
+    local success_count=0
+    
+    for ext in "${extensions[@]}"; do
+        info "Fixando: $ext"
+        if atlas-cli extensions pin "$ext" >/dev/null 2>&1; then
+            success "✅ $ext fixada"
+            ((success_count++))
+        else
+            warn "⚠️ Falha ao fixar $ext"
+        fi
+    done
+    
+    info "Extensões fixadas: $success_count/${#extensions[@]}"
+}
+
+# Configurar perfil personalizado
+setup_custom_profile() {
+    log "Configurando perfil personalizado..."
+    
+    # Criar perfil personalizado
+    cat > "$CONFIG_DIR/profile.json" << 'EOF'
+{
+  "name": "luiz-sena88",
+  "description": "Perfil personalizado para Luiz Sena",
+  "settings": {
+    "theme": "dark",
+    "language": "pt-BR",
+    "auto_save": true,
+    "notifications": true,
+    "auto_update": true
+  },
+  "extensions": {
+    "pinned": ["Promptheus", "WebPilot", "AIPRM"],
+    "enabled": ["CodeRunner", "PDFReader", "ImageGenerator"]
+  },
+  "shortcuts": {
+    "new_tab": "Cmd+T",
+    "close_tab": "Cmd+W",
+    "reload": "Cmd+R",
+    "dev_tools": "Cmd+Option+I"
+  }
+}
+EOF
+    
+    success "Perfil personalizado criado"
+}
+
+# Configurar atalhos personalizados
+setup_custom_shortcuts() {
+    log "Configurando atalhos personalizados..."
+    
+    cat > "$DOTFILES_DIR/atlas-shortcuts.sh" << 'EOF'
+#!/bin/bash
+# Atalhos personalizados para Atlas CLI
+
+# Função para abrir Atlas com configurações específicas
+atlas-open() {
+    local profile="${1:-default}"
+    echo "🌐 Abrindo Atlas CLI com perfil: $profile"
+    atlas-cli open --profile "$profile"
+}
+
+# Função para criar nova sessão
+atlas-new-session() {
+    echo "🆕 Criando nova sessão Atlas..."
+    atlas-cli session new
+}
+
+# Função para listar sessões ativas
+atlas-sessions() {
+    echo "📋 Sessões ativas:"
+    atlas-cli session list
+}
+
+# Função para fechar sessão específica
+atlas-close-session() {
+    local session_id="$1"
+    if [ -z "$session_id" ]; then
+        echo "❌ ID da sessão necessário"
+        echo "Uso: atlas-close-session <session_id>"
+        return 1
+    fi
+    echo "🔒 Fechando sessão: $session_id"
+    atlas-cli session close "$session_id"
+}
+
+# Função para backup de configurações
+atlas-backup() {
+    local backup_dir="$HOME/Backups/atlas-cli"
+    local timestamp=$(date +"%Y%m%d_%H%M%S")
+    
+    echo "💾 Fazendo backup das configurações..."
+    mkdir -p "$backup_dir"
+    
+    cp -r "$HOME/.config/atlas-cli" "$backup_dir/atlas-cli_$timestamp"
+    
+    echo "✅ Backup criado em: $backup_dir/atlas-cli_$timestamp"
+}
+
+# Função para restaurar configurações
+atlas-restore() {
+    local backup_path="$1"
+    
+    if [ -z "$backup_path" ]; then
+        echo "❌ Caminho do backup necessário"
+        echo "Uso: atlas-restore <backup_path>"
+        return 1
+    fi
+    
+    if [ ! -d "$backup_path" ]; then
+        echo "❌ Backup não encontrado: $backup_path"
+        return 1
+    fi
+    
+    echo "🔄 Restaurando configurações de: $backup_path"
+    cp -r "$backup_path"/* "$HOME/.config/atlas-cli/"
+    
+    echo "✅ Configurações restauradas"
+}
+
+# Função para limpeza
+atlas-cleanup() {
+    echo "🧹 Limpando arquivos temporários..."
+    
+    # Limpar logs antigos
+    find "$HOME/.config/atlas-cli" -name "*.log" -mtime +7 -delete 2>/dev/null || true
+    
+    # Limpar cache
+    rm -rf "$HOME/.cache/atlas-cli" 2>/dev/null || true
+    
+    echo "✅ Limpeza concluída"
+}
+
+# Função para diagnóstico completo
+atlas-diagnose() {
+    echo "🔍 Diagnóstico do Atlas CLI"
+    echo "=========================="
+    
+    # Verificar instalação
+    if command -v atlas-cli >/dev/null 2>&1; then
+        echo "✅ Atlas CLI instalado: $(atlas-cli --version 2>/dev/null || echo 'unknown')"
+    else
+        echo "❌ Atlas CLI não instalado"
+        return 1
+    fi
+    
+    # Verificar autenticação
+    if atlas-cli status >/dev/null 2>&1; then
+        echo "✅ Atlas CLI autenticado"
+    else
+        echo "❌ Atlas CLI não autenticado"
+    fi
+    
+    # Verificar configurações
+    if [ -d "$HOME/.config/atlas-cli" ]; then
+        echo "✅ Diretório de configuração existe"
+    else
+        echo "❌ Diretório de configuração não encontrado"
+    fi
+    
+    # Verificar extensões
+    echo ""
+    echo "📦 Extensões instaladas:"
+    atlas-cli extensions list 2>/dev/null || echo "Erro ao listar extensões"
+    
+    echo ""
+    echo "📌 Extensões fixadas:"
+    atlas-cli extensions pinned 2>/dev/null || echo "Erro ao listar extensões fixadas"
+}
+EOF
+    
+    chmod +x "$DOTFILES_DIR/atlas-shortcuts.sh"
+    success "Atalhos personalizados criados"
+}
+
+# Configurar integração com Raycast
+setup_raycast_integration() {
+    log "Configurando integração com Raycast..."
+    
+    # Criar script para Raycast
+    cat > "$DOTFILES_DIR/raycast-atlas.sh" << 'EOF'
+#!/bin/bash
+# Raycast integration for Atlas CLI
+
+# Required parameters:
+# @raycast.title Atlas CLI Control
+# @raycast.author Luiz Sena
+# @raycast.description Control Atlas CLI from Raycast
+# @raycast.mode full
+# @raycast.packageName Atlas CLI
+# @raycast.icon 🌐
+
+# @raycast.argument1 { "type": "text", "placeholder": "Action (open, status, extensions, pin)", "optional": true }
+
+action="${1:-status}"
+
+case "$action" in
+    "open")
+        echo "🌐 Abrindo Atlas CLI..."
+        atlas-cli open
+        ;;
+    "status")
+        echo "🔍 Status do Atlas CLI:"
+        atlas-cli status
+        ;;
+    "extensions")
+        echo "📦 Extensões instaladas:"
+        atlas-cli extensions list
+        ;;
+    "pin")
+        echo "📌 Fixando extensões..."
+        atlas-cli extensions pin Promptheus
+        atlas-cli extensions pin WebPilot
+        atlas-cli extensions pin AIPRM
+        echo "✅ Extensões fixadas!"
+        ;;
+    *)
+        echo "❌ Ação inválida: $action"
+        echo ""
+        echo "💡 Ações disponíveis:"
+        echo "  open        - Abrir Atlas CLI"
+        echo "  status      - Verificar status"
+        echo "  extensions  - Listar extensões"
+        echo "  pin         - Fixar extensões"
+        ;;
+esac
+EOF
+    
+    chmod +x "$DOTFILES_DIR/raycast-atlas.sh"
+    success "Integração com Raycast criada"
+}
+
+# Configurar monitoramento
+setup_monitoring() {
+    log "Configurando monitoramento..."
+    
+    # Criar script de monitoramento
+    cat > "$DOTFILES_DIR/atlas-monitor.sh" << 'EOF'
+#!/bin/bash
+# Monitor de Atlas CLI
+
+LOG_FILE="$HOME/.config/atlas-cli/atlas.log"
+PID_FILE="$HOME/.config/atlas-cli/atlas.pid"
+
+start_monitoring() {
+    echo "🔍 Iniciando monitoramento do Atlas CLI..."
+    
+    # Verificar se já está rodando
+    if [ -f "$PID_FILE" ] && kill -0 "$(cat "$PID_FILE")" 2>/dev/null; then
+        echo "⚠️ Monitor já está rodando (PID: $(cat "$PID_FILE"))"
+        return 1
+    fi
+    
+    # Iniciar monitor em background
+    nohup bash -c '
+        while true; do
+            if ! atlas-cli status >/dev/null 2>&1; then
+                echo "$(date): Atlas CLI não está respondendo" >> "$LOG_FILE"
+            fi
+            sleep 30
+        done
+    ' >/dev/null 2>&1 &
+    
+    echo $! > "$PID_FILE"
+    echo "✅ Monitor iniciado (PID: $!)"
+}
+
+stop_monitoring() {
+    echo "🛑 Parando monitoramento..."
+    
+    if [ -f "$PID_FILE" ]; then
+        local pid=$(cat "$PID_FILE")
+        if kill -0 "$pid" 2>/dev/null; then
+            kill "$pid"
+            rm -f "$PID_FILE"
+            echo "✅ Monitor parado"
+        else
+            echo "⚠️ Monitor não estava rodando"
+            rm -f "$PID_FILE"
+        fi
+    else
+        echo "⚠️ Arquivo PID não encontrado"
+    fi
+}
+
+status_monitoring() {
+    if [ -f "$PID_FILE" ] && kill -0 "$(cat "$PID_FILE")" 2>/dev/null; then
+        echo "✅ Monitor ativo (PID: $(cat "$PID_FILE"))"
+    else
+        echo "❌ Monitor inativo"
+    fi
+}
+
+case "${1:-status}" in
+    "start")
+        start_monitoring
+        ;;
+    "stop")
+        stop_monitoring
+        ;;
+    "restart")
+        stop_monitoring
+        sleep 2
+        start_monitoring
+        ;;
+    "status")
+        status_monitoring
+        ;;
+    *)
+        echo "Uso: $0 {start|stop|restart|status}"
+        ;;
+esac
+EOF
+    
+    chmod +x "$DOTFILES_DIR/atlas-monitor.sh"
+    success "Sistema de monitoramento criado"
+}
+
+# Testar configuração
+test_configuration() {
+    log "Testando configuração..."
+    
+    # Testar comando básico
+    if ! atlas-cli --version >/dev/null 2>&1; then
+        error "Falha no teste básico do Atlas CLI"
+        return 1
+    fi
+    
+    # Testar status
+    if ! atlas-cli status >/dev/null 2>&1; then
+        warn "Atlas CLI não autenticado (teste de status falhou)"
+    fi
+    
+    # Testar listagem de extensões
+    if ! atlas-cli extensions list >/dev/null 2>&1; then
+        warn "Falha ao listar extensões"
+    fi
+    
+    success "Teste de configuração concluído"
+}
+
+# Mostrar resumo
+show_summary() {
+    echo ""
+    echo -e "${CYAN}╔══════════════════════════════════════════════════════════════╗"
+    echo -e "║                  CONFIGURAÇÃO CONCLUÍDA                       ║"
+    echo -e "╚══════════════════════════════════════════════════════════════╝${NC}"
+    echo ""
+    
+    info "📁 Arquivos criados:"
+    echo "  • $CONFIG_DIR/profile.json"
+    echo "  • $DOTFILES_DIR/atlas-shortcuts.sh"
+    echo "  • $DOTFILES_DIR/raycast-atlas.sh"
+    echo "  • $DOTFILES_DIR/atlas-monitor.sh"
+    echo ""
+    
+    info "🔧 Comandos úteis:"
+    echo "  • atlas-open              - Abrir Atlas CLI"
+    echo "  • atlas-new-session       - Nova sessão"
+    echo "  • atlas-sessions          - Listar sessões"
+    echo "  • atlas-backup            - Backup configurações"
+    echo "  • atlas-restore           - Restaurar configurações"
+    echo "  • atlas-cleanup           - Limpeza"
+    echo "  • atlas-diagnose          - Diagnóstico completo"
+    echo ""
+    
+    info "📱 Integração Raycast:"
+    echo "  • Copie: $DOTFILES_DIR/raycast-atlas.sh"
+    echo "  • Para: ~/Library/Application Support/Raycast/Scripts/"
+    echo ""
+    
+    info "🔍 Monitoramento:"
+    echo "  • $DOTFILES_DIR/atlas-monitor.sh start"
+    echo "  • $DOTFILES_DIR/atlas-monitor.sh stop"
+    echo "  • $DOTFILES_DIR/atlas-monitor.sh status"
+    echo ""
+    
+    success "🎉 Atlas CLI configurado com sucesso!"
+}
+
+# Menu principal
+show_menu() {
+    echo ""
+    echo "🔧 Menu de Configuração Atlas CLI"
+    echo "================================="
+    echo ""
+    echo "1. Verificar instalação"
+    echo "2. Verificar autenticação"
+    echo "3. Listar extensões"
+    echo "4. Instalar extensões essenciais"
+    echo "5. Fixar extensões"
+    echo "6. Configurar perfil personalizado"
+    echo "7. Configurar atalhos personalizados"
+    echo "8. Configurar integração Raycast"
+    echo "9. Configurar monitoramento"
+    echo "10. Testar configuração"
+    echo "11. Executar tudo (recomendado)"
+    echo "0. Sair"
+    echo ""
+}
+
+# Executar tudo
+run_all() {
+    show_banner
+    check_atlas_cli
+    check_authentication
+    list_available_extensions
+    install_essential_extensions
+    pin_extensions
+    setup_custom_profile
+    setup_custom_shortcuts
+    setup_raycast_integration
+    setup_monitoring
+    test_configuration
+    show_summary
+}
+
+# --- Execução Principal ---
+main() {
+    if [ $# -eq 0 ]; then
+        show_menu
+        read -p "Escolha uma opção: " choice
+        case $choice in
+            1) check_atlas_cli ;;
+            2) check_authentication ;;
+            3) list_available_extensions ;;
+            4) install_essential_extensions ;;
+            5) pin_extensions ;;
+            6) setup_custom_profile ;;
+            7) setup_custom_shortcuts ;;
+            8) setup_raycast_integration ;;
+            9) setup_monitoring ;;
+            10) test_configuration ;;
+            11) run_all ;;
+            0) echo "Saindo..."; exit 0 ;;
+            *) echo "Opção inválida"; exit 1 ;;
+        esac
+    else
+        case "$1" in
+            "install") check_atlas_cli ;;
+            "auth") check_authentication ;;
+            "extensions") list_available_extensions ;;
+            "install-ext") install_essential_extensions ;;
+            "pin") pin_extensions ;;
+            "profile") setup_custom_profile ;;
+            "shortcuts") setup_custom_shortcuts ;;
+            "raycast") setup_raycast_integration ;;
+            "monitor") setup_monitoring ;;
+            "test") test_configuration ;;
+            "all") run_all ;;
+            *) echo "Uso: $0 [install|auth|extensions|install-ext|pin|profile|shortcuts|raycast|monitor|test|all]"; exit 1 ;;
+        esac
+    fi
+}
+
+# Executar se chamado diretamente
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+    main "$@"
+fi

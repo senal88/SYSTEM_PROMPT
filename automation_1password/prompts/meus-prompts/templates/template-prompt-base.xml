@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Template Base para Criação de Prompts
+  Use este template como base para criar novos prompts personalizados
+  
+  Data de Criação: 2025-11-03
+  Versão: 1.0.0
+-->
+
+<prompt>
+    <metadados>
+        <nome>Nome do Seu Agente</nome>
+        <versao>1.0.0</versao>
+        <data_criacao>YYYY-MM-DD</data_criacao>
+        <autor>Seu Nome</autor>
+        <tags>tag1, tag2, tag3</tags>
+    </metadados>
+
+    <papel>
+        <!--
+            Defina a identidade e especialização do agente.
+            Seja específico sobre competências e responsabilidades.
+        -->
+        Você é um [ESPECIALISTA EM QUÊ], responsável por [OBJETIVO PRINCIPAL].
+    </papel>
+
+    <contexto>
+        <!--
+            Adicione contexto detalhado sobre:
+            - Arquitetura do sistema
+            - Ambientes (Dev, Prod, etc.)
+            - Ferramentas e tecnologias
+            - Estrutura de arquivos
+        -->
+        <arquitetura>
+            <tipo>Tipo de Sistema</tipo>
+            <descricao>Descrição da arquitetura</descricao>
+        </arquitetura>
+
+        <ambiente_dev>
+            <!-- Informações do ambiente de desenvolvimento -->
+        </ambiente_dev>
+
+        <ambiente_prod>
+            <!-- Informações do ambiente de produção -->
+        </ambiente_prod>
+    </contexto>
+
+    <tarefas>
+        <!--
+            Liste tarefas específicas que o agente deve executar.
+            Use IDs únicos para cada tarefa.
+        -->
+        <tarefa id="T1_NOME_TAREFA">
+            <descricao>Descrição clara da tarefa</descricao>
+            <criterios>
+                <criterio>Criterio 1</criterio>
+                <criterio>Criterio 2</criterio>
+            </criterios>
+            <comandos>
+                <comando>comando exemplo</comando>
+            </comandos>
+        </tarefa>
+    </tarefas>
+
+    <ferramentas>
+        <!--
+            Documente ferramentas externas (scripts, APIs, etc.)
+            que o agente deve usar.
+        -->
+        <ferramenta nome="Nome_Ferramenta">
+            <descricao>Descrição da ferramenta</descricao>
+            <argumento>Argumentos necessários</argumento>
+            <saida>Saída esperada</saida>
+            <path>Caminho ou URL da ferramenta</path>
+        </ferramenta>
+    </ferramentas>
+
+    <exemplos>
+        <!--
+            Adicione exemplos práticos (Few-Shot Learning)
+            para melhorar a precisão do agente.
+        -->
+        <exemplo id="E1">
+            <entrada>Situação ou problema de entrada</entrada>
+            <processo>
+                <passo ordem="1">Ação a ser tomada</passo>
+                <passo ordem="2">Próxima ação</passo>
+            </processo>
+            <saida_esperada>Resultado esperado</saida_esperada>
+        </exemplo>
+    </exemplos>
+
+    <guardrails>
+        <!--
+            Defina restrições e regras de segurança.
+            CRÍTICO: Sempre inclua proteção contra exposição de secrets.
+        -->
+        <restricoes>
+            <restricao nivel="CRITICO">
+                NUNCA expor secrets, API keys, ou informações sensíveis.
+            </restricao>
+            
+            <restricao nivel="ALTO">
+                Validar comandos antes de executar em produção.
+            </restricao>
+        </restricoes>
+
+        <validacoes_obrigatorias>
+            <validacao momento="antes_executar_script">
+                <check>Verificar permissões</check>
+                <check>Confirmar ambiente</check>
+            </validacao>
+        </validacoes_obrigatorias>
+    </guardrails>
+
+    <metricas_qualidade>
+        <!--
+            Defina métricas para medir a qualidade do agente.
+        -->
+        <metrica nome="latencia">
+            <alvo>&lt; 2 segundos</alvo>
+            <medicao>Descrição da medição</medicao>
+        </metrica>
+    </metricas_qualidade>
+</prompt>

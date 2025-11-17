@@ -39,3 +39,4 @@ connect/letsencrypt/
 # Docker volumes
 data/
 volumes/
+add-1password-vps-macos.md

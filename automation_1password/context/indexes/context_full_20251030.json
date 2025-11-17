@@ -1,0 +1,145 @@
+{
+  "timestamp": "2025-10-30T14:25:00Z",
+  "version": "2.0.0",
+  "repo_root": "/Users/luiz.sena88/Dotfiles/automation_1password",
+  "llm_guidance": {
+    "purpose": "Manifesto consolidado para ingestão por LLM (contexto completo, referências e metadados).",
+    "priority_order": [
+      "artifacts.audit",
+      "documents.headers_status",
+      "context_packs",
+      "security_policies",
+      "connect_config",
+      "governance"
+    ],
+    "notes": [
+      "Conteúdos sensíveis não são incluídos; utilizar op/op inject/op read para segredos.",
+      "Consumir primeiramente os relatórios de auditoria e o status de headers para garantir consistência de versão."
+    ]
+  },
+  "artifacts": {
+    "audit": {
+      "state_md": "exports/audit_state_20251030_140530.md",
+      "gaps_md": "exports/audit_gaps_20251030_140530.md",
+      "metadata_json": "exports/audit_metadata_20251030_140530.json"
+    },
+    "context_indexes": {
+      "manifest": "context/indexes/context_manifest_20251030.json",
+      "gaps_checklist": "context/indexes/gaps_checklist_20251030.json",
+      "full_manifest": "context/indexes/context_full_20251030.json"
+    },
+    "previous_exports": [
+      "exports/export_full_20251030_112212.md",
+      "exports/metadata_20251030_112252.json"
+    ]
+  },
+  "documents": {
+    "headers_status": {
+      "standard": { "last_updated": "2025-10-30", "version": "2.0.0" },
+      "updated_files": [
+        "README-COMPLETE.md",
+        "INDEX.md",
+        "ARCHITECTURE_REPORT.md",
+        "docs/overview.md",
+        "docs/runbooks/automacao-macos.md",
+        "docs/runbooks/automacao-vps.md",
+        "docs/runbooks/automacao-dual.md",
+        "env/README.md",
+        "docs/README.md",
+        "organized/README.md",
+        "RESUMO_CLEANUP_20251029.md",
+        "docs/prompts/sumarizar_versao_final.md"
+      ]
+    },
+    "key_files": [
+      "README-COMPLETE.md",
+      "INDEX.md",
+      "ARCHITECTURE_REPORT.md",
+      "docs/overview.md",
+      "docs/runbooks/",
+      "connect/docker-compose.yml",
+      "scripts/",
+      "env/",
+      "tokens/"
+    ]
+  },
+  "context_packs": {
+    "priority_high": [
+      "./context/curated/**",
+      "./docs/runbooks/**",
+      "./scripts/**",
+      "./connect/docker-compose.yml"
+    ],
+    "priority_medium": [
+      "./env/*.env",
+      "./templates/**",
+      "./docs/operations/**"
+    ],
+    "exclusions": [
+      "./logs/**",
+      "./connect/data/**",
+      "./tokens/**",
+      "./**/*.sqlite*"
+    ]
+  },
+  "security_policies": {
+    "gitignore_expected": [
+      "connect/credentials.json",
+      "connect/.env",
+      "connect/certs/*",
+      "tokens/*",
+      "*.sqlite*",
+      "logs/*",
+      ".DS_Store"
+    ],
+    "permissions": {
+      "sensitive_files": "600",
+      "scripts": "+x for scripts/**/*.sh"
+    },
+    "1password_cli": {
+      "dev_auth": "eval $(op signin)",
+      "prod_token_var": "OP_SERVICE_ACCOUNT_TOKEN"
+    }
+  },
+  "connect_config": {
+    "compose_file": "connect/docker-compose.yml",
+    "requirements": {
+      "compose_version_min": "3.8",
+      "platform": "linux/arm64",
+      "security": {
+        "cap_drop": ["ALL"],
+        "healthchecks": true,
+        "resource_limits": true,
+        "read_only_volumes_where_possible": true
+      }
+    }
+  },
+  "governance": {
+    "rules_file": ".cursorrules",
+    "principles": [
+      "Apple Silicon como plataforma primária",
+      "NUNCA copiar segredos; usar op/op inject/op read",
+      "Scripts bash com set -euo pipefail e idempotência",
+      "Documentação como código, com headers padronizados"
+    ],
+    "workflows": {
+      "correlacao": [
+        "make update.headers",
+        "make context.index",
+        "make export.context",
+        "validar gaps_checklist"
+      ],
+      "ci": {
+        "monthly_audit": "GitHub Actions para make audit.full (falha se headers ausentes)"
+      }
+    }
+  },
+  "provenance": {
+    "generated_by": "automation_1password audit + cursor workflows",
+    "generated_at": "2025-10-30T14:25:00Z",
+    "notes": [
+      "Este manifesto referencia arquivos fonte ao invés de duplica-los para evitar inconsistência.",
+      "Para conteúdo integral, o consumidor LLM deve ler os paths indicados em artifacts.* e documents.key_files."
+    ]
+  }
+}

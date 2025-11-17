@@ -1,0 +1,6 @@
+{
+  "title": "Google Translate",
+  "searchTemplate": "https://translate.google.com/?sl={argument name=\"source\" default=\"auto\"}&tl={argument name=\"target\"}&text={argument name=\"word\"}",
+  "icon": "🌐",
+  "keyword": "tr"
+}

@@ -1,0 +1,54 @@
+# Cursor Rules - VPS Ubuntu Específico
+
+## AMBIENTE
+- OS: Ubuntu Linux
+- Architecture: x86_64 ou arm64
+- Shell: Bash (padrão) ou Zsh (se instalado)
+- Package Manager: apt
+
+## CONFIGURAÇÕES ESPECÍFICAS
+
+### Paths
+- Python: `/usr/bin/python3` ou via pyenv
+- Node: via nvm ou apt
+- Dotfiles: `~/Dotfiles/` (clone do repo)
+- 1Password: `~/.config/op/`
+
+### Vault Padrão
+- Usar vault `1p_vps` (oa3tidekmeu26nxiier2qbi7v4)
+
+### Serviços
+- Docker: Instalado e configurado
+- Docker Compose: v2+
+- Systemd: Para serviços
+
+## COMANDOS ÚTEIS
+
+```bash
+# 1Password
+op-config-check
+op-signin-auto
+
+# Sistema
+sudo apt update && sudo apt upgrade
+systemctl status <service>
+docker-compose ps
+```
+
+## SEGURANÇA
+
+### SSH
+- Chaves SSH em `~/.ssh/`
+- Config em `~/.ssh/config`
+
+### Firewall
+- UFW configurado
+- Portas necessárias abertas
+
+## DEPLOYMENT
+
+### Scripts de Deploy
+- Localizados em `~/Dotfiles/deployment/`
+- Usar 1Password para secrets
+- Logs em `/var/log/`
+

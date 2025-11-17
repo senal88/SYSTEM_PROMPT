@@ -1,0 +1,62 @@
+{
+  "Python Function with Docstring": {
+    "prefix": "py-func",
+    "body": [
+      "def ${1:function_name}(${2:params}) -> ${3:return_type}:",
+      "    \"\"\"",
+      "    ${4:Description}",
+      "",
+      "    Args:",
+      "        ${2:params}: ${5:Description}",
+      "",
+      "    Returns:",
+      "        ${3:return_type}: ${6:Description}",
+      "    \"\"\"",
+      "    ${7:pass}"
+    ],
+    "description": "Função Python com docstring completa"
+  },
+  "Python Class": {
+    "prefix": "py-class",
+    "body": [
+      "class ${1:ClassName}:",
+      "    \"\"\"${2:Class description}.\"\"\"",
+      "",
+      "    def __init__(self, ${3:params}):",
+      "        \"\"\"Inicializa ${1:ClassName}.\"\"\"",
+      "        ${4:self.attr = params}",
+      "",
+      "    def ${5:method_name}(self) -> ${6:return_type}:",
+      "        \"\"\"${7:Method description}.\"\"\"",
+      "        ${8:pass}"
+    ],
+    "description": "Classe Python com __init__ e método"
+  },
+  "Python Main Guard": {
+    "prefix": "py-main",
+    "body": [
+      "if __name__ == \"__main__\":",
+      "    ${1:main()}"
+    ],
+    "description": "Guard para execução direta"
+  },
+  "Python Type Hints": {
+    "prefix": "py-typing",
+    "body": [
+      "from typing import ${1:Optional, List, Dict}"
+    ],
+    "description": "Import de type hints"
+  },
+  "Python Error Handling": {
+    "prefix": "py-try",
+    "body": [
+      "try:",
+      "    ${1:# Code}",
+      "except ${2:Exception} as e:",
+      "    ${3:# Handle error}",
+      "    raise"
+    ],
+    "description": "Tratamento de exceções"
+  }
+}
+

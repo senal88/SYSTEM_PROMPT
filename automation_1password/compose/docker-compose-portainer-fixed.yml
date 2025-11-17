@@ -1,0 +1,61 @@
+# ============================================================================
+# Portainer - Stack Corrigida e Validada
+# ============================================================================
+# Correções aplicadas:
+# - Docker socket mount correto (read-only)
+# - Rede dedicada para isolamento
+# - Healthcheck adequado
+# - Traefik labels corretos (se usar reverse proxy)
+# - Porta alternativa 9443 (HTTPS) habilitada
+# ============================================================================
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: ${PROJECT_SLUG:-platform}_portainer
+    platform: linux/arm64
+    command: 
+      - -H
+      - unix:///var/run/docker.sock
+      - --admin-password-file
+      - /tmp/portainer_password
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - portainer_data:/data
+      - ./portainer_password.txt:/tmp/portainer_password:ro
+    networks:
+      - portainer_network
+      - app_network
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+      - "9443:9443"
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:9000/api/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.portainer.rule=Host(`portainer.${PRIMARY_DOMAIN}`)"
+      - "traefik.http.routers.portainer.entrypoints=websecure"
+      - "traefik.http.routers.portainer.tls.certresolver=letsencrypt"
+      - "traefik.http.services.portainer.loadbalancer.server.port=9000"
+      - "traefik.http.routers.portainer-https.rule=Host(`portainer.${PRIMARY_DOMAIN}`)"
+      - "traefik.http.routers.portainer-https.entrypoints=websecure"
+      - "traefik.http.routers.portainer-https.tls.certresolver=letsencrypt"
+      - "traefik.http.services.portainer-https.loadbalancer.server.port=9443"
+
+networks:
+  portainer_network:
+    driver: bridge
+    name: ${PROJECT_SLUG:-platform}_portainer_network
+  app_network:
+    external: true
+    name: ${PROJECT_SLUG:-platform}_app_network
+
+volumes:
+  portainer_data:
+    name: ${PROJECT_SLUG:-platform}_portainer_data
+

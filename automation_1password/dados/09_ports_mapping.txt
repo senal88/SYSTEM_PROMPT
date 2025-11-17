@@ -1,0 +1,20 @@
+=== PORTS MAPPED ===
+op-connect-sync	
+op-connect-api	0.0.0.0:8081->8080/tcp, [::]:8081->8080/tcp, 0.0.0.0:8444->8443/tcp, [::]:8444->8443/tcp
+platform_portainer	8000/tcp, 9443/tcp, 0.0.0.0:9000->9000/tcp, [::]:9000->9000/tcp
+platform_n8n	0.0.0.0:5678->5678/tcp, [::]:5678->5678/tcp
+platform_redis	6379/tcp
+platform_postgres	5432/tcp
+platform_traefik	0.0.0.0:80->80/tcp, [::]:80->80/tcp, 0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp
+platform_mongodb	27017/tcp
+platform_chromadb	0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp
+
+=== DOCKER NETWORKS ===
+NAME                      DRIVER
+bridge                    bridge
+compose_app_network       bridge
+connect_net               bridge
+host                      host
+none                      null
+stack-local_traefik_net   bridge
+traefik_net               bridge

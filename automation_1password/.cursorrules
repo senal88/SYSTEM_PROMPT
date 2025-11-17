@@ -1,12 +1,18 @@
 # 1Password Connect Server - Cursor AI Rules
 
+# Last Updated: 2025-10-31
+
+# Version: 2.1.0
+
 ## Project Overview
+
 This is a production-ready 1Password Connect Server deployment for macOS Silicon (M1/M2/M3).
 The project uses Docker Compose for container orchestration and focuses on secure secrets management.
 
 ## Code Style and Conventions
 
 ### Shell Scripts
+
 - Use `#!/bin/bash` with `set -euo pipefail` for all scripts
 - Always quote variables: `"$VARIABLE"`
 - Use meaningful variable names in UPPER_CASE for globals
@@ -15,6 +21,7 @@ The project uses Docker Compose for container orchestration and focuses on secur
 - Use functions for reusable code blocks
 
 ### Docker Compose
+
 - Use version 3.8 or higher
 - Include explicit platform specifications for Apple Silicon: `platform: linux/arm64`
 - Always specify image tags (avoid `:latest` in production)
@@ -23,6 +30,7 @@ The project uses Docker Compose for container orchestration and focuses on secur
 - Include resource limits for production deployments
 
 ### Documentation
+
 - Use Markdown for all documentation
 - Include code examples with proper syntax highlighting
 - Provide step-by-step instructions
@@ -32,6 +40,7 @@ The project uses Docker Compose for container orchestration and focuses on secur
 ## Security Best Practices
 
 ### Secrets Management
+
 - Never commit credentials.json, .env, or certificate files
 - Always use restrictive file permissions (600 for sensitive files)
 - Validate JWT tokens before use
@@ -39,6 +48,7 @@ The project uses Docker Compose for container orchestration and focuses on secur
 - Keep all sensitive files in .gitignore
 
 ### Docker Security
+
 - Run containers with minimal capabilities (`cap_drop: ALL`)
 - Use read-only volumes where possible
 - Implement proper network segmentation
@@ -48,6 +58,7 @@ The project uses Docker Compose for container orchestration and focuses on secur
 ## Apple Silicon Optimizations
 
 ### Performance
+
 - Prioritize ARM64 native images over x86_64/amd64
 - Use VirtioFS for file sharing when available
 - Allocate appropriate resources in Docker Desktop
@@ -55,6 +66,7 @@ The project uses Docker Compose for container orchestration and focuses on secur
 - Use Docker Compose V2 (plugin) for better performance
 
 ### Compatibility
+
 - Test both ARM64 and x86_64 architectures when applicable
 - Include platform specifications in docker-compose.yml
 - Document any architecture-specific requirements
@@ -80,6 +92,7 @@ connect/
 ## Validation and Testing
 
 ### Pre-Deployment Checks
+
 - Verify Docker and Docker Compose installation
 - Check for Apple Silicon architecture
 - Validate credentials.json format (JSON syntax)
@@ -88,6 +101,7 @@ connect/
 - Check file permissions on sensitive files
 
 ### Post-Deployment Validation
+
 - Health check endpoints (`/health`)
 - API authentication tests (`/v1/vaults`)
 - Container status verification
@@ -97,6 +111,7 @@ connect/
 ## Error Handling
 
 ### Script Errors
+
 - Always exit with non-zero status on errors
 - Provide clear, actionable error messages
 - Include troubleshooting hints
@@ -104,6 +119,7 @@ connect/
 - Use colored output for visibility
 
 ### Docker Errors
+
 - Check container logs first
 - Verify environment variables
 - Confirm volume mounts
@@ -113,6 +129,7 @@ connect/
 ## Development Workflow
 
 ### Making Changes
+
 1. Always validate changes in a test environment first
 2. Update documentation when changing configurations
 3. Test on both Intel and Apple Silicon if possible
@@ -120,6 +137,7 @@ connect/
 5. Update version tags appropriately
 
 ### Testing Strategy
+
 1. Run validation script: `./validate-and-deploy.sh`
 2. Check service health: `docker compose ps`
 3. Test API endpoints with curl
@@ -127,6 +145,7 @@ connect/
 5. Monitor logs for warnings/errors
 
 ### Deployment Process
+
 1. Validate all prerequisites
 2. Review security configurations
 3. Run automated validation
@@ -137,45 +156,54 @@ connect/
 ## Common Issues and Solutions
 
 ### Port Already in Use
+
 - Check: `lsof -Pi :8080 -sTCP:LISTEN`
 - Solution: Stop conflicting service or change port
 
 ### Docker Not Running
+
 - Check: `docker info`
 - Solution: Start Docker Desktop application
 
 ### Authentication Failed
+
 - Check: JWT token format and validity
 - Solution: Regenerate token from 1Password dashboard
 
 ### Container Health Check Failed
+
 - Check: `docker compose logs -f`
 - Solution: Verify credentials.json and environment variables
 
 ### Slow Performance on Apple Silicon
+
 - Check: Image architecture in `docker images`
 - Solution: Use ARM64 images, enable VirtioFS
 
 ## API Usage Patterns
 
 ### Health Check
+
 ```bash
 curl http://localhost:8080/health
 ```
 
 ### List Vaults
+
 ```bash
 curl -H "Authorization: Bearer $OP_CONNECT_TOKEN" \
      http://localhost:8080/v1/vaults
 ```
 
 ### Get Items from Vault
+
 ```bash
 curl -H "Authorization: Bearer $OP_CONNECT_TOKEN" \
      http://localhost:8080/v1/vaults/{vault-id}/items
 ```
 
 ### Get Specific Item
+
 ```bash
 curl -H "Authorization: Bearer $OP_CONNECT_TOKEN" \
      http://localhost:8080/v1/vaults/{vault-id}/items/{item-id}
@@ -184,6 +212,7 @@ curl -H "Authorization: Bearer $OP_CONNECT_TOKEN" \
 ## Code Generation Guidelines
 
 ### When Generating Scripts
+
 - Include comprehensive error handling
 - Add helpful comments
 - Use consistent formatting
@@ -191,6 +220,7 @@ curl -H "Authorization: Bearer $OP_CONNECT_TOKEN" \
 - Provide usage examples
 
 ### When Generating Docker Configs
+
 - Specify explicit versions
 - Include health checks
 - Add resource limits
@@ -198,6 +228,7 @@ curl -H "Authorization: Bearer $OP_CONNECT_TOKEN" \
 - Provide examples for different scenarios
 
 ### When Generating Documentation
+
 - Structure with clear headings
 - Include code examples
 - Add troubleshooting sections
@@ -207,11 +238,13 @@ curl -H "Authorization: Bearer $OP_CONNECT_TOKEN" \
 ## Integration Points
 
 ### 1Password CLI
+
 - Use `OP_CONNECT_HOST` environment variable
 - Authenticate with `OP_CONNECT_TOKEN`
 - Reference vaults by ID or name
 
 ### External Applications
+
 - Provide token via environment variable
 - Use HTTPS in production
 - Implement retry logic for transient failures
@@ -221,6 +254,7 @@ curl -H "Authorization: Bearer $OP_CONNECT_TOKEN" \
 ## Maintenance Tasks
 
 ### Regular Updates
+
 - Update Docker images monthly
 - Rotate access tokens quarterly
 - Review and update security configurations
@@ -228,6 +262,7 @@ curl -H "Authorization: Bearer $OP_CONNECT_TOKEN" \
 - Update documentation
 
 ### Monitoring
+
 - Monitor container health
 - Track API response times
 - Log authentication attempts
@@ -235,6 +270,7 @@ curl -H "Authorization: Bearer $OP_CONNECT_TOKEN" \
 - Review logs weekly
 
 ### Backup Strategy
+
 - Backup credentials.json securely
 - Document token storage locations
 - Keep configuration in version control (except secrets)
@@ -244,6 +280,7 @@ curl -H "Authorization: Bearer $OP_CONNECT_TOKEN" \
 ## AI Assistant Instructions
 
 When helping with this project:
+
 1. Always consider Apple Silicon optimizations
 2. Prioritize security in all suggestions
 3. Provide complete, tested code examples

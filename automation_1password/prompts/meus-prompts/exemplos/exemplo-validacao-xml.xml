@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Exemplo de Tarefa: Validação de Prompt XML
+  Demonstra como o Agente DevOps Senior valida prompts
+-->
+
+<exemplo_tarefa>
+    <descricao>
+        Validar o prompt XML recebido antes de fazer deploy no VPS Ubuntu.
+    </descricao>
+    
+    <entrada>
+        <arquivo>novo-prompt-seguranca.xml</arquivo>
+        <tipo>Prompt de segurança para N8N</tipo>
+        <destino>VPS Ubuntu (Produção)</destino>
+    </entrada>
+    
+    <processo>
+        <passo ordem="1">
+            <acao>Validar sintaxe XML</acao>
+            <comando>xmllint --noout novo-prompt-seguranca.xml</comando>
+            <esperado>Nenhum erro de sintaxe</esperado>
+        </passo>
+        
+        <passo ordem="2">
+            <acao>Verificar estrutura obrigatória</acao>
+            <comando>grep -E "&lt;(papel|contexto|tarefas|guardrails)&gt;" novo-prompt-seguranca.xml</comando>
+            <esperado>Todas as tags obrigatórias presentes</esperado>
+        </passo>
+        
+        <passo ordem="3">
+            <acao>Validar referências a secrets</acao>
+            <comando>grep -oE "OP_CONNECT_TOKEN|GIT_TOKEN|ANTHROPIC_API_KEY" novo-prompt-seguranca.xml | sort -u</comando>
+            <validacao>op vault list | grep -q "1p_vps"</validacao>
+            <esperado>Todos os secrets referenciados existem no cofre 1p_vps</esperado>
+        </passo>
+        
+        <passo ordem="4">
+            <acao>Verificar guardrails de segurança</acao>
+            <comando>grep -c "NUNCA expor" novo-prompt-seguranca.xml</comando>
+            <esperado>Ao menos 1 guardrail crítico presente</esperado>
+        </passo>
+    </processo>
+    
+    <saida_esperada>
+        {
+            "valido": true,
+            "erros": [],
+            "warnings": [],
+            "secrets_referenciados": [
+                "OP_CONNECT_TOKEN",
+                "GIT_TOKEN"
+            ],
+            "guardrails_presentes": 5,
+            "pronto_para_deploy": true
+        }
+    </saida_esperada>
+</exemplo_tarefa>
+

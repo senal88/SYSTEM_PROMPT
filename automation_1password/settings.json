@@ -1,0 +1,42 @@
+
+{
+    "cursor.telemetry.disable": true,
+    "cursor.llm.model": {
+        "id": "claude-3-opus-20240229",
+        "temperature": 0.1,
+        "fallback": [
+            "gpt-4-turbo-2024-04-09"
+        ]
+    },
+    "cursor.experimental.auto-follow": true,
+    "cursor.experimental.commands": true,
+    "cursor.experimental.context-menu-commands": true,
+    "cursor.experimental.inline-edit": true,
+    "cursor.experimental.lazy-load-chat": true,
+    "cursor.experimental.multi-select": true,
+    "cursor.experimental.new-generation-ui": true,
+    "cursor.experimental.new-sidebar": true,
+    "cursor.experimental.no-tabs": true,
+    "cursor.experimental.pro-tier-models": true,
+    "cursor.experimental.see-through-hovers": true,
+    "cursor.experimental.sidebar-layout": "left",
+    "cursor.experimental.skip-system-message": true,
+    "cursor.experimental.symbol-awareness": true,
+    "cursor.experimental.tab-less-nav": true,
+    "cursor.experimental.user-context": true,
+    "editor.formatOnSave": true,
+    "workbench.colorTheme": "Default Dark+",
+    "workbench.iconTheme": "vscode-icons",
+    "extensions.recommendations": [
+        "vscode-icons-team.vscode-icons",
+        "ms-python.python",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "ms-azuretools.vscode-docker",
+        "github.copilot",
+        "firsttris.vscode-jest-runner",
+        "ms-vscode.cpptools",
+        "rust-lang.rust-analyzer",
+        "golang.go"
+    ]
+}

@@ -1,0 +1,45 @@
+=== DOCKER STACKS ===
+NAMES                IMAGE                           PORTS                                                                                      STATUS
+op-connect-sync      1password/connect-sync:latest                                                                                              Up 2 days (unhealthy)
+op-connect-api       1password/connect-api:latest    0.0.0.0:8081->8080/tcp, [::]:8081->8080/tcp, 0.0.0.0:8444->8443/tcp, [::]:8444->8443/tcp   Up 2 days (unhealthy)
+platform_portainer   portainer/portainer-ce:latest   8000/tcp, 9443/tcp, 0.0.0.0:9000->9000/tcp, [::]:9000->9000/tcp                            Up 2 days
+platform_n8n         n8nio/n8n:latest                0.0.0.0:5678->5678/tcp, [::]:5678->5678/tcp                                                Up 2 days
+platform_redis       redis:7-alpine                  6379/tcp                                                                                   Up 2 days (healthy)
+platform_postgres    pgvector/pgvector:pg16          5432/tcp                                                                                   Up 2 days (healthy)
+platform_traefik     traefik:v3.1                    0.0.0.0:80->80/tcp, [::]:80->80/tcp, 0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp           Up 2 days
+platform_mongodb     mongo:7                         27017/tcp                                                                                  Up 2 days (healthy)
+platform_chromadb    chromadb/chroma:latest          0.0.0.0:8000->8000/tcp, [::]:8000->8000/tcp                                                Up 2 days
+
+=== DOCKER VOLUMES ===
+VOLUME NAME                                                        DRIVER
+8d7952a6ba5c64f26cc9d814a7390a602e973c08cbf1f03c68203d437fba4ace   local
+19b33cd01beaf2a20cf9c5637a441c5ec8613b691f949a02a6914b03225ec06a   local
+61dc1f58fbfbbf6a6221013941bef42f834514eb523c31a9eed8a59c1203cb9b   local
+83d9bdfbc62ba2f6a0ee22b2710f1786f2dae0ac1411731c39e5a54da0ae98e6   local
+123b4d456c61bd8394a9a55068df43fc53ec11b04f3db6eb5af6a925c1c96d86   local
+731a0e410168eebb30abf79184edf72d4bda6f5a0d3462095e1d661989c1f14a   local
+2778c0014b1601bd21d7ad451047df0ccc78ef3c96f284b6a118b3e801121ebf   local
+buildx_buildkit_colima_builder0_state                              local
+compose_appsmith_data                                              local
+compose_chromadb_data                                              local
+compose_mongodb_data                                               local
+compose_n8n_data                                                   local
+compose_nocodb_data                                                local
+compose_portainer_data                                             local
+compose_postgres_data                                              local
+compose_redis_data                                                 local
+compose_traefik_certs                                              local
+e437c8e5f7e2b420bcedd4dae37128fe977d7974d28a6772aaa55b4548f81128   local
+f98bc5e5ef505ea2b0d8fb7b0faf81e4b738f506824dec0365825eb5b1fb1091   local
+fde8e38357804d4a4c5b4baab2b7dd04007444e856d33af76214427680866579   local
+infra_portainer_data                                               local
+
+=== DOCKER NETWORKS ===
+NAME                      DRIVER    SCOPE
+bridge                    bridge    local
+compose_app_network       bridge    local
+connect_net               bridge    local
+host                      host      local
+none                      null      local
+stack-local_traefik_net   bridge    local
+traefik_net               bridge    local

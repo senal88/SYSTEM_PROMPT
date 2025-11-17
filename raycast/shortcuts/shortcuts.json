@@ -1,0 +1,35 @@
+{
+  "shortcuts": [
+    {
+      "name": "1Password - Get Password",
+      "description": "Buscar e copiar senha do 1Password",
+      "command": "ray-pass",
+      "keybinding": "⌘+⇧+P"
+    },
+    {
+      "name": "1Password - Generate Password",
+      "description": "Gerar nova senha",
+      "command": "ray-gen",
+      "keybinding": "⌘+⇧+G"
+    },
+    {
+      "name": "Terminal - New Window",
+      "description": "Abrir novo terminal",
+      "command": "open -a Terminal",
+      "keybinding": "⌘+⇧+T"
+    },
+    {
+      "name": "VSCode - Open Folder",
+      "description": "Abrir pasta no VSCode",
+      "command": "code",
+      "keybinding": "⌘+⇧+V"
+    },
+    {
+      "name": "1Password - Check Config",
+      "description": "Verificar configuração 1Password",
+      "command": "op-config-check",
+      "keybinding": "⌘+⇧+C"
+    }
+  ]
+}
+
