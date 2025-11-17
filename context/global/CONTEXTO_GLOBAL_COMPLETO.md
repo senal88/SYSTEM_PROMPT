@@ -71,32 +71,60 @@ Este documento fornece contexto completo sobre o ambiente de desenvolvimento, in
 - Raycast: `~/Library/Application Support/Raycast/`
 - Karabiner: `~/.config/karabiner/`
 
-### Ubuntu VPS 22.04+
+### Ubuntu VPS 24.04 (Arquitetura Simplificada)
 
-**IP**: 147.79.81.59
-**Domínio**: senamfo.com.br
-**Provedor**: Hostinger
+**IP**: 147.79.81.59  
+**Domínio**: senamfo.com.br  
+**Provedor**: Hostinger  
+**OS**: Ubuntu 24.04.3 LTS
 
-**Stack**:
+**Arquitetura Simplificada** (otimizada para interpretação por LLMs):
+```
+VPS Ubuntu 24.04
+├── Usuários: root, admin
+├── Coolify (Orquestração) → coolify.senamfo.com.br:8000
+├── n8n (Automação) → n8n.senamfo.com.br
+├── Chatwoot (Atendimento) → chatwoot.senamfo.com.br
+└── Traefik (Proxy Reverso) → Portas 80, 443, 8080
+```
 
-- Coolify: Orquestração
-- n8n: Automação
-- Chatwoot: Atendimento
-- Docker: Containers
+**Stack Principal**:
+- **Coolify**: Gerenciamento de aplicações Docker (porta 8000)
+- **n8n**: Workflows e automações
+- **Chatwoot**: Chat e atendimento ao cliente
+- **Traefik**: Proxy reverso com SSL automático (Let's Encrypt)
+- **Docker**: Containers e orquestração
 
 **Configurações**:
-
-- Shell: bash/zsh (configurado via `~/Dotfiles/scripts/shell/bashrc-ubuntu.sh`)
+- Shell: bash (configurado via `~/Dotfiles/scripts/shell/bashrc-ubuntu.sh`)
 - Editor: VSCode Remote, Cursor Remote
 - Docker: Instalado e configurado
-- Firewall: UFW configurado
+- Firewall: UFW ativo
+
+**Credenciais (1Password - Vault: 1p_macos ou Personal)**:
+- `API-VPS-HOSTINGER`: Gerenciamento VPS via API (64 caracteres)
+- `VPS-Root-Password`: Acesso root (16 dígitos hex)
+- `VPS-Admin-Password`: Acesso admin (16 dígitos hex)
+- `Coolify-Secret-Key`: Configuração Coolify (32 dígitos hex)
+- `Coolify-DB-Password`: PostgreSQL Coolify (16 dígitos hex)
+- `n8n-Encryption-Key`: Configuração n8n (32 dígitos hex)
+- `Chatwoot-Secret-Key-Base`: Configuração Chatwoot (32 dígitos hex)
 
 **Gerenciamento via API**:
-
 - API Token: `HOSTINGER_API_TOKEN` (1Password: `API-VPS-HOSTINGER`)
 - MCP Server: `hostinger-mcp` (configurado em `~/Dotfiles/configs/mcp-servers.json`)
 - Documentação: `~/Dotfiles/docs/HOSTINGER_API_SETUP.md`
 - Scripts Raycast: `~/Dotfiles/scripts/raycast/hostinger-api.sh`
+
+**DNS Configurado** (via Hostinger API):
+- `senamfo.com.br` → 147.79.81.59 (A, TTL 3600)
+- `coolify.senamfo.com.br` → 147.79.81.59 (A, TTL 3600)
+- `n8n.senamfo.com.br` → 147.79.81.59 (A, TTL 3600)
+- `chatwoot.senamfo.com.br` → 147.79.81.59 (A, TTL 3600)
+
+**Documentação Simplificada**:
+- Arquitetura: `~/10_INFRAESTRUTURA_VPS/documentacao/ARQUITETURA_VPS_SIMPLIFICADA.md`
+- Ponto de Ação: `~/10_INFRAESTRUTURA_VPS/documentacao/PONTO_ACAO_RETORNO.md`
 
 ### DevContainers
 
