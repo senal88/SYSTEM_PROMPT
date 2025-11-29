@@ -27,6 +27,7 @@ __pycache__/
 
 # =====================================================================
 raycast-profile/NodeJS/
+raycast/raycast-profile/NodeJS/
 credentials/
 configs/api_keys.json
 configs/zshrc_updated
