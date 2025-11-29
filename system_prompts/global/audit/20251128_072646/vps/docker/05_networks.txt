@@ -1,0 +1,310 @@
+=== NETWORKS LIST ===
+NETWORK ID     NAME                       DRIVER    SCOPE
+f430cce0d6ff   bridge                     bridge    local
+0d1d109d862e   coolify                    bridge    local
+2686f362d614   host                       host      local
+84658fdac8c4   none                       null      local
+e0359f0cd7cc   q0cc04cg484gwcokcgo8socw   bridge    local
+
+=== DETALHES POR REDE ===
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NETWORK: bridge
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[
+    {
+        "Name": "bridge",
+        "Id": "f430cce0d6ff46d771fe1d0f9511de763d595ad02fe58883d0791e2e007fcfa8",
+        "Created": "2025-11-27T11:35:22.820453209Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": [
+                {
+                    "Subnet": "10.0.0.0/24",
+                    "IPRange": "",
+                    "Gateway": "10.0.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {
+            "com.docker.network.bridge.default_bridge": "true",
+            "com.docker.network.bridge.enable_icc": "true",
+            "com.docker.network.bridge.enable_ip_masquerade": "true",
+            "com.docker.network.bridge.host_binding_ipv4": "0.0.0.0",
+            "com.docker.network.bridge.name": "docker0",
+            "com.docker.network.driver.mtu": "1500"
+        },
+        "Labels": {},
+        "Containers": {
+            "84ef425cbe250ea1ed19f2a286c1b7dfb89d665f055a75d68f725852780540a3": {
+                "Name": "coolify-sentinel",
+                "EndpointID": "394a32902e2b2e32e9cd352368f7d82b206457d126ca85e92b6057aeb9745ddc",
+                "MacAddress": "16:50:3d:1f:ca:af",
+                "IPv4Address": "10.0.0.2/24",
+                "IPv6Address": ""
+            }
+        },
+        "Status": {
+            "IPAM": {
+                "Subnets": {
+                    "10.0.0.0/24": {
+                        "IPsInUse": 4,
+                        "DynamicIPsAvailable": 252
+                    }
+                }
+            }
+        }
+    }
+]
+
+--- CONTAINERS CONECTADOS ---
+coolify-sentinel 
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NETWORK: coolify
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[
+    {
+        "Name": "coolify",
+        "Id": "0d1d109d862e06b46e57851df7f64770e89ed26715e3dc80e13384a062a3b577",
+        "Created": "2025-11-17T04:40:34.157305217Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": true,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "10.0.1.0/24",
+                    "IPRange": "",
+                    "Gateway": "10.0.1.1"
+                },
+                {
+                    "Subnet": "fd5a:aa87:f8d4::/64",
+                    "IPRange": "",
+                    "Gateway": "fd5a:aa87:f8d4::1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": true,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {},
+        "Labels": {},
+        "Containers": {
+            "0a237a98c236d1d82e158204c07c0e055f60b5b6aa207a2ec65b4d1848751f74": {
+                "Name": "coolify-db",
+                "EndpointID": "d436e24ca8fef13efe17443d8c001be5850885d2219f875664eaf54c00f94af4",
+                "MacAddress": "f2:09:a4:2c:82:9e",
+                "IPv4Address": "10.0.1.6/24",
+                "IPv6Address": "fd5a:aa87:f8d4::6/64"
+            },
+            "1f074035270a959d6fe045759d7a65ef7a70ccb20a7e56c6ee855021eb3cac25": {
+                "Name": "coolify-realtime",
+                "EndpointID": "009b7b3d4352732263d73036397d585770f2fc8cadaac0961d0e41b98fb1d9d9",
+                "MacAddress": "ca:8b:86:d0:35:2c",
+                "IPv4Address": "10.0.1.5/24",
+                "IPv6Address": "fd5a:aa87:f8d4::5/64"
+            },
+            "6dcdd5b44777e5fff84e98671ad1f8fc00df57e57b8abcd13af4a7c1ae00fcb6": {
+                "Name": "coolify-proxy",
+                "EndpointID": "d6d7b037e42b6731b7def0391b10f5c35ccbf0194539623d85141c767b21400b",
+                "MacAddress": "02:a2:38:74:85:27",
+                "IPv4Address": "10.0.1.2/24",
+                "IPv6Address": "fd5a:aa87:f8d4::2/64"
+            },
+            "d4baec1771e96e9c56d7fd3fc82c5fd76ea952435df365cdc01557f88a1c5956": {
+                "Name": "coolify-redis",
+                "EndpointID": "165c6e1ce841d6a73506d095c2bcb143cc8c3b80cde6aa349e899e0656b6ec9a",
+                "MacAddress": "92:da:49:5f:c8:86",
+                "IPv4Address": "10.0.1.4/24",
+                "IPv6Address": "fd5a:aa87:f8d4::4/64"
+            },
+            "ea2d5fb4b8f51c5c21b0afff531bfa016e4a458ba5eae3a1bad2100cbae6eb5a": {
+                "Name": "coolify",
+                "EndpointID": "d44bb0bfef2aabeeae67935c681333b7e04fbe0a85e783a69ba606f8dd7a21f3",
+                "MacAddress": "b6:08:f6:63:e1:2c",
+                "IPv4Address": "10.0.1.3/24",
+                "IPv6Address": "fd5a:aa87:f8d4::3/64"
+            }
+        },
+        "Status": {
+            "IPAM": {
+                "Subnets": {
+                    "10.0.1.0/24": {
+                        "IPsInUse": 8,
+                        "DynamicIPsAvailable": 248
+                    },
+                    "fd5a:aa87:f8d4::/64": {
+                        "IPsInUse": 7,
+                        "DynamicIPsAvailable": 18446744073709551609
+                    }
+                }
+            }
+        }
+    }
+]
+
+--- CONTAINERS CONECTADOS ---
+coolify-db coolify-realtime coolify-proxy coolify-redis coolify 
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NETWORK: host
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[
+    {
+        "Name": "host",
+        "Id": "2686f362d6145a0f253ac8868bf1e13a750cadab1d6e228aef08d01e4e179770",
+        "Created": "2025-08-18T09:01:47.957886349Z",
+        "Scope": "local",
+        "Driver": "host",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": null
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {},
+        "Labels": {},
+        "Containers": {},
+        "Status": {
+            "IPAM": {}
+        }
+    }
+]
+
+--- CONTAINERS CONECTADOS ---
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NETWORK: none
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[
+    {
+        "Name": "none",
+        "Id": "84658fdac8c4244b54a41c7a11ff18c5acc46f37002584d28edb13e4da154cf9",
+        "Created": "2025-08-18T09:01:47.949419788Z",
+        "Scope": "local",
+        "Driver": "null",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": null,
+            "Config": null
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {},
+        "Labels": {},
+        "Containers": {},
+        "Status": {
+            "IPAM": {}
+        }
+    }
+]
+
+--- CONTAINERS CONECTADOS ---
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+NETWORK: q0cc04cg484gwcokcgo8socw
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[
+    {
+        "Name": "q0cc04cg484gwcokcgo8socw",
+        "Id": "e0359f0cd7cc4cb2faf4ae6da7c6e2cb96a76f5963c974767d19e674ff0ca7e5",
+        "Created": "2025-11-18T09:29:23.137957382Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "10.0.2.0/24",
+                    "IPRange": "",
+                    "Gateway": "10.0.2.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": true,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {},
+        "Labels": {},
+        "Containers": {
+            "442967df439c622844364c1ea1f624fb2bcbe5db92a2794cf0f7f5d928e59971": {
+                "Name": "postgresql-q0cc04cg484gwcokcgo8socw",
+                "EndpointID": "4fbf5c68c6a7710cd88fa134f6d225b33359b3944694096257b4ce46bfa6b7de",
+                "MacAddress": "72:11:0f:6b:93:ba",
+                "IPv4Address": "10.0.2.2/24",
+                "IPv6Address": ""
+            },
+            "6dcdd5b44777e5fff84e98671ad1f8fc00df57e57b8abcd13af4a7c1ae00fcb6": {
+                "Name": "coolify-proxy",
+                "EndpointID": "174b52032a900bfd0c6bf35ca903148c389161677052c6e4aa7dd220b194daf6",
+                "MacAddress": "7a:0a:e3:ea:86:cc",
+                "IPv4Address": "10.0.2.4/24",
+                "IPv6Address": ""
+            },
+            "bc097cc30b87dd404a2e494a90407f14e11b9d64a2bb6afdc96c0ac4400592b9": {
+                "Name": "n8n-q0cc04cg484gwcokcgo8socw",
+                "EndpointID": "afba6c238765029f990263e06ac6a271ff6c3c47212ff8047fcb0c83f103e039",
+                "MacAddress": "5e:65:ea:8f:d3:ef",
+                "IPv4Address": "10.0.2.3/24",
+                "IPv6Address": ""
+            }
+        },
+        "Status": {
+            "IPAM": {
+                "Subnets": {
+                    "10.0.2.0/24": {
+                        "IPsInUse": 6,
+                        "DynamicIPsAvailable": 250
+                    }
+                }
+            }
+        }
+    }
+]
+
+--- CONTAINERS CONECTADOS ---
+postgresql-q0cc04cg484gwcokcgo8socw coolify-proxy n8n-q0cc04cg484gwcokcgo8socw 

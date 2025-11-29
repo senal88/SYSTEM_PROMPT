@@ -1,0 +1,33 @@
+=== CONTAINERS COM PRIVILEGIOS ===
+
+=== CONTAINERS COM BIND MOUNTS SENSÍVEIS ===
+⚠️ coolify-sentinel tem mounts sensíveis:
+/var/run/docker.sock -> /var/run/docker.sock (bind)
+⚠️ coolify-proxy tem mounts sensíveis:
+/var/run/docker.sock -> /var/run/docker.sock (bind)
+
+=== CONTAINERS COM USER ROOT ===
+⚠️ coolify-sentinel está rodando como root
+⚠️ postgresql-q0cc04cg484gwcokcgo8socw está rodando como root
+⚠️ coolify-proxy está rodando como root
+⚠️ coolify-db está rodando como root
+⚠️ coolify-realtime está rodando como root
+⚠️ coolify-redis está rodando como root
+
+=== DOCKER DAEMON CONFIG ===
+{
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "10m",
+    "max-file": "3"
+  },
+  "default-address-pools": [
+    {"base":"10.0.0.0/8","size":24}
+  ]
+}
+
+=== DOCKER SOCKET PERMISSIONS ===
+srw-rw---- 1 root docker 0 Nov 27 11:35 /var/run/docker.sock
+
+=== GRUPO DOCKER ===
+docker:x:988:admin

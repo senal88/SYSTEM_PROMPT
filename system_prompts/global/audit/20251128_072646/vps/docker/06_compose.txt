@@ -1,0 +1,12 @@
+=== COMPOSE PROJECTS ===
+NAME                       STATUS              CONFIG FILES
+coolify-proxy              running(1)          /data/coolify/proxy/docker-compose.yml
+q0cc04cg484gwcokcgo8socw   running(2)          /data/coolify/services/q0cc04cg484gwcokcgo8socw/docker-compose.yml
+source                     running(4)          /data/coolify/source/docker-compose.yml,/data/coolify/source/docker-compose.prod.yml
+
+=== BUSCAR docker-compose.yml ===
+
+=== STACKS (SWARM) ===
+Error response from daemon: This node is not a swarm manager. Use "docker swarm init" or "docker swarm join" to connect this node to swarm and try again.
+Swarm não ativo ou sem stacks
+

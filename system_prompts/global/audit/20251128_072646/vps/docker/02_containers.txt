@@ -1,0 +1,1111 @@
+=== CONTAINERS (TODOS) ===
+CONTAINER ID   IMAGE                                        COMMAND                  CREATED AT                      STATUS                  PORTS                                                                                                                                                                NAMES
+84ef425cbe25   ghcr.io/coollabsio/sentinel:0.0.18           "/app/sentinel"          2025-11-28 00:03:05 +0000 UTC   Up 11 hours (healthy)                                                                                                                                                                        coolify-sentinel
+bc097cc30b87   docker.n8n.io/n8nio/n8n:latest               "tini -- /docker-ent…"   2025-11-18 09:29:24 +0000 UTC   Up 24 hours (healthy)   5678/tcp                                                                                                                                                             n8n-q0cc04cg484gwcokcgo8socw
+442967df439c   postgres:16-alpine                           "docker-entrypoint.s…"   2025-11-18 09:29:23 +0000 UTC   Up 24 hours (healthy)   5432/tcp                                                                                                                                                             postgresql-q0cc04cg484gwcokcgo8socw
+6dcdd5b44777   traefik:v3.6                                 "/entrypoint.sh --pi…"   2025-11-17 04:41:48 +0000 UTC   Up 24 hours (healthy)   0.0.0.0:80->80/tcp, [::]:80->80/tcp, 0.0.0.0:443->443/tcp, [::]:443->443/tcp, 0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp, 0.0.0.0:443->443/udp, [::]:443->443/udp   coolify-proxy
+ea2d5fb4b8f5   ghcr.io/coollabsio/coolify:4.0.0-beta.444    "docker-php-serversi…"   2025-11-17 04:41:18 +0000 UTC   Up 24 hours (healthy)   8000/tcp, 8443/tcp, 9000/tcp, 0.0.0.0:8000->8080/tcp, [::]:8000->8080/tcp                                                                                            coolify
+0a237a98c236   postgres:15-alpine                           "docker-entrypoint.s…"   2025-11-17 04:41:17 +0000 UTC   Up 24 hours (healthy)   5432/tcp                                                                                                                                                             coolify-db
+1f074035270a   ghcr.io/coollabsio/coolify-realtime:1.0.10   "/bin/sh /soketi-ent…"   2025-11-17 04:41:17 +0000 UTC   Up 24 hours (healthy)   0.0.0.0:6001-6002->6001-6002/tcp, [::]:6001-6002->6001-6002/tcp                                                                                                      coolify-realtime
+d4baec1771e9   redis:7-alpine                               "docker-entrypoint.s…"   2025-11-17 04:41:17 +0000 UTC   Up 24 hours (healthy)   6379/tcp                                                                                                                                                             coolify-redis
+
+=== CONTAINERS RODANDO ===
+CONTAINER ID   IMAGE                                        STATUS                  PORTS                                                                                                                                                                NAMES
+84ef425cbe25   ghcr.io/coollabsio/sentinel:0.0.18           Up 11 hours (healthy)                                                                                                                                                                        coolify-sentinel
+bc097cc30b87   docker.n8n.io/n8nio/n8n:latest               Up 24 hours (healthy)   5678/tcp                                                                                                                                                             n8n-q0cc04cg484gwcokcgo8socw
+442967df439c   postgres:16-alpine                           Up 24 hours (healthy)   5432/tcp                                                                                                                                                             postgresql-q0cc04cg484gwcokcgo8socw
+6dcdd5b44777   traefik:v3.6                                 Up 24 hours (healthy)   0.0.0.0:80->80/tcp, [::]:80->80/tcp, 0.0.0.0:443->443/tcp, [::]:443->443/tcp, 0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp, 0.0.0.0:443->443/udp, [::]:443->443/udp   coolify-proxy
+ea2d5fb4b8f5   ghcr.io/coollabsio/coolify:4.0.0-beta.444    Up 24 hours (healthy)   8000/tcp, 8443/tcp, 9000/tcp, 0.0.0.0:8000->8080/tcp, [::]:8000->8080/tcp                                                                                            coolify
+0a237a98c236   postgres:15-alpine                           Up 24 hours (healthy)   5432/tcp                                                                                                                                                             coolify-db
+1f074035270a   ghcr.io/coollabsio/coolify-realtime:1.0.10   Up 24 hours (healthy)   0.0.0.0:6001-6002->6001-6002/tcp, [::]:6001-6002->6001-6002/tcp                                                                                                      coolify-realtime
+d4baec1771e9   redis:7-alpine                               Up 24 hours (healthy)   6379/tcp                                                                                                                                                             coolify-redis
+
+=== CONTAINERS PARADOS ===
+CONTAINER ID   IMAGE     STATUS    NAMES
+
+=== DETALHES POR CONTAINER ===
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CONTAINER: coolify-sentinel
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+--- INSPECT (JSON) ---
+[
+    {
+        "Id": "84ef425cbe250ea1ed19f2a286c1b7dfb89d665f055a75d68f725852780540a3",
+        "Created": "2025-11-28T00:03:05.984531755Z",
+        "Path": "/app/sentinel",
+        "Args": [],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 1890038,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2025-11-28T00:06:08.412429069Z",
+            "FinishedAt": "2025-11-28T00:06:08.298888681Z",
+            "Health": {
+                "Status": "healthy",
+                "FailingStreak": 0,
+                "Log": [
+                    {
+                        "Start": "2025-11-28T11:05:36.501219508Z",
+                        "End": "2025-11-28T11:05:36.554175325Z",
+                        "ExitCode": 0,
+                        "Output": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r100     2  100     2    0     0   2375      0 --:--:-- --:--:-- --:--:--  2000\nok"
+                    },
+                    {
+                        "Start": "2025-11-28T11:05:46.555002269Z",
+                        "End": "2025-11-28T11:05:46.600598403Z",
+                        "ExitCode": 0,
+                        "Output": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r100     2  100     2    0     0   2840      0 --:--:-- --:--:-- --:--:--  2000\nok"
+                    },
+                    {
+                        "Start": "2025-11-28T11:05:56.602063767Z",
+                        "End": "2025-11-28T11:05:56.652724464Z",
+                        "ExitCode": 0,
+                        "Output": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r100     2  100     2    0     0   2418      0 --:--:-- --:--:-- --:--:--  2000\nok"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:06.653663638Z",
+                        "End": "2025-11-28T11:06:06.70372326Z",
+                        "ExitCode": 0,
+                        "Output": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r100     2  100     2    0     0   2403      0 --:--:-- --:--:-- --:--:--  2000\nok"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:16.705254394Z",
+                        "End": "2025-11-28T11:06:16.753866324Z",
+                        "ExitCode": 0,
+                        "Output": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r100     2  100     2    0     0   2506      0 --:--:-- --:--:-- --:--:--  2000\nok"
+                    }
+                ]
+            }
+        },
+        "Image": "sha256:fb0c3479652ab7f57a11125a70c0ce18cbadb59f9cf29ac9e03bc5e00ccbd2c4",
+        "ResolvConfPath": "/var/lib/docker/containers/84ef425cbe250ea1ed19f2a286c1b7dfb89d665f055a75d68f725852780540a3/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/84ef425cbe250ea1ed19f2a286c1b7dfb89d665f055a75d68f725852780540a3/hostname",
+        "HostsPath": "/var/lib/docker/containers/84ef425cbe250ea1ed19f2a286c1b7dfb89d665f055a75d68f725852780540a3/hosts",
+        "LogPath": "/var/lib/docker/containers/84ef425cbe250ea1ed19f2a286c1b7dfb89d665f055a75d68f725852780540a3/84ef425cbe250ea1ed19f2a286c1b7dfb89d665f055a75d68f725852780540a3-json.log",
+        "Name": "/coolify-sentinel",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "/var/run/docker.sock:/var/run/docker.sock",
+                "/data/coolify/sentinel:/app/db"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {
+                    "max-file": "3",
+                    "max-size": "10m"
+                }
+            },
+            "NetworkMode": "bridge",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": null,
+            "DnsOptions": [],
+            "DnsSearch": [],
+
+--- STATS (ÚLTIMOS) ---
+CONTAINER ID   NAME               CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O     PIDS
+84ef425cbe25   coolify-sentinel   0.00%     8.461MiB / 15.62GiB   0.05%     473kB / 7.8MB   0B / 32.8kB   10
+
+--- TOP (PROCESSOS) ---
+UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD
+root                1890038             1890014             0                   00:06               ?                   00:00:08            /app/sentinel
+
+--- PORT MAPPING ---
+
+--- ENV VARS (primeiras 20) ---
+DEBUG=false
+PUSH_ENDPOINT=http://147.79.81.59:8000
+PUSH_INTERVAL_SECONDS=60
+COLLECTOR_ENABLED=false
+COLLECTOR_REFRESH_RATE_SECONDS=10
+COLLECTOR_RETENTION_PERIOD_DAYS=7
+TOKEN=eyJpdiI6IkdXbG51YkZzWHJUd2JOZlRPVy84bXc9PSIsInZhbHVlIjoiVnpNTEVjWjdzWnZDRC9JU2JKSHZxRjN3c2l6RTluZFgyMkoxK21EYXJhOFgyV0lOMkwxdDIxdEcrRzBmUWlvbzVPQVpBcE90M1lXVFdlQ3ZCbHNxRlE9PSIsIm1hYyI6IjNkYWNmNTI5Yjc1M2Q1Zjc3ZThjZWMyZGJhNmE1ODY0Zjk4N2RmMDU4YjI2MjRmNTdjOTgyZDBlMWI5MGVhYTkiLCJ0YWciOiIifQ==
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+GIN_MODE=release
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CONTAINER: n8n-q0cc04cg484gwcokcgo8socw
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+--- INSPECT (JSON) ---
+[
+    {
+        "Id": "bc097cc30b87dd404a2e494a90407f14e11b9d64a2bb6afdc96c0ac4400592b9",
+        "Created": "2025-11-18T09:29:24.134527404Z",
+        "Path": "tini",
+        "Args": [
+            "--",
+            "/docker-entrypoint.sh"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 1440,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2025-11-27T11:35:22.925473346Z",
+            "FinishedAt": "2025-11-27T11:34:46.206367464Z",
+            "Health": {
+                "Status": "healthy",
+                "FailingStreak": 0,
+                "Log": [
+                    {
+                        "Start": "2025-11-28T11:06:02.834484343Z",
+                        "End": "2025-11-28T11:06:02.897795746Z",
+                        "ExitCode": 0,
+                        "Output": "<!DOCTYPE html>\n<html lang=\"en\">\n\t<head>\n\t\t<script type=\"module\" crossorigin src=\"/assets/polyfills-DZgFjf-a.js\"></script>\n\n\t\t<meta charset=\"utf-8\" />\n\t\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n\t\t<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\" />\n\t\t<link rel=\"icon\" href=\"/favicon.ico\" />\n\t\t<meta name=\"n8n:config:rest-endpoint\" content=\"cmVzdA==\"><meta name=\"n8n:config:sentry\" content=\"eyJkc24iOiIiLCJlbnZpcm9ubWVudCI6ImRldmVsb3BtZW50IiwicmVsZWFzZSI6Im44bkAxLjExOS4yIn0=\">\n\t\t<link rel=\"stylesheet\" href=\"/static/prefers-color-scheme.css\">\n\t\t<script src=\"/static/base-path.js\" type=\"text/javascript\"></script>\n\t\t<script src=\"/static/posthog.init.js\" type=\"text/javascript\"></script>\n\n\t\t<title>n8n.io - Workflow Automation</title>\n\t\t<script type=\"module\" crossorigin src=\"/assets/index-C25i7qsE.js\"></script>\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/_plugin-vue_export-helper-BwBpWJRZ.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/preload-helper-CR0ecmWK.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/chunk-6z4oVpB-.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/vue.runtime.esm-bundler-DDuXT-9r.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/_MapCache-Byd-DTfo.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/truncate-DGRsht-H.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/icon-DhADuA9N.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/empty-BuGRxzl4.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/path-browserify-DsmB_HMK.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/sanitize-html-BuXr7o4T.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/en-BYTsM8fR.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/src-D6S9Khji.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/merge-CKEa8BM2.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/constants-DvlTm3U4.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/dateformat-D7TIhVd4.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useDebounce-BgcdaJ78.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useTelemetry-EOV0Llso.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useExternalHooks-SxBXYVNW.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/nodeIcon-ry_JIpAT.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/cloudPlan.store-DrraBpZJ.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/templates.store-COjIpQaS.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/nodeCreator.store-DHz0Nc1Y.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useToast-BlMNYwds.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useClipboard-fRnZpGbX.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/usePinnedData-Csij2qN3.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/focusPanel.store-BJpwjMIG.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/folders.store-Db975T-w.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/executions.store-IU9p1s46.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useCanvasOperations-CFsSFVcO.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/retry-sDkwzrPY.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/overlay-B8MMvNgs.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useMessage-Ceo97RRX.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/npsSurvey.store-BTpA4Bdf.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useWorkflowSaving-CWyt929n.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useRunWorkflow-_-_hUnHE.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/FileSaver.min-DaytN8ae.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/uniqBy-BUNHbbw3.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/NDVEmptyState-DdpBamQ9.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/vue-LyXhKoPx.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/vue-json-pretty-BltKoWq2.js\">\n\t\t<link rel=\"modulepreload\" cros..."
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:07.898953801Z",
+                        "End": "2025-11-28T11:06:07.95106563Z",
+                        "ExitCode": 0,
+                        "Output": "<!DOCTYPE html>\n<html lang=\"en\">\n\t<head>\n\t\t<script type=\"module\" crossorigin src=\"/assets/polyfills-DZgFjf-a.js\"></script>\n\n\t\t<meta charset=\"utf-8\" />\n\t\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n\t\t<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\" />\n\t\t<link rel=\"icon\" href=\"/favicon.ico\" />\n\t\t<meta name=\"n8n:config:rest-endpoint\" content=\"cmVzdA==\"><meta name=\"n8n:config:sentry\" content=\"eyJkc24iOiIiLCJlbnZpcm9ubWVudCI6ImRldmVsb3BtZW50IiwicmVsZWFzZSI6Im44bkAxLjExOS4yIn0=\">\n\t\t<link rel=\"stylesheet\" href=\"/static/prefers-color-scheme.css\">\n\t\t<script src=\"/static/base-path.js\" type=\"text/javascript\"></script>\n\t\t<script src=\"/static/posthog.init.js\" type=\"text/javascript\"></script>\n\n\t\t<title>n8n.io - Workflow Automation</title>\n\t\t<script type=\"module\" crossorigin src=\"/assets/index-C25i7qsE.js\"></script>\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/_plugin-vue_export-helper-BwBpWJRZ.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/preload-helper-CR0ecmWK.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/chunk-6z4oVpB-.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/vue.runtime.esm-bundler-DDuXT-9r.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/_MapCache-Byd-DTfo.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/truncate-DGRsht-H.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/icon-DhADuA9N.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/empty-BuGRxzl4.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/path-browserify-DsmB_HMK.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/sanitize-html-BuXr7o4T.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/en-BYTsM8fR.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/src-D6S9Khji.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/merge-CKEa8BM2.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/constants-DvlTm3U4.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/dateformat-D7TIhVd4.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useDebounce-BgcdaJ78.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useTelemetry-EOV0Llso.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useExternalHooks-SxBXYVNW.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/nodeIcon-ry_JIpAT.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/cloudPlan.store-DrraBpZJ.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/templates.store-COjIpQaS.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/nodeCreator.store-DHz0Nc1Y.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useToast-BlMNYwds.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useClipboard-fRnZpGbX.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/usePinnedData-Csij2qN3.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/focusPanel.store-BJpwjMIG.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/folders.store-Db975T-w.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/executions.store-IU9p1s46.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useCanvasOperations-CFsSFVcO.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/retry-sDkwzrPY.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/overlay-B8MMvNgs.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useMessage-Ceo97RRX.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/npsSurvey.store-BTpA4Bdf.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useWorkflowSaving-CWyt929n.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useRunWorkflow-_-_hUnHE.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/FileSaver.min-DaytN8ae.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/uniqBy-BUNHbbw3.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/NDVEmptyState-DdpBamQ9.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/vue-LyXhKoPx.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/vue-json-pretty-BltKoWq2.js\">\n\t\t<link rel=\"modulepreload\" cros..."
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:12.953097741Z",
+                        "End": "2025-11-28T11:06:13.006171989Z",
+                        "ExitCode": 0,
+                        "Output": "<!DOCTYPE html>\n<html lang=\"en\">\n\t<head>\n\t\t<script type=\"module\" crossorigin src=\"/assets/polyfills-DZgFjf-a.js\"></script>\n\n\t\t<meta charset=\"utf-8\" />\n\t\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n\t\t<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\" />\n\t\t<link rel=\"icon\" href=\"/favicon.ico\" />\n\t\t<meta name=\"n8n:config:rest-endpoint\" content=\"cmVzdA==\"><meta name=\"n8n:config:sentry\" content=\"eyJkc24iOiIiLCJlbnZpcm9ubWVudCI6ImRldmVsb3BtZW50IiwicmVsZWFzZSI6Im44bkAxLjExOS4yIn0=\">\n\t\t<link rel=\"stylesheet\" href=\"/static/prefers-color-scheme.css\">\n\t\t<script src=\"/static/base-path.js\" type=\"text/javascript\"></script>\n\t\t<script src=\"/static/posthog.init.js\" type=\"text/javascript\"></script>\n\n\t\t<title>n8n.io - Workflow Automation</title>\n\t\t<script type=\"module\" crossorigin src=\"/assets/index-C25i7qsE.js\"></script>\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/_plugin-vue_export-helper-BwBpWJRZ.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/preload-helper-CR0ecmWK.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/chunk-6z4oVpB-.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/vue.runtime.esm-bundler-DDuXT-9r.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/_MapCache-Byd-DTfo.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/truncate-DGRsht-H.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/icon-DhADuA9N.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/empty-BuGRxzl4.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/path-browserify-DsmB_HMK.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/sanitize-html-BuXr7o4T.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/en-BYTsM8fR.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/src-D6S9Khji.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/merge-CKEa8BM2.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/constants-DvlTm3U4.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/dateformat-D7TIhVd4.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useDebounce-BgcdaJ78.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useTelemetry-EOV0Llso.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useExternalHooks-SxBXYVNW.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/nodeIcon-ry_JIpAT.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/cloudPlan.store-DrraBpZJ.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/templates.store-COjIpQaS.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/nodeCreator.store-DHz0Nc1Y.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useToast-BlMNYwds.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useClipboard-fRnZpGbX.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/usePinnedData-Csij2qN3.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/focusPanel.store-BJpwjMIG.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/folders.store-Db975T-w.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/executions.store-IU9p1s46.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useCanvasOperations-CFsSFVcO.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/retry-sDkwzrPY.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/overlay-B8MMvNgs.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useMessage-Ceo97RRX.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/npsSurvey.store-BTpA4Bdf.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useWorkflowSaving-CWyt929n.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useRunWorkflow-_-_hUnHE.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/FileSaver.min-DaytN8ae.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/uniqBy-BUNHbbw3.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/NDVEmptyState-DdpBamQ9.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/vue-LyXhKoPx.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/vue-json-pretty-BltKoWq2.js\">\n\t\t<link rel=\"modulepreload\" cros..."
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:18.007507641Z",
+                        "End": "2025-11-28T11:06:18.054520647Z",
+                        "ExitCode": 0,
+                        "Output": "<!DOCTYPE html>\n<html lang=\"en\">\n\t<head>\n\t\t<script type=\"module\" crossorigin src=\"/assets/polyfills-DZgFjf-a.js\"></script>\n\n\t\t<meta charset=\"utf-8\" />\n\t\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n\t\t<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\" />\n\t\t<link rel=\"icon\" href=\"/favicon.ico\" />\n\t\t<meta name=\"n8n:config:rest-endpoint\" content=\"cmVzdA==\"><meta name=\"n8n:config:sentry\" content=\"eyJkc24iOiIiLCJlbnZpcm9ubWVudCI6ImRldmVsb3BtZW50IiwicmVsZWFzZSI6Im44bkAxLjExOS4yIn0=\">\n\t\t<link rel=\"stylesheet\" href=\"/static/prefers-color-scheme.css\">\n\t\t<script src=\"/static/base-path.js\" type=\"text/javascript\"></script>\n\t\t<script src=\"/static/posthog.init.js\" type=\"text/javascript\"></script>\n\n\t\t<title>n8n.io - Workflow Automation</title>\n\t\t<script type=\"module\" crossorigin src=\"/assets/index-C25i7qsE.js\"></script>\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/_plugin-vue_export-helper-BwBpWJRZ.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/preload-helper-CR0ecmWK.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/chunk-6z4oVpB-.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/vue.runtime.esm-bundler-DDuXT-9r.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/_MapCache-Byd-DTfo.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/truncate-DGRsht-H.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/icon-DhADuA9N.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/empty-BuGRxzl4.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/path-browserify-DsmB_HMK.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/sanitize-html-BuXr7o4T.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/en-BYTsM8fR.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/src-D6S9Khji.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/merge-CKEa8BM2.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/constants-DvlTm3U4.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/dateformat-D7TIhVd4.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useDebounce-BgcdaJ78.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useTelemetry-EOV0Llso.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useExternalHooks-SxBXYVNW.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/nodeIcon-ry_JIpAT.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/cloudPlan.store-DrraBpZJ.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/templates.store-COjIpQaS.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/nodeCreator.store-DHz0Nc1Y.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useToast-BlMNYwds.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useClipboard-fRnZpGbX.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/usePinnedData-Csij2qN3.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/focusPanel.store-BJpwjMIG.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/folders.store-Db975T-w.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/executions.store-IU9p1s46.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useCanvasOperations-CFsSFVcO.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/retry-sDkwzrPY.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/overlay-B8MMvNgs.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useMessage-Ceo97RRX.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/npsSurvey.store-BTpA4Bdf.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useWorkflowSaving-CWyt929n.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useRunWorkflow-_-_hUnHE.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/FileSaver.min-DaytN8ae.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/uniqBy-BUNHbbw3.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/NDVEmptyState-DdpBamQ9.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/vue-LyXhKoPx.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/vue-json-pretty-BltKoWq2.js\">\n\t\t<link rel=\"modulepreload\" cros..."
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:23.055580566Z",
+                        "End": "2025-11-28T11:06:23.108073659Z",
+                        "ExitCode": 0,
+                        "Output": "<!DOCTYPE html>\n<html lang=\"en\">\n\t<head>\n\t\t<script type=\"module\" crossorigin src=\"/assets/polyfills-DZgFjf-a.js\"></script>\n\n\t\t<meta charset=\"utf-8\" />\n\t\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\" />\n\t\t<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0\" />\n\t\t<link rel=\"icon\" href=\"/favicon.ico\" />\n\t\t<meta name=\"n8n:config:rest-endpoint\" content=\"cmVzdA==\"><meta name=\"n8n:config:sentry\" content=\"eyJkc24iOiIiLCJlbnZpcm9ubWVudCI6ImRldmVsb3BtZW50IiwicmVsZWFzZSI6Im44bkAxLjExOS4yIn0=\">\n\t\t<link rel=\"stylesheet\" href=\"/static/prefers-color-scheme.css\">\n\t\t<script src=\"/static/base-path.js\" type=\"text/javascript\"></script>\n\t\t<script src=\"/static/posthog.init.js\" type=\"text/javascript\"></script>\n\n\t\t<title>n8n.io - Workflow Automation</title>\n\t\t<script type=\"module\" crossorigin src=\"/assets/index-C25i7qsE.js\"></script>\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/_plugin-vue_export-helper-BwBpWJRZ.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/preload-helper-CR0ecmWK.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/chunk-6z4oVpB-.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/vue.runtime.esm-bundler-DDuXT-9r.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/_MapCache-Byd-DTfo.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/truncate-DGRsht-H.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/icon-DhADuA9N.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/empty-BuGRxzl4.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/path-browserify-DsmB_HMK.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/sanitize-html-BuXr7o4T.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/en-BYTsM8fR.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/src-D6S9Khji.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/merge-CKEa8BM2.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/constants-DvlTm3U4.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/dateformat-D7TIhVd4.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useDebounce-BgcdaJ78.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useTelemetry-EOV0Llso.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useExternalHooks-SxBXYVNW.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/nodeIcon-ry_JIpAT.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/cloudPlan.store-DrraBpZJ.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/templates.store-COjIpQaS.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/nodeCreator.store-DHz0Nc1Y.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useToast-BlMNYwds.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useClipboard-fRnZpGbX.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/usePinnedData-Csij2qN3.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/focusPanel.store-BJpwjMIG.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/folders.store-Db975T-w.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/executions.store-IU9p1s46.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useCanvasOperations-CFsSFVcO.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/retry-sDkwzrPY.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/overlay-B8MMvNgs.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useMessage-Ceo97RRX.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/npsSurvey.store-BTpA4Bdf.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useWorkflowSaving-CWyt929n.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/useRunWorkflow-_-_hUnHE.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/FileSaver.min-DaytN8ae.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/uniqBy-BUNHbbw3.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/NDVEmptyState-DdpBamQ9.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/vue-LyXhKoPx.js\">\n\t\t<link rel=\"modulepreload\" crossorigin href=\"/assets/vue-json-pretty-BltKoWq2.js\">\n\t\t<link rel=\"modulepreload\" cros..."
+                    }
+                ]
+            }
+        },
+        "Image": "sha256:b4261fdea41664ca902b9fe1ed40dbcaabf171c9bd60ca417db9eafdbcf08274",
+        "ResolvConfPath": "/var/lib/docker/containers/bc097cc30b87dd404a2e494a90407f14e11b9d64a2bb6afdc96c0ac4400592b9/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/bc097cc30b87dd404a2e494a90407f14e11b9d64a2bb6afdc96c0ac4400592b9/hostname",
+        "HostsPath": "/var/lib/docker/containers/bc097cc30b87dd404a2e494a90407f14e11b9d64a2bb6afdc96c0ac4400592b9/hosts",
+        "LogPath": "/var/lib/docker/containers/bc097cc30b87dd404a2e494a90407f14e11b9d64a2bb6afdc96c0ac4400592b9/bc097cc30b87dd404a2e494a90407f14e11b9d64a2bb6afdc96c0ac4400592b9-json.log",
+        "Name": "/n8n-q0cc04cg484gwcokcgo8socw",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "q0cc04cg484gwcokcgo8socw_n8n-data:/home/node/.n8n:rw"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {
+                    "max-file": "3",
+                    "max-size": "10m"
+                }
+            },
+            "NetworkMode": "q0cc04cg484gwcokcgo8socw",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "unless-stopped",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": [],
+
+--- STATS (ÚLTIMOS) ---
+CONTAINER ID   NAME                           CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O        PIDS
+bc097cc30b87   n8n-q0cc04cg484gwcokcgo8socw   0.00%     273.3MiB / 15.62GiB   1.71%     9.73MB / 14.8MB   203MB / 46.6MB   13
+
+--- TOP (PROCESSOS) ---
+UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD
+ubuntu              1440                1278                0                   Nov27               ?                   00:00:04            tini -- /docker-entrypoint.sh
+ubuntu              1752                1440                0                   Nov27               ?                   00:01:58            node /usr/local/bin/n8n
+
+--- PORT MAPPING ---
+
+--- ENV VARS (primeiras 20) ---
+COOLIFY_CONTAINER_NAME=n8n-q0cc04cg484gwcokcgo8socw
+SERVICE_NAME_N8N=n8n
+COOLIFY_FQDN=n8n-q0cc04cg484gwcokcgo8socw.147.79.81.59.sslip.io
+POSTGRES_DB=n8n
+N8N_EDITOR_BASE_URL=n8n-q0cc04cg484gwcokcgo8socw.147.79.81.59.sslip.io
+TZ=America/Sao_Paulo
+COOLIFY_RESOURCE_UUID=q0cc04cg484gwcokcgo8socw
+SERVICE_FQDN_N8N=n8n-q0cc04cg484gwcokcgo8socw.147.79.81.59.sslip.io
+SERVICE_NAME_POSTGRESQL=postgresql
+DB_TYPE=postgresdb
+DB_POSTGRESDB_USER=VEywDwAYQb7fdt3U
+DB_POSTGRESDB_PORT=5432
+SERVICE_URL_N8N_5678=://n8n-q0cc04cg484gwcokcgo8socw.147.79.81.59.sslip.io
+DB_POSTGRESDB_HOST=postgresql
+POSTGRES_USER=VEywDwAYQb7fdt3U
+COOLIFY_URL=n8n-q0cc04cg484gwcokcgo8socw.147.79.81.59.sslip.io:5678://n8n-q0cc04cg484gwcokcgo8socw.147.79.81.59.sslip.io
+N8N_HOST=://n8n-q0cc04cg484gwcokcgo8socw.147.79.81.59.sslip.io
+SERVICE_PASSWORD_POSTGRES=VrJ3Oi1wJ4Db1T70t20anVUxRs6C8R6T
+DB_POSTGRESDB_DATABASE=n8n
+SERVICE_USER_POSTGRES=VEywDwAYQb7fdt3U
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CONTAINER: postgresql-q0cc04cg484gwcokcgo8socw
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+--- INSPECT (JSON) ---
+[
+    {
+        "Id": "442967df439c622844364c1ea1f624fb2bcbe5db92a2794cf0f7f5d928e59971",
+        "Created": "2025-11-18T09:29:23.307092078Z",
+        "Path": "docker-entrypoint.sh",
+        "Args": [
+            "postgres"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 1439,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2025-11-27T11:35:22.921132138Z",
+            "FinishedAt": "2025-11-27T11:34:45.577521471Z",
+            "Health": {
+                "Status": "healthy",
+                "FailingStreak": 0,
+                "Log": [
+                    {
+                        "Start": "2025-11-28T11:06:02.650418401Z",
+                        "End": "2025-11-28T11:06:02.719851917Z",
+                        "ExitCode": 0,
+                        "Output": "/var/run/postgresql:5432 - accepting connections\n"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:07.720659976Z",
+                        "End": "2025-11-28T11:06:07.771389475Z",
+                        "ExitCode": 0,
+                        "Output": "/var/run/postgresql:5432 - accepting connections\n"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:12.773546476Z",
+                        "End": "2025-11-28T11:06:12.825022471Z",
+                        "ExitCode": 0,
+                        "Output": "/var/run/postgresql:5432 - accepting connections\n"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:17.825581656Z",
+                        "End": "2025-11-28T11:06:17.877986328Z",
+                        "ExitCode": 0,
+                        "Output": "/var/run/postgresql:5432 - accepting connections\n"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:22.87943454Z",
+                        "End": "2025-11-28T11:06:22.936210898Z",
+                        "ExitCode": 0,
+                        "Output": "/var/run/postgresql:5432 - accepting connections\n"
+                    }
+                ]
+            }
+        },
+        "Image": "sha256:216e5ca6a8144363cf36affd3d72265c9d4978d515e7f5ba5549a4301e65c705",
+        "ResolvConfPath": "/var/lib/docker/containers/442967df439c622844364c1ea1f624fb2bcbe5db92a2794cf0f7f5d928e59971/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/442967df439c622844364c1ea1f624fb2bcbe5db92a2794cf0f7f5d928e59971/hostname",
+        "HostsPath": "/var/lib/docker/containers/442967df439c622844364c1ea1f624fb2bcbe5db92a2794cf0f7f5d928e59971/hosts",
+        "LogPath": "/var/lib/docker/containers/442967df439c622844364c1ea1f624fb2bcbe5db92a2794cf0f7f5d928e59971/442967df439c622844364c1ea1f624fb2bcbe5db92a2794cf0f7f5d928e59971-json.log",
+        "Name": "/postgresql-q0cc04cg484gwcokcgo8socw",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "q0cc04cg484gwcokcgo8socw_postgresql-data:/var/lib/postgresql/data:rw"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {
+                    "max-file": "3",
+                    "max-size": "10m"
+                }
+            },
+            "NetworkMode": "q0cc04cg484gwcokcgo8socw",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "unless-stopped",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": [],
+            "DnsOptions": [],
+
+--- STATS (ÚLTIMOS) ---
+CONTAINER ID   NAME                                  CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O         PIDS
+442967df439c   postgresql-q0cc04cg484gwcokcgo8socw   2.99%     51.15MiB / 15.62GiB   0.32%     14.7MB / 9.67MB   35.5MB / 11.9MB   7
+
+--- TOP (PROCESSOS) ---
+UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD
+70                  1439                1264                0                   Nov27               ?                   00:00:14            postgres
+70                  1863                1439                0                   Nov27               ?                   00:00:00            postgres: checkpointer
+70                  1865                1439                0                   Nov27               ?                   00:00:01            postgres: background writer
+70                  1878                1439                0                   Nov27               ?                   00:00:01            postgres: walwriter
+70                  1879                1439                0                   Nov27               ?                   00:00:01            postgres: autovacuum launcher
+70                  1880                1439                0                   Nov27               ?                   00:00:00            postgres: logical replication launcher
+70                  2768665             1439                0                   05:56               ?                   00:00:03            postgres: VEywDwAYQb7fdt3U n8n 10.0.2.3(35732) idle
+
+--- PORT MAPPING ---
+
+--- ENV VARS (primeiras 20) ---
+DB_POSTGRESDB_USER=VEywDwAYQb7fdt3U
+POSTGRES_PASSWORD=VrJ3Oi1wJ4Db1T70t20anVUxRs6C8R6T
+GENERIC_TIMEZONE=America/Sao_Paulo
+SERVICE_NAME_N8N=n8n
+SERVICE_PASSWORD_POSTGRES=VrJ3Oi1wJ4Db1T70t20anVUxRs6C8R6T
+COOLIFY_RESOURCE_UUID=q0cc04cg484gwcokcgo8socw
+DB_POSTGRESDB_PASSWORD=VrJ3Oi1wJ4Db1T70t20anVUxRs6C8R6T
+COOLIFY_CONTAINER_NAME=postgresql-q0cc04cg484gwcokcgo8socw
+SERVICE_NAME_POSTGRESQL=postgresql
+SERVICE_URL_N8N_5678=://n8n-q0cc04cg484gwcokcgo8socw.147.79.81.59.sslip.io
+N8N_EDITOR_BASE_URL=n8n-q0cc04cg484gwcokcgo8socw.147.79.81.59.sslip.io
+TZ=America/Sao_Paulo
+SERVICE_FQDN_N8N_5678=n8n-q0cc04cg484gwcokcgo8socw.147.79.81.59.sslip.io:5678://n8n-q0cc04cg484gwcokcgo8socw.147.79.81.59.sslip.io:5678
+SERVICE_USER_POSTGRES=VEywDwAYQb7fdt3U
+WEBHOOK_URL=n8n-q0cc04cg484gwcokcgo8socw.147.79.81.59.sslip.io
+N8N_HOST=://n8n-q0cc04cg484gwcokcgo8socw.147.79.81.59.sslip.io
+SERVICE_URL_N8N=://n8n-q0cc04cg484gwcokcgo8socw.147.79.81.59.sslip.io
+POSTGRES_USER=VEywDwAYQb7fdt3U
+POSTGRES_DB=n8n
+SERVICE_FQDN_N8N=n8n-q0cc04cg484gwcokcgo8socw.147.79.81.59.sslip.io
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CONTAINER: coolify-proxy
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+--- INSPECT (JSON) ---
+[
+    {
+        "Id": "6dcdd5b44777e5fff84e98671ad1f8fc00df57e57b8abcd13af4a7c1ae00fcb6",
+        "Created": "2025-11-17T04:41:48.295793264Z",
+        "Path": "/entrypoint.sh",
+        "Args": [
+            "--ping=true",
+            "--ping.entrypoint=http",
+            "--api.dashboard=true",
+            "--entrypoints.http.address=:80",
+            "--entrypoints.https.address=:443",
+            "--entrypoints.http.http.encodequerysemicolons=true",
+            "--entryPoints.http.http2.maxConcurrentStreams=250",
+            "--entrypoints.https.http.encodequerysemicolons=true",
+            "--entryPoints.https.http2.maxConcurrentStreams=250",
+            "--entrypoints.https.http3",
+            "--providers.file.directory=/traefik/dynamic/",
+            "--providers.file.watch=true",
+            "--certificatesresolvers.letsencrypt.acme.httpchallenge=true",
+            "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=http",
+            "--certificatesresolvers.letsencrypt.acme.storage=/traefik/acme.json",
+            "--api.insecure=false",
+            "--providers.docker=true",
+            "--providers.docker.exposedbydefault=false"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 1468,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2025-11-27T11:35:22.901746005Z",
+            "FinishedAt": "2025-11-27T11:34:45.575537453Z",
+            "Health": {
+                "Status": "healthy",
+                "FailingStreak": 0,
+                "Log": [
+                    {
+                        "Start": "2025-11-28T11:06:10.553571181Z",
+                        "End": "2025-11-28T11:06:10.603844855Z",
+                        "ExitCode": 0,
+                        "Output": "OK"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:14.605186877Z",
+                        "End": "2025-11-28T11:06:14.658371057Z",
+                        "ExitCode": 0,
+                        "Output": "OK"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:18.660006056Z",
+                        "End": "2025-11-28T11:06:18.71025112Z",
+                        "ExitCode": 0,
+                        "Output": "OK"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:22.710968228Z",
+                        "End": "2025-11-28T11:06:22.754571336Z",
+                        "ExitCode": 0,
+                        "Output": "OK"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:26.755052627Z",
+                        "End": "2025-11-28T11:06:26.796645358Z",
+                        "ExitCode": 0,
+                        "Output": "OK"
+                    }
+                ]
+            }
+        },
+        "Image": "sha256:1fd2908c092e5b20b852f9891b365aa5ec46cf2691388fc2e0d33e9d9758bdf0",
+        "ResolvConfPath": "/var/lib/docker/containers/6dcdd5b44777e5fff84e98671ad1f8fc00df57e57b8abcd13af4a7c1ae00fcb6/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/6dcdd5b44777e5fff84e98671ad1f8fc00df57e57b8abcd13af4a7c1ae00fcb6/hostname",
+        "HostsPath": "/var/lib/docker/containers/6dcdd5b44777e5fff84e98671ad1f8fc00df57e57b8abcd13af4a7c1ae00fcb6/hosts",
+        "LogPath": "/var/lib/docker/containers/6dcdd5b44777e5fff84e98671ad1f8fc00df57e57b8abcd13af4a7c1ae00fcb6/6dcdd5b44777e5fff84e98671ad1f8fc00df57e57b8abcd13af4a7c1ae00fcb6-json.log",
+        "Name": "/coolify-proxy",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "/var/run/docker.sock:/var/run/docker.sock:ro",
+                "/data/coolify/proxy/:/traefik:rw"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {
+                    "max-file": "3",
+                    "max-size": "10m"
+                }
+            },
+
+--- STATS (ÚLTIMOS) ---
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT     MEM %     NET I/O          BLOCK I/O     PIDS
+6dcdd5b44777   coolify-proxy   0.11%     111.7MiB / 15.62GiB   0.70%     86.1MB / 149MB   98.5MB / 0B   10
+
+--- TOP (PROCESSOS) ---
+UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD
+root                1468                1270                0                   Nov27               ?                   00:01:36            traefik traefik --ping=true --ping.entrypoint=http --api.dashboard=true --entrypoints.http.address=:80 --entrypoints.https.address=:443 --entrypoints.http.http.encodequerysemicolons=true --entryPoints.http.http2.maxConcurrentStreams=250 --entrypoints.https.http.encodequerysemicolons=true --entryPoints.https.http2.maxConcurrentStreams=250 --entrypoints.https.http3 --providers.file.directory=/traefik/dynamic/ --providers.file.watch=true --certificatesresolvers.letsencrypt.acme.httpchallenge=true --certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=http --certificatesresolvers.letsencrypt.acme.storage=/traefik/acme.json --api.insecure=false --providers.docker=true --providers.docker.exposedbydefault=false
+
+--- PORT MAPPING ---
+80/tcp -> 0.0.0.0:80
+80/tcp -> [::]:80
+443/tcp -> 0.0.0.0:443
+443/tcp -> [::]:443
+443/udp -> 0.0.0.0:443
+443/udp -> [::]:443
+8080/tcp -> 0.0.0.0:8080
+8080/tcp -> [::]:8080
+
+--- ENV VARS (primeiras 20) ---
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CONTAINER: coolify
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+--- INSPECT (JSON) ---
+[
+    {
+        "Id": "ea2d5fb4b8f51c5c21b0afff531bfa016e4a458ba5eae3a1bad2100cbae6eb5a",
+        "Created": "2025-11-17T04:41:18.568209931Z",
+        "Path": "docker-php-serversideup-entrypoint",
+        "Args": [
+            "/init"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 1470,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2025-11-27T11:35:22.981544786Z",
+            "FinishedAt": "2025-11-27T11:34:55.554454888Z",
+            "Health": {
+                "Status": "healthy",
+                "FailingStreak": 0,
+                "Log": [
+                    {
+                        "Start": "2025-11-28T11:06:06.191276969Z",
+                        "End": "2025-11-28T11:06:06.264995791Z",
+                        "ExitCode": 0,
+                        "Output": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r100     2    0     2    0     0    103      0 --:--:-- --:--:-- --:--:--   100\r100     2    0     2    0     0    102      0 --:--:-- --:--:-- --:--:--   100\nOK"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:11.266711865Z",
+                        "End": "2025-11-28T11:06:11.347914681Z",
+                        "ExitCode": 0,
+                        "Output": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r100     2    0     2    0     0     94      0 --:--:-- --:--:-- --:--:--    95\nOK"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:16.349636274Z",
+                        "End": "2025-11-28T11:06:16.420939085Z",
+                        "ExitCode": 0,
+                        "Output": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r100     2    0     2    0     0     90      0 --:--:-- --:--:-- --:--:--    95\nOK"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:21.422521545Z",
+                        "End": "2025-11-28T11:06:21.495776224Z",
+                        "ExitCode": 0,
+                        "Output": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r100     2    0     2    0     0     96      0 --:--:-- --:--:-- --:--:--   100\nOK"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:26.497355233Z",
+                        "End": "2025-11-28T11:06:26.563047517Z",
+                        "ExitCode": 0,
+                        "Output": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r100     2    0     2    0     0    117      0 --:--:-- --:--:-- --:--:--   125\nOK"
+                    }
+                ]
+            }
+        },
+        "Image": "sha256:8168ac2f5ab4ec1ecb123b4b70d6a03a0f61b25ef3b86fd45b5cc0b2701baeb2",
+        "ResolvConfPath": "/var/lib/docker/containers/ea2d5fb4b8f51c5c21b0afff531bfa016e4a458ba5eae3a1bad2100cbae6eb5a/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/ea2d5fb4b8f51c5c21b0afff531bfa016e4a458ba5eae3a1bad2100cbae6eb5a/hostname",
+        "HostsPath": "/var/lib/docker/containers/ea2d5fb4b8f51c5c21b0afff531bfa016e4a458ba5eae3a1bad2100cbae6eb5a/hosts",
+        "LogPath": "/var/lib/docker/containers/ea2d5fb4b8f51c5c21b0afff531bfa016e4a458ba5eae3a1bad2100cbae6eb5a/ea2d5fb4b8f51c5c21b0afff531bfa016e4a458ba5eae3a1bad2100cbae6eb5a-json.log",
+        "Name": "/coolify",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "/data/coolify/databases:/var/www/html/storage/app/databases:rw",
+                "/data/coolify/services:/var/www/html/storage/app/services:rw",
+                "/data/coolify/backups:/var/www/html/storage/app/backups:rw",
+                "/data/coolify/webhooks-during-maintenance:/var/www/html/storage/app/webhooks-during-maintenance:rw",
+                "/data/coolify/source/.env:/var/www/html/.env:ro",
+                "/data/coolify/ssh:/var/www/html/storage/app/ssh:rw",
+                "/data/coolify/applications:/var/www/html/storage/app/applications:rw"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {
+                    "max-file": "3",
+                    "max-size": "10m"
+                }
+            },
+            "NetworkMode": "coolify",
+            "PortBindings": {
+                "8080/tcp": [
+                    {
+                        "HostIp": "",
+                        "HostPort": "8000"
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "always",
+                "MaximumRetryCount": 0
+
+--- STATS (ÚLTIMOS) ---
+CONTAINER ID   NAME      CPU %     MEM USAGE / LIMIT     MEM %     NET I/O          BLOCK I/O         PIDS
+ea2d5fb4b8f5   coolify   5.27%     321.6MiB / 15.62GiB   2.01%     1.03GB / 967MB   77.2MB / 38.5MB   27
+
+--- TOP (PROCESSOS) ---
+UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD
+9999                1470                1324                0                   Nov27               ?                   00:00:01            /package/admin/s6/command/s6-svscan -d4 -- /run/service
+9999                1995                1470                0                   Nov27               ?                   00:00:00            s6-supervise s6-linux-init-shutdownd
+9999                1997                1995                0                   Nov27               ?                   00:00:00            /package/admin/s6-linux-init/command/s6-linux-init-shutdownd -d3 -c /run/s6/basedir -g 3000 -C -B
+9999                2010                1470                0                   Nov27               ?                   00:00:00            s6-supervise s6rc-fdholder
+9999                2011                1470                0                   Nov27               ?                   00:00:00            s6-supervise php-fpm
+9999                2012                1470                0                   Nov27               ?                   00:00:00            s6-supervise s6rc-oneshot-runner
+9999                2013                1470                0                   Nov27               ?                   00:00:00            s6-supervise nginx
+9999                2014                1470                0                   Nov27               ?                   00:00:00            s6-supervise horizon
+9999                2015                1470                0                   Nov27               ?                   00:00:00            s6-supervise scheduler-worker
+9999                2025                2011                0                   Nov27               ?                   00:00:06            php-fpm: master process (/usr/local/etc/php-fpm.conf)
+9999                2026                2012                0                   Nov27               ?                   00:00:00            /package/admin/s6/command/s6-ipcserverd -1 -- /package/admin/s6/command/s6-ipcserver-access -v0 -E -l0 -i data/rules -- /package/admin/s6/command/s6-sudod -t 30000 -- /package/admin/s6-rc/command/s6-rc-oneshot-run -l ../.. --
+9999                2083                2025                0                   Nov27               ?                   00:02:53            php-fpm: pool www
+9999                2126                2013                0                   Nov27               ?                   00:00:00            nginx: master process nginx
+9999                2138                2126                0                   Nov27               ?                   00:00:02            nginx: worker process
+9999                2139                2126                0                   Nov27               ?                   00:00:02            nginx: worker process
+9999                2140                2126                0                   Nov27               ?                   00:00:02            nginx: worker process
+9999                2141                2126                0                   Nov27               ?                   00:00:02            nginx: worker process
+9999                2823                2014                0                   Nov27               ?                   00:00:00            foreground php artisan start:horizon
+9999                2824                2015                0                   Nov27               ?                   00:00:00            foreground php artisan start:scheduler
+
+--- PORT MAPPING ---
+8080/tcp -> 0.0.0.0:8000
+8080/tcp -> [::]:8000
+
+--- ENV VARS (primeiras 20) ---
+APP_KEY=base64:BhLfvQcZa7fm1TWpZztCBE43Ii8ohykGa7dJRK7c2/w=
+PHP_FPM_PM_MAX_SPARE_SERVERS=10
+PHP_FPM_PM_CONTROL=dynamic
+ROOT_USERNAME=
+REDIS_PASSWORD=LN+LJPt1Omh7EZ0hcy6yk61I99V9FUVQc3co+GZf+SI=
+PUSHER_APP_SECRET=818e9eb7d617711159ea1e75e29bfe12e57a44fd6926147489dc73b33dca2667
+APP_NAME=Coolify
+DB_USERNAME=coolify
+DOCKER_ADDRESS_POOL_SIZE=24
+REGISTRY_URL=ghcr.io
+DB_PASSWORD=SPSlhFmxzXRZ+4UQ/71Q4ttPblf3pwXnVH32Jroi3hY=
+PHP_MEMORY_LIMIT=256M
+PHP_FPM_PM_MIN_SPARE_SERVERS=1
+PUSHER_APP_ID=1cd2631eb609c7fd9859a98c5dfcb15b5af632af0af78599e7d2fb5054e703b0
+PHP_FPM_PM_START_SERVERS=1
+ROOT_USER_EMAIL=
+PUSHER_APP_KEY=7efb32617e9790826619e8fe7708a7b389ae8bddd5bdffd0ac7f7b575da108d5
+APP_ENV=production
+DOCKER_ADDRESS_POOL_BASE=10.0.0.0/8
+APP_ID=a57855f420b6ec84883f84643865910c
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CONTAINER: coolify-db
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+--- INSPECT (JSON) ---
+[
+    {
+        "Id": "0a237a98c236d1d82e158204c07c0e055f60b5b6aa207a2ec65b4d1848751f74",
+        "Created": "2025-11-17T04:41:17.444718112Z",
+        "Path": "docker-entrypoint.sh",
+        "Args": [
+            "postgres"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 1453,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2025-11-27T11:35:22.912869954Z",
+            "FinishedAt": "2025-11-27T11:34:45.685415553Z",
+            "Health": {
+                "Status": "healthy",
+                "FailingStreak": 0,
+                "Log": [
+                    {
+                        "Start": "2025-11-28T11:06:07.721879177Z",
+                        "End": "2025-11-28T11:06:07.768231329Z",
+                        "ExitCode": 0,
+                        "Output": "/var/run/postgresql:5432 - accepting connections\n"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:12.768760216Z",
+                        "End": "2025-11-28T11:06:12.823248046Z",
+                        "ExitCode": 0,
+                        "Output": "/var/run/postgresql:5432 - accepting connections\n"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:17.824200884Z",
+                        "End": "2025-11-28T11:06:17.880899043Z",
+                        "ExitCode": 0,
+                        "Output": "/var/run/postgresql:5432 - accepting connections\n"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:22.881920471Z",
+                        "End": "2025-11-28T11:06:22.950257818Z",
+                        "ExitCode": 0,
+                        "Output": "/var/run/postgresql:5432 - accepting connections\n"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:27.951397204Z",
+                        "End": "2025-11-28T11:06:28.009221482Z",
+                        "ExitCode": 0,
+                        "Output": "/var/run/postgresql:5432 - accepting connections\n"
+                    }
+                ]
+            }
+        },
+        "Image": "sha256:6df5377b1f74a457fbc870a6ed6a33e60a7a859e8cc691c94025925f608e3571",
+        "ResolvConfPath": "/var/lib/docker/containers/0a237a98c236d1d82e158204c07c0e055f60b5b6aa207a2ec65b4d1848751f74/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/0a237a98c236d1d82e158204c07c0e055f60b5b6aa207a2ec65b4d1848751f74/hostname",
+        "HostsPath": "/var/lib/docker/containers/0a237a98c236d1d82e158204c07c0e055f60b5b6aa207a2ec65b4d1848751f74/hosts",
+        "LogPath": "/var/lib/docker/containers/0a237a98c236d1d82e158204c07c0e055f60b5b6aa207a2ec65b4d1848751f74/0a237a98c236d1d82e158204c07c0e055f60b5b6aa207a2ec65b4d1848751f74-json.log",
+        "Name": "/coolify-db",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "coolify-db:/var/lib/postgresql/data:rw"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {
+                    "max-file": "3",
+                    "max-size": "10m"
+                }
+            },
+            "NetworkMode": "coolify",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "always",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": [],
+            "DnsOptions": [],
+
+--- STATS (ÚLTIMOS) ---
+CONTAINER ID   NAME         CPU %     MEM USAGE / LIMIT     MEM %     NET I/O         BLOCK I/O         PIDS
+0a237a98c236   coolify-db   0.00%     47.11MiB / 15.62GiB   0.29%     144MB / 450MB   30.1MB / 82.2MB   7
+
+--- TOP (PROCESSOS) ---
+UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD
+70                  1453                1271                0                   Nov27               ?                   00:00:16            postgres
+70                  1991                1453                0                   Nov27               ?                   00:00:00            postgres: checkpointer
+70                  1992                1453                0                   Nov27               ?                   00:00:01            postgres: background writer
+70                  2003                1453                0                   Nov27               ?                   00:00:08            postgres: walwriter
+70                  2004                1453                0                   Nov27               ?                   00:00:00            postgres: autovacuum launcher
+70                  2006                1453                0                   Nov27               ?                   00:00:00            postgres: logical replication launcher
+70                  3545009             1453                0                   11:06               ?                   00:00:00            postgres: coolify coolify 10.0.1.3(40244) idle
+
+--- PORT MAPPING ---
+
+--- ENV VARS (primeiras 20) ---
+POSTGRES_DB=coolify
+POSTGRES_USER=coolify
+POSTGRES_PASSWORD=SPSlhFmxzXRZ+4UQ/71Q4ttPblf3pwXnVH32Jroi3hY=
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+GOSU_VERSION=1.19
+LANG=en_US.utf8
+PG_MAJOR=15
+PG_VERSION=15.15
+PG_SHA256=5753aaeb8b09cbf61016f78aa69bf5cbdf01b43263f010cbf168c82896213aaa
+DOCKER_PG_LLVM_DEPS=llvm19-dev 		clang19
+PGDATA=/var/lib/postgresql/data
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CONTAINER: coolify-realtime
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+--- INSPECT (JSON) ---
+[
+    {
+        "Id": "1f074035270a959d6fe045759d7a65ef7a70ccb20a7e56c6ee855021eb3cac25",
+        "Created": "2025-11-17T04:41:17.444390381Z",
+        "Path": "/bin/sh",
+        "Args": [
+            "/soketi-entrypoint.sh"
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 1454,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2025-11-27T11:35:22.917716117Z",
+            "FinishedAt": "2025-11-27T11:34:45.743200478Z",
+            "Health": {
+                "Status": "healthy",
+                "FailingStreak": 0,
+                "Log": [
+                    {
+                        "Start": "2025-11-28T11:06:09.623731128Z",
+                        "End": "2025-11-28T11:06:09.678236258Z",
+                        "ExitCode": 0,
+                        "Output": "OKOK"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:14.678726998Z",
+                        "End": "2025-11-28T11:06:14.728505497Z",
+                        "ExitCode": 0,
+                        "Output": "OKOK"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:19.728782523Z",
+                        "End": "2025-11-28T11:06:19.778397913Z",
+                        "ExitCode": 0,
+                        "Output": "OKOK"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:24.77897246Z",
+                        "End": "2025-11-28T11:06:24.825710324Z",
+                        "ExitCode": 0,
+                        "Output": "OKOK"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:29.826277279Z",
+                        "End": "2025-11-28T11:06:29.872922513Z",
+                        "ExitCode": 0,
+                        "Output": "OKOK"
+                    }
+                ]
+            }
+        },
+        "Image": "sha256:e06af27c75e3d8dac0bad472d29a1fe3c22f5c367cb05dde9df48b4ab1fb300c",
+        "ResolvConfPath": "/var/lib/docker/containers/1f074035270a959d6fe045759d7a65ef7a70ccb20a7e56c6ee855021eb3cac25/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/1f074035270a959d6fe045759d7a65ef7a70ccb20a7e56c6ee855021eb3cac25/hostname",
+        "HostsPath": "/var/lib/docker/containers/1f074035270a959d6fe045759d7a65ef7a70ccb20a7e56c6ee855021eb3cac25/hosts",
+        "LogPath": "/var/lib/docker/containers/1f074035270a959d6fe045759d7a65ef7a70ccb20a7e56c6ee855021eb3cac25/1f074035270a959d6fe045759d7a65ef7a70ccb20a7e56c6ee855021eb3cac25-json.log",
+        "Name": "/coolify-realtime",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "/data/coolify/ssh:/var/www/html/storage/app/ssh:rw"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {
+                    "max-file": "3",
+                    "max-size": "10m"
+                }
+            },
+            "NetworkMode": "coolify",
+            "PortBindings": {
+                "6001/tcp": [
+                    {
+                        "HostIp": "",
+                        "HostPort": "6001"
+                    }
+                ],
+                "6002/tcp": [
+                    {
+                        "HostIp": "",
+                        "HostPort": "6002"
+                    }
+                ]
+            },
+            "RestartPolicy": {
+                "Name": "always",
+                "MaximumRetryCount": 0
+
+--- STATS (ÚLTIMOS) ---
+CONTAINER ID   NAME               CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O     PIDS
+1f074035270a   coolify-realtime   0.96%     107.7MiB / 15.62GiB   0.67%     2.04MB / 46.7MB   67.2MB / 0B   21
+
+--- TOP (PROCESSOS) ---
+UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD
+root                1454                1273                0                   Nov27               ?                   00:00:00            /bin/sh /soketi-entrypoint.sh
+root                1881                1454                0                   Nov27               ?                   00:00:14            node /terminal/terminal-server.js
+root                1882                1454                0                   Nov27               ?                   00:12:10            soketi-server
+root                1883                1881                0                   Nov27               ?                   00:00:00            /bin/sh /soketi-entrypoint.sh
+root                1885                1882                0                   Nov27               ?                   00:00:00            /bin/sh /soketi-entrypoint.sh
+
+--- PORT MAPPING ---
+6001/tcp -> 0.0.0.0:6001
+6001/tcp -> [::]:6001
+6002/tcp -> 0.0.0.0:6002
+6002/tcp -> [::]:6002
+
+--- ENV VARS (primeiras 20) ---
+SOKETI_DEFAULT_APP_SECRET=818e9eb7d617711159ea1e75e29bfe12e57a44fd6926147489dc73b33dca2667
+APP_NAME=Coolify
+SOKETI_DEBUG=false
+SOKETI_DEFAULT_APP_ID=1cd2631eb609c7fd9859a98c5dfcb15b5af632af0af78599e7d2fb5054e703b0
+SOKETI_DEFAULT_APP_KEY=7efb32617e9790826619e8fe7708a7b389ae8bddd5bdffd0ac7f7b575da108d5
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+NODE_VERSION=16.20.2
+YARN_VERSION=1.22.19
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CONTAINER: coolify-redis
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+--- INSPECT (JSON) ---
+[
+    {
+        "Id": "d4baec1771e96e9c56d7fd3fc82c5fd76ea952435df365cdc01557f88a1c5956",
+        "Created": "2025-11-17T04:41:17.443036286Z",
+        "Path": "docker-entrypoint.sh",
+        "Args": [
+            "redis-server",
+            "--save",
+            "20",
+            "1",
+            "--loglevel",
+            "warning",
+            "--requirepass",
+            "LN+LJPt1Omh7EZ0hcy6yk61I99V9FUVQc3co+GZf+SI="
+        ],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 1469,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2025-11-27T11:35:22.907290624Z",
+            "FinishedAt": "2025-11-27T11:34:45.767532681Z",
+            "Health": {
+                "Status": "healthy",
+                "FailingStreak": 0,
+                "Log": [
+                    {
+                        "Start": "2025-11-28T11:06:14.677586838Z",
+                        "End": "2025-11-28T11:06:14.726224669Z",
+                        "ExitCode": 0,
+                        "Output": "NOAUTH Authentication required.\n\n"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:19.728562022Z",
+                        "End": "2025-11-28T11:06:19.774290098Z",
+                        "ExitCode": 0,
+                        "Output": "NOAUTH Authentication required.\n\n"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:24.775177208Z",
+                        "End": "2025-11-28T11:06:24.823611876Z",
+                        "ExitCode": 0,
+                        "Output": "NOAUTH Authentication required.\n\n"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:29.824637735Z",
+                        "End": "2025-11-28T11:06:29.871681772Z",
+                        "ExitCode": 0,
+                        "Output": "NOAUTH Authentication required.\n\n"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:34.873084623Z",
+                        "End": "2025-11-28T11:06:34.923999742Z",
+                        "ExitCode": 0,
+                        "Output": "NOAUTH Authentication required.\n\n"
+                    }
+                ]
+            }
+        },
+        "Image": "sha256:13105d2858ded45aedf7b24f0870e6a4e7ce4964924bffce68e562ca72149f1e",
+        "ResolvConfPath": "/var/lib/docker/containers/d4baec1771e96e9c56d7fd3fc82c5fd76ea952435df365cdc01557f88a1c5956/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/d4baec1771e96e9c56d7fd3fc82c5fd76ea952435df365cdc01557f88a1c5956/hostname",
+        "HostsPath": "/var/lib/docker/containers/d4baec1771e96e9c56d7fd3fc82c5fd76ea952435df365cdc01557f88a1c5956/hosts",
+        "LogPath": "/var/lib/docker/containers/d4baec1771e96e9c56d7fd3fc82c5fd76ea952435df365cdc01557f88a1c5956/d4baec1771e96e9c56d7fd3fc82c5fd76ea952435df365cdc01557f88a1c5956-json.log",
+        "Name": "/coolify-redis",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "coolify-redis:/data:rw"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {
+                    "max-file": "3",
+                    "max-size": "10m"
+                }
+            },
+            "NetworkMode": "coolify",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "always",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+
+--- STATS (ÚLTIMOS) ---
+CONTAINER ID   NAME            CPU %     MEM USAGE / LIMIT    MEM %     NET I/O         BLOCK I/O       PIDS
+d4baec1771e9   coolify-redis   0.57%     19.6MiB / 15.62GiB   0.12%     830MB / 234MB   15MB / 9.02GB   7
+
+--- TOP (PROCESSOS) ---
+UID                 PID                 PPID                C                   STIME               TTY                 TIME                CMD
+999                 1469                1267                0                   Nov27               ?                   00:10:12            redis-server *:6379
+
+--- PORT MAPPING ---
+
+--- ENV VARS (primeiras 20) ---
+REDIS_PASSWORD=LN+LJPt1Omh7EZ0hcy6yk61I99V9FUVQc3co+GZf+SI=
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+GOSU_VERSION=1.17
+REDIS_VERSION=7.4.7
+REDIS_DOWNLOAD_URL=http://download.redis.io/releases/redis-7.4.7.tar.gz
+REDIS_DOWNLOAD_SHA=c97e57b0df330a9e091cacff012bebe763c275398cf36ff44cdba876814b595b
+

@@ -1,0 +1,361 @@
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+LOGS: coolify-sentinel
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[GIN] 2025/11/28 - 11:00:24 | 200 |      62.621µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:00:34 | 200 |      27.701µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:00:45 | 200 |        33.1µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:00:55 | 200 |       23.48µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:01:04 | 200 |       28.56µs |       127.0.0.1 | GET      "/api/version"
+[GIN] 2025/11/28 - 11:01:05 | 200 |       21.96µs |       127.0.0.1 | GET      "/api/health"
+[2025-11-28 11:01:08] Pushing to [http://147.79.81.59:8000/api/v1/sentinel/push]
+[GIN] 2025/11/28 - 11:01:15 | 200 |      28.671µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:01:25 | 200 |      22.991µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:01:35 | 200 |       27.93µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:01:45 | 200 |       22.33µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:01:55 | 200 |      22.259µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:02:05 | 200 |       30.79µs |       127.0.0.1 | GET      "/api/version"
+[GIN] 2025/11/28 - 11:02:05 | 200 |      28.801µs |       127.0.0.1 | GET      "/api/health"
+[2025-11-28 11:02:08] Pushing to [http://147.79.81.59:8000/api/v1/sentinel/push]
+[GIN] 2025/11/28 - 11:02:15 | 200 |      29.501µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:02:25 | 200 |      22.201µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:02:35 | 200 |       23.22µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:02:45 | 200 |       29.52µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:02:55 | 200 |       30.16µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:03:05 | 200 |       29.38µs |       127.0.0.1 | GET      "/api/version"
+[GIN] 2025/11/28 - 11:03:05 | 200 |       27.16µs |       127.0.0.1 | GET      "/api/health"
+[2025-11-28 11:03:08] Pushing to [http://147.79.81.59:8000/api/v1/sentinel/push]
+[GIN] 2025/11/28 - 11:03:15 | 200 |        30.7µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:03:25 | 200 |       28.68µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:03:35 | 200 |       31.89µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:03:45 | 200 |      26.331µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:03:56 | 200 |       22.75µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:04:05 | 200 |       28.55µs |       127.0.0.1 | GET      "/api/version"
+[GIN] 2025/11/28 - 11:04:06 | 200 |       27.24µs |       127.0.0.1 | GET      "/api/health"
+[2025-11-28 11:04:08] Pushing to [http://147.79.81.59:8000/api/v1/sentinel/push]
+[GIN] 2025/11/28 - 11:04:16 | 200 |      34.851µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:04:26 | 200 |      26.721µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:04:36 | 200 |       36.21µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:04:46 | 200 |       49.13µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:04:56 | 200 |       23.19µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:05:06 | 200 |      26.361µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:05:06 | 200 |       29.26µs |       127.0.0.1 | GET      "/api/version"
+[2025-11-28 11:05:08] Pushing to [http://147.79.81.59:8000/api/v1/sentinel/push]
+[GIN] 2025/11/28 - 11:05:16 | 200 |       26.67µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:05:26 | 200 |      22.201µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:05:36 | 200 |       24.12µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:05:46 | 200 |       23.74µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:05:56 | 200 |      27.619µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:06:06 | 200 |      39.721µs |       127.0.0.1 | GET      "/api/version"
+[GIN] 2025/11/28 - 11:06:06 | 200 |       28.25µs |       127.0.0.1 | GET      "/api/health"
+[2025-11-28 11:06:08] Pushing to [http://147.79.81.59:8000/api/v1/sentinel/push]
+[GIN] 2025/11/28 - 11:06:16 | 200 |      28.741µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:06:26 | 200 |       30.31µs |       127.0.0.1 | GET      "/api/health"
+[GIN] 2025/11/28 - 11:06:36 | 200 |       34.44µs |       127.0.0.1 | GET      "/api/health"
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+LOGS: n8n-q0cc04cg484gwcokcgo8socw
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Pruning old insights data
+Pruning old insights data
+Pruning old insights data
+Pruning old insights data
+Pruning old insights data
+Pruning old insights data
+Pruning old insights data
+2025-11-25T15:29:48.444Z [Rudder] error: Response error status: 429
+Response error code: ERR_BAD_REQUEST
+2025-11-25T15:29:48.825Z [Rudder] error: Response error status: 429
+Response error code: ERR_BAD_REQUEST
+2025-11-25T15:29:49.469Z [Rudder] error: Response error status: 429
+Response error code: ERR_BAD_REQUEST
+2025-11-25T15:29:50.538Z [Rudder] error: Error: Too Many Requests
+Request failed with status code 429
+Pruning old insights data
+Received SIGTERM. Shutting down...
+
+Stopping n8n...
+Permissions 0644 for n8n settings file /home/node/.n8n/config are too wide. This is ignored for now, but in the future n8n will attempt to change the permissions automatically. To automatically enforce correct permissions now set N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true (recommended), or turn this check off set N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=false.
+Initializing n8n process
+n8n ready on ::, port 5678
+
+There are deprecations related to your environment variables. Please take the recommended actions to update your configuration:
+ - N8N_RUNNERS_ENABLED -> Running n8n without task runners is deprecated. Task runners will be turned on by default in a future version. Please set `N8N_RUNNERS_ENABLED=true` to enable task runners now and avoid potential issues in the future. Learn more: https://docs.n8n.io/hosting/configuration/task-runners/
+ - N8N_BLOCK_ENV_ACCESS_IN_NODE -> The default value of N8N_BLOCK_ENV_ACCESS_IN_NODE will be changed from false to true in a future version. If you need to access environment variables from the Code Node or from expressions, please set N8N_BLOCK_ENV_ACCESS_IN_NODE=false. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+ - N8N_GIT_NODE_DISABLE_BARE_REPOS -> Support for bare repositories in the Git Node will be removed in a future version due to security concerns. If you are not using bare repositories in the Git Node, please set N8N_GIT_NODE_DISABLE_BARE_REPOS=true. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+
+[license SDK] Skipping renewal on init: license cert is not initialized
+Version: 1.119.2
+
+Editor is now accessible via:
+n8n-q0cc04cg484gwcokcgo8socw.147.79.81.59.sslip.io
+Received SIGTERM. Shutting down...
+
+Stopping n8n...
+Permissions 0644 for n8n settings file /home/node/.n8n/config are too wide. This is ignored for now, but in the future n8n will attempt to change the permissions automatically. To automatically enforce correct permissions now set N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true (recommended), or turn this check off set N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=false.
+Initializing n8n process
+n8n ready on ::, port 5678
+
+There are deprecations related to your environment variables. Please take the recommended actions to update your configuration:
+ - N8N_RUNNERS_ENABLED -> Running n8n without task runners is deprecated. Task runners will be turned on by default in a future version. Please set `N8N_RUNNERS_ENABLED=true` to enable task runners now and avoid potential issues in the future. Learn more: https://docs.n8n.io/hosting/configuration/task-runners/
+ - N8N_BLOCK_ENV_ACCESS_IN_NODE -> The default value of N8N_BLOCK_ENV_ACCESS_IN_NODE will be changed from false to true in a future version. If you need to access environment variables from the Code Node or from expressions, please set N8N_BLOCK_ENV_ACCESS_IN_NODE=false. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+ - N8N_GIT_NODE_DISABLE_BARE_REPOS -> Support for bare repositories in the Git Node will be removed in a future version due to security concerns. If you are not using bare repositories in the Git Node, please set N8N_GIT_NODE_DISABLE_BARE_REPOS=true. Learn more: https://docs.n8n.io/hosting/configuration/environment-variables/security/
+
+[license SDK] Skipping renewal on init: license cert is not initialized
+Version: 1.119.2
+
+Editor is now accessible via:
+n8n-q0cc04cg484gwcokcgo8socw.147.79.81.59.sslip.io
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+LOGS: postgresql-q0cc04cg484gwcokcgo8socw
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2025-11-27 10:40:26.235 -03 [27] LOG:  checkpoint starting: time
+2025-11-27 10:40:28.063 -03 [27] LOG:  checkpoint complete: wrote 19 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.816 s, sync=0.004 s, total=1.829 s; sync files=15, longest=0.001 s, average=0.001 s; distance=97 kB, estimate=97 kB; lsn=0/38BF088, redo lsn=0/38BF050
+2025-11-27 11:40:27.071 -03 [27] LOG:  checkpoint starting: time
+2025-11-27 11:40:29.795 -03 [27] LOG:  checkpoint complete: wrote 28 buffers (0.2%); 0 WAL file(s) added, 0 removed, 0 recycled; write=2.715 s, sync=0.003 s, total=2.724 s; sync files=15, longest=0.001 s, average=0.001 s; distance=160 kB, estimate=160 kB; lsn=0/38E7140, redo lsn=0/38E7108
+2025-11-27 12:40:28.688 -03 [27] LOG:  checkpoint starting: time
+2025-11-27 12:40:30.520 -03 [27] LOG:  checkpoint complete: wrote 19 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.819 s, sync=0.004 s, total=1.833 s; sync files=15, longest=0.002 s, average=0.001 s; distance=106 kB, estimate=154 kB; lsn=0/3901AB0, redo lsn=0/3901A78
+2025-11-27 13:40:29.296 -03 [27] LOG:  checkpoint starting: time
+2025-11-27 13:40:31.338 -03 [27] LOG:  checkpoint complete: wrote 21 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=2.024 s, sync=0.004 s, total=2.043 s; sync files=16, longest=0.002 s, average=0.001 s; distance=105 kB, estimate=149 kB; lsn=0/391BFF0, redo lsn=0/391BFB8
+2025-11-27 14:40:30.048 -03 [27] LOG:  checkpoint starting: time
+2025-11-27 14:40:32.484 -03 [27] LOG:  checkpoint complete: wrote 25 buffers (0.2%); 0 WAL file(s) added, 0 removed, 0 recycled; write=2.419 s, sync=0.005 s, total=2.438 s; sync files=17, longest=0.002 s, average=0.001 s; distance=126 kB, estimate=147 kB; lsn=0/393B9B0, redo lsn=0/393B978
+2025-11-27 15:40:31.222 -03 [27] LOG:  checkpoint starting: time
+2025-11-27 15:40:34.061 -03 [27] LOG:  checkpoint complete: wrote 29 buffers (0.2%); 0 WAL file(s) added, 0 removed, 0 recycled; write=2.826 s, sync=0.005 s, total=2.840 s; sync files=17, longest=0.002 s, average=0.001 s; distance=145 kB, estimate=147 kB; lsn=0/395FF78, redo lsn=0/395FF40
+2025-11-27 16:40:31.934 -03 [27] LOG:  checkpoint starting: time
+2025-11-27 16:40:33.955 -03 [27] LOG:  checkpoint complete: wrote 21 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=2.011 s, sync=0.003 s, total=2.021 s; sync files=15, longest=0.002 s, average=0.001 s; distance=106 kB, estimate=143 kB; lsn=0/397A788, redo lsn=0/397A750
+2025-11-27 17:40:32.836 -03 [27] LOG:  checkpoint starting: time
+2025-11-27 17:40:35.072 -03 [27] LOG:  checkpoint complete: wrote 23 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=2.226 s, sync=0.003 s, total=2.237 s; sync files=16, longest=0.002 s, average=0.001 s; distance=113 kB, estimate=140 kB; lsn=0/3996EC8, redo lsn=0/3996E90
+2025-11-27 18:40:32.798 -03 [27] LOG:  checkpoint starting: time
+2025-11-27 18:40:35.019 -03 [27] LOG:  checkpoint complete: wrote 23 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=2.213 s, sync=0.003 s, total=2.221 s; sync files=16, longest=0.002 s, average=0.001 s; distance=118 kB, estimate=138 kB; lsn=0/39B4918, redo lsn=0/39B48E0
+2025-11-27 19:40:33.019 -03 [27] LOG:  checkpoint starting: time
+2025-11-27 19:40:35.954 -03 [27] LOG:  checkpoint complete: wrote 30 buffers (0.2%); 0 WAL file(s) added, 0 removed, 0 recycled; write=2.923 s, sync=0.003 s, total=2.936 s; sync files=17, longest=0.002 s, average=0.001 s; distance=177 kB, estimate=177 kB; lsn=0/39E0D18, redo lsn=0/39E0CE0
+2025-11-27 20:40:34.807 -03 [27] LOG:  checkpoint starting: time
+2025-11-27 20:40:37.231 -03 [27] LOG:  checkpoint complete: wrote 25 buffers (0.2%); 0 WAL file(s) added, 0 removed, 0 recycled; write=2.413 s, sync=0.003 s, total=2.425 s; sync files=17, longest=0.002 s, average=0.001 s; distance=115 kB, estimate=170 kB; lsn=0/39FDCA8, redo lsn=0/39FDC70
+2025-11-27 21:40:34.933 -03 [27] LOG:  checkpoint starting: time
+2025-11-27 21:40:36.660 -03 [27] LOG:  checkpoint complete: wrote 18 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.716 s, sync=0.003 s, total=1.728 s; sync files=14, longest=0.002 s, average=0.001 s; distance=111 kB, estimate=164 kB; lsn=0/3A19A68, redo lsn=0/3A19A30
+2025-11-27 22:40:35.344 -03 [27] LOG:  checkpoint starting: time
+2025-11-27 22:40:38.272 -03 [27] LOG:  checkpoint complete: wrote 30 buffers (0.2%); 0 WAL file(s) added, 0 removed, 0 recycled; write=2.918 s, sync=0.003 s, total=2.928 s; sync files=16, longest=0.001 s, average=0.001 s; distance=182 kB, estimate=182 kB; lsn=0/3A47478, redo lsn=0/3A47440
+2025-11-27 23:40:36.001 -03 [27] LOG:  checkpoint starting: time
+2025-11-27 23:40:40.138 -03 [27] LOG:  checkpoint complete: wrote 42 buffers (0.3%); 0 WAL file(s) added, 0 removed, 0 recycled; write=4.124 s, sync=0.005 s, total=4.138 s; sync files=21, longest=0.002 s, average=0.001 s; distance=207 kB, estimate=207 kB; lsn=0/3A7B380, redo lsn=0/3A7B348
+2025-11-28 00:40:36.992 -03 [27] LOG:  checkpoint starting: time
+2025-11-28 00:40:40.237 -03 [27] LOG:  checkpoint complete: wrote 33 buffers (0.2%); 0 WAL file(s) added, 0 removed, 0 recycled; write=3.229 s, sync=0.006 s, total=3.247 s; sync files=18, longest=0.003 s, average=0.001 s; distance=140 kB, estimate=201 kB; lsn=0/3A9E4E0, redo lsn=0/3A9E4A8
+2025-11-28 01:40:37.243 -03 [27] LOG:  checkpoint starting: time
+2025-11-28 01:40:39.561 -03 [27] LOG:  checkpoint complete: wrote 24 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=2.310 s, sync=0.003 s, total=2.319 s; sync files=17, longest=0.002 s, average=0.001 s; distance=119 kB, estimate=192 kB; lsn=0/3ABC448, redo lsn=0/3ABC410
+2025-11-28 02:35:38.339 -03 [27] LOG:  checkpoint starting: time
+2025-11-28 02:35:40.155 -03 [27] LOG:  checkpoint complete: wrote 19 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.808 s, sync=0.003 s, total=1.817 s; sync files=14, longest=0.002 s, average=0.001 s; distance=114 kB, estimate=185 kB; lsn=0/3AD8D50, redo lsn=0/3AD8D18
+2025-11-28 03:00:38.588 -03 [27] LOG:  checkpoint starting: time
+2025-11-28 03:00:38.901 -03 [27] LOG:  checkpoint complete: wrote 3 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.304 s, sync=0.002 s, total=0.314 s; sync files=3, longest=0.002 s, average=0.001 s; distance=7 kB, estimate=167 kB; lsn=0/3ADACD8, redo lsn=0/3ADACA0
+2025-11-28 03:35:39.476 -03 [27] LOG:  checkpoint starting: time
+2025-11-28 03:35:41.794 -03 [27] LOG:  checkpoint complete: wrote 24 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=2.310 s, sync=0.003 s, total=2.319 s; sync files=18, longest=0.001 s, average=0.001 s; distance=112 kB, estimate=161 kB; lsn=0/3AF6D38, redo lsn=0/3AF6D00
+2025-11-28 04:35:40.688 -03 [27] LOG:  checkpoint starting: time
+2025-11-28 04:35:42.703 -03 [27] LOG:  checkpoint complete: wrote 21 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=2.008 s, sync=0.003 s, total=2.016 s; sync files=16, longest=0.002 s, average=0.001 s; distance=115 kB, estimate=157 kB; lsn=0/3B13AC8, redo lsn=0/3B13A90
+2025-11-28 05:35:41.556 -03 [27] LOG:  checkpoint starting: time
+2025-11-28 05:35:43.686 -03 [27] LOG:  checkpoint complete: wrote 22 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=2.122 s, sync=0.004 s, total=2.130 s; sync files=16, longest=0.002 s, average=0.001 s; distance=115 kB, estimate=152 kB; lsn=0/3B30858, redo lsn=0/3B307E8
+2025-11-28 05:40:41.756 -03 [27] LOG:  checkpoint starting: time
+2025-11-28 05:40:42.765 -03 [27] LOG:  checkpoint complete: wrote 10 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.003 s, sync=0.002 s, total=1.010 s; sync files=5, longest=0.002 s, average=0.001 s; distance=46 kB, estimate=142 kB; lsn=0/3B3C060, redo lsn=0/3B3C028
+2025-11-28 06:35:42.651 -03 [27] LOG:  checkpoint starting: time
+2025-11-28 06:35:44.469 -03 [27] LOG:  checkpoint complete: wrote 19 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.809 s, sync=0.003 s, total=1.819 s; sync files=15, longest=0.002 s, average=0.001 s; distance=107 kB, estimate=138 kB; lsn=0/3B56D58, redo lsn=0/3B56D20
+2025-11-28 06:40:42.566 -03 [27] LOG:  checkpoint starting: time
+2025-11-28 06:40:43.880 -03 [27] LOG:  checkpoint complete: wrote 14 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=1.306 s, sync=0.003 s, total=1.315 s; sync files=6, longest=0.002 s, average=0.001 s; distance=39 kB, estimate=128 kB; lsn=0/3B60CA8, redo lsn=0/3B60C70
+2025-11-28 07:35:43.581 -03 [27] LOG:  checkpoint starting: time
+2025-11-28 07:35:45.702 -03 [27] LOG:  checkpoint complete: wrote 22 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=2.114 s, sync=0.003 s, total=2.122 s; sync files=16, longest=0.001 s, average=0.001 s; distance=109 kB, estimate=126 kB; lsn=0/3B7C2A8, redo lsn=0/3B7C270
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+LOGS: coolify-proxy
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[90m2025-11-18T11:50:35Z[0m [31mERR[0m [1mCannot retrieve the ACME challenge for manager.senamfo.com.br (token "index.php")[0m [36mproviderName=[0macme
+[90m2025-11-19T02:01:31Z[0m [31mERR[0m [1mCannot retrieve the ACME challenge for postgres.senamfo.com.br (token "index.php")[0m [36mproviderName=[0macme
+[90m2025-11-20T11:43:24Z[0m [31mERR[0m [1mCannot retrieve the ACME challenge for rabbitmq.senamfo.com.br (token "install.php")[0m [36mproviderName=[0macme
+[90m2025-11-20T11:43:27Z[0m [31mERR[0m [1mCannot retrieve the ACME challenge for rabbitmq.senamfo.com.br (token "myip.php")[0m [36mproviderName=[0macme
+[90m2025-11-20T11:43:50Z[0m [31mERR[0m [1mCannot retrieve the ACME challenge for rabbitmq.senamfo.com.br (token "index.php")[0m [36mproviderName=[0macme
+[90m2025-11-20T15:55:23Z[0m [31mERR[0m [1mCannot retrieve the ACME challenge for grafana.senamfo.com.br (token "install.php")[0m [36mproviderName=[0macme
+[90m2025-11-20T15:55:26Z[0m [31mERR[0m [1mCannot retrieve the ACME challenge for grafana.senamfo.com.br (token "myip.php")[0m [36mproviderName=[0macme
+[90m2025-11-20T15:56:17Z[0m [31mERR[0m [1mCannot retrieve the ACME challenge for grafana.senamfo.com.br (token "index.php")[0m [36mproviderName=[0macme
+[90m2025-11-20T16:55:50Z[0m [31mERR[0m [1mCannot retrieve the ACME challenge for easypanel.senamfo.com.br (token "install.php")[0m [36mproviderName=[0macme
+[90m2025-11-20T16:55:53Z[0m [31mERR[0m [1mCannot retrieve the ACME challenge for easypanel.senamfo.com.br (token "myip.php")[0m [36mproviderName=[0macme
+[90m2025-11-20T16:56:20Z[0m [31mERR[0m [1mCannot retrieve the ACME challenge for easypanel.senamfo.com.br (token "index.php")[0m [36mproviderName=[0macme
+[90m2025-11-20T18:14:59Z[0m [31mERR[0m [1mCannot retrieve the ACME challenge for portainer.senamfo.com.br (token "install.php")[0m [36mproviderName=[0macme
+[90m2025-11-20T18:15:02Z[0m [31mERR[0m [1mCannot retrieve the ACME challenge for portainer.senamfo.com.br (token "myip.php")[0m [36mproviderName=[0macme
+[90m2025-11-20T18:15:35Z[0m [31mERR[0m [1mCannot retrieve the ACME challenge for portainer.senamfo.com.br (token "index.php")[0m [36mproviderName=[0macme
+[90m2025-11-24T05:16:32Z[0m [31mERR[0m [1mCannot retrieve the ACME challenge for redis.senamfo.com.br (token "install.php")[0m [36mproviderName=[0macme
+[90m2025-11-24T05:16:51Z[0m [31mERR[0m [1mCannot retrieve the ACME challenge for redis.senamfo.com.br (token "index.php")[0m [36mproviderName=[0macme
+[90m2025-11-24T17:52:56Z[0m [31mERR[0m [1mCannot retrieve the ACME challenge for easypanel.senamfo.com.br (token "about.php")[0m [36mproviderName=[0macme
+[90m2025-11-25T06:44:52Z[0m [31mERR[0m [1mCannot retrieve the ACME challenge for baserow.senamfo.com.br (token "index.php")[0m [36mproviderName=[0macme
+[90m2025-11-25T16:29:09Z[0m [31mERR[0m [1mCannot retrieve the ACME challenge for appsmith.senamfo.com.br (token "about.php")[0m [36mproviderName=[0macme
+[90m2025-11-27T11:23:57Z[0m [31mERR[0m [1mCannot retrieve the ACME challenge for portainer.senamfo.com.br (token "index.php")[0m [36mproviderName=[0macme
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+LOGS: coolify
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  2025-11-28 11:04:11 App\Jobs\ServerStorageCheckJob ............. 8.59ms DONE
+  2025-11-28 11:05:00 Running ['artisan' horizon:snapshot] ..... 818.33ms DONE
+  ⇂ '/usr/local/bin/php' 'artisan' horizon:snapshot > '/dev/null' 2>&1  
+  2025-11-28 11:05:01 Running [App\Jobs\ServerManagerJob] ....... 17.93ms DONE
+  2025-11-28 11:05:01 Running [App\Jobs\ScheduledJobManager] ..... 0.60ms DONE
+
+  2025-11-28 11:05:02 App\Jobs\ServerManagerJob ...................... RUNNING
+  2025-11-28 11:05:02 App\Jobs\ServerManagerJob ................. 80.18ms DONE
+  2025-11-28 11:05:02 App\Jobs\ScheduledJobManager ................... RUNNING
+  2025-11-28 11:05:02 App\Jobs\ScheduledJobManager .............. 22.47ms DONE
+  2025-11-28 11:05:02 App\Jobs\ServerConnectionCheckJob .............. RUNNING
+  2025-11-28 11:05:03 App\Jobs\ServerConnectionCheckJob .............. RUNNING
+  2025-11-28 11:05:03 App\Jobs\ServerConnectionCheckJob .............. 1s DONE
+  2025-11-28 11:05:04 App\Jobs\ServerConnectionCheckJob .............. 1s DONE
+  2025-11-28 11:05:04 App\Jobs\ServerCheckJob ........................ RUNNING
+  2025-11-28 11:05:05 App\Jobs\ServerCheckJob ........................ 1s DONE
+  2025-11-28 11:05:05 App\Events\ServiceChecked ...................... RUNNING
+  2025-11-28 11:05:05 App\Events\ServiceChecked ................. 16.37ms DONE
+  2025-11-28 11:05:05 App\Jobs\CheckAndStartSentinelJob .............. RUNNING
+  2025-11-28 11:05:06 App\Jobs\CheckAndStartSentinelJob ........ 828.00ms DONE
+  2025-11-28 11:05:09 App\Jobs\PushServerUpdateJob ................... RUNNING
+  2025-11-28 11:05:09 App\Jobs\PushServerUpdateJob ............. 399.97ms DONE
+  2025-11-28 11:05:09 App\Jobs\ServerStorageCheckJob ................. RUNNING
+  2025-11-28 11:05:09 App\Jobs\ServerStorageCheckJob ............. 8.40ms DONE
+  2025-11-28 11:06:00 Running [App\Jobs\CleanupInstanceStuffsJob]  15.02ms DONE
+  2025-11-28 11:06:00 Running [App\Jobs\ServerManagerJob] ........ 1.08ms DONE
+  2025-11-28 11:06:00 Running [App\Jobs\ScheduledJobManager] ..... 0.92ms DONE
+  2025-11-28 11:06:00 Running ['artisan' uploads:clear] ........ 573.60ms DONE
+  ⇂ '/usr/local/bin/php' 'artisan' uploads:clear > '/dev/null' 2>&1  
+
+  2025-11-28 11:06:02 App\Jobs\ServerManagerJob ...................... RUNNING
+  2025-11-28 11:06:02 App\Jobs\ServerManagerJob ................ 160.63ms DONE
+  2025-11-28 11:06:02 App\Jobs\ScheduledJobManager ................... RUNNING
+  2025-11-28 11:06:02 App\Jobs\ScheduledJobManager .............. 23.73ms DONE
+  2025-11-28 11:06:02 App\Jobs\CleanupInstanceStuffsJob .............. RUNNING
+  2025-11-28 11:06:02 App\Jobs\CleanupInstanceStuffsJob ......... 15.61ms DONE
+  2025-11-28 11:06:02 App\Jobs\ServerConnectionCheckJob .............. RUNNING
+  2025-11-28 11:06:03 App\Jobs\ServerCheckJob ........................ RUNNING
+  2025-11-28 11:06:03 App\Jobs\ServerConnectionCheckJob ........ 773.62ms DONE
+  2025-11-28 11:06:03 App\Jobs\ServerConnectionCheckJob .............. RUNNING
+  2025-11-28 11:06:04 App\Jobs\ServerConnectionCheckJob .............. 1s DONE
+  2025-11-28 11:06:04 App\Jobs\ServerCheckJob ........................ 1s DONE
+  2025-11-28 11:06:06 App\Events\ServiceChecked ...................... RUNNING
+  2025-11-28 11:06:06 App\Events\ServiceChecked ................. 22.40ms DONE
+  2025-11-28 11:06:06 App\Jobs\CheckAndStartSentinelJob .............. RUNNING
+  2025-11-28 11:06:06 App\Jobs\CheckAndStartSentinelJob ........ 383.80ms DONE
+  2025-11-28 11:06:09 App\Jobs\PushServerUpdateJob ................... RUNNING
+  2025-11-28 11:06:10 App\Jobs\PushServerUpdateJob ............. 409.69ms DONE
+  2025-11-28 11:06:10 App\Jobs\ServerStorageCheckJob ................. RUNNING
+  2025-11-28 11:06:10 App\Jobs\ServerStorageCheckJob ............ 11.39ms DONE
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+LOGS: coolify-db
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2025-11-28 09:05:53.259 UTC [27] LOG:  checkpoint starting: time
+2025-11-28 09:05:53.568 UTC [27] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.302 s, sync=0.003 s, total=0.310 s; sync files=3, longest=0.003 s, average=0.001 s; distance=20 kB, estimate=20 kB
+2025-11-28 09:10:53.575 UTC [27] LOG:  checkpoint starting: time
+2025-11-28 09:10:53.683 UTC [27] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.102 s, sync=0.002 s, total=0.109 s; sync files=2, longest=0.002 s, average=0.001 s; distance=8 kB, estimate=19 kB
+2025-11-28 09:15:53.783 UTC [27] LOG:  checkpoint starting: time
+2025-11-28 09:15:53.892 UTC [27] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.102 s, sync=0.003 s, total=0.109 s; sync files=2, longest=0.002 s, average=0.002 s; distance=5 kB, estimate=17 kB
+2025-11-28 09:20:53.947 UTC [27] LOG:  checkpoint starting: time
+2025-11-28 09:20:54.056 UTC [27] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.102 s, sync=0.002 s, total=0.109 s; sync files=2, longest=0.002 s, average=0.001 s; distance=9 kB, estimate=17 kB
+2025-11-28 09:25:53.115 UTC [27] LOG:  checkpoint starting: time
+2025-11-28 09:25:53.224 UTC [27] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.102 s, sync=0.002 s, total=0.109 s; sync files=2, longest=0.002 s, average=0.001 s; distance=5 kB, estimate=15 kB
+2025-11-28 09:30:53.303 UTC [27] LOG:  checkpoint starting: time
+2025-11-28 09:30:53.614 UTC [27] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.303 s, sync=0.003 s, total=0.311 s; sync files=3, longest=0.002 s, average=0.001 s; distance=23 kB, estimate=23 kB
+2025-11-28 09:35:53.703 UTC [27] LOG:  checkpoint starting: time
+2025-11-28 09:35:53.813 UTC [27] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.102 s, sync=0.002 s, total=0.110 s; sync files=2, longest=0.002 s, average=0.001 s; distance=6 kB, estimate=21 kB
+2025-11-28 09:40:53.902 UTC [27] LOG:  checkpoint starting: time
+2025-11-28 09:40:54.011 UTC [27] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.102 s, sync=0.002 s, total=0.109 s; sync files=2, longest=0.002 s, average=0.001 s; distance=9 kB, estimate=20 kB
+2025-11-28 09:45:53.083 UTC [27] LOG:  checkpoint starting: time
+2025-11-28 09:45:53.192 UTC [27] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.101 s, sync=0.002 s, total=0.109 s; sync files=2, longest=0.002 s, average=0.001 s; distance=6 kB, estimate=18 kB
+2025-11-28 09:50:53.275 UTC [27] LOG:  checkpoint starting: time
+2025-11-28 09:50:53.382 UTC [27] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.102 s, sync=0.002 s, total=0.108 s; sync files=2, longest=0.002 s, average=0.001 s; distance=3 kB, estimate=17 kB
+2025-11-28 09:55:53.474 UTC [27] LOG:  checkpoint starting: time
+2025-11-28 09:55:53.783 UTC [27] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.302 s, sync=0.002 s, total=0.309 s; sync files=3, longest=0.002 s, average=0.001 s; distance=22 kB, estimate=22 kB
+2025-11-28 10:00:53.832 UTC [27] LOG:  checkpoint starting: time
+2025-11-28 10:00:53.941 UTC [27] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.102 s, sync=0.002 s, total=0.109 s; sync files=2, longest=0.002 s, average=0.001 s; distance=3 kB, estimate=20 kB
+2025-11-28 10:05:54.041 UTC [27] LOG:  checkpoint starting: time
+2025-11-28 10:05:54.157 UTC [27] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.103 s, sync=0.003 s, total=0.117 s; sync files=2, longest=0.003 s, average=0.002 s; distance=7 kB, estimate=19 kB
+2025-11-28 10:10:54.203 UTC [27] LOG:  checkpoint starting: time
+2025-11-28 10:10:54.313 UTC [27] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.102 s, sync=0.002 s, total=0.110 s; sync files=2, longest=0.002 s, average=0.001 s; distance=4 kB, estimate=17 kB
+2025-11-28 10:15:54.374 UTC [27] LOG:  checkpoint starting: time
+2025-11-28 10:15:54.483 UTC [27] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.102 s, sync=0.002 s, total=0.110 s; sync files=2, longest=0.002 s, average=0.001 s; distance=7 kB, estimate=16 kB
+2025-11-28 10:20:54.562 UTC [27] LOG:  checkpoint starting: time
+2025-11-28 10:20:54.872 UTC [27] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.303 s, sync=0.002 s, total=0.311 s; sync files=3, longest=0.002 s, average=0.001 s; distance=18 kB, estimate=18 kB
+2025-11-28 10:25:54.954 UTC [27] LOG:  checkpoint starting: time
+2025-11-28 10:25:55.264 UTC [27] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.302 s, sync=0.002 s, total=0.310 s; sync files=3, longest=0.002 s, average=0.001 s; distance=7 kB, estimate=17 kB
+2025-11-28 10:30:54.363 UTC [27] LOG:  checkpoint starting: time
+2025-11-28 10:30:54.471 UTC [27] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.102 s, sync=0.002 s, total=0.108 s; sync files=2, longest=0.002 s, average=0.001 s; distance=4 kB, estimate=15 kB
+2025-11-28 10:35:54.500 UTC [27] LOG:  checkpoint starting: time
+2025-11-28 10:35:54.609 UTC [27] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.102 s, sync=0.002 s, total=0.110 s; sync files=2, longest=0.002 s, average=0.001 s; distance=8 kB, estimate=15 kB
+2025-11-28 10:40:54.643 UTC [27] LOG:  checkpoint starting: time
+2025-11-28 10:40:54.752 UTC [27] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.102 s, sync=0.003 s, total=0.109 s; sync files=2, longest=0.002 s, average=0.002 s; distance=4 kB, estimate=14 kB
+2025-11-28 10:45:54.815 UTC [27] LOG:  checkpoint starting: time
+2025-11-28 10:45:55.124 UTC [27] LOG:  checkpoint complete: wrote 4 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.302 s, sync=0.002 s, total=0.309 s; sync files=3, longest=0.002 s, average=0.001 s; distance=24 kB, estimate=24 kB
+2025-11-28 10:50:54.139 UTC [27] LOG:  checkpoint starting: time
+2025-11-28 10:50:54.951 UTC [27] LOG:  checkpoint complete: wrote 9 buffers (0.1%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.805 s, sync=0.003 s, total=0.813 s; sync files=8, longest=0.002 s, average=0.001 s; distance=29 kB, estimate=29 kB
+2025-11-28 10:55:55.040 UTC [27] LOG:  checkpoint starting: time
+2025-11-28 10:55:55.151 UTC [27] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.102 s, sync=0.003 s, total=0.111 s; sync files=2, longest=0.002 s, average=0.002 s; distance=8 kB, estimate=27 kB
+2025-11-28 11:00:55.227 UTC [27] LOG:  checkpoint starting: time
+2025-11-28 11:00:55.838 UTC [27] LOG:  checkpoint complete: wrote 7 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.603 s, sync=0.002 s, total=0.611 s; sync files=7, longest=0.002 s, average=0.001 s; distance=29 kB, estimate=29 kB
+2025-11-28 11:05:55.932 UTC [27] LOG:  checkpoint starting: time
+2025-11-28 11:05:56.045 UTC [27] LOG:  checkpoint complete: wrote 2 buffers (0.0%); 0 WAL file(s) added, 0 removed, 0 recycled; write=0.102 s, sync=0.004 s, total=0.113 s; sync files=2, longest=0.003 s, average=0.002 s; distance=9 kB, estimate=27 kB
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+LOGS: coolify-realtime
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+2025-11-17 05:49:12 [SOKETI] 
+2025-11-17 05:49:12 [SOKETI] (node:8) NOTE: We are formalizing our plans to enter AWS SDK for JavaScript (v2) into maintenance mode in 2023.
+2025-11-17 05:49:12 [SOKETI] 
+2025-11-17 05:49:12 [SOKETI] Please migrate your code to use AWS SDK for JavaScript (v3).
+2025-11-17 05:49:12 [SOKETI] For more information, check the migration guide at https://a.co/7PzMCcy
+2025-11-17 05:49:12 [SOKETI] (Use `node --trace-warnings ...` to show where the warning was created)
+2025-11-18 02:46:34 [TERMINAL] Coolify realtime terminal server listening on port 6002. Let the hacking begin!
+2025-11-18 02:46:40 [SOKETI] 
+2025-11-18 02:46:40 [SOKETI] 🕵️‍♂️ Initiating metrics endpoints...
+2025-11-18 02:46:40 [SOKETI] 
+2025-11-18 02:46:40 [SOKETI] 🎉 Server is up and running!
+2025-11-18 02:46:40 [SOKETI] 📡 The Websockets server is available at 127.0.0.1:6001
+2025-11-18 02:46:40 [SOKETI] 🔗 The HTTP API server is available at http://127.0.0.1:6001
+2025-11-18 02:46:40 [SOKETI] 🎊 The /usage endpoint is available on port 9601.
+2025-11-18 02:46:40 [SOKETI] 
+2025-11-18 02:46:40 [SOKETI] (node:8) NOTE: We are formalizing our plans to enter AWS SDK for JavaScript (v2) into maintenance mode in 2023.
+2025-11-18 02:46:40 [SOKETI] 
+2025-11-18 02:46:40 [SOKETI] Please migrate your code to use AWS SDK for JavaScript (v3).
+2025-11-18 02:46:40 [SOKETI] For more information, check the migration guide at https://a.co/7PzMCcy
+2025-11-18 02:46:40 [SOKETI] (Use `node --trace-warnings ...` to show where the warning was created)
+2025-11-27 05:57:21 [TERMINAL] Coolify realtime terminal server listening on port 6002. Let the hacking begin!
+2025-11-27 05:57:24 [SOKETI] 
+2025-11-27 05:57:24 [SOKETI] 🕵️‍♂️ Initiating metrics endpoints...
+2025-11-27 05:57:24 [SOKETI] 
+2025-11-27 05:57:24 [SOKETI] 🎉 Server is up and running!
+2025-11-27 05:57:24 [SOKETI] 📡 The Websockets server is available at 127.0.0.1:6001
+2025-11-27 05:57:24 [SOKETI] 🔗 The HTTP API server is available at http://127.0.0.1:6001
+2025-11-27 05:57:24 [SOKETI] 🎊 The /usage endpoint is available on port 9601.
+2025-11-27 05:57:24 [SOKETI] 
+2025-11-27 05:57:24 [SOKETI] (node:8) NOTE: We are formalizing our plans to enter AWS SDK for JavaScript (v2) into maintenance mode in 2023.
+2025-11-27 05:57:24 [SOKETI] 
+2025-11-27 05:57:24 [SOKETI] Please migrate your code to use AWS SDK for JavaScript (v3).
+2025-11-27 05:57:24 [SOKETI] For more information, check the migration guide at https://a.co/7PzMCcy
+2025-11-27 05:57:24 [SOKETI] (Use `node --trace-warnings ...` to show where the warning was created)
+2025-11-27 11:30:32 [TERMINAL] Process exited with code 0 and signal 0
+2025-11-27 11:34:45 [TERMINAL] Process exited with code 255 and signal 0
+2025-11-27 11:35:24 [TERMINAL] Coolify realtime terminal server listening on port 6002. Let the hacking begin!
+2025-11-27 11:35:26 [SOKETI] 
+2025-11-27 11:35:26 [SOKETI] 🕵️‍♂️ Initiating metrics endpoints...
+2025-11-27 11:35:26 [SOKETI] 
+2025-11-27 11:35:26 [SOKETI] 🎉 Server is up and running!
+2025-11-27 11:35:26 [SOKETI] 📡 The Websockets server is available at 127.0.0.1:6001
+2025-11-27 11:35:26 [SOKETI] 🔗 The HTTP API server is available at http://127.0.0.1:6001
+2025-11-27 11:35:26 [SOKETI] 🎊 The /usage endpoint is available on port 9601.
+2025-11-27 11:35:26 [SOKETI] 
+2025-11-27 11:35:26 [SOKETI] (node:8) NOTE: We are formalizing our plans to enter AWS SDK for JavaScript (v2) into maintenance mode in 2023.
+2025-11-27 11:35:27 [SOKETI] 
+2025-11-27 11:35:27 [SOKETI] Please migrate your code to use AWS SDK for JavaScript (v3).
+2025-11-27 11:35:27 [SOKETI] For more information, check the migration guide at https://a.co/7PzMCcy
+2025-11-27 11:35:27 [SOKETI] (Use `node --trace-warnings ...` to show where the warning was created)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+LOGS: coolify-redis
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1:C 17 Nov 2025 04:41:18.878 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+1:C 17 Nov 2025 05:49:04.891 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+1:C 18 Nov 2025 02:46:33.006 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+1:signal-handler (1764223027) Received SIGTERM scheduling shutdown...
+1:M 27 Nov 2025 05:57:07.783 # Redis is now ready to exit, bye bye...
+1:C 27 Nov 2025 05:57:20.566 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+1:signal-handler (1764243285) Received SIGTERM scheduling shutdown...
+1:M 27 Nov 2025 11:34:45.680 # Redis is now ready to exit, bye bye...
+1:C 27 Nov 2025 11:35:23.835 # WARNING Memory overcommit must be enabled! Without it, a background save or replication may fail under low memory condition. Being disabled, it can also cause failures without low memory condition, see https://github.com/jemalloc/jemalloc/issues/1328. To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.

@@ -1,0 +1,36 @@
+version: 1.0.0
+root: prompts_temp
+created: 2025-11-28
+status: active
+
+stages:
+  - stage_00_coleta
+  - stage_01_interpretacao
+  - stage_02_estrutura
+  - stage_03_refinamento
+  - stage_04_pre_release
+
+engines:
+  cli: prompts_temp/engines/cli
+  ide_ext: prompts_temp/engines/ide_ext
+  offline_llms: prompts_temp/engines/offline_llms
+  web_platforms: prompts_temp/engines/web_platforms
+  desktop_llms: prompts_temp/engines/desktop_llms
+  multi_agent: prompts_temp/engines/multi_agent
+
+rules:
+  promote_to_production_only_after: stage_04_pre_release
+  required_checklist: prompts_temp/checklists/lifecycle_checklist.md
+  validation_required: true
+  llm_eval_required: true
+
+metadata:
+  description: "Área de incubação para desenvolvimento evolutivo de prompts formatados para interpretação universal por LLMs"
+  supported_contexts:
+    - CLI/terminal
+    - IDE extensions (Cursor, VSCode, Raycast, Zed, JetBrains AI)
+    - Offline LLMs (Ollama, llama.cpp, LM Studio)
+    - Web platforms (ChatGPT, Claude.ai, Gemini, Perplexity)
+    - Desktop LLMs e agentes locais
+    - Multi-agent coordination
+

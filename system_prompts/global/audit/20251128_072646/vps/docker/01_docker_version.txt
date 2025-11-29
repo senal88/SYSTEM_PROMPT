@@ -1,0 +1,121 @@
+=== DOCKER VERSION ===
+Docker version 29.0.4, build 3247a5a
+
+=== DOCKER COMPOSE VERSION ===
+Docker Compose version v2.40.3
+
+=== DOCKER INFO (COMPLETO) ===
+Client: Docker Engine - Community
+ Version:    29.0.4
+ Context:    default
+ Debug Mode: false
+ Plugins:
+  buildx: Docker Buildx (Docker Inc.)
+    Version:  v0.30.1
+    Path:     /usr/libexec/docker/cli-plugins/docker-buildx
+  compose: Docker Compose (Docker Inc.)
+    Version:  v2.40.3
+    Path:     /usr/libexec/docker/cli-plugins/docker-compose
+
+Server:
+ Containers: 8
+  Running: 8
+  Paused: 0
+  Stopped: 0
+ Images: 11
+ Server Version: 29.0.4
+ Storage Driver: overlay2
+  Backing Filesystem: extfs
+  Supports d_type: true
+  Using metacopy: false
+  Native Overlay Diff: true
+  userxattr: false
+ Logging Driver: json-file
+ Cgroup Driver: systemd
+ Cgroup Version: 2
+ Plugins:
+  Volume: local
+  Network: bridge host ipvlan macvlan null overlay
+  Log: awslogs fluentd gcplogs gelf journald json-file local splunk syslog
+ CDI spec directories:
+  /etc/cdi
+  /var/run/cdi
+ Swarm: inactive
+ Runtimes: io.containerd.runc.v2 runc
+ Default Runtime: runc
+ Init Binary: docker-init
+ containerd version: fcd43222d6b07379a4be9786bda52438f0dd16a1
+ runc version: v1.3.3-0-gd842d771
+ init version: de40ad0
+ Security Options:
+  apparmor
+  seccomp
+   Profile: builtin
+  cgroupns
+ Kernel Version: 6.8.0-88-generic
+ Operating System: Ubuntu 24.04.3 LTS
+ OSType: linux
+ Architecture: x86_64
+ CPUs: 4
+ Total Memory: 15.62GiB
+ Name: senamfo
+ ID: f1a1e2e4-6e71-4ef7-b288-97a67eb8894a
+ Docker Root Dir: /var/lib/docker
+ Debug Mode: false
+ Experimental: false
+ Insecure Registries:
+  ::1/128
+  127.0.0.0/8
+ Live Restore Enabled: false
+ Default Address Pools:
+   Base: 10.0.0.0/8, Size: 24
+ Firewall Backend: iptables
+
+
+=== DOCKER SYSTEM DF (USO DE DISCO) ===
+Images space usage:
+
+REPOSITORY                            TAG              IMAGE ID       CREATED        SIZE      SHARED SIZE   UNIQUE SIZE   CONTAINERS
+ghcr.io/coollabsio/sentinel           0.0.18           fb0c3479652a   7 days ago     31.3MB    0B            31.28MB       1
+postgres                              16-alpine        216e5ca6a814   13 days ago    275MB     8.322MB       267.1MB       1
+postgres                              15-alpine        6df5377b1f74   13 days ago    273MB     8.322MB       264.8MB       1
+docker.n8n.io/n8nio/n8n               latest           b4261fdea416   13 days ago    978MB     8.322MB       969.5MB       1
+ghcr.io/coollabsio/coolify            4.0.0-beta.444   8168ac2f5ab4   2 weeks ago    381MB     8.322MB       373.1MB       1
+traefik                               v3.6             1fd2908c092e   2 weeks ago    185MB     8.322MB       176.9MB       1
+ghcr.io/coollabsio/coolify-realtime   1.0.10           e06af27c75e3   2 weeks ago    621MB     0B            620.8MB       1
+ghcr.io/coollabsio/coolify-helper     1.0.12           5b047e2f85b4   2 weeks ago    298MB     7.831MB       290.2MB       0
+redis                                 7-alpine         13105d2858de   3 weeks ago    41.4MB    7.831MB       33.58MB       1
+<none>                                <none>           49501247b795   2 months ago   298MB     0B            298.1MB       0
+ghcr.io/coollabsio/sentinel           0.0.16           8ea687f5db48   2 months ago   31.2MB    0B            31.23MB       0
+
+Containers space usage:
+
+CONTAINER ID   IMAGE                                        COMMAND                  LOCAL VOLUMES   SIZE      CREATED        STATUS                  NAMES
+84ef425cbe25   ghcr.io/coollabsio/sentinel:0.0.18           "/app/sentinel"          0               0B        11 hours ago   Up 11 hours (healthy)   coolify-sentinel
+bc097cc30b87   docker.n8n.io/n8nio/n8n:latest               "tini -- /docker-ent…"   1               45.7MB    10 days ago    Up 24 hours (healthy)   n8n-q0cc04cg484gwcokcgo8socw
+442967df439c   postgres:16-alpine                           "docker-entrypoint.s…"   1               63B       10 days ago    Up 24 hours (healthy)   postgresql-q0cc04cg484gwcokcgo8socw
+6dcdd5b44777   traefik:v3.6                                 "/entrypoint.sh --pi…"   0               0B        11 days ago    Up 24 hours (healthy)   coolify-proxy
+ea2d5fb4b8f5   ghcr.io/coollabsio/coolify:4.0.0-beta.444    "docker-php-serversi…"   0               5.89MB    11 days ago    Up 24 hours (healthy)   coolify
+0a237a98c236   postgres:15-alpine                           "docker-entrypoint.s…"   1               63B       11 days ago    Up 24 hours (healthy)   coolify-db
+1f074035270a   ghcr.io/coollabsio/coolify-realtime:1.0.10   "/bin/sh /soketi-ent…"   0               2B        11 days ago    Up 24 hours (healthy)   coolify-realtime
+d4baec1771e9   redis:7-alpine                               "docker-entrypoint.s…"   1               0B        11 days ago    Up 24 hours (healthy)   coolify-redis
+
+Local Volumes space usage:
+
+VOLUME NAME                                LINKS     SIZE
+coolify-db                                 1         71.68MB
+coolify-redis                              1         2.285MB
+q0cc04cg484gwcokcgo8socw_n8n-data          1         128B
+q0cc04cg484gwcokcgo8socw_postgresql-data   1         67.8MB
+
+Build cache usage: 0B
+
+CACHE ID   CACHE TYPE   SIZE      CREATED   LAST USED   USAGE     SHARED
+
+=== DOCKER BUILDX ===
+github.com/docker/buildx v0.30.1 9e66234aa13328a5e75b75aa5574e1ca6d6d9c01
+
+=== DOCKER CONTEXT ===
+NAME        DESCRIPTION                               DOCKER ENDPOINT               ERROR
+default *   Current DOCKER_HOST based configuration   unix:///var/run/docker.sock   
+default

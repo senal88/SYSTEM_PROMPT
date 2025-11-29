@@ -1,0 +1,104 @@
+=== VOLUMES LIST ===
+DRIVER    VOLUME NAME
+local     coolify-db
+local     coolify-redis
+local     q0cc04cg484gwcokcgo8socw_n8n-data
+local     q0cc04cg484gwcokcgo8socw_postgresql-data
+
+=== DETALHES POR VOLUME ===
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VOLUME: coolify-db
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[
+    {
+        "CreatedAt": "2025-11-17T04:41:17Z",
+        "Driver": "local",
+        "Labels": {
+            "com.docker.compose.config-hash": "e0f88caa463f1cc7838968f31d2c58c09254eb86f9d6731164e7dae788334481",
+            "com.docker.compose.project": "source",
+            "com.docker.compose.version": "2.38.2",
+            "com.docker.compose.volume": "coolify-db"
+        },
+        "Mountpoint": "/var/lib/docker/volumes/coolify-db/_data",
+        "Name": "coolify-db",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+
+--- USO DE DISCO ---
+0a237a98c236   postgres:15-alpine                           "docker-entrypoint.s…"   1               63B       11 days ago    Up 24 hours (healthy)   coolify-db
+coolify-db                                 1         71.68MB
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VOLUME: coolify-redis
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[
+    {
+        "CreatedAt": "2025-11-17T04:41:17Z",
+        "Driver": "local",
+        "Labels": {
+            "com.docker.compose.config-hash": "798e9a2a07783f6f7e5897507b48bbeddd544c948f3662ff6562d10a3b29bce8",
+            "com.docker.compose.project": "source",
+            "com.docker.compose.version": "2.38.2",
+            "com.docker.compose.volume": "coolify-redis"
+        },
+        "Mountpoint": "/var/lib/docker/volumes/coolify-redis/_data",
+        "Name": "coolify-redis",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+
+--- USO DE DISCO ---
+d4baec1771e9   redis:7-alpine                               "docker-entrypoint.s…"   1               0B        11 days ago    Up 24 hours (healthy)   coolify-redis
+coolify-redis                              1         2.285MB
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VOLUME: q0cc04cg484gwcokcgo8socw_n8n-data
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[
+    {
+        "CreatedAt": "2025-11-18T09:29:23Z",
+        "Driver": "local",
+        "Labels": {
+            "com.docker.compose.config-hash": "dfc79ddce83467ee3f020ff043abec65974ddee1ff0de6898361bc9155114434",
+            "com.docker.compose.project": "q0cc04cg484gwcokcgo8socw",
+            "com.docker.compose.version": "2.40.3",
+            "com.docker.compose.volume": "q0cc04cg484gwcokcgo8socw_n8n-data"
+        },
+        "Mountpoint": "/var/lib/docker/volumes/q0cc04cg484gwcokcgo8socw_n8n-data/_data",
+        "Name": "q0cc04cg484gwcokcgo8socw_n8n-data",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+
+--- USO DE DISCO ---
+q0cc04cg484gwcokcgo8socw_n8n-data          1         128B
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+VOLUME: q0cc04cg484gwcokcgo8socw_postgresql-data
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[
+    {
+        "CreatedAt": "2025-11-18T09:29:23Z",
+        "Driver": "local",
+        "Labels": {
+            "com.docker.compose.config-hash": "ebb1becb82ea215ffb607fc37897146cf5a0859807805d02e1dcd6daedabef35",
+            "com.docker.compose.project": "q0cc04cg484gwcokcgo8socw",
+            "com.docker.compose.version": "2.40.3",
+            "com.docker.compose.volume": "q0cc04cg484gwcokcgo8socw_postgresql-data"
+        },
+        "Mountpoint": "/var/lib/docker/volumes/q0cc04cg484gwcokcgo8socw_postgresql-data/_data",
+        "Name": "q0cc04cg484gwcokcgo8socw_postgresql-data",
+        "Options": null,
+        "Scope": "local"
+    }
+]
+
+--- USO DE DISCO ---
+q0cc04cg484gwcokcgo8socw_postgresql-data   1         67.8MB
+
+=== VOLUMES ÓRFÃOS (não usados) ===

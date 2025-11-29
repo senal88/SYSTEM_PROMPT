@@ -1,0 +1,130 @@
+=== COOLIFY CONTAINER ENCONTRADO: coolify-sentinel ===
+
+--- INSPECT ---
+[
+    {
+        "Id": "84ef425cbe250ea1ed19f2a286c1b7dfb89d665f055a75d68f725852780540a3",
+        "Created": "2025-11-28T00:03:05.984531755Z",
+        "Path": "/app/sentinel",
+        "Args": [],
+        "State": {
+            "Status": "running",
+            "Running": true,
+            "Paused": false,
+            "Restarting": false,
+            "OOMKilled": false,
+            "Dead": false,
+            "Pid": 1890038,
+            "ExitCode": 0,
+            "Error": "",
+            "StartedAt": "2025-11-28T00:06:08.412429069Z",
+            "FinishedAt": "2025-11-28T00:06:08.298888681Z",
+            "Health": {
+                "Status": "healthy",
+                "FailingStreak": 0,
+                "Log": [
+                    {
+                        "Start": "2025-11-28T11:05:56.602063767Z",
+                        "End": "2025-11-28T11:05:56.652724464Z",
+                        "ExitCode": 0,
+                        "Output": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r100     2  100     2    0     0   2418      0 --:--:-- --:--:-- --:--:--  2000\nok"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:06.653663638Z",
+                        "End": "2025-11-28T11:06:06.70372326Z",
+                        "ExitCode": 0,
+                        "Output": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r100     2  100     2    0     0   2403      0 --:--:-- --:--:-- --:--:--  2000\nok"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:16.705254394Z",
+                        "End": "2025-11-28T11:06:16.753866324Z",
+                        "ExitCode": 0,
+                        "Output": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r100     2  100     2    0     0   2506      0 --:--:-- --:--:-- --:--:--  2000\nok"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:26.754643493Z",
+                        "End": "2025-11-28T11:06:26.802242345Z",
+                        "ExitCode": 0,
+                        "Output": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r100     2  100     2    0     0   1499      0 --:--:-- --:--:-- --:--:--  2000\nok"
+                    },
+                    {
+                        "Start": "2025-11-28T11:06:36.802967747Z",
+                        "End": "2025-11-28T11:06:36.858509515Z",
+                        "ExitCode": 0,
+                        "Output": "  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current\n                                 Dload  Upload   Total   Spent    Left  Speed\n\r  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\r100     2  100     2    0     0   2036      0 --:--:-- --:--:-- --:--:--  2000\nok"
+                    }
+                ]
+            }
+        },
+        "Image": "sha256:fb0c3479652ab7f57a11125a70c0ce18cbadb59f9cf29ac9e03bc5e00ccbd2c4",
+        "ResolvConfPath": "/var/lib/docker/containers/84ef425cbe250ea1ed19f2a286c1b7dfb89d665f055a75d68f725852780540a3/resolv.conf",
+        "HostnamePath": "/var/lib/docker/containers/84ef425cbe250ea1ed19f2a286c1b7dfb89d665f055a75d68f725852780540a3/hostname",
+        "HostsPath": "/var/lib/docker/containers/84ef425cbe250ea1ed19f2a286c1b7dfb89d665f055a75d68f725852780540a3/hosts",
+        "LogPath": "/var/lib/docker/containers/84ef425cbe250ea1ed19f2a286c1b7dfb89d665f055a75d68f725852780540a3/84ef425cbe250ea1ed19f2a286c1b7dfb89d665f055a75d68f725852780540a3-json.log",
+        "Name": "/coolify-sentinel",
+        "RestartCount": 0,
+        "Driver": "overlay2",
+        "Platform": "linux",
+        "MountLabel": "",
+        "ProcessLabel": "",
+        "AppArmorProfile": "docker-default",
+        "ExecIDs": null,
+        "HostConfig": {
+            "Binds": [
+                "/var/run/docker.sock:/var/run/docker.sock",
+                "/data/coolify/sentinel:/app/db"
+            ],
+            "ContainerIDFile": "",
+            "LogConfig": {
+                "Type": "json-file",
+                "Config": {
+                    "max-file": "3",
+                    "max-size": "10m"
+                }
+            },
+            "NetworkMode": "bridge",
+            "PortBindings": {},
+            "RestartPolicy": {
+                "Name": "no",
+                "MaximumRetryCount": 0
+            },
+            "AutoRemove": false,
+            "VolumeDriver": "",
+            "VolumesFrom": null,
+            "ConsoleSize": [
+                0,
+                0
+            ],
+            "CapAdd": null,
+            "CapDrop": null,
+            "CgroupnsMode": "private",
+            "Dns": null,
+            "DnsOptions": [],
+            "DnsSearch": [],
+
+--- ENV VARS (primeiras 30) ---
+DEBUG=false
+PUSH_ENDPOINT=http://147.79.81.59:8000
+PUSH_INTERVAL_SECONDS=60
+COLLECTOR_ENABLED=false
+COLLECTOR_REFRESH_RATE_SECONDS=10
+COLLECTOR_RETENTION_PERIOD_DAYS=7
+TOKEN=eyJpdiI6IkdXbG51YkZzWHJUd2JOZlRPVy84bXc9PSIsInZhbHVlIjoiVnpNTEVjWjdzWnZDRC9JU2JKSHZxRjN3c2l6RTluZFgyMkoxK21EYXJhOFgyV0lOMkwxdDIxdEcrRzBmUWlvbzVPQVpBcE90M1lXVFdlQ3ZCbHNxRlE9PSIsIm1hYyI6IjNkYWNmNTI5Yjc1M2Q1Zjc3ZThjZWMyZGJhNmE1ODY0Zjk4N2RmMDU4YjI2MjRmNTdjOTgyZDBlMWI5MGVhYTkiLCJ0YWciOiIifQ==
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+GIN_MODE=release
+
+
+--- VOLUMES ---
+/var/run/docker.sock -> /var/run/docker.sock (bind)
+/data/coolify/sentinel -> /app/db (bind)
+
+
+=== COOLIFY SERVICES ===
+coolify-sentinel
+coolify-proxy
+coolify
+coolify-db
+coolify-realtime
+coolify-redis
+
+=== BUSCAR CONFIGURAÇÕES COOLIFY ===

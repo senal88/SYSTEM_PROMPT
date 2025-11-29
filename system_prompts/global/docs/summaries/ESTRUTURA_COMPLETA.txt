@@ -1,0 +1,73 @@
+================================================================================
+ESTRUTURA COMPLETA - system_prompts/global
+================================================================================
+
+global/
+├── audit/                          # Auditorias históricas
+│   ├── 20251128_071041/           # Timestamp da auditoria
+│   │   ├── analysis/              # Análises intermediárias
+│   │   ├── consolidated/          # Arquivos consolidados
+│   │   ├── macos/                 # Dados coletados do macOS
+│   │   └── vps/                   # Dados coletados do VPS
+│   └── 20251128_072646/           # Outra auditoria
+│       ├── analysis/
+│       ├── consolidated/
+│       ├── macos/
+│       └── vps/
+│           └── docker/            # Auditoria Docker VPS
+│
+├── platforms/                      # Prompts específicos de plataformas
+│
+├── prompts_temp/                   # Área de incubação
+│   ├── checklists/                # Checklists de lifecycle e avaliação
+│   ├── engines/                   # Prompts adaptados para engines
+│   │   ├── cli/                   # CLI/Terminal
+│   │   ├── desktop_llms/          # Desktop LLMs
+│   │   ├── ide_ext/               # IDE Extensions
+│   │   ├── multi_agent/            # Multi-Agent
+│   │   ├── offline_llms/          # Offline LLMs
+│   │   └── web_platforms/        # Web Platforms
+│   ├── stage_00_coleta/           # Entrada bruta
+│   ├── stage_01_interpretacao/    # Revisão e síntese
+│   ├── stage_02_estrutura/        # Formatação padronizada
+│   ├── stage_03_refinamento/      # Pré-produção
+│   └── stage_04_pre_release/      # Versão final
+│
+├── scripts/                        # Scripts de automação
+│   ├── analise-e-sintese.sh
+│   ├── analise-e-sintese-vps.sh
+│   ├── auditar-docker.sh
+│   ├── coleta-vps.sh
+│   ├── coletar-e-adaptar-prompts.sh
+│   ├── consolidar-llms-full.sh
+│   ├── deploy-scripts-vps.sh
+│   ├── executar-auditoria-docker-vps.sh
+│   ├── exportar-arquitetura.sh
+│   ├── master-auditoria-completa.sh
+│   ├── revisar-e-incorporar-prompts.sh
+│   ├── tree-alternative.sh
+│   ├── tree-simple.sh
+│   └── verificar-dependencias.sh
+│
+├── templates/                     # Templates para geração
+│
+├── *.md                           # Documentação e prompts principais
+└── *.txt                          # Arquivos consolidados gerados
+
+================================================================================
+COMANDOS ÚTEIS
+================================================================================
+
+# Visualizar estrutura (alternativa ao tree)
+./scripts/tree-simple.sh . 3
+
+# Ou usando find
+find . -maxdepth 3 -type d ! -path '*/\.*' | sort
+
+# Contar arquivos
+find . -type f | wc -l
+
+# Listar apenas arquivos .md
+find . -name "*.md" -type f | sort
+
+================================================================================

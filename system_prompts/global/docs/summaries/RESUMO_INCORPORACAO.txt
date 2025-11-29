@@ -1,0 +1,52 @@
+================================================================================
+RESUMO DA INCORPORAÇÃO DE PROMPTS REVISADOS
+================================================================================
+
+Data: 28 de Novembro de 2025
+Documento Fonte: /Users/luiz.sena88/aprimorar_prompts.md (3032 linhas)
+
+================================================================================
+PROMPTS INCORPORADOS
+================================================================================
+
+1. PROMPT_MCP_SERVERS
+   - Guia completo de configuração MCP Servers no Cursor
+   - Stack recomendada (Filesystem, GitHub, Hugging Face)
+   - Integração com ChatGPT Plus 5.1
+   - Localização: prompts_temp/stage_00_coleta/PROMPT_MCP_SERVERS_*.md
+
+2. PROMPT_SETUP_MACOS_WINDOWS_EXPERIENCE
+   - Setup macOS familiar ao Windows sem mascarar macOS
+   - Equivalências Windows → macOS
+   - Caminho de aprendizado progressivo
+   - Localização: prompts_temp/stage_00_coleta/PROMPT_SETUP_MACOS_*.md
+
+3. PROMPT_MODO_ADAPTATIVO
+   - Modo operacional adaptativo permanente
+   - Princípios de evolução incremental
+   - Integração com ecossistema existente
+   - Localização: prompts_temp/stage_00_coleta/PROMPT_MODO_ADAPTATIVO_*.md
+
+================================================================================
+ESTATÍSTICAS
+================================================================================
+
+- Prompts incorporados: 3
+- Engines criados: 18 (3 prompts × 6 engines)
+- Total de arquivos em prompts_temp: 87
+- Script criado: scripts/revisar-e-incorporar-prompts.sh
+- Documentação: INCORPORACAO_PROMPTS_REVISADOS.md
+
+================================================================================
+PRÓXIMOS PASSOS
+================================================================================
+
+1. Revisar prompts em stage_01_interpretacao
+2. Estruturar em stage_02_estrutura
+3. Refinar em stage_03_refinamento
+4. Avaliar para stage_04_pre_release
+5. Decidir sobre promoção para global/
+
+================================================================================
+STATUS: ✅ COMPLETO
+================================================================================

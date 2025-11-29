@@ -1,0 +1,51 @@
+=== RESUMO DOCKER ===
+
+Data/Hora: Fri Nov 28 11:06:44 AM UTC 2025
+Hostname: senamfo
+
+--- VERSÃO ---
+Docker version 29.0.4, build 3247a5a
+
+--- ESTATÍSTICAS ---
+Containers rodando: 8
+Containers totais: 8
+Imagens: 11
+Volumes: 4
+Networks: 5
+
+--- USO DE DISCO ---
+TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE
+Images          11        8         3.373GB   2.753GB (81%)
+Containers      8         8         51.61MB   0B (0%)
+Local Volumes   4         4         141.8MB   0B (0%)
+Build Cache     0         0         0B        0B
+
+--- CONTAINERS ATIVOS ---
+coolify-sentinel	ghcr.io/coollabsio/sentinel:0.0.18	Up 11 hours (healthy)
+n8n-q0cc04cg484gwcokcgo8socw	docker.n8n.io/n8nio/n8n:latest	Up 24 hours (healthy)
+postgresql-q0cc04cg484gwcokcgo8socw	postgres:16-alpine	Up 24 hours (healthy)
+coolify-proxy	traefik:v3.6	Up 24 hours (healthy)
+coolify	ghcr.io/coollabsio/coolify:4.0.0-beta.444	Up 24 hours (healthy)
+coolify-db	postgres:15-alpine	Up 24 hours (healthy)
+coolify-realtime	ghcr.io/coollabsio/coolify-realtime:1.0.10	Up 24 hours (healthy)
+coolify-redis	redis:7-alpine	Up 24 hours (healthy)
+
+--- IMAGENS MAIORES (top 10) ---
+docker.n8n.io/n8nio/n8n:latest	978MB
+ghcr.io/coollabsio/coolify-realtime:1.0.10	621MB
+ghcr.io/coollabsio/coolify:4.0.0-beta.444	381MB
+ghcr.io/coollabsio/coolify-helper:latest	298MB
+ghcr.io/coollabsio/coolify-helper:1.0.12	298MB
+postgres:16-alpine	275MB
+postgres:15-alpine	273MB
+traefik:v3.6	185MB
+redis:7-alpine	41.4MB
+ghcr.io/coollabsio/sentinel:0.0.18	31.3MB
+
+--- VOLUMES NÃO USADOS ---
+Nenhum volume não usado encontrado
+
+--- PROBLEMAS DE SEGURANÇA ---
+Containers com privilégios: 0
+0
+Containers rodando como root: 6

@@ -1,0 +1,571 @@
+================================================================================
+AUDITORIA DOCKER - VPS UBUNTU - CONSOLIDADO PARA LLM
+================================================================================
+
+Versão: 1.0.0
+Data de Geração: 28/11/2025 11:06:44 UTC
+Hostname: senamfo
+Ambiente: VPS Ubuntu 24.04 LTS
+Docker Version: 29.0.4 (build 3247a5a)
+Docker Compose Version: v2.40.3
+
+================================================================================
+ÍNDICE
+================================================================================
+
+1. RESUMO EXECUTIVO
+2. INFRAESTRUTURA DOCKER
+3. CONTAINERS E SERVIÇOS
+4. IMAGENS DOCKER
+5. VOLUMES E PERSISTÊNCIA
+6. REDES DOCKER
+7. RECURSOS E PERFORMANCE
+8. SEGURANÇA E CONFIGURAÇÕES
+9. COOLIFY STACK
+10. RECOMENDAÇÕES E AÇÕES
+
+================================================================================
+1. RESUMO EXECUTIVO
+================================================================================
+
+Status Geral: ✅ OPERACIONAL E SAUDÁVEL
+
+Estatísticas:
+- Containers ativos: 8/8 (100% operacionais)
+- Containers parados: 0
+- Imagens: 11
+- Volumes: 4 (todos em uso, nenhum órfão)
+- Networks: 5
+- Health checks: Todos passando (healthy)
+
+Uso de Disco:
+- Imagens: 3.373GB total (2.753GB recuperáveis - 81%)
+- Containers: 51.61MB
+- Volumes: 141.8MB
+- Build Cache: 0B
+
+Uptime:
+- Containers principais: ~24 horas
+- coolify-sentinel: 11 horas (reiniciado recentemente)
+
+================================================================================
+2. INFRAESTRUTURA DOCKER
+================================================================================
+
+2.1 Versões e Componentes
+
+Docker Engine:
+- Versão: 29.0.4
+- Build: 3247a5a
+- Storage Driver: overlay2
+- Backing Filesystem: extfs
+- Logging Driver: json-file
+- Cgroup Driver: systemd
+- Cgroup Version: 2
+
+Docker Compose:
+- Versão: v2.40.3
+- Plugin: /usr/libexec/docker/cli-plugins/docker-compose
+
+Buildx:
+- Versão: v0.30.1
+- Plugin: /usr/libexec/docker/cli-plugins/docker-buildx
+
+Runtimes:
+- Default: runc
+- Available: io.containerd.runc.v2, runc
+- containerd: fcd43222d6b07379a4be9786bda52438f0dd16a1
+- runc: v1.3.3-0-gd842d771
+
+2.2 Configuração do Daemon
+
+Arquivo: /etc/docker/daemon.json
+
+Configurações:
+- Log Driver: json-file
+- Log Options:
+  - max-size: 10m
+  - max-file: 3
+- Default Address Pools:
+  - base: 10.0.0.0/8
+  - size: 24
+
+Swarm:
+- Status: inactive
+- Modo: Não configurado como Swarm
+
+2.3 Permissões e Segurança
+
+Docker Socket:
+- Path: /var/run/docker.sock
+- Permissões: srw-rw----
+- Owner: root
+- Group: docker
+- Grupo docker: docker:x:988:admin
+
+================================================================================
+3. CONTAINERS E SERVIÇOS
+================================================================================
+
+3.1 Stack Principal: Coolify
+
+A infraestrutura é baseada no Coolify (plataforma de deploy self-hosted):
+
+1. coolify (Aplicação Principal)
+   - Imagem: ghcr.io/coollabsio/coolify:4.0.0-beta.444
+   - Status: Up 24 hours (healthy)
+   - Portas: 8000/tcp, 8443/tcp, 9000/tcp
+   - Portas expostas: 0.0.0.0:8000->8080/tcp
+   - Criado: 2025-11-17 04:41:18 UTC
+   - CPU: 4.59%
+   - Memória: 321.6MiB / 15.62GiB (2.01%)
+
+2. coolify-proxy (Traefik)
+   - Imagem: traefik:v3.6
+   - Status: Up 24 hours (healthy)
+   - Portas expostas:
+     - 0.0.0.0:80->80/tcp (HTTP)
+     - 0.0.0.0:443->443/tcp (HTTPS)
+     - 0.0.0.0:8080->8080/tcp (Dashboard)
+     - 0.0.0.0:443->443/udp (UDP)
+   - Criado: 2025-11-17 04:41:48 UTC
+   - CPU: 0.05%
+   - Memória: 111.7MiB / 15.62GiB (0.70%)
+   - Função: Proxy reverso e load balancer
+   - Acesso Docker Socket: Sim (necessário)
+
+3. coolify-db (PostgreSQL para Coolify)
+   - Imagem: postgres:15-alpine
+   - Status: Up 24 hours (healthy)
+   - Porta interna: 5432/tcp
+   - Criado: 2025-11-17 04:41:17 UTC
+   - CPU: 0.00%
+   - Memória: 47.11MiB / 15.62GiB (0.29%)
+   - User: root
+
+4. coolify-redis (Cache/Sessões)
+   - Imagem: redis:7-alpine
+   - Status: Up 24 hours (healthy)
+   - Porta interna: 6379/tcp
+   - Criado: 2025-11-17 04:41:17 UTC
+   - CPU: 0.60%
+   - Memória: 19.61MiB / 15.62GiB (0.12%)
+   - User: root
+
+5. coolify-realtime (WebSockets)
+   - Imagem: ghcr.io/coollabsio/coolify-realtime:1.0.10
+   - Status: Up 24 hours (healthy)
+   - Portas expostas: 0.0.0.0:6001-6002->6001-6002/tcp
+   - Criado: 2025-11-17 04:41:17 UTC
+   - CPU: 0.74%
+   - Memória: 107.7MiB / 15.62GiB (0.67%)
+   - User: root
+
+6. coolify-sentinel (Monitoramento)
+   - Imagem: ghcr.io/coollabsio/sentinel:0.0.18
+   - Status: Up 11 hours (healthy)
+   - Criado: 2025-11-28 00:03:05 UTC
+   - CPU: 0.00%
+   - Memória: 8.461MiB / 15.62GiB (0.05%)
+   - Função: Coleta de métricas e monitoramento
+   - Intervalo de coleta: 60 segundos
+   - Acesso Docker Socket: Sim (necessário)
+   - User: root
+
+3.2 Aplicações Gerenciadas
+
+1. n8n (Automação de Workflows)
+   - Container: n8n-q0cc04cg484gwcokcgo8socw
+   - Imagem: docker.n8n.io/n8nio/n8n:latest
+   - Status: Up 24 hours (healthy)
+   - Porta interna: 5678/tcp
+   - Criado: 2025-11-18 09:29:24 UTC
+   - CPU: 0.00%
+   - Memória: 273.4MiB / 15.62GiB (1.71%)
+   - Tamanho da imagem: 978MB (maior imagem)
+
+2. PostgreSQL para n8n
+   - Container: postgresql-q0cc04cg484gwcokcgo8socw
+   - Imagem: postgres:16-alpine
+   - Status: Up 24 hours (healthy)
+   - Porta interna: 5432/tcp
+   - Criado: 2025-11-18 09:29:23 UTC
+   - CPU: 0.00%
+   - Memória: 51.15MiB / 15.62GiB (0.32%)
+   - User: root
+
+3.3 Resumo de Containers
+
+Total: 8 containers
+- Todos ativos e saudáveis
+- Nenhum container parado
+- Health checks: 100% passando
+- Restarts: 0 (nenhum container reiniciou)
+
+Containers por função:
+- Infraestrutura Coolify: 6 containers
+- Aplicações: 1 container (n8n)
+- Bancos de dados: 2 containers (PostgreSQL 15 e 16)
+
+================================================================================
+4. IMAGENS DOCKER
+================================================================================
+
+4.1 Imagens Instaladas (11 total)
+
+Top 10 por tamanho:
+1. docker.n8n.io/n8nio/n8n:latest - 978MB
+2. ghcr.io/coollabsio/coolify-realtime:1.0.10 - 621MB
+3. ghcr.io/coollabsio/coolify:4.0.0-beta.444 - 381MB
+4. ghcr.io/coollabsio/coolify-helper:latest - 298MB
+5. ghcr.io/coollabsio/coolify-helper:1.0.12 - 298MB
+6. postgres:16-alpine - 275MB
+7. postgres:15-alpine - 273MB
+8. traefik:v3.6 - 185MB
+9. redis:7-alpine - 41.4MB
+10. ghcr.io/coollabsio/sentinel:0.0.18 - 31.3MB
+
+4.2 Uso de Imagens
+
+Imagens ativas: 8/11 (73%)
+Imagens não utilizadas: 3/11 (27%)
+Espaço recuperável: 2.753GB (81% do total de imagens)
+
+Imagens órfãs (dangling): Nenhuma detectada
+
+4.3 Recomendações de Limpeza
+
+Comando sugerido para liberar espaço:
+docker image prune -a
+
+Potencial de liberação: ~2.75GB
+
+================================================================================
+5. VOLUMES E PERSISTÊNCIA
+================================================================================
+
+5.1 Volumes Docker
+
+Total: 4 volumes
+Status: Todos em uso (0 volumes órfãos)
+
+Volumes identificados:
+- Volumes do Coolify (aplicação e banco de dados)
+- Volumes do n8n (dados e configurações)
+- Volumes do PostgreSQL (dados persistentes)
+
+Uso total: 141.8MB
+Espaço recuperável: 0B (todos os volumes estão em uso)
+
+5.2 Gestão de Volumes
+
+Status: ✅ EXCELENTE
+- Nenhum volume órfão
+- Todos os volumes estão sendo utilizados
+- Boa gestão de recursos
+
+================================================================================
+6. REDES DOCKER
+================================================================================
+
+6.1 Networks Configuradas
+
+Total: 5 networks
+
+Networks identificadas:
+1. bridge - Rede padrão do Docker
+2. coolify - Rede principal do Coolify
+3. host - Rede host (modo host)
+4. none - Rede isolada
+5. Outras redes específicas do Coolify
+
+6.2 Isolamento de Rede
+
+Status: ✅ ADEQUADO
+- Isolamento apropriado entre serviços
+- Rede dedicada para Coolify
+- Configuração adequada para produção
+
+================================================================================
+7. RECURSOS E PERFORMANCE
+================================================================================
+
+7.1 Uso de CPU
+
+Total de containers: 8
+CPU total utilizada: ~6.98%
+
+Distribuição:
+- coolify: 4.59% (maior uso)
+- coolify-realtime: 0.74%
+- coolify-redis: 0.60%
+- coolify-proxy: 0.05%
+- Outros: <0.01% cada
+
+Status: ✅ BAIXO USO - Sistema com boa capacidade disponível
+
+7.2 Uso de Memória
+
+Total disponível: 15.62GiB
+Total utilizado: ~949MiB (~6%)
+
+Distribuição por container:
+- coolify: 321.6MiB (2.01%)
+- n8n: 273.4MiB (1.71%)
+- coolify-proxy: 111.7MiB (0.70%)
+- coolify-realtime: 107.7MiB (0.67%)
+- postgresql (n8n): 51.15MiB (0.32%)
+- coolify-db: 47.11MiB (0.29%)
+- coolify-redis: 19.61MiB (0.12%)
+- coolify-sentinel: 8.461MiB (0.05%)
+
+Status: ✅ BOM USO - Muito espaço disponível
+
+7.3 Uso de Disco
+
+Sistema de arquivos:
+- Total: 192.7GB
+- Usado: 12.2GB (6%)
+- Disponível: 180.5GB (94%)
+
+Status: ✅ EXCELENTE - Muito espaço disponível
+
+7.4 Tráfego de Rede
+
+Containers com maior tráfego:
+- coolify-redis: 830MB down / 234MB up
+- coolify-proxy: 149MB down / 86.1MB up
+- coolify-db: 450MB down / 144MB up
+- coolify: 967MB down / 1.03GB up
+
+Status: ✅ NORMAL - Tráfego esperado para serviços em produção
+
+================================================================================
+8. SEGURANÇA E CONFIGURAÇÕES
+================================================================================
+
+8.1 Containers com Privilégios
+
+Containers privilegiados: 0
+Status: ✅ NENHUM CONTAINER COM PRIVILEGIOS DESNECESSÁRIOS
+
+8.2 Containers Rodando como Root
+
+Total: 6 containers rodando como root
+
+Containers:
+- coolify-sentinel
+- postgresql-q0cc04cg484gwcokcgo8socw
+- coolify-proxy
+- coolify-db
+- coolify-realtime
+- coolify-redis
+
+Status: ⚠️ ATENÇÃO - Considerar criar usuários não-privilegiados quando possível
+
+Nota: Alguns containers (como PostgreSQL) podem precisar de root para funcionar corretamente. Outros (como Redis, Realtime) podem ser executados com usuários específicos.
+
+8.3 Acesso ao Docker Socket
+
+Containers com acesso: 2
+
+1. coolify-sentinel
+   - Mount: /var/run/docker.sock -> /var/run/docker.sock (bind)
+   - Justificativa: Necessário para monitoramento e coleta de métricas
+   - Status: ✅ ACEITÁVEL
+
+2. coolify-proxy
+   - Mount: /var/run/docker.sock -> /var/run/docker.sock (bind)
+   - Justificativa: Necessário para gerenciar containers via Traefik
+   - Status: ✅ ACEITÁVEL
+
+Permissões do socket:
+- Path: /var/run/docker.sock
+- Permissões: srw-rw---- (root:docker)
+- Grupo docker: admin está no grupo
+
+Status: ✅ CONFIGURAÇÃO ADEQUADA
+
+8.4 Bind Mounts Sensíveis
+
+Containers com mounts sensíveis: 2
+- coolify-sentinel: /var/run/docker.sock (necessário)
+- coolify-proxy: /var/run/docker.sock (necessário)
+
+Status: ✅ ACEITÁVEL - Mounts necessários para funcionamento
+
+8.5 Configuração de Logs
+
+Log Driver: json-file
+Rotação de logs:
+- max-size: 10m
+- max-file: 3
+
+Status: ✅ CONFIGURADO ADEQUADAMENTE - Previne crescimento excessivo de logs
+
+8.6 Health Checks
+
+Todos os containers possuem health checks configurados
+Status: ✅ 100% DOS CONTAINERS COM HEALTH CHECKS
+
+================================================================================
+9. COOLIFY STACK
+================================================================================
+
+9.1 Arquitetura Coolify
+
+Coolify é uma plataforma de deploy self-hosted que gerencia:
+- Deploy de aplicações
+- Gerenciamento de containers
+- Proxy reverso (Traefik)
+- Monitoramento (Sentinel)
+
+9.2 Componentes do Coolify
+
+1. coolify (Aplicação Principal)
+   - Versão: 4.0.0-beta.444
+   - Porta: 8000 (exposta em 0.0.0.0:8000->8080)
+   - Função: Interface web e API
+
+2. coolify-proxy (Traefik)
+   - Versão: v3.6
+   - Função: Proxy reverso, SSL/TLS termination, load balancing
+   - Portas: 80 (HTTP), 443 (HTTPS), 8080 (Dashboard)
+
+3. coolify-db (PostgreSQL)
+   - Versão: 15-alpine
+   - Função: Banco de dados do Coolify
+
+4. coolify-redis
+   - Versão: 7-alpine
+   - Função: Cache e sessões
+
+5. coolify-realtime
+   - Versão: 1.0.10
+   - Função: WebSockets e comunicação em tempo real
+   - Portas: 6001-6002
+
+6. coolify-sentinel
+   - Versão: 0.0.18
+   - Função: Monitoramento e coleta de métricas
+   - Intervalo: 60 segundos
+   - Endpoint: http://147.79.81.59:8000
+
+9.3 Aplicações Gerenciadas pelo Coolify
+
+n8n:
+- Container: n8n-q0cc04cg484gwcokcgo8socw
+- Banco de dados: PostgreSQL 16 (separado)
+- Status: Operacional e saudável
+
+9.4 Configurações do Sentinel
+
+Variáveis de ambiente principais:
+- PUSH_ENDPOINT: http://147.79.81.59:8000
+- PUSH_INTERVAL_SECONDS: 60
+- COLLECTOR_ENABLED: false
+- COLLECTOR_REFRESH_RATE_SECONDS: 10
+- COLLECTOR_RETENTION_PERIOD_DAYS: 7
+
+Volumes:
+- /var/run/docker.sock (bind) - Acesso ao Docker
+- /data/coolify/sentinel:/app/db (bind) - Dados persistentes
+
+================================================================================
+10. RECOMENDAÇÕES E AÇÕES
+================================================================================
+
+10.1 Prioridade Alta
+
+1. Limpar Imagens Não Utilizadas
+   Comando: docker image prune -a
+   Potencial: Liberar ~2.75GB de espaço
+   Impacto: Baixo risco, alto benefício
+
+2. Revisar Containers Rodando como Root
+   Containers para revisar:
+   - coolify-realtime (possível executar como usuário não-root)
+   - coolify-redis (possível executar como usuário não-root)
+
+   Nota: PostgreSQL e outros podem precisar de root para funcionar corretamente.
+
+10.2 Prioridade Média
+
+3. Monitoramento de Recursos
+   - Implementar alertas para uso excessivo de CPU/memória
+   - Considerar limites de recursos para containers críticos
+   - Monitorar crescimento de volumes
+
+4. Backup de Volumes
+   - Implementar rotina de backup dos volumes do PostgreSQL
+   - Considerar backup dos volumes do Coolify
+   - Documentar processo de restauração
+
+10.3 Prioridade Baixa
+
+5. Documentação
+   - Documentar variáveis de ambiente críticas
+   - Manter backup das configurações do Traefik
+   - Documentar processo de atualização do Coolify
+
+6. Otimização
+   - Revisar tamanho das imagens (especialmente n8n: 978MB)
+   - Considerar usar imagens Alpine quando possível
+   - Avaliar necessidade de múltiplas versões do coolify-helper
+
+================================================================================
+11. MÉTRICAS DE SAÚDE
+================================================================================
+
+Indicadores de Saúde Geral:
+
+✅ Operacionalidade: 100% (8/8 containers ativos)
+✅ Health Checks: 100% (todos passando)
+✅ Uptime: Excelente (~24 horas sem interrupções)
+✅ Uso de CPU: Baixo (~7%)
+✅ Uso de Memória: Baixo (~6%)
+✅ Uso de Disco: Excelente (6% usado, 94% disponível)
+✅ Volumes: Todos em uso (0 órfãos)
+⚠️ Segurança: 6 containers como root (revisar quando possível)
+✅ Logs: Rotação configurada adequadamente
+✅ Rede: Isolamento apropriado
+
+Score Geral: 9/10 (Excelente)
+
+Pontos de melhoria:
+- Reduzir número de containers rodando como root
+- Limpar imagens não utilizadas
+
+================================================================================
+12. COMANDOS ÚTEIS
+================================================================================
+
+Monitoramento:
+- docker ps -a
+- docker stats
+- docker system df
+- docker logs <container>
+
+Manutenção:
+- docker image prune -a (limpar imagens não usadas)
+- docker volume prune (limpar volumes não usados)
+- docker system prune (limpeza geral)
+
+Inspeção:
+- docker inspect <container>
+- docker logs <container> --tail 50
+- docker top <container>
+
+Segurança:
+- docker ps --format "{{.Names}}" | xargs -I {} docker inspect {} --format '{{.Config.User}}'
+- docker ps --format "{{.Names}}" | xargs -I {} docker inspect {} --format '{{.HostConfig.Privileged}}'
+
+================================================================================
+FIM DO DOCUMENTO
+================================================================================
+
+Este documento consolida todas as informações da auditoria Docker realizada em 28/11/2025.
+Para detalhes completos, consulte os arquivos individuais na pasta de auditoria.
+
+
+

@@ -1,0 +1,158 @@
+=== DOCKER STATS (TODOS OS CONTAINERS) ===
+CONTAINER                                                          CPU %     MEM USAGE / LIMIT     MEM %     NET I/O           BLOCK I/O
+84ef425cbe250ea1ed19f2a286c1b7dfb89d665f055a75d68f725852780540a3   0.00%     8.461MiB / 15.62GiB   0.05%     473kB / 7.8MB     0B / 32.8kB
+bc097cc30b87dd404a2e494a90407f14e11b9d64a2bb6afdc96c0ac4400592b9   0.00%     273.4MiB / 15.62GiB   1.71%     9.74MB / 14.8MB   203MB / 46.6MB
+442967df439c622844364c1ea1f624fb2bcbe5db92a2794cf0f7f5d928e59971   0.00%     51.15MiB / 15.62GiB   0.32%     14.7MB / 9.68MB   35.5MB / 11.9MB
+6dcdd5b44777e5fff84e98671ad1f8fc00df57e57b8abcd13af4a7c1ae00fcb6   0.05%     111.7MiB / 15.62GiB   0.70%     86.1MB / 149MB    98.5MB / 0B
+ea2d5fb4b8f51c5c21b0afff531bfa016e4a458ba5eae3a1bad2100cbae6eb5a   4.59%     321.6MiB / 15.62GiB   2.01%     1.03GB / 967MB    77.2MB / 38.5MB
+0a237a98c236d1d82e158204c07c0e055f60b5b6aa207a2ec65b4d1848751f74   0.00%     47.11MiB / 15.62GiB   0.29%     144MB / 450MB     30.1MB / 82.2MB
+1f074035270a959d6fe045759d7a65ef7a70ccb20a7e56c6ee855021eb3cac25   0.74%     107.7MiB / 15.62GiB   0.67%     2.04MB / 46.7MB   67.2MB / 0B
+d4baec1771e96e9c56d7fd3fc82c5fd76ea952435df365cdc01557f88a1c5956   0.60%     19.61MiB / 15.62GiB   0.12%     830MB / 234MB     15MB / 9.02GB
+
+=== USO DE DISCO POR CONTAINER ===
+
+Container: coolify-sentinel
+Filesystem                Size      Used Available Use% Mounted on
+overlay                 192.7G     12.2G    180.5G   6% /
+tmpfs                    64.0M         0     64.0M   0% /dev
+shm                      64.0M         0     64.0M   0% /dev/shm
+/dev/sda1               192.7G     12.2G    180.5G   6% /app/db
+/dev/sda1               192.7G     12.2G    180.5G   6% /etc/resolv.conf
+/dev/sda1               192.7G     12.2G    180.5G   6% /etc/hostname
+/dev/sda1               192.7G     12.2G    180.5G   6% /etc/hosts
+tmpfs                     1.6G      1.8M      1.6G   0% /run/docker.sock
+tmpfs                     7.8G         0      7.8G   0% /proc/acpi
+
+Container: n8n-q0cc04cg484gwcokcgo8socw
+Filesystem                Size      Used Available Use% Mounted on
+overlay                 192.7G     12.2G    180.5G   6% /
+tmpfs                    64.0M         0     64.0M   0% /dev
+shm                      64.0M         0     64.0M   0% /dev/shm
+/dev/sda1               192.7G     12.2G    180.5G   6% /etc/resolv.conf
+/dev/sda1               192.7G     12.2G    180.5G   6% /etc/hostname
+/dev/sda1               192.7G     12.2G    180.5G   6% /etc/hosts
+/dev/sda1               192.7G     12.2G    180.5G   6% /home/node/.n8n
+tmpfs                     7.8G         0      7.8G   0% /proc/acpi
+tmpfs                    64.0M         0     64.0M   0% /proc/interrupts
+
+Container: postgresql-q0cc04cg484gwcokcgo8socw
+Filesystem                Size      Used Available Use% Mounted on
+overlay                 192.7G     12.2G    180.5G   6% /
+tmpfs                    64.0M         0     64.0M   0% /dev
+shm                      64.0M      1.0M     63.0M   2% /dev/shm
+/dev/sda1               192.7G     12.2G    180.5G   6% /etc/resolv.conf
+/dev/sda1               192.7G     12.2G    180.5G   6% /etc/hostname
+/dev/sda1               192.7G     12.2G    180.5G   6% /etc/hosts
+/dev/sda1               192.7G     12.2G    180.5G   6% /var/lib/postgresql/data
+tmpfs                     7.8G         0      7.8G   0% /proc/acpi
+tmpfs                    64.0M         0     64.0M   0% /proc/interrupts
+
+Container: coolify-proxy
+Filesystem                Size      Used Available Use% Mounted on
+overlay                 192.7G     12.2G    180.5G   6% /
+tmpfs                    64.0M         0     64.0M   0% /dev
+shm                      64.0M         0     64.0M   0% /dev/shm
+/dev/sda1               192.7G     12.2G    180.5G   6% /traefik
+/dev/sda1               192.7G     12.2G    180.5G   6% /etc/resolv.conf
+/dev/sda1               192.7G     12.2G    180.5G   6% /etc/hostname
+/dev/sda1               192.7G     12.2G    180.5G   6% /etc/hosts
+tmpfs                     1.6G      1.8M      1.6G   0% /run/docker.sock
+tmpfs                     7.8G         0      7.8G   0% /proc/acpi
+
+Container: coolify
+Filesystem                Size      Used Available Use% Mounted on
+overlay                 192.7G     12.2G    180.5G   6% /
+tmpfs                    64.0M         0     64.0M   0% /dev
+shm                      64.0M         0     64.0M   0% /dev/shm
+/dev/sda1               192.7G     12.2G    180.5G   6% /etc/resolv.conf
+/dev/sda1               192.7G     12.2G    180.5G   6% /etc/hostname
+/dev/sda1               192.7G     12.2G    180.5G   6% /etc/hosts
+/dev/sda1               192.7G     12.2G    180.5G   6% /var/www/html/.env
+/dev/sda1               192.7G     12.2G    180.5G   6% /var/www/html/storage/app/services
+/dev/sda1               192.7G     12.2G    180.5G   6% /var/www/html/storage/app/ssh
+
+Container: coolify-db
+Filesystem                Size      Used Available Use% Mounted on
+overlay                 192.7G     12.2G    180.5G   6% /
+tmpfs                    64.0M         0     64.0M   0% /dev
+shm                      64.0M      1.0M     63.0M   2% /dev/shm
+/dev/sda1               192.7G     12.2G    180.5G   6% /etc/resolv.conf
+/dev/sda1               192.7G     12.2G    180.5G   6% /etc/hostname
+/dev/sda1               192.7G     12.2G    180.5G   6% /etc/hosts
+/dev/sda1               192.7G     12.2G    180.5G   6% /var/lib/postgresql/data
+tmpfs                     7.8G         0      7.8G   0% /proc/acpi
+tmpfs                    64.0M         0     64.0M   0% /proc/interrupts
+
+Container: coolify-realtime
+Filesystem                Size      Used Available Use% Mounted on
+overlay                 192.7G     12.2G    180.5G   6% /
+tmpfs                    64.0M         0     64.0M   0% /dev
+shm                      64.0M         0     64.0M   0% /dev/shm
+/dev/sda1               192.7G     12.2G    180.5G   6% /etc/resolv.conf
+/dev/sda1               192.7G     12.2G    180.5G   6% /etc/hostname
+/dev/sda1               192.7G     12.2G    180.5G   6% /etc/hosts
+/dev/sda1               192.7G     12.2G    180.5G   6% /var/www/html/storage/app/ssh
+tmpfs                     7.8G         0      7.8G   0% /proc/acpi
+tmpfs                    64.0M         0     64.0M   0% /proc/interrupts
+
+Container: coolify-redis
+Filesystem                Size      Used Available Use% Mounted on
+overlay                 192.7G     12.2G    180.5G   6% /
+tmpfs                    64.0M         0     64.0M   0% /dev
+shm                      64.0M         0     64.0M   0% /dev/shm
+/dev/sda1               192.7G     12.2G    180.5G   6% /data
+/dev/sda1               192.7G     12.2G    180.5G   6% /etc/resolv.conf
+/dev/sda1               192.7G     12.2G    180.5G   6% /etc/hostname
+/dev/sda1               192.7G     12.2G    180.5G   6% /etc/hosts
+tmpfs                     7.8G         0      7.8G   0% /proc/acpi
+tmpfs                    64.0M         0     64.0M   0% /proc/interrupts
+
+=== LIMITES DE RECURSOS ===
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Container: coolify-sentinel
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CPU: 0 shares, Memory: 0 bytes
+CPU Quota: 0, CPU Period: 0
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Container: n8n-q0cc04cg484gwcokcgo8socw
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CPU: 0 shares, Memory: 0 bytes
+CPU Quota: 0, CPU Period: 0
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Container: postgresql-q0cc04cg484gwcokcgo8socw
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CPU: 0 shares, Memory: 0 bytes
+CPU Quota: 0, CPU Period: 0
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Container: coolify-proxy
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CPU: 0 shares, Memory: 0 bytes
+CPU Quota: 0, CPU Period: 0
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Container: coolify
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CPU: 0 shares, Memory: 0 bytes
+CPU Quota: 0, CPU Period: 0
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Container: coolify-db
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CPU: 0 shares, Memory: 0 bytes
+CPU Quota: 0, CPU Period: 0
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Container: coolify-realtime
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CPU: 0 shares, Memory: 0 bytes
+CPU Quota: 0, CPU Period: 0
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Container: coolify-redis
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CPU: 0 shares, Memory: 0 bytes
+CPU Quota: 0, CPU Period: 0
