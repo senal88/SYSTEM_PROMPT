@@ -310,8 +310,11 @@ Todos os prompts devem ter:
 
 - **Última Auditoria:** Verificar em `audit/` (mais recente por timestamp)
 - **Versão llms-full.txt:** Verificar cabeçalho do arquivo
-- **Scripts:** Todos funcionais e documentados
-- **Expansão:** Sistema evolutivo - ver `GOVERNANCA_E_EXPANSAO.md`
+- **Scripts:** Todos funcionais e documentados (23 scripts ativos)
+- **Expansão:** Sistema evolutivo - ver `docs/GOVERNANCA_E_EXPANSAO.md`
+- **Status Atual:** ✅ Reorganização completa concluída (v2.0.0)
+- **Pendências:** ⚠️ Push GitHub bloqueado por arquivo grande | ⏳ Deploy VPS aguardando SSH
+- **Documentação Status:** Ver `docs/STATUS_FINAL_20251128.md` e `STATUS.txt`
 
 ## 📚 Documentação Adicional
 
