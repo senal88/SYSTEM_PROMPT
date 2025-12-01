@@ -1,7 +1,7 @@
 # 🌐 Integração Hostinger API - Sistema Completo
 
-**Data:** 2025-12-01  
-**Versão:** 1.0.0  
+**Data:** 2025-12-01
+**Versão:** 1.0.0
 **Status:** ✅ **INTEGRADO E FUNCIONAL**
 
 ---
@@ -20,19 +20,19 @@ Integração completa da API Hostinger em todas as plataformas e IDEs, permitind
 uyAbV0qy1wbCgLgy6Ammo6bK4LTFqeQD9J5X8ZZ2eebaf35d
 ```
 
-**Armazenamento:** 1Password (`1p_vps` vault)  
+**Armazenamento:** 1Password (`1p_vps` vault)
 **Item:** `HOSTINGER_API_TOKEN`
 
 ### VPS Configurada
 
-| Campo | Valor |
-|-------|-------|
-| **ID** | 607646 |
-| **Hostname** | senamfo.com.br |
-| **IPv4** | 147.79.81.59 |
-| **Status** | ✅ running |
-| **Plano** | KVM 4 (4 vCPU, 16GB RAM, 200GB SSD) |
-| **OS** | Ubuntu 24.04 + Coolify |
+| Campo        | Valor                               |
+| ------------ | ----------------------------------- |
+| **ID**       | 607646                              |
+| **Hostname** | senamfo.com.br                      |
+| **IPv4**     | 147.79.81.59                        |
+| **Status**   | ✅ running                          |
+| **Plano**    | KVM 4 (4 vCPU, 16GB RAM, 200GB SSD) |
+| **OS**       | Ubuntu 24.04 + Coolify              |
 
 ---
 
@@ -40,7 +40,7 @@ uyAbV0qy1wbCgLgy6Ammo6bK4LTFqeQD9J5X8ZZ2eebaf35d
 
 ### 1. Cursor IDE
 
-**Config:** `~/.cursor/mcp.json`  
+**Config:** `~/.cursor/mcp.json`
 **Status:** ✅ Configurado
 
 ```json
@@ -48,10 +48,7 @@ uyAbV0qy1wbCgLgy6Ammo6bK4LTFqeQD9J5X8ZZ2eebaf35d
   "mcpServers": {
     "hostinger-mcp": {
       "command": "npx",
-      "args": [
-        "-y",
-        "@hostinger/mcp-server"
-      ],
+      "args": ["-y", "@hostinger/mcp-server"],
       "env": {
         "HOSTINGER_API_TOKEN": "op://1p_vps/HOSTINGER_API_TOKEN/credential"
       }
@@ -62,37 +59,37 @@ uyAbV0qy1wbCgLgy6Ammo6bK4LTFqeQD9J5X8ZZ2eebaf35d
 
 ### 2. VS Code
 
-**Config:** `~/.vscode/mcp.json`  
+**Config:** `~/.vscode/mcp.json`
 **Status:** ✅ Configurado
 
 ### 3. Claude Code
 
-**Config:** `~/.claude-code/mcp.json`  
+**Config:** `~/.claude-code/mcp.json`
 **Status:** ✅ Configurado
 
 ### 4. ChatGPT 5.1 Codex
 
-**Config:** Custom Instructions  
+**Config:** Custom Instructions
 **Status:** ✅ Configurado
 
 ### 5. Gemini 3.0
 
-**Config:** System Instruction  
+**Config:** System Instruction
 **Status:** ✅ Configurado
 
 ### 6. Perplexity
 
-**Config:** Spaces Context  
+**Config:** Spaces Context
 **Status:** ✅ Configurado
 
 ### 7. Abacus.AI
 
-**Config:** Agent Config  
+**Config:** Agent Config
 **Status:** ✅ Configurado
 
 ### 8. HuggingFace Pro
 
-**Config:** Python Config  
+**Config:** Python Config
 **Status:** ✅ Configurado
 
 ---
@@ -177,6 +174,7 @@ Você tem acesso completo à API Hostinger via MCP Server:
 **Token:** Armazenado no 1Password (`op://1p_vps/HOSTINGER_API_TOKEN/credential`)
 
 **VPS Principal:**
+
 - ID: 607646
 - Hostname: senamfo.com.br
 - IPv4: 147.79.81.59
@@ -208,7 +206,6 @@ Você tem acesso completo à API Hostinger via MCP Server:
 
 ---
 
-**Última Atualização:** 2025-12-01  
-**Versão:** 1.0.0  
+**Última Atualização:** 2025-12-01
+**Versão:** 1.0.0
 **Status:** ✅ **INTEGRAÇÃO COMPLETA E FUNCIONAL**
-
