@@ -19,6 +19,7 @@ Este repositório contém configurações centralizadas e automatizadas para um 
 - ✅ **Frameworks Integrados**: Gemini, Cursor, Codex, 1Password
 - ✅ **Desenvolvimento AI**: Configurações otimizadas para IA
 - ✅ **Segurança**: Gerenciamento centralizado de secrets
+- ✅ **System Prompts**: Sistema completo para gerenciar system prompts em todas as ferramentas de IA comerciais
 
 ## 🏗️ Estrutura do Repositório
 
@@ -43,6 +44,12 @@ Este repositório contém configurações centralizadas e automatizadas para um 
 │   ├── install/               # Installation scripts
 │   ├── setup/                 # Setup scripts
 │   └── maintenance/           # Maintenance scripts
+├── system_prompts/            # System prompts para IAs
+│   └── global/                # Prompts globais e scripts
+│       ├── prompts/           # Prompts específicos por ferramenta
+│       ├── scripts/           # Scripts de coleta e aplicação
+│       ├── docs/              # Documentação completa
+│       └── configs/           # Configurações geradas
 ├── docs/                      # Documentation
 │   ├── guides/                # User guides
 │   ├── examples/              # Usage examples
@@ -65,7 +72,7 @@ Este repositório contém configurações centralizadas e automatizadas para um 
 
 ```bash
 # Clonar o repositório
-git clone https://github.com/yourusername/dotfiles.git ~/Dotfiles
+git clone https://github.com/senal88/SYSTEM_PROMPT.git ~/Dotfiles
 
 # Executar instalação
 cd ~/Dotfiles
@@ -125,6 +132,28 @@ make setup-ai
 - **Codex**: AI code assistant
 - **Cursor Agent**: AI-powered development
 - **1Password**: Secret management
+- **System Prompts**: Sistema completo para aplicar e gerenciar system prompts em todas as ferramentas de IA comerciais
+
+#### System Prompts Globais
+
+O diretório `system_prompts/global/` contém um sistema completo para:
+
+- ✅ Aplicar system prompt unificado em múltiplas IAs comerciais
+- ✅ Coletar e validar configurações automaticamente
+- ✅ Sincronizar entre ambientes (macOS Silicon e VPS Ubuntu)
+- ✅ Gerar relatórios e auditorias completas
+- ✅ Automatizar coletas e validações
+
+**Ferramentas Suportadas:**
+- Cursor IDE - Configuração via `.cursorrules` e `settings.json`
+- ChatGPT Plus - Custom Instructions
+- Perplexity Pro - Custom Instructions
+- Claude Code - System prompt via API
+- Gemini 2.5 Pro - System instructions via API
+- OpenAI API - System prompt via API
+- Extensões IDE - GitHub Copilot, Codeium, etc.
+
+Ver documentação completa em `system_prompts/global/docs/`.
 
 ### 💻 Desenvolvimento
 - **Node.js**: NVM, npm, yarn
@@ -138,6 +167,10 @@ make setup-ai
 - [Configuração Inicial](docs/guides/initial-setup.md)
 - [Personalização](docs/guides/customization.md)
 - [Troubleshooting](docs/guides/troubleshooting.md)
+
+### System Prompts
+- [Setup Completo IA e IDEs](system_prompts/global/docs/SETUP_COMPLETO_IA_E_IDES_v1.0.0_20251130.md)
+- [Documentação por Ferramenta](system_prompts/global/docs/)
 
 ### Exemplos
 - [Adicionando Novo Módulo](docs/examples/new-module.md)
@@ -156,6 +189,18 @@ make setup-ai
 ./install.sh              # Instalação completa
 ./install.sh --minimal    # Instalação mínima
 ./install.sh --dev        # Instalação para desenvolvimento
+```
+
+### System Prompts
+```bash
+# Aplicar system prompt no Cursor
+./system_prompts/global/scripts/shared/apply_cursor_prompt.sh
+
+# Coletar informações do sistema (macOS)
+./system_prompts/global/scripts/macos/collect_all_ia_macos.sh
+
+# Validar configurações
+./system_prompts/global/scripts/shared/validate_ia_system.sh
 ```
 
 ### Manutenção
@@ -188,6 +233,7 @@ make setup-security      # Configurar segurança
 - **Git**: Editar `modules/git/`
 - **Apps**: Editar `modules/apps/`
 - **AI**: Editar `modules/ai/`
+- **System Prompts**: Editar `system_prompts/global/`
 
 ## 🔒 Segurança
 
@@ -222,12 +268,12 @@ Este projeto está licenciado sob a [MIT License](LICENSE).
 
 ## 📞 Suporte
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/dotfiles/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/dotfiles/discussions)
+- **Issues**: [GitHub Issues](https://github.com/senal88/SYSTEM_PROMPT/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/senal88/SYSTEM_PROMPT/discussions)
 - **Email**: luizfernandomoreirasena@gmail.com
 
 ---
 
-**Última atualização**: $(date)
+**Última atualização**: 2025-11-30
 **Versão**: 1.0.0
 **Status**: ✅ Ativo e Mantido

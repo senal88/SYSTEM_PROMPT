@@ -1,0 +1,147 @@
+{
+  "metadata": {
+    "timestamp": "YYYY-MM-DDTHH:MM:SSZ",
+    "hostname": "hostname",
+    "platform": "macOS|Ubuntu",
+    "architecture": "arm64|x86_64|amd64",
+    "collection_version": "1.0"
+  },
+  "system_prompt": {
+    "global_file": {
+      "exists": true,
+      "path": "/path/to/system_prompt_global.txt",
+      "checksum": "sha256_checksum",
+      "size": 0,
+      "version": "1.0"
+    },
+    "cursor_rules": {
+      "exists": true,
+      "path": "~/.cursorrules",
+      "checksum": "sha256_checksum",
+      "size": 0
+    },
+    "cursor_settings": {
+      "exists": true,
+      "system_prompt_enabled": true,
+      "system_prompt_path": "/path/to/system_prompt_global.txt"
+    }
+  },
+  "cursor_ide": {
+    "installed": true,
+    "version": "x.x.x",
+    "path": "/path/to/cursor",
+    "settings": {
+      "exists": true,
+      "system_prompt_enabled": true,
+      "system_prompt_path": "/path/to/system_prompt_global.txt",
+      "chat_model": "claude-3-5-sonnet"
+    },
+    "cursor_rules": {
+      "exists": true,
+      "path": "~/.cursorrules",
+      "checksum": "sha256_checksum"
+    },
+    "extensions": {
+      "count": 0,
+      "directory": "/path/to/extensions"
+    }
+  },
+  "api_keys": {
+    "OPENAI_API_KEY": {
+      "configured": true,
+      "prefix": "sk-xxxxx...",
+      "length": 0
+    },
+    "ANTHROPIC_API_KEY": {
+      "configured": true,
+      "prefix": "sk-ant-...",
+      "length": 0
+    },
+    "GEMINI_API_KEY": {
+      "configured": true,
+      "prefix": "AIza...",
+      "length": 0
+    },
+    "HUGGINGFACE_API_KEY": {
+      "configured": false
+    },
+    "env_files": {
+      ".env": {
+        "exists": true,
+        "path": "~/.env"
+      }
+    }
+  },
+  "tools": {
+    "cli_tools": {
+      "ollama": {
+        "installed": true,
+        "version": "x.x.x",
+        "path": "/usr/bin/ollama"
+      },
+      "python3": {
+        "installed": true,
+        "version": "3.x.x",
+        "path": "/usr/bin/python3",
+        "python_packages": {
+          "openai": {
+            "installed": true,
+            "version": "x.x.x"
+          },
+          "anthropic": {
+            "installed": true,
+            "version": "x.x.x"
+          }
+        }
+      }
+    },
+    "applications": {
+      "Cursor": {
+        "installed": true,
+        "version": "x.x.x",
+        "path": "/Applications/Cursor.app"
+      }
+    }
+  },
+  "environment": {
+    "system": {
+      "hostname": "hostname",
+      "os_version": "x.x.x",
+      "architecture": "arm64|x86_64",
+      "kernel": "x.x.x"
+    },
+    "shell": {
+      "current": "/bin/bash|/bin/zsh",
+      "version": "x.x.x"
+    },
+    "aliases": {
+      "found": true,
+      "count": 0
+    },
+    "env_vars": {
+      "PATH": "/usr/bin:/bin",
+      "HOME": "/home/user",
+      "EDITOR": "vim|nano"
+    }
+  },
+  "ide_extensions": {
+    "cursor": {
+      "installed": true,
+      "extensions_dir": "/path/to/extensions",
+      "extensions": [
+        {
+          "name": "extension-name",
+          "publisher": "publisher",
+          "version": "x.x.x"
+        }
+      ]
+    },
+    "known_extensions": {
+      "copilot": {
+        "id": "GitHub.copilot",
+        "installed": true
+      }
+    }
+  }
+}
+
