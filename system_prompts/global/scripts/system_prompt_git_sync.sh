@@ -99,7 +99,7 @@ echo "[2] git fetch + pull --ff-only origin ${SYSTEM_PROMPT_BRANCH}"
 echo "--------------------------------------------------"
 
 git fetch origin "${SYSTEM_PROMPT_BRANCH}"
-git pull --ff-only origin "${SYSTEM_PROMPT_BRANCH}"
+git pull origin "${SYSTEM_PROMPT_BRANCH}"
 
 echo
 echo "[OK] Repositório local atualizado a partir do remoto."
