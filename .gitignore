@@ -230,3 +230,56 @@ raycast/raycast-profile/NodeJS/
 credentials/
 scripts/setup_cli_configs.sh
 _backup_2025-10-24-1524/
+
+# =====================================================================
+# Arquivos de Backup e Temporários (Adicionado 2025-12-01)
+# =====================================================================
+
+# Backups de configuração
+scripts/backups/
+**/backup*/
+**/*.backup
+**/*backup*
+
+# Arquivos de auditoria temporários
+docs/auditoria/
+docs/audits/
+**/audit*.log
+**/audit*.json
+
+# Arquivos temporários e logs
+*.tmp
+*.temp
+*.log
+*.error.log
+*.pdf
+
+# Submódulos não versionados
+automation_1password/compose/n8n-ai-starter
+codex
+cursor/awesome-cursorrules
+cursor/claude-task-master
+cursor/system-prompts-and-models-of-ai-tools
+gemini
+
+# Diretórios de projeto temporários
+projeto_organizacao_dotfiles/
+macOS_diagnostics/
+infra-vps/
+infraestrutura-vps/
+hostinger/
+openai/
+
+# Configurações específicas de ambiente
+configs/mcp/icloud_protection_global.json
+prompts/authenticators/
+
+# Scripts temporários
+scripts/setup/executar-tudo-automatico.sh
+
+# DevContainers e configurações IDE locais
+system_prompts/.devcontainer/
+system_prompts/.vscode/
+system_prompts/scripts/
+system_prompts/terminal/
+system_prompts/PROMPT_GEMINI_DEPLOY_ANTIGRAVITY_MACOS.md
