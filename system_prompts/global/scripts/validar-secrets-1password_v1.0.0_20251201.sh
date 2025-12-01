@@ -78,19 +78,7 @@ log_section() {
 mkdir -p "${REPORT_DIR}"
 
 # Mapeamento de secrets necessários por vault
-declare -A REQUIRED_SECRETS_1P_VPS=(
-    ["yhqdcrihdk5c6sk7x7fwcqazqu"]="Service Account Auth Token: admin-vps conta de servico"
-    ["3ztgpgona7iy2htavjmtdccss4"]="GIT_PERSONAL"
-    ["6d3sildbgptpqp3lvyjt2gsjhy"]="github.com"
-    ["k6x3ye34k6p6rkz7b6e2qhjeci"]="GIT_TOKEN"
-)
-
-declare -A REQUIRED_SECRETS_1P_MACOS=(
-    ["kvhqgsi3ndrz4n65ptiuryrifa"]="service_1p_macos_dev_localhost"
-    ["3xpytbcndxqapydpz27lxoegwm"]="GIT_PAT |Nov-2025"
-    ["q36qe2k5ppapzhxdr2q24jtwta"]="SYSTEM_PROMPT | GIT_PERSONAL_KEY"
-    ["4ge66znk4qefkypev54t5ivebe"]="id_ed25519_universal"
-)
+# Nota: Arrays são definidos dentro das funções para evitar problemas de escopo
 
 # ============================================================================
 # VALIDAR VAULT ESPECÍFICO
