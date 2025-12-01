@@ -62,6 +62,7 @@ Configuração completa do Claude Desktop para usar API Key do 1Password, garant
 ```
 
 **Funcionalidades:**
+
 - ✅ Cria/atualiza `claude_desktop_config.json`
 - ✅ Valida item no 1Password
 - ✅ Cria backup automático da configuração existente
@@ -75,6 +76,7 @@ Configuração completa do Claude Desktop para usar API Key do 1Password, garant
 ```
 
 **Testes Realizados:**
+
 - ✅ 1Password CLI instalado
 - ✅ 1Password autenticado
 - ✅ Item Anthropic existe
@@ -98,6 +100,7 @@ Configuração completa do Claude Desktop para usar API Key do 1Password, garant
 ```
 
 Este script:
+
 1. Solicita a API Key da Anthropic
 2. Cria item `Anthropic` no vault `1p_macos`
 3. Configura campo `api_key`
@@ -110,6 +113,7 @@ Este script:
 ```
 
 Este script:
+
 1. Valida item no 1Password
 2. Cria/atualiza `claude_desktop_config.json`
 3. Cria scripts auxiliares
@@ -172,6 +176,7 @@ curl -X POST https://api.anthropic.com/v1/messages \
 ### Problema: API Key não acessível
 
 **Solução:**
+
 1. Verificar autenticação: `op account list`
 2. Verificar item: `op item list --vault 1p_macos | grep Anthropic`
 3. Verificar campo: `op item get Anthropic --vault 1p_macos`
@@ -179,6 +184,7 @@ curl -X POST https://api.anthropic.com/v1/messages \
 ### Problema: Variável de ambiente não definida
 
 **Solução:**
+
 ```bash
 source ~/.zshrc
 # ou
