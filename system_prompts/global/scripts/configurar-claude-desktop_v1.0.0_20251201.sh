@@ -92,7 +92,7 @@ if [[ -f "${CONFIG_FILE}" ]]; then
     BACKUP_FILE="${CONFIG_FILE}.backup.$(date +%Y%m%d_%H%M%S)"
     cp "${CONFIG_FILE}" "${BACKUP_FILE}"
     log_info "Backup criado: ${BACKUP_FILE}"
-    
+
     CURRENT_CONFIG=$(cat "${CONFIG_FILE}")
 else
     log_info "Criando nova configuração"
@@ -106,7 +106,7 @@ log_info "Atualizando configuração..."
 if command -v jq &> /dev/null; then
     # Ler API key do 1Password para validação
     API_KEY=$(op read "${OP_REFERENCE}" 2>/dev/null || echo "")
-    
+
     if [[ -z "${API_KEY}" ]]; then
         log_warning "Não foi possível ler API Key do 1Password"
         log_info "Usando referência op:// diretamente"
@@ -116,22 +116,22 @@ if command -v jq &> /dev/null; then
         # Usar referência op:// mesmo assim para segurança
         API_KEY_REF="${OP_REFERENCE}"
     fi
-    
+
     # Criar configuração JSON
     NEW_CONFIG=$(echo "${CURRENT_CONFIG}" | jq --arg api_key "${API_KEY_REF}" \
-        '.anthropic_api_key = $api_key | 
+        '.anthropic_api_key = $api_key |
          .default_model = (.default_model // "claude-3-5-sonnet-20241022") |
          .theme = (.theme // "auto") |
          .editor_font_size = (.editor_font_size // 14) |
          .editor_font_family = (.editor_font_family // "Monaco, Menlo, monospace")' 2>/dev/null || echo "{}")
-    
+
     echo "${NEW_CONFIG}" > "${CONFIG_FILE}"
-    
+
     log_success "Configuração atualizada"
 else
     # Fallback sem jq - criar JSON manualmente
     log_warning "jq não encontrado, usando método alternativo"
-    
+
     cat > "${CONFIG_FILE}" << EOF
 {
   "anthropic_api_key": "${OP_REFERENCE}",
@@ -141,7 +141,7 @@ else
   "editor_font_family": "Monaco, Menlo, monospace"
 }
 EOF
-    
+
     log_success "Configuração criada (método alternativo)"
 fi
 
@@ -177,7 +177,7 @@ log_success "Arquivo de ambiente criado: ${ENV_FILE}"
 if command -v jq &> /dev/null; then
     # Tentar ler do arquivo temporário
     TEMP_API_KEY=$(source "${ENV_FILE}" && echo "${ANTHROPIC_API_KEY}")
-    
+
     if [[ -n "${TEMP_API_KEY}" ]]; then
         log_info "Atualizando configuração com API Key do arquivo temporário"
         echo "${NEW_CONFIG}" | jq --arg api_key "${TEMP_API_KEY}" \
@@ -190,7 +190,7 @@ log_section "VALIDAÇÃO"
 # Validar configuração
 if [[ -f "${CONFIG_FILE}" ]]; then
     log_success "Arquivo de configuração existe: ${CONFIG_FILE}"
-    
+
     # Verificar conteúdo
     if grep -q "anthropic_api_key" "${CONFIG_FILE}"; then
         log_success "Campo anthropic_api_key encontrado"
@@ -222,4 +222,3 @@ log_success "╔═════════════════════�
 log_success "║  CONFIGURAÇÃO CONCLUÍDA                                   ║"
 log_success "╚════════════════════════════════════════════════════════════╝"
 echo ""
-

@@ -65,11 +65,11 @@ EXISTING_ITEM=$(op item list --vault "${VAULT}" --format json 2>/dev/null | \
 
 if [[ -n "${EXISTING_ITEM}" ]]; then
     log_info "Item '${ITEM_TITLE}' já existe (ID: ${EXISTING_ITEM})"
-    
+
     # Ler API key atual
     CURRENT_KEY=$(op item get "${EXISTING_ITEM}" --vault "${VAULT}" \
         --fields label="${FIELD_NAME}" 2>/dev/null || echo "")
-    
+
     if [[ -n "${CURRENT_KEY}" ]]; then
         log_success "API Key já configurada no 1Password"
         log_info "Para atualizar, forneça a nova chave como argumento"
@@ -87,7 +87,7 @@ else
     echo -n "API Key: "
     read -s API_KEY
     echo ""
-    
+
     if [[ -z "${API_KEY}" ]]; then
         log_error "API Key não fornecida"
         exit 1
@@ -100,23 +100,23 @@ log_info "Configurando item no 1Password..."
 if [[ -n "${EXISTING_ITEM}" ]]; then
     # Atualizar item existente
     log_info "Atualizando item existente..."
-    
+
     op item edit "${EXISTING_ITEM}" --vault "${VAULT}" \
         "api_key[password]=${API_KEY}" \
         --tags "api-key,claude,anthropic" 2>&1 | grep -v "password" || true
-    
+
     log_success "Item atualizado com sucesso"
 else
     # Criar novo item
     log_info "Criando novo item..."
-    
+
     op item create \
         --category "API Credential" \
         --title "${ITEM_TITLE}" \
         --vault "${VAULT}" \
         "api_key[password]=${API_KEY}" \
         --tags "api-key,claude,anthropic" 2>&1 | grep -v "password" || true
-    
+
     log_success "Item criado com sucesso"
 fi
 
@@ -136,7 +136,7 @@ REFERENCE="op://${VAULT}/${ITEM_TITLE}/${FIELD_NAME}"
 if grep -q "${ENV_VAR}" "${ZSHRC}" 2>/dev/null; then
     log_warning "Variável ${ENV_VAR} já existe no .zshrc"
     log_info "Atualizando referência..."
-    
+
     # Remover linha antiga e adicionar nova
     sed -i '' "/export ${ENV_VAR}=/d" "${ZSHRC}"
 fi
@@ -171,4 +171,3 @@ log_info "1. Recarregue o shell: source ~/.zshrc"
 log_info "2. Verifique a variável: echo \$${ENV_VAR}"
 log_info "3. Use a referência: op://${VAULT}/${ITEM_TITLE}/${FIELD_NAME}"
 echo ""
-

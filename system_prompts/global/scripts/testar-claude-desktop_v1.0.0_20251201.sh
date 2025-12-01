@@ -57,7 +57,7 @@ TESTS_FAILED=0
 test_check() {
     local name="$1"
     local command="$2"
-    
+
     if eval "${command}" &> /dev/null; then
         log_success "${name}"
         TESTS_PASSED=$((TESTS_PASSED + 1))
@@ -119,7 +119,7 @@ log_info "Teste 6: Verificar arquivo de configuração"
 if [[ -f "${CONFIG_FILE}" ]]; then
     log_success "Arquivo existe: ${CONFIG_FILE}"
     TESTS_PASSED=$((TESTS_PASSED + 1))
-    
+
     # Verificar conteúdo
     if grep -q "anthropic_api_key" "${CONFIG_FILE}"; then
         log_success "Campo anthropic_api_key encontrado"
@@ -156,9 +156,9 @@ if [[ -n "${API_KEY}" ]]; then
         -H "content-type: application/json" \
         -d '{"model":"claude-3-5-sonnet-20241022","max_tokens":10,"messages":[{"role":"user","content":"test"}]}' \
         "https://api.anthropic.com/v1/messages" 2>/dev/null || echo -e "\n000")
-    
+
     HTTP_CODE=$(echo "${RESPONSE}" | tail -1)
-    
+
     if [[ "${HTTP_CODE}" == "200" ]] || [[ "${HTTP_CODE}" == "401" ]]; then
         log_success "API acessível (HTTP ${HTTP_CODE})"
         TESTS_PASSED=$((TESTS_PASSED + 1))
@@ -214,4 +214,3 @@ else
     log_error "╚════════════════════════════════════════════════════════════╝"
     exit 1
 fi
-
