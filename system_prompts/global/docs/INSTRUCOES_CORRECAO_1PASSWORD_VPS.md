@@ -1,6 +1,6 @@
 # 📋 Instruções de Correção Manual - 1Password VPS
 
-**Data:** 2025-12-01  
+**Data:** 2025-12-01
 **Status:** ⚠️ **REQUER CORREÇÃO MANUAL**
 
 ---
@@ -116,4 +116,3 @@ Todos os comandos devem funcionar corretamente.
 ---
 
 **Última Atualização:** 2025-12-01
-

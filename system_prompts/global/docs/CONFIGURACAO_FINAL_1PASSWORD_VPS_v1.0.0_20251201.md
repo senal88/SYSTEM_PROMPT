@@ -1,6 +1,6 @@
 # ✅ Configuração Final - 1Password Connect VPS
 
-**Data:** 2025-12-01  
+**Data:** 2025-12-01
 **Status:** ✅ **100% CONFIGURADO E FUNCIONAL**
 
 ---
@@ -169,6 +169,5 @@ echo "Secrets carregados com sucesso!"
 
 ---
 
-**Última Atualização:** 2025-12-01  
+**Última Atualização:** 2025-12-01
 **Versão:** 1.0.0
-

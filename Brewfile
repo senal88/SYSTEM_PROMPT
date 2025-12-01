@@ -168,4 +168,3 @@ cask "cleanmymac"           # Limpeza sistema
 cask "little-snitch"         # Firewall
 cask "bartender"             # Organizar menu bar
 cask "hiddenbar"            # Esconder menu bar (gratuito)
-

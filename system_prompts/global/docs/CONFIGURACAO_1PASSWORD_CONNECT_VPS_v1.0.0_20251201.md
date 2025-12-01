@@ -1,7 +1,7 @@
 # 🔐 Configuração Automática 1Password Connect - VPS Ubuntu
 
-**Versão:** 1.0.0  
-**Data:** 2025-12-01  
+**Versão:** 1.0.0
+**Data:** 2025-12-01
 **Status:** ✅ Configurado com Sucesso
 
 ---
@@ -61,7 +61,7 @@ Configuração automática completa do 1Password Connect na VPS Ubuntu foi reali
 ### Credenciais
 
 - **Token:** Armazenado em `~/.config/op/credentials` na VPS
-- **Formato:** Service Account Token (ops_...)
+- **Formato:** Service Account Token (ops\_...)
 - **Segurança:** Arquivo com permissões `600`
 
 ---
@@ -173,10 +173,12 @@ Durante o teste, foram listados os seguintes itens no vault `1p_vps`:
 ### Medidas Implementadas
 
 1. **Permissões Restritivas:**
+
    - Arquivo de credenciais com permissão `600` (apenas leitura para o usuário)
    - Script helper com permissões adequadas
 
 2. **Armazenamento Seguro:**
+
    - Credenciais armazenadas em `~/.config/op/credentials`
    - Não expostas em variáveis de ambiente permanentes
    - Carregadas dinamicamente quando necessário
@@ -218,6 +220,7 @@ cat ~/.config/op/credentials | head -c 20
 **Problema:** `op vault list` retorna erro de autenticação
 
 **Solução:**
+
 ```bash
 # Verificar se token existe
 cat ~/.config/op/credentials
@@ -232,6 +235,7 @@ op vault list --account dev
 **Problema:** Não consegue ler secrets
 
 **Solução:**
+
 ```bash
 # Verificar se está usando a conta correta
 op vault list --account dev
@@ -262,6 +266,5 @@ op vault list --account dev
 
 ---
 
-**Última Atualização:** 2025-12-01  
+**Última Atualização:** 2025-12-01
 **Próxima Revisão:** Conforme necessidade
-

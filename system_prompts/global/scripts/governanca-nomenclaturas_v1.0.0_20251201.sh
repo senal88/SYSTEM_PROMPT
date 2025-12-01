@@ -134,22 +134,22 @@ EOF
 
 validar_arquivos_diretorios() {
     log_section "VALIDAÇÃO ARQUIVOS E DIRETÓRIOS"
-    
+
     log_info "Validando nomenclaturas de arquivos e diretórios..."
-    
+
     INVALID_FILES=()
     INVALID_DIRS=()
-    
+
     # Validar arquivos
     find "${DOTFILES_DIR}" -type f \( -name "*.sh" -o -name "*.md" -o -name "*.yml" -o -name "*.yaml" \) | while read file; do
         filename=$(basename "${file}")
         dirname=$(dirname "${file}")
-        
+
         # Verificar padrão básico
         if ! [[ "${filename}" =~ ^[a-z0-9_.-]+$ ]]; then
             INVALID_FILES+=("${file}")
             log_warning "Nome inválido: ${file}"
-            
+
             if [[ "${FIX_MODE}" == "true" ]]; then
                 # Sugerir nome corrigido
                 NEW_NAME=$(echo "${filename}" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9_.-]/-/g')
@@ -157,28 +157,28 @@ validar_arquivos_diretorios() {
             fi
         fi
     done
-    
+
     # Validar diretórios
     find "${DOTFILES_DIR}" -type d | while read dir; do
         dirname=$(basename "${dir}")
-        
+
         # Ignorar diretórios especiais
         if [[ "${dirname}" =~ ^\. ]] || [[ "${dirname}" == "node_modules" ]] || [[ "${dirname}" == ".git" ]]; then
             continue
         fi
-        
+
         if ! [[ "${dirname}" =~ ^[a-z0-9_-]+$ ]]; then
             INVALID_DIRS+=("${dir}")
             log_warning "Diretório com nome inválido: ${dir}"
         fi
     done
-    
+
     if [[ ${#INVALID_FILES[@]} -eq 0 ]] && [[ ${#INVALID_DIRS[@]} -eq 0 ]]; then
         log_success "Todas as nomenclaturas estão válidas"
     else
         log_warning "Arquivos inválidos: ${#INVALID_FILES[@]}, Diretórios inválidos: ${#INVALID_DIRS[@]}"
     fi
-    
+
     return 0
 }
 
@@ -188,21 +188,21 @@ validar_arquivos_diretorios() {
 
 validar_secrets_1password() {
     log_section "VALIDAÇÃO SECRETS 1PASSWORD"
-    
+
     log_info "Validando formato de referências 1Password..."
-    
+
     if ! command -v op &> /dev/null; then
         log_warning "1Password CLI não encontrado, pulando validação"
         return 0
     fi
-    
+
     # Buscar referências op:// em arquivos
     INVALID_REFS=()
-    
+
     grep -r "op://" "${DOTFILES_DIR}" --include="*.sh" --include="*.yml" --include="*.yaml" --include="*.env" 2>/dev/null | while read line; do
         file=$(echo "${line}" | cut -d: -f1)
         ref=$(echo "${line}" | grep -o "op://[^ ]*" || echo "")
-        
+
         if [[ -n "${ref}" ]]; then
             # Validar formato: op://VAULT/ITEM/FIELD
             if ! [[ "${ref}" =~ ^op://[a-z0-9_]+/[^/]+/.+$ ]]; then
@@ -211,13 +211,13 @@ validar_secrets_1password() {
             fi
         fi
     done
-    
+
     if [[ ${#INVALID_REFS[@]} -eq 0 ]]; then
         log_success "Todas as referências 1Password estão válidas"
     else
         log_warning "Referências inválidas: ${#INVALID_REFS[@]}"
     fi
-    
+
     return 0
 }
 
@@ -227,11 +227,11 @@ validar_secrets_1password() {
 
 validar_variaveis_ambiente() {
     log_section "VALIDAÇÃO VARIÁVEIS DE AMBIENTE"
-    
+
     log_info "Validando nomenclaturas de variáveis de ambiente..."
-    
+
     INVALID_VARS=()
-    
+
     # Buscar variáveis em arquivos
     grep -r "export\|ENV\|env" "${DOTFILES_DIR}" --include="*.sh" --include="*.env" --include="*.yml" --include="*.yaml" 2>/dev/null | grep -o "[A-Z_][A-Z0-9_]*" | sort -u | while read var; do
         # Validar formato: UPPERCASE com underscore
@@ -240,13 +240,13 @@ validar_variaveis_ambiente() {
             log_warning "Variável com formato inválido: ${var}")
         fi
     done
-    
+
     if [[ ${#INVALID_VARS[@]} -eq 0 ]]; then
         log_success "Todas as variáveis de ambiente estão válidas"
     else
         log_warning "Variáveis inválidas: ${#INVALID_VARS[@]}"
     fi
-    
+
     return 0
 }
 
@@ -260,11 +260,11 @@ main() {
     echo -e "${CYAN}║  GOVERNANÇA DE NOMENCLATURAS                             ║${NC}"
     echo -e "${CYAN}╚════════════════════════════════════════════════════════════╝${NC}"
     echo ""
-    
+
     log_info "Iniciando governança de nomenclaturas..."
     log_info "Relatório será salvo em: ${REPORT_FILE}"
     echo ""
-    
+
     # Cabeçalho do relatório
     {
         echo "# Governança de Nomenclaturas"
@@ -276,26 +276,25 @@ main() {
         echo "---"
         echo ""
     } > "${REPORT_FILE}"
-    
+
     # Definir padrões se não existirem
     if [[ ! -f "${PATTERN_FILE}" ]]; then
         definir_padroes
     fi
-    
+
     # Executar validações
     validar_arquivos_diretorios
     validar_secrets_1password
     validar_variaveis_ambiente
-    
+
     echo ""
     log_success "╔════════════════════════════════════════════════════════════╗"
     log_success "║  GOVERNANÇA CONCLUÍDA                                    ║"
     log_success "╚════════════════════════════════════════════════════════════╝"
     echo ""
-    
+
     log_info "Relatório completo: ${REPORT_FILE}"
     echo ""
 }
 
 main "$@"
-

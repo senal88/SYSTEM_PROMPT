@@ -1,7 +1,7 @@
 # 🗑️ Revisão Completa - Arquivos Obsoletos e Redundantes
 
-**Data:** 2025-12-01  
-**Versão:** 1.0.0  
+**Data:** 2025-12-01
+**Versão:** 1.0.0
 **Status:** ✅ **AUDITORIA CONCLUÍDA**
 
 ---
@@ -11,12 +11,14 @@
 ### VPS Ubuntu
 
 **Diretórios Obsoletos Identificados:**
+
 - `~/legacy/` - 84K
 - `~/backups/` - 4.0K
 - `~/.audit/` - 156K
 - `~/infra-vps/legacy/` - 84K
 
 **Arquivos de Backup:**
+
 - `~/.config/op/credentials.backup*` (3 arquivos)
 - Scripts de backup em `~/infra-vps/scripts/`
 
@@ -25,6 +27,7 @@
 ### macOS Silicon
 
 **Diretórios Obsoletos Identificados:**
+
 - `~/Dotfiles/infra-vps/legacy/` - 9.2M
 - `~/Dotfiles/scripts/backups/` - **18G** ⚠️
 - `~/Dotfiles/.backup_*` (múltiplos diretórios de backup)
@@ -39,6 +42,7 @@
 - `~/Dotfiles/infraestrutura-vps/`
 
 **Arquivos de Backup:**
+
 - Milhares de arquivos `.backup` em `~/.backup_paths_20251106_*/`
 - Arquivos marcados como `OBSOLETO`
 
@@ -51,6 +55,7 @@
 ### Prioridade ALTA (Limpar Imediatamente)
 
 #### VPS Ubuntu:
+
 1. ✅ `~/legacy/` - Verificar conteúdo e remover se não necessário
 2. ✅ `~/backups/` - Verificar se backups são necessários
 3. ✅ `~/.audit/` - Logs antigos podem ser removidos
@@ -58,20 +63,25 @@
 5. ✅ `~/.config/op/credentials.backup*` - Backups antigos do token (já corrigido)
 
 #### macOS Silicon:
+
 1. ⚠️ **`~/Dotfiles/scripts/backups/` - 18GB** - **CRÍTICO**
+
    - Revisar conteúdo antes de excluir
    - Fazer backup externo se necessário
    - Remover após confirmação
 
 2. ✅ `~/Dotfiles/.backup_*` (todos os diretórios)
+
    - Backups de novembro/2025
    - Podem ser removidos após validação
 
 3. ✅ `~/Dotfiles/infra-vps/legacy/` - 9.2M
+
    - Legacy do infra-vps
    - Remover após validação
 
 4. ✅ Submódulos não versionados:
+
    - `automation_1password/compose/n8n-ai-starter/` - 8.0M
    - `cursor/awesome-cursorrules/` - 9.3M
    - `cursor/claude-task-master/` - 38M
@@ -84,9 +94,11 @@
 ### Prioridade MÉDIA (Revisar e Limpar)
 
 1. ✅ Arquivos marcados como `OBSOLETO`:
+
    - `infra-vps/documentacao/OBSOLETO_ARQUITETURA_COMPLETA_VPS_AUDITORIA.md`
 
 2. ✅ Diretórios temporários:
+
    - `system_prompts/global/prompts_temp/`
    - `system_prompts/global/scripts/legacy/`
 
@@ -98,11 +110,13 @@
 ## 🛠️ Scripts de Limpeza
 
 ### Auditoria
+
 ```bash
 ./system_prompts/global/scripts/auditar-arquivos-obsoletos_v1.0.0_20251201.sh --all
 ```
 
 ### Limpeza (Dry-Run primeiro)
+
 ```bash
 # Modo dry-run (não remove nada)
 ./system_prompts/global/scripts/limpar-arquivos-obsoletos_v1.0.0_20251201.sh --all --dry-run
@@ -116,6 +130,7 @@
 ## 📋 Checklist de Limpeza
 
 ### VPS Ubuntu
+
 - [ ] Revisar `~/legacy/` e remover se não necessário
 - [ ] Revisar `~/backups/` e remover se não necessário
 - [ ] Limpar `~/.audit/` (logs antigos)
@@ -123,6 +138,7 @@
 - [ ] Limpar backups antigos do 1Password (`~/.config/op/credentials.backup*`)
 
 ### macOS Silicon
+
 - [ ] **CRÍTICO:** Revisar `~/Dotfiles/scripts/backups/` (18GB)
 - [ ] Remover diretórios `.backup_*` após validação
 - [ ] Remover `~/Dotfiles/infra-vps/legacy/`
@@ -156,10 +172,12 @@
 ### Espaço Liberado Estimado
 
 **VPS Ubuntu:**
+
 - ~328K (diretórios obsoletos)
 - ~12K (arquivos de backup)
 
 **macOS Silicon:**
+
 - ~77GB+ (principalmente `scripts/backups/` com 18GB)
 - ~58M (submódulos não versionados)
 - ~9.2M (legacy infra-vps)
@@ -181,7 +199,6 @@
 
 ---
 
-**Última Atualização:** 2025-12-01  
-**Versão:** 1.0.0  
+**Última Atualização:** 2025-12-01
+**Versão:** 1.0.0
 **Status:** ✅ **AUDITORIA CONCLUÍDA - AGUARDANDO APROVAÇÃO PARA LIMPEZA**
-

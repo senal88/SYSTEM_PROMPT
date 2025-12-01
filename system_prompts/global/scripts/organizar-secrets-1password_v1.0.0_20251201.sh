@@ -81,15 +81,15 @@ create_item_if_not_exists() {
     local item_name="$2"
     local item_type="${3:-Login}"
     local fields="$4"
-    
+
     # Verificar se item já existe
     if op item list --vault "${vault}" 2>/dev/null | grep -q "${item_name}"; then
         log_info "Item '${item_name}' já existe no vault '${vault}'"
         return 0
     fi
-    
+
     log_step "Criando item '${item_name}' no vault '${vault}'..."
-    
+
     # Criar item usando op item create
     if echo "${fields}" | op item create \
         --vault "${vault}" \
@@ -120,16 +120,16 @@ SECRETS_MACOS=(
     "Anthropic|api_key|Anthropic Claude API Key"
     "Google|gemini_api_key|Google Gemini API Key"
     "HuggingFace|token|Hugging Face API Token"
-    
+
     # 1Password Connect
     "1Password-Connect|token|1Password Connect Token (macOS)"
-    
+
     # Infraestrutura Local
     "PostgreSQL Stack Local|username|PostgreSQL Username (Local)"
     "PostgreSQL Stack Local|password|PostgreSQL Password (Local)"
     "PostgreSQL Stack Local|database|PostgreSQL Database (Local)"
     "Redis Stack Local|password|Redis Password (Local)"
-    
+
     # Serviços Locais
     "Traefik|email|Traefik Email (Let's Encrypt)"
     "Traefik|dashboard_auth|Traefik Dashboard Auth"
@@ -139,14 +139,14 @@ SECRETS_MACOS=(
     "n8n|password|n8n Basic Auth Password"
     "Dify|secret_key|Dify Secret Key"
     "NocoDB|jwt_secret|NocoDB JWT Secret"
-    
+
     # SMTP Local
     "SMTP|host|SMTP Host (Local)"
     "SMTP|port|SMTP Port (Local)"
     "SMTP|user|SMTP User (Local)"
     "SMTP|password|SMTP Password (Local)"
     "SMTP|from|SMTP From Email (Local)"
-    
+
     # APIs Externas
     "API-VPS-HOSTINGER|credential|Hostinger VPS API Token"
 )
@@ -155,20 +155,20 @@ SECRETS_MACOS=(
 SECRETS_VPS=(
     # 1Password Connect
     "1Password-Connect|token|1Password Connect Token (VPS)"
-    
+
     # Cloudflare
     "Cloudflare|API_TOKEN|Cloudflare API Token"
     "Cloudflare|ZONE_ID|Cloudflare Zone ID"
     "Cloudflare|ACCOUNT_ID|Cloudflare Account ID"
     "Cloudflare|EMAIL|Cloudflare Email"
     "Cloudflare|DOMAIN|Domain Name (Production)"
-    
+
     # Infraestrutura Produção
     "Postgres-Prod|USER|PostgreSQL Username (Production)"
     "Postgres-Prod|PASSWORD|PostgreSQL Password (Production)"
     "Postgres-Prod|DB|PostgreSQL Database (Production)"
     "Redis-Prod|password|Redis Password (Production)"
-    
+
     # Serviços Produção
     "Traefik-Auth|basicauth|Traefik Dashboard Auth (Production)"
     "Grafana-Auth|USER|Grafana Admin Username (Production)"
@@ -176,14 +176,14 @@ SECRETS_VPS=(
     "N8N-Auth|USER|n8n Basic Auth Username (Production)"
     "N8N-Auth|PASSWORD|n8n Basic Auth Password (Production)"
     "Dify|SECRET_KEY|Dify Secret Key (Production)"
-    
+
     # SMTP Produção
     "SMTP|HOST|SMTP Host (Production)"
     "SMTP|PORT|SMTP Port (Production)"
     "SMTP|USER|SMTP User (Production)"
     "SMTP|PASSWORD|SMTP Password (Production)"
     "SMTP|FROM|SMTP From Email (Production)"
-    
+
     # Service Account
     "Service_Account_vps|credential|1Password Service Account Token (VPS)"
 )
@@ -194,18 +194,18 @@ SECRETS_VPS=(
 
 organize_secrets() {
     log_step "Organizando secrets nas vaults..."
-    
+
     # Criar diretório de logs
     mkdir -p "$(dirname "${LOG_FILE}")"
-    
+
     # Organizar secrets no vault 1p_macos
     log_info "Organizando secrets no vault '${VAULT_MACOS}'..."
     for secret_entry in "${SECRETS_MACOS[@]}"; do
         IFS='|' read -r item_name field_name description <<< "${secret_entry}"
-        
+
         log_info "  Item: ${item_name} / Campo: ${field_name}"
         log_info "  Descrição: ${description}"
-        
+
         # Verificar se item existe
         if op item list --vault "${VAULT_MACOS}" 2>/dev/null | grep -q "${item_name}"; then
             log_success "    Item '${item_name}' já existe"
@@ -213,17 +213,17 @@ organize_secrets() {
             log_warning "    Item '${item_name}' NÃO existe - precisa ser criado manualmente"
         fi
     done
-    
+
     echo ""
-    
+
     # Organizar secrets no vault 1p_vps
     log_info "Organizando secrets no vault '${VAULT_VPS}'..."
     for secret_entry in "${SECRETS_VPS[@]}"; do
         IFS='|' read -r item_name field_name description <<< "${secret_entry}"
-        
+
         log_info "  Item: ${item_name} / Campo: ${field_name}"
         log_info "  Descrição: ${description}"
-        
+
         # Verificar se item existe
         if op item list --vault "${VAULT_VPS}" 2>/dev/null | grep -q "${item_name}"; then
             log_success "    Item '${item_name}' já existe"
@@ -239,16 +239,16 @@ organize_secrets() {
 
 generate_documentation() {
     local doc_file="${ROOT_DIR}/system_prompts/global/docs/ORGANIZACAO_SECRETS_1PASSWORD_v1.0.0_20251201.md"
-    
+
     log_step "Gerando documentação completa..."
-    
+
     mkdir -p "$(dirname "${doc_file}")"
-    
+
     cat > "${doc_file}" << 'EOF'
 # 🔐 Organização de Secrets e Variáveis no 1Password
 
-**Versão:** 1.0.0  
-**Data:** 2025-12-01  
+**Versão:** 1.0.0
+**Data:** 2025-12-01
 **Status:** ✅ Organizado
 
 ## 📋 Política de Governança
@@ -463,7 +463,7 @@ Execute periodicamente:
 
 ---
 
-**Última atualização:** 2025-12-01  
+**Última atualização:** 2025-12-01
 **Próxima revisão:** 2026-01-01
 
 EOF
@@ -477,13 +477,13 @@ EOF
 
 generate_status_report() {
     log_step "Gerando relatório de status..."
-    
+
     local report_file="${ROOT_DIR}/system_prompts/global/docs/STATUS_SECRETS_1PASSWORD_${TIMESTAMP}.md"
-    
+
     cat > "${report_file}" << EOF
 # 📊 Status de Secrets no 1Password
 
-**Data:** $(date '+%Y-%m-%d %H:%M:%S')  
+**Data:** $(date '+%Y-%m-%d %H:%M:%S')
 **Gerado por:** Script de Organização Automática
 
 ## Vault: 1p_macos
@@ -499,7 +499,7 @@ EOF
             echo "- ❌ **${item_name}/${field_name}** - NÃO EXISTE" >> "${report_file}"
         fi
     done
-    
+
     cat >> "${report_file}" << EOF
 
 ## Vault: 1p_vps
@@ -515,12 +515,12 @@ EOF
             echo "- ❌ **${item_name}/${field_name}** - NÃO EXISTE" >> "${report_file}"
         fi
     done
-    
+
     cat >> "${report_file}" << EOF
 
 ---
 
-**Relatório completo:** ${report_file}  
+**Relatório completo:** ${report_file}
 **Log de execução:** ${LOG_FILE}
 
 EOF
@@ -537,27 +537,27 @@ main() {
     echo -e "${CYAN}║  ORGANIZAÇÃO DE SECRETS E VARIÁVEIS NO 1PASSWORD         ║${NC}"
     echo -e "${CYAN}╚════════════════════════════════════════════════════════════╝${NC}"
     echo ""
-    
+
     # Verificações iniciais
     check_1password_auth
     check_vault "${VAULT_MACOS}" || exit 1
     check_vault "${VAULT_VPS}" || exit 1
-    
+
     echo ""
-    
+
     # Organizar secrets
     organize_secrets
-    
+
     echo ""
-    
+
     # Gerar documentação
     generate_documentation
-    
+
     echo ""
-    
+
     # Gerar relatório
     generate_status_report
-    
+
     echo ""
     log_success "Organização de secrets concluída!"
     log_info "Consulte a documentação em: system_prompts/global/docs/ORGANIZACAO_SECRETS_1PASSWORD_v1.0.0_20251201.md"
@@ -565,4 +565,3 @@ main() {
 
 # Executar
 main "$@"
-

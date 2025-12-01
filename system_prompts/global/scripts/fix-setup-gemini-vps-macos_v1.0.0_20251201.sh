@@ -100,9 +100,9 @@ mkdir -p "${LOG_DIR}"
 
 obter_gemini_api_key() {
     local vault="$1"
-    
+
     log_info "Obtendo Gemini API Key do vault ${vault}..."
-    
+
     # Tentar diferentes IDs de itens conhecidos
     GEMINI_ITEMS=(
         "knknnlaetdh6tqetsjyxh23kle"  # Gemini-API (1p_vps)
@@ -111,7 +111,7 @@ obter_gemini_api_key() {
         "6xbzl566sj62zphes4b6kodt5e"  # GOOGLE_API_KEY (1p_macos)
         "jnu4r2zp23tvpsnmeeh5dwvgia"  # GOOGLE_API_KEY (1p_macos)
     )
-    
+
     for item_id in "${GEMINI_ITEMS[@]}"; do
         if op item get "${item_id}" --vault "${vault}" &> /dev/null; then
             # Tentar diferentes campos
@@ -121,7 +121,7 @@ obter_gemini_api_key() {
                      op read "op://${vault}/${item_id}/API_KEY" 2>/dev/null || \
                      op read "op://${vault}/${item_id}/password" 2>/dev/null || \
                      echo "")
-            
+
             if [[ -n "${API_KEY}" ]]; then
                 log_success "API Key obtida do item ${item_id}"
                 echo "${API_KEY}"
@@ -129,7 +129,7 @@ obter_gemini_api_key() {
             fi
         fi
     done
-    
+
     log_error "Não foi possível obter Gemini API Key do vault ${vault}"
     return 1
 }
@@ -140,48 +140,48 @@ obter_gemini_api_key() {
 
 setup_vps() {
     log_section "SETUP GEMINI - VPS UBUNTU"
-    
+
     VPS_HOST="${VPS_HOST:-admin-vps}"
     VPS_USER="${VPS_USER:-admin}"
-    
+
     log_info "Conectando na VPS: ${VPS_USER}@${VPS_HOST}"
-    
+
     # Verificar conexão
     if ! ssh -o ConnectTimeout=5 -o BatchMode=yes "${VPS_USER}@${VPS_HOST}" "echo 'OK'" >/dev/null 2>&1; then
         log_error "Não foi possível conectar na VPS"
         return 1
     fi
-    
+
     # Obter API Key do 1Password
     log_info "Obtendo Gemini API Key do 1Password..."
-    
+
     if ! command -v op &> /dev/null; then
         log_error "1Password CLI não encontrado localmente"
         return 1
     fi
-    
+
     API_KEY=$(obter_gemini_api_key "1p_vps")
-    
+
     if [[ -z "${API_KEY}" ]]; then
         log_error "Não foi possível obter API Key"
         return 1
     fi
-    
+
     log_success "API Key obtida"
-    
+
     # Configurar na VPS
     log_info "Configurando Gemini API na VPS..."
-    
+
     ssh "${VPS_USER}@${VPS_HOST}" << VPS_SETUP_EOF
         set -e
-        
+
         # Criar diretório de configuração se não existir
         mkdir -p ~/.config/gemini
-        
+
         # Salvar API Key
         echo "${API_KEY}" > ~/.config/gemini/api_key
         chmod 600 ~/.config/gemini/api_key
-        
+
         # Adicionar ao .bashrc se não existir
         if ! grep -q "GEMINI_API_KEY" ~/.bashrc 2>/dev/null; then
             echo "" >> ~/.bashrc
@@ -189,22 +189,22 @@ setup_vps() {
             echo "export GEMINI_API_KEY=\$(cat ~/.config/gemini/api_key 2>/dev/null || echo '')" >> ~/.bashrc
             echo "export GOOGLE_API_KEY=\${GEMINI_API_KEY}" >> ~/.bashrc
         fi
-        
+
         # Testar API Key
         if command -v curl &> /dev/null; then
             echo "Testando Gemini API..."
             RESPONSE=\$(curl -s "https://generativelanguage.googleapis.com/v1/models?key=\${GEMINI_API_KEY}" 2>&1 || echo "ERROR")
-            
+
             if echo "\${RESPONSE}" | grep -q "models"; then
                 echo "✅ Gemini API Key válida"
             else
                 echo "⚠️ Não foi possível validar API Key"
             fi
         fi
-        
+
         echo "✅ Configuração concluída na VPS"
 VPS_SETUP_EOF
-    
+
     log_success "Setup VPS concluído"
     return 0
 }
@@ -215,35 +215,35 @@ VPS_SETUP_EOF
 
 setup_macos() {
     log_section "SETUP GEMINI - macOS SILICON"
-    
+
     # Obter API Key do 1Password
     log_info "Obtendo Gemini API Key do 1Password..."
-    
+
     if ! command -v op &> /dev/null; then
         log_error "1Password CLI não encontrado"
         return 1
     fi
-    
+
     API_KEY=$(obter_gemini_api_key "1p_macos")
-    
+
     if [[ -z "${API_KEY}" ]]; then
         log_error "Não foi possível obter API Key"
         return 1
     fi
-    
+
     log_success "API Key obtida"
-    
+
     # Criar diretório de configuração
     log_info "Configurando Gemini API no macOS..."
-    
+
     mkdir -p "${HOME}/.config/gemini"
-    
+
     # Salvar API Key
     echo "${API_KEY}" > "${HOME}/.config/gemini/api_key"
     chmod 600 "${HOME}/.config/gemini/api_key"
-    
+
     log_success "API Key salva em ~/.config/gemini/api_key"
-    
+
     # Adicionar ao .zshrc se não existir
     if ! grep -q "GEMINI_API_KEY" "${HOME}/.zshrc" 2>/dev/null; then
         echo "" >> "${HOME}/.zshrc"
@@ -254,10 +254,10 @@ setup_macos() {
     else
         log_info "Variáveis já existem no .zshrc"
     fi
-    
+
     # Instalar Google Generative AI SDK (Python) se necessário
     log_info "Verificando Google Generative AI SDK..."
-    
+
     if command -v pip3 &> /dev/null; then
         if ! pip3 show google-generativeai &> /dev/null; then
             log_info "Instalando google-generativeai..."
@@ -266,10 +266,10 @@ setup_macos() {
             log_success "google-generativeai já instalado"
         fi
     fi
-    
+
     # Instalar Gemini CLI se necessário
     log_info "Verificando Gemini CLI..."
-    
+
     if ! command -v gemini &> /dev/null; then
         if command -v brew &> /dev/null; then
             log_info "Instalando Gemini CLI via Homebrew..."
@@ -280,20 +280,20 @@ setup_macos() {
     else
         log_success "Gemini CLI já instalado"
     fi
-    
+
     # Testar API Key
     log_info "Testando Gemini API..."
-    
+
     if command -v curl &> /dev/null; then
         RESPONSE=$(curl -s "https://generativelanguage.googleapis.com/v1/models?key=${API_KEY}" 2>&1 || echo "ERROR")
-        
+
         if echo "${RESPONSE}" | grep -q "models"; then
             log_success "Gemini API Key válida"
         else
             log_warning "Não foi possível validar API Key (pode ser normal se a API mudou)"
         fi
     fi
-    
+
     log_success "Setup macOS concluído"
     return 0
 }
@@ -304,23 +304,23 @@ setup_macos() {
 
 validar_configuracao() {
     log_section "VALIDAÇÃO CONFIGURAÇÃO"
-    
+
     log_info "Validando configuração..."
-    
+
     # Validar arquivos de configuração
     if [[ -f "${HOME}/.config/gemini/api_key" ]]; then
         log_success "API Key encontrada no macOS"
     else
         log_warning "API Key não encontrada no macOS"
     fi
-    
+
     # Validar variáveis de ambiente
     if [[ -n "${GEMINI_API_KEY:-}" ]] || [[ -n "${GOOGLE_API_KEY:-}" ]]; then
         log_success "Variáveis de ambiente configuradas"
     else
         log_warning "Variáveis de ambiente não configuradas (carregue o shell novamente)"
     fi
-    
+
     return 0
 }
 
@@ -334,11 +334,11 @@ main() {
     echo -e "${CYAN}║  FIX SETUP GEMINI - VPS UBUNTU E macOS SILICON          ║${NC}"
     echo -e "${CYAN}╚════════════════════════════════════════════════════════════╝${NC}"
     echo ""
-    
+
     log_info "Iniciando setup do Gemini..."
     log_info "Log será salvo em: ${LOG_FILE}"
     echo ""
-    
+
     # Cabeçalho do log
     {
         echo "# Fix Setup Gemini - VPS Ubuntu e macOS Silicon"
@@ -349,43 +349,42 @@ main() {
         echo "---"
         echo ""
     } > "${LOG_FILE}"
-    
+
     # Verificar 1Password CLI
     if ! command -v op &> /dev/null; then
         log_error "1Password CLI não encontrado"
         exit 1
     fi
-    
+
     # Verificar autenticação
     if ! op account list &> /dev/null; then
         log_error "1Password não autenticado"
         exit 1
     fi
-    
+
     log_success "1Password autenticado"
-    
+
     # Executar setups
     if [[ "${SETUP_VPS}" == "true" ]]; then
         setup_vps || log_error "Setup VPS falhou"
     fi
-    
+
     if [[ "${SETUP_MACOS}" == "true" ]]; then
         setup_macos || log_error "Setup macOS falhou"
     fi
-    
+
     # Validar configuração
     validar_configuracao
-    
+
     echo ""
     log_success "╔════════════════════════════════════════════════════════════╗"
     log_success "║  SETUP CONCLUÍDO                                          ║"
     log_success "╚════════════════════════════════════════════════════════════╝"
     echo ""
-    
+
     log_info "Log completo: ${LOG_FILE}"
     log_info "Próximo passo: Recarregue o shell (source ~/.zshrc ou source ~/.bashrc)"
     echo ""
 }
 
 main "$@"
-

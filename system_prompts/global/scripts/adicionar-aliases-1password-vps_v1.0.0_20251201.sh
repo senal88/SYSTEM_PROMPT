@@ -35,13 +35,13 @@ echo ""
 # Adicionar aliases ao .bashrc
 ssh "${VPS_USER}@${VPS_HOST}" << 'EOF'
     set -e
-    
+
     # Verificar se aliases já existem
     if grep -q "# 1Password Aliases" ~/.bashrc 2>/dev/null; then
         echo "Aliases já existem no .bashrc"
         exit 0
     fi
-    
+
     # Adicionar aliases
     cat >> ~/.bashrc << 'ALIASEOF'
 
@@ -50,7 +50,7 @@ alias op-status='export OP_SERVICE_ACCOUNT_TOKEN=$(cat ~/.config/op/credentials 
 alias op-vaults='export OP_SERVICE_ACCOUNT_TOKEN=$(cat ~/.config/op/credentials 2>/dev/null) && op vault list --account dev'
 alias op-items='export OP_SERVICE_ACCOUNT_TOKEN=$(cat ~/.config/op/credentials 2>/dev/null) && op item list --vault 1p_vps --account dev'
 ALIASEOF
-    
+
     echo "Aliases adicionados ao .bashrc"
 EOF
 
@@ -68,4 +68,3 @@ else
 fi
 
 echo ""
-

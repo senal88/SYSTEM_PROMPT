@@ -1,7 +1,7 @@
 # 🔧 Correção Configuração 1Password - VPS Ubuntu
 
-**Data:** 2025-12-01  
-**Versão:** 1.0.0  
+**Data:** 2025-12-01
+**Versão:** 1.0.0
 **Status:** ✅ **CORRIGIDO**
 
 ---
@@ -129,6 +129,5 @@ op vault list --account dev
 
 ---
 
-**Última Atualização:** 2025-12-01  
+**Última Atualização:** 2025-12-01
 **Versão:** 1.0.0
-

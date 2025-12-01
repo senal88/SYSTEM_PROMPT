@@ -137,29 +137,29 @@ OBSOLETE_DIRS=(
 
 audit_vps() {
     log_section "AUDITORIA VPS UBUNTU"
-    
+
     VPS_HOST="${VPS_HOST:-admin-vps}"
     VPS_USER="${VPS_USER:-admin}"
     VPS_HOME="${VPS_HOME:-/home/admin}"
-    
+
     log_info "Conectando na VPS: ${VPS_USER}@${VPS_HOST}"
-    
+
     # Verificar conexão
     if ! ssh -o ConnectTimeout=5 -o BatchMode=yes "${VPS_USER}@${VPS_HOST}" "echo 'OK'" >/dev/null 2>&1; then
         log_error "Não foi possível conectar na VPS"
         return 1
     fi
-    
+
     log_info "Analisando diretórios obsoletos..."
-    
+
     # Encontrar diretórios obsoletos
     ssh "${VPS_USER}@${VPS_HOST}" << 'VPS_AUDIT_EOF' | tee -a "${REPORT_FILE}"
         set -e
         VPS_HOME="${HOME}"
-        
+
         echo "## Diretórios Obsoletos Encontrados:"
         echo ""
-        
+
         # Diretórios legacy/backup
         for dir in legacy backups backup old temp tmp .audit obsoleto OBSOLETO LEGACY BACKUP; do
             if [ -d "${VPS_HOME}/${dir}" ] || [ -d "${VPS_HOME}/infra-vps/${dir}" ]; then
@@ -173,37 +173,37 @@ audit_vps() {
                 fi
             fi
         done
-        
+
         echo ""
         echo "## Arquivos de Backup Encontrados:"
         echo ""
-        
+
         # Arquivos .bak, .old, etc
         find "${VPS_HOME}" -maxdepth 3 -type f \( -name "*.bak" -o -name "*.old" -o -name "*.tmp" -o -name "*~" -o -name "*backup*" \) 2>/dev/null | while read file; do
             SIZE=$(du -h "${file}" 2>/dev/null | awk '{print $1}')
             echo "  - ${file} (${SIZE})"
         done
-        
+
         echo ""
         echo "## Arquivos OBSOLETO/LEGACY Encontrados:"
         echo ""
-        
+
         find "${VPS_HOME}" -maxdepth 3 -type f -iname "*OBSOLETO*" -o -iname "*LEGACY*" 2>/dev/null | while read file; do
             SIZE=$(du -h "${file}" 2>/dev/null | awk '{print $1}')
             echo "  - ${file} (${SIZE})"
         done
-        
+
         echo ""
         echo "## Cache e Logs Antigos:"
         echo ""
-        
+
         # Cache antigo (> 30 dias)
         find "${VPS_HOME}/.cache" -type f -mtime +30 2>/dev/null | wc -l | xargs -I {} echo "  - Arquivos em .cache com mais de 30 dias: {}"
-        
+
         # Logs antigos
         find "${VPS_HOME}" -maxdepth 3 -type f -name "*.log" -mtime +30 2>/dev/null | wc -l | xargs -I {} echo "  - Arquivos .log com mais de 30 dias: {}"
 VPS_AUDIT_EOF
-    
+
     log_success "Auditoria VPS concluída"
 }
 
@@ -213,51 +213,51 @@ VPS_AUDIT_EOF
 
 audit_macos() {
     log_section "AUDITORIA macOS SILICON"
-    
+
     log_info "Analisando diretórios obsoletos no macOS..."
-    
+
     # Encontrar diretórios obsoletos
     {
         echo "## Diretórios Obsoletos Encontrados:"
         echo ""
-        
+
         # Diretórios legacy/backup no Dotfiles
         for dir in "${OBSOLETE_DIRS[@]}"; do
             if [ -d "${DOTFILES_DIR}/${dir}" ]; then
                 SIZE=$(du -sh "${DOTFILES_DIR}/${dir}" 2>/dev/null | awk '{print $1}')
                 echo "  - ${DOTFILES_DIR}/${dir} (${SIZE})"
             fi
-            
+
             # Verificar em subdiretórios
             find "${DOTFILES_DIR}" -maxdepth 3 -type d -name "${dir}" 2>/dev/null | while read found_dir; do
                 SIZE=$(du -sh "${found_dir}" 2>/dev/null | awk '{print $1}')
                 echo "  - ${found_dir} (${SIZE})"
             done
         done
-        
+
         echo ""
         echo "## Arquivos de Backup Encontrados:"
         echo ""
-        
+
         # Arquivos .bak, .old, etc
         find "${DOTFILES_DIR}" -maxdepth 4 -type f \( -name "*.bak" -o -name "*.old" -o -name "*.tmp" -o -name "*~" -o -name "*backup*" \) 2>/dev/null | while read file; do
             SIZE=$(du -h "${file}" 2>/dev/null | awk '{print $1}')
             echo "  - ${file} (${SIZE})"
         done
-        
+
         echo ""
         echo "## Arquivos OBSOLETO/LEGACY Encontrados:"
         echo ""
-        
+
         find "${DOTFILES_DIR}" -maxdepth 4 -type f \( -iname "*OBSOLETO*" -o -iname "*LEGACY*" \) 2>/dev/null | while read file; do
             SIZE=$(du -h "${file}" 2>/dev/null | awk '{print $1}')
             echo "  - ${file} (${SIZE})"
         done
-        
+
         echo ""
         echo "## Diretórios Não Versionados (Git):"
         echo ""
-        
+
         cd "${DOTFILES_DIR}"
         git status --porcelain 2>/dev/null | grep "^??" | head -20 | while read line; do
             FILE=$(echo "${line}" | awk '{print $2}')
@@ -266,9 +266,9 @@ audit_macos() {
                 echo "  - ${FILE} (${SIZE})"
             fi
         done
-        
+
     } | tee -a "${REPORT_FILE}"
-    
+
     log_success "Auditoria macOS concluída"
 }
 
@@ -278,7 +278,7 @@ audit_macos() {
 
 generate_summary() {
     log_section "RESUMO E RECOMENDAÇÕES"
-    
+
     {
         echo "## 📊 Resumo da Auditoria"
         echo ""
@@ -314,7 +314,7 @@ generate_summary() {
         echo "   - Documentar exclusões"
         echo "   - Criar rotina de limpeza periódica"
         echo ""
-        
+
     } | tee -a "${REPORT_FILE}"
 }
 
@@ -328,11 +328,11 @@ main() {
     echo -e "${CYAN}║  AUDITORIA DE ARQUIVOS OBSOLETOS E REDUNDANTES          ║${NC}"
     echo -e "${CYAN}╚════════════════════════════════════════════════════════════╝${NC}"
     echo ""
-    
+
     log_info "Iniciando auditoria..."
     log_info "Relatório será salvo em: ${REPORT_FILE}"
     echo ""
-    
+
     # Cabeçalho do relatório
     {
         echo "# 🗑️ Relatório de Auditoria - Arquivos Obsoletos"
@@ -343,27 +343,26 @@ main() {
         echo "---"
         echo ""
     } > "${REPORT_FILE}"
-    
+
     if [[ "${AUDIT_VPS}" == "true" ]]; then
         audit_vps
     fi
-    
+
     if [[ "${AUDIT_MACOS}" == "true" ]]; then
         audit_macos
     fi
-    
+
     generate_summary
-    
+
     echo ""
     log_success "╔════════════════════════════════════════════════════════════╗"
     log_success "║  AUDITORIA CONCLUÍDA                                      ║"
     log_success "╚════════════════════════════════════════════════════════════╝"
     echo ""
-    
+
     log_info "Relatório completo: ${REPORT_FILE}"
     log_info "Próximo passo: Revisar relatório e executar limpeza"
     echo ""
 }
 
 main "$@"
-

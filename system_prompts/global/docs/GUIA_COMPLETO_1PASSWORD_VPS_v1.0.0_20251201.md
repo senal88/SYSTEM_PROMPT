@@ -1,7 +1,7 @@
 # 🔐 Guia Completo - 1Password Connect na VPS Ubuntu
 
-**Versão:** 1.0.0  
-**Data:** 2025-12-01  
+**Versão:** 1.0.0
+**Data:** 2025-12-01
 **Status:** ✅ **100% CONFIGURADO E FUNCIONAL**
 
 ---
@@ -334,7 +334,6 @@ op read 'op://1p_vps/Postgres-Prod/PASSWORD' --account dev
 
 ---
 
-**Última Atualização:** 2025-12-01  
-**Próxima Revisão:** Conforme necessidade  
+**Última Atualização:** 2025-12-01
+**Próxima Revisão:** Conforme necessidade
 **Versão:** 1.0.0
-

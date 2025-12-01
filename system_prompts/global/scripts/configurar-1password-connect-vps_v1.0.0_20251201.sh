@@ -159,7 +159,7 @@ configure_op_authentication() {
         return 1
     fi
 
-    # Criar arquivo de credenciais na VPS
+    # Criar arquivo de credenciais na VPS e configurar conta
     ssh "${VPS_USER}@${VPS_HOST}" << EOF
         set -e
 
@@ -173,7 +173,19 @@ CREDEOF
 
         chmod 600 ~/.config/op/credentials
 
-        # Configurar variável de ambiente para autenticação automática
+        # Configurar variável de ambiente
+        export OP_SERVICE_ACCOUNT_TOKEN=\$(cat ~/.config/op/credentials 2>/dev/null)
+
+        # Adicionar conta se não existir
+        if ! op account list 2>/dev/null | grep -q "dev"; then
+            echo "Adicionando conta dev..."
+            echo "\${OP_SERVICE_ACCOUNT_TOKEN}" | op account add --address my.1password.com --email cer7itfaktf5g@1passwordserviceaccounts.com --signin 2>&1 || {
+                # Tentar método alternativo
+                op account add --address my.1password.com --email cer7itfaktf5g@1passwordserviceaccounts.com 2>&1 || true
+            }
+        fi
+
+        # Configurar variável de ambiente no .bashrc para autenticação automática
         if ! grep -q "OP_SERVICE_ACCOUNT_TOKEN" ~/.bashrc 2>/dev/null; then
             echo "" >> ~/.bashrc
             echo "# 1Password Service Account" >> ~/.bashrc

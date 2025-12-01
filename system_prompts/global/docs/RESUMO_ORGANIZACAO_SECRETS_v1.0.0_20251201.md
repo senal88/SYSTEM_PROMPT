@@ -1,6 +1,6 @@
 # 📊 Resumo Executivo - Organização de Secrets no 1Password
 
-**Data:** 2025-12-01  
+**Data:** 2025-12-01
 **Status:** ✅ Análise Concluída
 
 ## 🎯 Objetivo
@@ -11,8 +11,8 @@ Organizar todos os secrets e variáveis necessárias nas vaults `1p_macos` e `1p
 
 ### Vault `1p_macos` (Desenvolvimento)
 
-**Total de secrets necessários:** 23  
-**Secrets existentes:** 1 (NocoDB)  
+**Total de secrets necessários:** 23
+**Secrets existentes:** 1 (NocoDB)
 **Secrets faltantes:** 22
 
 #### Categorias de Secrets Faltantes:
@@ -45,8 +45,8 @@ Organizar todos os secrets e variáveis necessárias nas vaults `1p_macos` e `1p
 
 ### Vault `1p_vps` (Produção)
 
-**Total de secrets necessários:** 21  
-**Secrets existentes:** 0  
+**Total de secrets necessários:** 21
+**Secrets existentes:** 0
 **Secrets faltantes:** 21
 
 #### Categorias de Secrets Faltantes:
@@ -126,6 +126,5 @@ Organizar todos os secrets e variáveis necessárias nas vaults `1p_macos` e `1p
 
 ---
 
-**Organização concluída em:** 2025-12-01  
+**Organização concluída em:** 2025-12-01
 **Próxima revisão:** 2026-01-01
-

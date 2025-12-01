@@ -1,7 +1,7 @@
 # 🔧 Fix Setup Gemini - VPS Ubuntu e macOS Silicon
 
-**Data:** 2025-12-01  
-**Versão:** 1.0.0  
+**Data:** 2025-12-01
+**Versão:** 1.0.0
 **Status:** ✅ **ATIVO**
 
 ---
@@ -173,12 +173,14 @@ sudo apt update && sudo apt install 1password-cli
 ### Erro: "Não foi possível obter API Key"
 
 1. Verificar se o item existe no vault:
+
    ```bash
    op item list --vault 1p_vps | grep -i gemini
    op item list --vault 1p_macos | grep -i gemini
    ```
 
 2. Verificar campos do item:
+
    ```bash
    op item get ITEM_ID --vault VAULT_NAME
    ```
@@ -219,6 +221,6 @@ sudo apt update && sudo apt install 1password-cli
 
 ---
 
-**Última Atualização:** 2025-12-01  
-**Versão:** 1.0.0  
+**Última Atualização:** 2025-12-01
+**Versão:** 1.0.0
 **Status:** ✅ **SCRIPT PRONTO PARA USO**

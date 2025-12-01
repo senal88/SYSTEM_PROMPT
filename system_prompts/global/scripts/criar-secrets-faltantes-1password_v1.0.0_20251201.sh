@@ -94,23 +94,23 @@ generate_creation_guide() {
     local vault="$1"
     local secrets_array_name="$2"
     local vault_display_name="$3"
-    
+
     log_step "Gerando guia de criação para vault '${vault_display_name}'..."
-    
+
     echo ""
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo "📋 VAULT: ${vault_display_name} (${vault})"
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo ""
-    
+
     # Usar array indireto
     local array_ref="${secrets_array_name}[@]"
     local current_item=""
     local item_count=0
-    
+
     for secret_entry in ${!array_ref}; do
         IFS='|' read -r item_name field_name description field_type <<< "${secret_entry}"
-        
+
         # Se mudou de item, criar seção
         if [ "${current_item}" != "${item_name}" ]; then
             if [ -n "${current_item}" ]; then
@@ -123,14 +123,14 @@ generate_creation_guide() {
             echo "   Tipo: Login (ou Password conforme necessário)"
             echo ""
         fi
-        
+
         echo "   - Campo: \`${field_name}\`"
         echo "     Tipo: ${field_type}"
         echo "     Descrição: ${description}"
         echo "     Referência: \`op://${vault}/${item_name}/${field_name}\`"
         echo ""
     done
-    
+
     echo ""
     echo "### 📝 Instruções de Criação"
     echo ""
@@ -160,21 +160,20 @@ main() {
     echo -e "${CYAN}║  GUIA DE CRIAÇÃO DE SECRETS FALTANTES NO 1PASSWORD       ║${NC}"
     echo -e "${CYAN}╚════════════════════════════════════════════════════════════╝${NC}"
     echo ""
-    
+
     # Verificar autenticação
     if ! op whoami >/dev/null 2>&1; then
         log_warning "1Password CLI não está autenticado. Execute: op signin"
         exit 1
     fi
-    
+
     # Gerar guias
     generate_creation_guide "${VAULT_MACOS}" "SECRETS_MACOS_MISSING" "1p_macos (Desenvolvimento)"
     generate_creation_guide "${VAULT_VPS}" "SECRETS_VPS_MISSING" "1p_vps (Produção)"
-    
+
     echo ""
     log_success "Guia de criação gerado!"
     log_info "Siga as instruções acima para criar os secrets faltantes no 1Password"
 }
 
 main "$@"
-

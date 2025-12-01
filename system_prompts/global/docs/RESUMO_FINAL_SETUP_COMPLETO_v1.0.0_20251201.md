@@ -1,7 +1,7 @@
 # ✅ Resumo Final - Setup Completo macOS Silicon e VPS Ubuntu
 
-**Data:** 2025-12-01  
-**Versão:** 1.0.0  
+**Data:** 2025-12-01
+**Versão:** 1.0.0
 **Status:** ✅ **TUDO CONFIGURADO E FUNCIONANDO**
 
 ---
@@ -318,7 +318,6 @@ op read 'op://1p_vps/Postgres-Prod/PASSWORD' --account dev
 
 ---
 
-**Última Atualização:** 2025-12-01  
-**Versão:** 1.0.0  
+**Última Atualização:** 2025-12-01
+**Versão:** 1.0.0
 **Status:** ✅ Completo e Funcionando
-

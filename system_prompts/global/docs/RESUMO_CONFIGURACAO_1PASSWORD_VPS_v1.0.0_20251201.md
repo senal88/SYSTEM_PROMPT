@@ -1,6 +1,6 @@
 # ✅ Resumo Final - Configuração 1Password Connect VPS
 
-**Data:** 2025-12-01  
+**Data:** 2025-12-01
 **Status:** ✅ **CONFIGURADO E FUNCIONAL**
 
 ---
@@ -248,6 +248,5 @@ op vault list --account dev
 
 ---
 
-**Última Verificação:** 2025-12-01  
+**Última Verificação:** 2025-12-01
 **Próxima Revisão:** Conforme necessidade
-

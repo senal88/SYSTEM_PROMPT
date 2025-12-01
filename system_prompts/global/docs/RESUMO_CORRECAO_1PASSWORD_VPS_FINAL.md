@@ -1,6 +1,6 @@
 # ✅ Resumo Final - Correção 1Password VPS
 
-**Data:** 2025-12-01  
+**Data:** 2025-12-01
 **Status:** ⚠️ **REQUER CORREÇÃO MANUAL DO TOKEN**
 
 ---
@@ -10,6 +10,7 @@
 O arquivo `~/.config/op/credentials` na VPS tem **3 linhas** quando deveria ter apenas **1 linha** com o token do Service Account.
 
 **Erro:**
+
 ```
 failed to DecodeSACredentials: failed to DeserializeServiceAccountAuthToken, unrecognized auth type
 ```
@@ -125,17 +126,20 @@ op-items
 ### Se ainda não funcionar:
 
 1. **Verificar formato do token:**
+
    ```bash
    cat ~/.config/op/credentials | head -c 20
    # Deve começar com: ops_
    ```
 
 2. **Verificar se não há espaços ou caracteres extras:**
+
    ```bash
    cat ~/.config/op/credentials | od -c | head -5
    ```
 
 3. **Testar token diretamente:**
+
    ```bash
    export OP_SERVICE_ACCOUNT_TOKEN=$(cat ~/.config/op/credentials | tr -d '\n\r\t ')
    op vault list --account dev
@@ -149,6 +153,5 @@ op-items
 
 ---
 
-**Última Atualização:** 2025-12-01  
+**Última Atualização:** 2025-12-01
 **Versão:** 1.0.0
-

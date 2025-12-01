@@ -61,23 +61,23 @@ print_header() {
 # Obter token do Service Account do 1Password local
 get_service_account_token() {
     log_step "Obtendo Service Account Token do 1Password..."
-    
+
     # Verificar se está autenticado localmente
     if ! op account list &>/dev/null; then
         log_error "1Password CLI não está autenticado localmente"
         log_info "Execute: op signin"
         return 1
     fi
-    
+
     # Ler o token do vault 1p_vps
     local token
     token=$(op read "op://1p_vps/${OP_SERVICE_ACCOUNT_ITEM_ID}/credencial" 2>/dev/null)
-    
+
     if [[ -z "${token}" ]]; then
         log_error "Token não encontrado no 1Password"
         return 1
     fi
-    
+
     log_success "Token obtido com sucesso"
     echo "${token}"
     return 0
@@ -86,26 +86,26 @@ get_service_account_token() {
 # Configurar 1Password na VPS
 configure_op_vps() {
     local service_account_token="$1"
-    
+
     print_header "CORRIGIR CONFIGURAÇÃO 1PASSWORD - VPS"
-    
+
     log_step "1. Criando diretório de configuração..."
     ssh "${VPS_USER}@${VPS_HOST}" "mkdir -p ${VPS_HOME}/.config/op" || {
         log_error "Falha ao criar diretório"
         return 1
     }
-    
+
     log_step "2. Salvando Service Account Token..."
     echo "${service_account_token}" | ssh "${VPS_USER}@${VPS_HOST}" "cat > ${VPS_HOME}/.config/op/credentials && chmod 600 ${VPS_HOME}/.config/op/credentials" || {
         log_error "Falha ao salvar token"
         return 1
     }
-    
+
     log_step "3. Adicionando conta 1Password..."
     ssh "${VPS_USER}@${VPS_HOST}" << EOF
         set -e
         export OP_SERVICE_ACCOUNT_TOKEN=\$(cat ${VPS_HOME}/.config/op/credentials)
-        
+
         # Adicionar conta se não existir
         if ! op account list &>/dev/null; then
             op account add --address my.1password.com --token \${OP_SERVICE_ACCOUNT_TOKEN} --account ${OP_CONNECT_ACCOUNT_NAME} || {
@@ -113,15 +113,15 @@ configure_op_vps() {
             }
         fi
 EOF
-    
+
     log_step "4. Configurando variáveis de ambiente no .bashrc..."
     ssh "${VPS_USER}@${VPS_HOST}" << 'BASHRC_EOF'
         set -e
         BASHRC_FILE="${HOME}/.bashrc"
-        
+
         # Remover configurações antigas se existirem
         sed -i '/# 1Password Configuration/,/^$/d' "${BASHRC_FILE}" 2>/dev/null || true
-        
+
         # Adicionar configuração completa
         cat >> "${BASHRC_FILE}" << 'OP_CONFIG_EOF'
 
@@ -144,12 +144,12 @@ op-read() {
 OP_CONFIG_EOF
         echo "Configuração adicionada ao .bashrc"
 BASHRC_EOF
-    
+
     log_step "5. Testando configuração..."
     ssh "${VPS_USER}@${VPS_HOST}" << 'TEST_EOF'
         set -e
         source "${HOME}/.bashrc"
-        
+
         # Testar autenticação
         if op vault list --account "${OP_ACCOUNT}" &>/dev/null; then
             echo "✅ Autenticação funcionando"
@@ -160,7 +160,7 @@ BASHRC_EOF
             exit 1
         fi
 TEST_EOF
-    
+
     log_success "Configuração corrigida com sucesso!"
     return 0
 }
@@ -171,14 +171,14 @@ main() {
         log_error "Não foi possível conectar via SSH"
         exit 1
     fi
-    
+
     local token
     token=$(get_service_account_token) || exit 1
-    
+
     configure_op_vps "${token}" || exit 1
-    
+
     print_header "CONFIGURAÇÃO CORRIGIDA COM SUCESSO"
-    
+
     log_info "Próximos passos:"
     log_info "  1. Conectar na VPS: ssh ${VPS_USER}@${VPS_HOST}"
     log_info "  2. Recarregar shell: source ~/.bashrc"
@@ -189,4 +189,3 @@ main() {
 }
 
 main "$@"
-

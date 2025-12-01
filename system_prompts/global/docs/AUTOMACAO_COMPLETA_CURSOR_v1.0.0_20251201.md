@@ -1,7 +1,7 @@
 # 🚀 Automação Completa - Cursor 2.0
 
-**Data:** 2025-12-01  
-**Versão:** 1.0.0  
+**Data:** 2025-12-01
+**Versão:** 1.0.0
 **Status:** ✅ **ATIVO**
 
 ---
@@ -31,6 +31,7 @@ Sistema automatizado completo de configuração via Cursor 2.0 que integra:
 ```
 
 **Opções:**
+
 - `--all`: Executa todas as operações
 - `--validate`: Apenas validação
 - `--cleanup`: Apenas limpeza
@@ -44,6 +45,7 @@ Sistema automatizado completo de configuração via Cursor 2.0 que integra:
 ```
 
 **Opções:**
+
 - `--vault VAULT`: Valida vault específico
 - `--all`: Valida todos os vaults
 
@@ -53,21 +55,21 @@ Sistema automatizado completo de configuração via Cursor 2.0 que integra:
 
 ### Secrets Necessários - 1p_vps
 
-| ID | Nome | Descrição |
-|----|------|-----------|
+| ID                           | Nome                       | Descrição                 |
+| ---------------------------- | -------------------------- | ------------------------- |
 | `yhqdcrihdk5c6sk7x7fwcqazqu` | Service Account Auth Token | Token de autenticação VPS |
-| `3ztgpgona7iy2htavjmtdccss4` | GIT_PERSONAL | Token Git pessoal |
-| `6d3sildbgptpqp3lvyjt2gsjhy` | github.com | Credenciais GitHub |
-| `k6x3ye34k6p6rkz7b6e2qhjeci` | GIT_TOKEN | Token Git |
+| `3ztgpgona7iy2htavjmtdccss4` | GIT_PERSONAL               | Token Git pessoal         |
+| `6d3sildbgptpqp3lvyjt2gsjhy` | github.com                 | Credenciais GitHub        |
+| `k6x3ye34k6p6rkz7b6e2qhjeci` | GIT_TOKEN                  | Token Git                 |
 
 ### Secrets Necessários - 1p_macos
 
-| ID | Nome | Descrição |
-|----|------|-----------|
-| `kvhqgsi3ndrz4n65ptiuryrifa` | service_1p_macos_dev_localhost | Service Account macOS |
-| `3xpytbcndxqapydpz27lxoegwm` | GIT_PAT \|Nov-2025 | Personal Access Token |
+| ID                           | Nome                              | Descrição                    |
+| ---------------------------- | --------------------------------- | ---------------------------- |
+| `kvhqgsi3ndrz4n65ptiuryrifa` | service_1p_macos_dev_localhost    | Service Account macOS        |
+| `3xpytbcndxqapydpz27lxoegwm` | GIT_PAT \|Nov-2025                | Personal Access Token        |
 | `q36qe2k5ppapzhxdr2q24jtwta` | SYSTEM_PROMPT \| GIT_PERSONAL_KEY | Chave Git para System Prompt |
-| `4ge66znk4qefkypev54t5ivebe` | id_ed25519_universal | Chave SSH universal |
+| `4ge66znk4qefkypev54t5ivebe` | id_ed25519_universal              | Chave SSH universal          |
 
 ---
 
@@ -123,11 +125,13 @@ Tags padrão aplicadas automaticamente:
 ### Padrões Aplicados
 
 1. **Arquivos e Diretórios:**
+
    - Apenas minúsculas, números, underscore e hífen
    - Deve começar com letra minúscula
    - Deve terminar com letra ou número
 
 2. **Secrets:**
+
    - Formato: `op://VAULT/ITEM/FIELD`
    - Vaults: `1p_vps`, `1p_macos`
    - Campos padronizados
@@ -283,7 +287,6 @@ Para execução automática periódica, adicionar ao crontab:
 
 ---
 
-**Última Atualização:** 2025-12-01  
-**Versão:** 1.0.0  
+**Última Atualização:** 2025-12-01
+**Versão:** 1.0.0
 **Status:** ✅ **SISTEMA ATIVO E FUNCIONAL**
-

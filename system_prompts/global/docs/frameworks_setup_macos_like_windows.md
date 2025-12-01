@@ -1,8 +1,8 @@
 # 🚀 Setup Completo macOS Silicon - Like Windows (Framework Completo)
 
-**Versão:** 2.0.0  
-**Data:** 2025-12-01  
-**Status:** ✅ Documento Aprimorado e Customizado  
+**Versão:** 2.0.0
+**Data:** 2025-12-01
+**Status:** ✅ Documento Aprimorado e Customizado
 **Sistema:** macOS Silicon (Tahoe 26.0.1)
 
 ---
@@ -17,7 +17,7 @@ Este documento foi **aprimorado e customizado** para execução automática comp
 - ✅ **Homebrew Bundle** - Instalação automática de apps
 - ✅ **Scripts de Automação** - Setup completo em um comando
 
-**📄 Documento Completo:** Ver `SETUP_COMPLETO_MACOS_SILICON_v1.0.0_20251201.md`  
+**📄 Documento Completo:** Ver `SETUP_COMPLETO_MACOS_SILICON_v1.0.0_20251201.md`
 **🚀 Script Principal:** `setup-macos-completo-automatico_v1.0.0_20251201.sh`
 
 ---
@@ -28,7 +28,7 @@ Este documento foi **aprimorado e customizado** para execução automática comp
 
 Para seu contexto específico (**KB Antigravity + Gemini CLI 3.0 + Raycast + macOS Silicon Tahoe 26.0.1**), identifiquei **4 frameworks principais** que funcionam como o Windows Setup Manager:
 
-***
+---
 
 ## 🏆 TOP 4 FRAMEWORKS (Ranking para seu caso)
 
@@ -62,8 +62,7 @@ cask "raycast", "visual-studio-code", "iterm2", "docker"
 # ... adicionar conforme necessário
 ```
 
-
-***
+---
 
 ### 2️⃣ **DOTBOT** [Para Configurações Profundas]
 
@@ -96,8 +95,7 @@ install.conf.yaml
 └─ create: directories
 ```
 
-
-***
+---
 
 ### 3️⃣ **ANSIBLE** [Para Escala - 5+ Macs]
 
@@ -114,7 +112,7 @@ Melhor para: 5-50 macs centralizados
 
 **Use quando:** Time crescer ou múltiplos Macs
 
-***
+---
 
 ### 4️⃣ **JAMF PRO** [Enterprise]
 
@@ -129,7 +127,7 @@ Melhor para: 100+ macs corporativas
 
 **Use quando:** Empresa > 100 devices com política centralizada
 
-***
+---
 
 ## 🎯 SETUP RECOMENDADO PARA SEU CONTEXTO ESPECÍFICO
 
@@ -165,8 +163,7 @@ RESULTADO:
 ✅ System preferences set
 ```
 
-
-***
+---
 
 ## 🚀 SETUP IMEDIATO (30 minutos)
 
@@ -188,22 +185,20 @@ git init && git add . && git commit -m "init: macOS setup"
 git remote add origin https://seu-repo.git
 ```
 
-
-***
+---
 
 ## 📊 COMPARAÇÃO RÁPIDA
 
-| Aspecto | Homebrew | Dotbot | Ansible | Jamf |
-| :-- | :-- | :-- | :-- | :-- |
-| **Tempo Setup** | 15 min | 45 min | 90 min | 2 semanas |
-| **Seu contexto?** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐ | ❌ |
-| **Curva aprendizado** | 30 min | 1-2h | 4-6h | 1-2 sem |
-| **Raycast integração** | Nativa | Symlinks | Playbooks | Políticas |
-| **Custo** | Gratuito | Gratuito | Gratuito | \$\$ |
-| **Macs recomendados** | 1-2 | 2-5 | 5-50 | 100+ |
+| Aspecto                | Homebrew   | Dotbot   | Ansible   | Jamf      |
+| :--------------------- | :--------- | :------- | :-------- | :-------- |
+| **Tempo Setup**        | 15 min     | 45 min   | 90 min    | 2 semanas |
+| **Seu contexto?**      | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ | ⭐⭐      | ❌        |
+| **Curva aprendizado**  | 30 min     | 1-2h     | 4-6h      | 1-2 sem   |
+| **Raycast integração** | Nativa     | Symlinks | Playbooks | Políticas |
+| **Custo**              | Gratuito   | Gratuito | Gratuito  | \$\$      |
+| **Macs recomendados**  | 1-2        | 2-5      | 5-50      | 100+      |
 
-
-***
+---
 
 ## 💾 ARQUIVO CRIADO PARA VOCÊ
 
@@ -220,7 +215,7 @@ Contém:
 - ✅ Tabelas de decisão
 - ✅ Recomendações personalizadas
 
-***
+---
 
 ## ⚡ PRÓXIMAS AÇÕES
 
@@ -245,23 +240,21 @@ cp advanced_deployment_scripts.sh ~/macsetup/
 # Integrar Brewfile com sua estrutura KB Antigravity
 ```
 
-
-***
+---
 
 ## 📚 Todos os Artefatos Criados (Resumo Final)
 
-| Arquivo | Propósito | Prioridade |
-| :-- | :-- | :-- |
-| **README_COMECE_AQUI.md** | Início rápido | 🔴 LEIA PRIMEIRO |
-| **kb_deployment_plan_2025.md** | Plano estratégico | 🟡 Importante |
-| **advanced_deployment_scripts.sh** | Automação | 🟢 Pronto para usar |
+| Arquivo                                     | Propósito               | Prioridade              |
+| :------------------------------------------ | :---------------------- | :---------------------- |
+| **README_COMECE_AQUI.md**                   | Início rápido           | 🔴 LEIA PRIMEIRO        |
+| **kb_deployment_plan_2025.md**              | Plano estratégico       | 🟡 Importante           |
+| **advanced_deployment_scripts.sh**          | Automação               | 🟢 Pronto para usar     |
 | **FRAMEWORKS_SETUP_MACOS_TAHOE_RAYCAST.md** | **Seu documento atual** | 🔵 Específico para você |
-| **optimized_gemini_prompts.md** | Prompts prontos | 🟢 Para conteúdo |
-| **implementation_checklist_roadmap.md** | Checklist | 🟡 Acompanhamento |
-| **ARQUITETURA_E_VISUAL_GUIDE.md** | Diagramas | 🟢 Referência |
+| **optimized_gemini_prompts.md**             | Prompts prontos         | 🟢 Para conteúdo        |
+| **implementation_checklist_roadmap.md**     | Checklist               | 🟡 Acompanhamento       |
+| **ARQUITETURA_E_VISUAL_GUIDE.md**           | Diagramas               | 🟢 Referência           |
 
-
-***
+---
 
 **Status:** ✅ **PRONTO PARA IMPLEMENTAÇÃO**
 
@@ -271,42 +264,22 @@ cp advanced_deployment_scripts.sh ~/macsetup/
 <div align="center">⁂</div>
 
 [^1]: https://shinglyu.com/productivity/2025/10/17/poor-mans-raycast-replace-raycast-features-using-only-macos-built-ins.html
-
 [^2]: https://www.youtube.com/watch?v=K8a4WZ-aQCQ
-
 [^3]: https://github.com/raycast/extensions-template
-
 [^4]: https://www.youtube.com/watch?v=dQWpmxjCiUM
-
 [^5]: https://www.youtube.com/watch?v=5aqrkrDUO1o
-
 [^6]: https://developers.raycast.com/basics/create-your-first-extension
-
 [^7]: https://emailsorters.com/blog/productivity-apps-mac/
-
 [^8]: https://www.youtube.com/watch?v=brOV2wswLvA
-
 [^9]: https://github.com/RMNCLDYO/Raycast-Extension-Template-Collection
-
 [^10]: https://www.raycast.com/changelog
-
 [^11]: https://level.io/library/automation-macos-setup
-
 [^12]: https://www.reddit.com/r/unixporn/comments/60fvf8/dotfile_setup/
-
 [^13]: https://www.linkedin.com/posts/shamirmohammed_apple-macostahoe-enterpriseit-activity-7391540228722917376-5ZkD
-
 [^14]: https://www.hexnode.com/mobile-device-management/help/how-to-configure-setup-assistant-for-macos-devices-using-hexnode-mdm/
-
 [^15]: https://respawn.io/posts/dotfiles-brew-bundle-and-mackup
-
 [^16]: https://macos-tahoe.com/blog/macos-tahoe-complete-installation-guide
-
 [^17]: https://www.reddit.com/r/macsysadmin/comments/q7g8jy/automating_macos_setup/
-
 [^18]: https://dev.to/jma/using-brewfile-to-automatic-setup-macos-from-scratch-4ok1
-
 [^19]: https://www.youtube.com/watch?v=6RQxzJFTIs0
-
 [^20]: https://www.reddit.com/r/MacOS/comments/1b5axy6/easy_automated_macos_setup/
-

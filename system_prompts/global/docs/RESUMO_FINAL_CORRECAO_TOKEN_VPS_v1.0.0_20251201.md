@@ -1,7 +1,7 @@
 # ✅ Resumo Final - Correção Token 1Password VPS
 
-**Data:** 2025-12-01  
-**Versão:** 1.0.0  
+**Data:** 2025-12-01
+**Versão:** 1.0.0
 **Status:** ✅ **CORRIGIDO E FUNCIONANDO**
 
 ---
@@ -104,7 +104,6 @@ ssh admin-vps
 
 ---
 
-**Última Atualização:** 2025-12-01  
-**Versão:** 1.0.0  
+**Última Atualização:** 2025-12-01
+**Versão:** 1.0.0
 **Status:** ✅ **100% FUNCIONANDO**
-

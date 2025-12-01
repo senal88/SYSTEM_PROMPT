@@ -107,31 +107,31 @@ mkdir -p "${REPORT_DIR}"
 
 clean_vps() {
     log_section "LIMPEZA VPS UBUNTU"
-    
+
     VPS_HOST="${VPS_HOST:-admin-vps}"
     VPS_USER="${VPS_USER:-admin}"
     VPS_HOME="${VPS_HOME:-/home/admin}"
-    
+
     log_info "Conectando na VPS: ${VPS_USER}@${VPS_HOST}"
-    
+
     if ! ssh -o ConnectTimeout=5 -o BatchMode=yes "${VPS_USER}@${VPS_HOST}" "echo 'OK'" >/dev/null 2>&1; then
         log_error "Não foi possível conectar na VPS"
         return 1
     fi
-    
+
     log_info "Criando backup antes de limpar..."
-    
+
     ssh "${VPS_USER}@${VPS_HOST}" << 'VPS_CLEAN_EOF' | tee -a "${CLEANUP_REPORT}"
         set -e
         VPS_HOME="${HOME}"
         BACKUP_DIR="${HOME}/.cleanup-backup-$(date +%Y%m%d_%H%M%S)"
         DRY_RUN="${DRY_RUN:-false}"
-        
+
         mkdir -p "${BACKUP_DIR}"
-        
+
         echo "## Itens para Limpeza na VPS:"
         echo ""
-        
+
         # Diretórios legacy/backup
         ITEMS_TO_CLEAN=(
             "${VPS_HOME}/legacy"
@@ -139,12 +139,12 @@ clean_vps() {
             "${VPS_HOME}/infra-vps/legacy"
             "${VPS_HOME}/.audit"
         )
-        
+
         for item in "${ITEMS_TO_CLEAN[@]}"; do
             if [ -e "${item}" ]; then
                 SIZE=$(du -sh "${item}" 2>/dev/null | awk '{print $1}')
                 echo "  - ${item} (${SIZE})"
-                
+
                 if [ "${DRY_RUN}" != "true" ]; then
                     # Fazer backup
                     cp -r "${item}" "${BACKUP_DIR}/" 2>/dev/null || true
@@ -156,16 +156,16 @@ clean_vps() {
                 fi
             fi
         done
-        
+
         # Arquivos de backup
         echo ""
         echo "## Arquivos de Backup:"
         echo ""
-        
+
         find "${VPS_HOME}" -maxdepth 3 -type f \( -name "*.bak" -o -name "*.old" -o -name "*.tmp" -o -name "*~" -o -name "*backup*" \) 2>/dev/null | while read file; do
             SIZE=$(du -h "${file}" 2>/dev/null | awk '{print $1}')
             echo "  - ${file} (${SIZE})"
-            
+
             if [ "${DRY_RUN}" != "true" ]; then
                 mkdir -p "${BACKUP_DIR}/files"
                 cp "${file}" "${BACKUP_DIR}/files/" 2>/dev/null || true
@@ -175,12 +175,12 @@ clean_vps() {
                 echo "    [DRY-RUN] Seria removido"
             fi
         done
-        
+
         # Cache antigo (> 30 dias)
         echo ""
         echo "## Cache Antigo (> 30 dias):"
         echo ""
-        
+
         CACHE_COUNT=$(find "${VPS_HOME}/.cache" -type f -mtime +30 2>/dev/null | wc -l)
         if [ "${CACHE_COUNT}" -gt 0 ]; then
             echo "  - ${CACHE_COUNT} arquivos em .cache"
@@ -191,11 +191,11 @@ clean_vps() {
                 echo "    [DRY-RUN] Seria limpo"
             fi
         fi
-        
+
         echo ""
         echo "Backup criado em: ${BACKUP_DIR}"
 VPS_CLEAN_EOF
-    
+
     log_success "Limpeza VPS concluída"
 }
 
@@ -205,14 +205,14 @@ VPS_CLEAN_EOF
 
 clean_macos() {
     log_section "LIMPEZA macOS SILICON"
-    
+
     log_info "Criando backup antes de limpar..."
     mkdir -p "${BACKUP_DIR}"
-    
+
     {
         echo "## Itens para Limpeza no macOS:"
         echo ""
-        
+
         # Diretórios obsoletos
         ITEMS_TO_CLEAN=(
             "${DOTFILES_DIR}/infra-vps/legacy"
@@ -232,12 +232,12 @@ clean_macos() {
             "${DOTFILES_DIR}/codex"
             "${DOTFILES_DIR}/infraestrutura-vps"
         )
-        
+
         for item in "${ITEMS_TO_CLEAN[@]}"; do
             if [ -e "${item}" ]; then
                 SIZE=$(du -sh "${item}" 2>/dev/null | awk '{print $1}')
                 echo "  - ${item} (${SIZE})"
-                
+
                 if [[ "${DRY_RUN}" != "true" ]]; then
                     # Fazer backup
                     cp -r "${item}" "${BACKUP_DIR}/" 2>/dev/null || true
@@ -249,16 +249,16 @@ clean_macos() {
                 fi
             fi
         done
-        
+
         # Arquivos de backup
         echo ""
         echo "## Arquivos de Backup:"
         echo ""
-        
+
         find "${DOTFILES_DIR}" -maxdepth 4 -type f \( -name "*.bak" -o -name "*.old" -o -name "*.tmp" -o -name "*~" -o -name "*backup*" \) 2>/dev/null | head -20 | while read file; do
             SIZE=$(du -h "${file}" 2>/dev/null | awk '{print $1}')
             echo "  - ${file} (${SIZE})"
-            
+
             if [[ "${DRY_RUN}" != "true" ]]; then
                 mkdir -p "${BACKUP_DIR}/files"
                 cp "${file}" "${BACKUP_DIR}/files/" 2>/dev/null || true
@@ -268,16 +268,16 @@ clean_macos() {
                 echo "    [DRY-RUN] Seria removido"
             fi
         done
-        
+
         # Arquivos OBSOLETO
         echo ""
         echo "## Arquivos Marcados como OBSOLETO:"
         echo ""
-        
+
         find "${DOTFILES_DIR}" -maxdepth 4 -type f -iname "*OBSOLETO*" 2>/dev/null | while read file; do
             SIZE=$(du -h "${file}" 2>/dev/null | awk '{print $1}')
             echo "  - ${file} (${SIZE})"
-            
+
             if [[ "${DRY_RUN}" != "true" ]]; then
                 mkdir -p "${BACKUP_DIR}/obsoleto"
                 cp "${file}" "${BACKUP_DIR}/obsoleto/" 2>/dev/null || true
@@ -287,12 +287,12 @@ clean_macos() {
                 echo "    [DRY-RUN] Seria removido"
             fi
         done
-        
+
         echo ""
         echo "Backup criado em: ${BACKUP_DIR}"
-        
+
     } | tee -a "${CLEANUP_REPORT}"
-    
+
     log_success "Limpeza macOS concluída"
 }
 
@@ -306,17 +306,17 @@ main() {
     echo -e "${CYAN}║  LIMPEZA DE ARQUIVOS OBSOLETOS E REDUNDANTES             ║${NC}"
     echo -e "${CYAN}╚════════════════════════════════════════════════════════════╝${NC}"
     echo ""
-    
+
     if [[ "${DRY_RUN}" == "true" ]]; then
         log_warning "MODO DRY-RUN: Nenhuma alteração será feita"
         echo ""
     fi
-    
+
     log_info "Iniciando limpeza..."
     log_info "Relatório será salvo em: ${CLEANUP_REPORT}"
     log_info "Backup será criado em: ${BACKUP_DIR}"
     echo ""
-    
+
     # Cabeçalho do relatório
     {
         echo "# 🗑️ Relatório de Limpeza - Arquivos Obsoletos"
@@ -328,25 +328,24 @@ main() {
         echo "---"
         echo ""
     } > "${CLEANUP_REPORT}"
-    
+
     if [[ "${CLEAN_VPS}" == "true" ]]; then
         clean_vps
     fi
-    
+
     if [[ "${CLEAN_MACOS}" == "true" ]]; then
         clean_macos
     fi
-    
+
     echo ""
     log_success "╔════════════════════════════════════════════════════════════╗"
     log_success "║  LIMPEZA CONCLUÍDA                                        ║"
     log_success "╚════════════════════════════════════════════════════════════╝"
     echo ""
-    
+
     log_info "Relatório completo: ${CLEANUP_REPORT}"
     log_info "Backup criado em: ${BACKUP_DIR}"
     echo ""
 }
 
 main "$@"
-

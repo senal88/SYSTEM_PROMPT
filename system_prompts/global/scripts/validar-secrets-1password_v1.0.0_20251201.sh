@@ -98,33 +98,33 @@ declare -A REQUIRED_SECRETS_1P_MACOS=(
 
 validar_vault() {
     local vault_name="$1"
-    
+
     log_section "VALIDAÇÃO VAULT: ${vault_name}"
-    
+
     # Obter lista de itens do vault
     log_info "Listando itens do vault ${vault_name}..."
-    
+
     ITEMS=$(op item list --vault "${vault_name}" --format json 2>/dev/null | jq -r '.[].id' || echo "")
-    
+
     if [[ -z "${ITEMS}" ]]; then
         log_error "Nenhum item encontrado no vault ${vault_name}"
         return 1
     fi
-    
+
     ITEM_COUNT=$(echo "${ITEMS}" | wc -l | tr -d ' ')
     log_success "Itens encontrados: ${ITEM_COUNT}"
-    
+
     # Validar cada item
     log_info "Validando acesso aos itens..."
-    
+
     VALID_ITEMS=0
     INVALID_ITEMS=0
-    
+
     while IFS= read -r item_id; do
         if [[ -z "${item_id}" ]]; then
             continue
         fi
-        
+
         if op item get "${item_id}" --vault "${vault_name}" &> /dev/null; then
             VALID_ITEMS=$((VALID_ITEMS + 1))
             log_success "Item válido: ${item_id}"
@@ -133,16 +133,16 @@ validar_vault() {
             log_error "Item inválido ou inacessível: ${item_id}"
         fi
     done <<< "${ITEMS}"
-    
+
     log_info "Resumo: ${VALID_ITEMS} válidos, ${INVALID_ITEMS} inválidos"
-    
+
     # Validar secrets necessários específicos
     if [[ "${vault_name}" == "1p_vps" ]]; then
         validar_secrets_necessarios "1p_vps" "REQUIRED_SECRETS_1P_VPS"
     elif [[ "${vault_name}" == "1p_macos" ]]; then
         validar_secrets_necessarios "1p_macos" "REQUIRED_SECRETS_1P_MACOS"
     fi
-    
+
     return 0
 }
 
@@ -153,17 +153,17 @@ validar_vault() {
 validar_secrets_necessarios() {
     local vault_name="$1"
     local array_name="$2"
-    
+
     log_info "Validando secrets necessários do vault ${vault_name}..."
-    
+
     # Criar referência ao array associativo
     local -n secrets_array="${array_name}"
-    
+
     MISSING_SECRETS=()
-    
+
     for item_id in "${!secrets_array[@]}"; do
         item_name="${secrets_array[${item_id}]}"
-        
+
         if op item get "${item_id}" --vault "${vault_name}" &> /dev/null; then
             log_success "Secret necessário encontrado: ${item_name} (${item_id})"
         else
@@ -171,12 +171,12 @@ validar_secrets_necessarios() {
             log_error "Secret necessário não encontrado: ${item_name} (${item_id})"
         fi
     done
-    
+
     if [[ ${#MISSING_SECRETS[@]} -gt 0 ]]; then
         log_error "Secrets faltando: ${#MISSING_SECRETS[@]}"
         return 1
     fi
-    
+
     log_success "Todos os secrets necessários estão presentes"
     return 0
 }
@@ -187,23 +187,23 @@ validar_secrets_necessarios() {
 
 validar_variaveis_ambiente() {
     log_section "VALIDAÇÃO VARIÁVEIS DE AMBIENTE"
-    
+
     REQUIRED_VARS=(
         "OP_SERVICE_ACCOUNT_TOKEN"
         "OP_ACCOUNT"
     )
-    
+
     OPTIONAL_VARS=(
         "GITHUB_TOKEN"
         "GIT_PAT"
         "OPENAI_API_KEY"
         "ANTHROPIC_API_KEY"
     )
-    
+
     log_info "Validando variáveis obrigatórias..."
-    
+
     MISSING_REQUIRED=()
-    
+
     for var in "${REQUIRED_VARS[@]}"; do
         if [[ -z "${!var:-}" ]]; then
             MISSING_REQUIRED+=("${var}")
@@ -212,11 +212,11 @@ validar_variaveis_ambiente() {
             log_success "Variável obrigatória definida: ${var}"
         fi
     done
-    
+
     log_info "Validando variáveis opcionais..."
-    
+
     MISSING_OPTIONAL=()
-    
+
     for var in "${OPTIONAL_VARS[@]}"; do
         if [[ -z "${!var:-}" ]]; then
             MISSING_OPTIONAL+=("${var}")
@@ -225,12 +225,12 @@ validar_variaveis_ambiente() {
             log_success "Variável opcional definida: ${var}"
         fi
     done
-    
+
     if [[ ${#MISSING_REQUIRED[@]} -gt 0 ]]; then
         log_error "Variáveis obrigatórias faltando: ${#MISSING_REQUIRED[@]}"
         return 1
     fi
-    
+
     return 0
 }
 
@@ -244,11 +244,11 @@ main() {
     echo -e "${CYAN}║  VALIDAÇÃO COMPLETA DE SECRETS E VARIÁVEIS              ║${NC}"
     echo -e "${CYAN}╚════════════════════════════════════════════════════════════╝${NC}"
     echo ""
-    
+
     log_info "Iniciando validação..."
     log_info "Relatório será salvo em: ${REPORT_FILE}"
     echo ""
-    
+
     # Cabeçalho do relatório
     {
         echo "# Validação Completa de Secrets e Variáveis"
@@ -259,30 +259,30 @@ main() {
         echo "---"
         echo ""
     } > "${REPORT_FILE}"
-    
+
     # Verificar 1Password CLI
     if ! command -v op &> /dev/null; then
         log_error "1Password CLI não encontrado"
         exit 1
     fi
-    
+
     # Verificar autenticação
     if ! op account list &> /dev/null; then
         log_error "1Password não autenticado"
         exit 1
     fi
-    
+
     log_success "1Password autenticado"
-    
+
     # Validar variáveis de ambiente
     validar_variaveis_ambiente
-    
+
     # Validar vaults
     if [[ -n "${VAULT_SPECIFIC}" ]]; then
         validar_vault "${VAULT_SPECIFIC}"
     elif [[ "${VALIDATE_ALL}" == "true" ]]; then
         VAULTS=$(op vault list --format json 2>/dev/null | jq -r '.[].name' || echo "")
-        
+
         while IFS= read -r vault; do
             if [[ -n "${vault}" ]]; then
                 validar_vault "${vault}"
@@ -293,16 +293,15 @@ main() {
         validar_vault "1p_vps"
         validar_vault "1p_macos"
     fi
-    
+
     echo ""
     log_success "╔════════════════════════════════════════════════════════════╗"
     log_success "║  VALIDAÇÃO CONCLUÍDA                                      ║"
     log_success "╚════════════════════════════════════════════════════════════╝"
     echo ""
-    
+
     log_info "Relatório completo: ${REPORT_FILE}"
     echo ""
 }
 
 main "$@"
-
