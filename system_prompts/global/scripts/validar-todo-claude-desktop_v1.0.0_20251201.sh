@@ -90,12 +90,12 @@ log_info "2. Verificando arquivo de configuração principal..."
 
 if [[ -f "${CONFIG_FILE}" ]]; then
     log_success "Arquivo de configuração existe"
-    
+
     # Verificar JSON válido
     if command -v jq &> /dev/null; then
         if jq empty "${CONFIG_FILE}" 2>/dev/null; then
             log_success "JSON válido"
-            
+
             # Verificar campos importantes
             if jq -e '.anthropic_api_key' "${CONFIG_FILE}" &> /dev/null; then
                 API_KEY_VALUE=$(jq -r '.anthropic_api_key' "${CONFIG_FILE}")
@@ -111,7 +111,7 @@ if [[ -f "${CONFIG_FILE}" ]]; then
                 log_warning "Campo anthropic_api_key não encontrado"
                 check_warning
             fi
-            
+
             # Verificar modelo padrão
             if jq -e '.default_model' "${CONFIG_FILE}" &> /dev/null; then
                 MODEL=$(jq -r '.default_model' "${CONFIG_FILE}")
@@ -135,11 +135,11 @@ log_info "3. Verificando MCP Servers..."
 MCP_CONFIG="${CLAUDE_DIR}/config.json"
 if [[ -f "${MCP_CONFIG}" ]]; then
     log_success "Arquivo MCP config existe"
-    
+
     if command -v jq &> /dev/null; then
         MCP_COUNT=$(jq -r '.mcpServers | length' "${MCP_CONFIG}" 2>/dev/null || echo "0")
         log_success "MCP Servers configurados: ${MCP_COUNT}"
-        
+
         # Verificar secrets em texto plano
         if grep -q "your-.*-key-here\|ghp_.*\|sk-ant-.*" "${MCP_CONFIG}"; then
             log_warning "Possíveis secrets em texto plano encontrados"
@@ -156,11 +156,11 @@ log_info "4. Verificando extensões instaladas..."
 
 if [[ -d "${EXTENSIONS_DIR}" ]]; then
     EXTENSIONS=($(find "${EXTENSIONS_DIR}" -maxdepth 1 -type d -not -name "Claude Extensions" | sed 's|.*/||'))
-    
+
     for ext in "${EXTENSIONS[@]}"; do
         if [[ -n "${ext}" ]]; then
             log_info "  - ${ext}"
-            
+
             # Verificar manifest.json
             MANIFEST="${EXTENSIONS_DIR}/${ext}/manifest.json"
             if [[ -f "${MANIFEST}" ]]; then
@@ -179,7 +179,7 @@ log_info "5. Verificando configurações de extensões..."
 if [[ -d "${SETTINGS_DIR}" ]]; then
     SETTINGS_COUNT=$(find "${SETTINGS_DIR}" -name "*.json" | wc -l | tr -d ' ')
     log_success "Arquivos de configuração: ${SETTINGS_COUNT}"
-    
+
     # Verificar secrets em configurações
     if grep -r "your-.*-key-here\|ghp_.*\|sk-ant-.*" "${SETTINGS_DIR}" &> /dev/null; then
         log_warning "Possíveis secrets em texto plano nas configurações"
@@ -206,16 +206,16 @@ log_info "7. Verificando integração 1Password..."
 
 if command -v op &> /dev/null; then
     log_success "1Password CLI instalado"
-    
+
     if op account list &> /dev/null; then
         log_success "1Password autenticado"
-        
+
         ITEM_ID=$(op item list --vault 1p_macos --format json 2>/dev/null | \
             jq -r '.[] | select(.title == "Anthropic") | .id' | head -1)
-        
+
         if [[ -n "${ITEM_ID}" ]]; then
             log_success "Item Anthropic encontrado: ${ITEM_ID}"
-            
+
             if op read "op://1p_macos/Anthropic/api_key" &> /dev/null; then
                 log_success "API Key acessível via 1Password"
             else
@@ -301,4 +301,3 @@ else
     log_error "╚════════════════════════════════════════════════════════════╝"
     exit 1
 fi
-
