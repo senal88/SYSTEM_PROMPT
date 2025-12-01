@@ -9,6 +9,7 @@
 ## 🎯 OBJETIVO
 
 Implementar governança completa para IDEs (Cursor, VSCode, etc.) com:
+
 - Validações de paths antes de operações
 - Prevenção de erros de interpretação
 - Padrões claros de estrutura
@@ -42,6 +43,7 @@ Implementar governança completa para IDEs (Cursor, VSCode, etc.) com:
 ### 3. Versionamento Obrigatório
 
 Todos os arquivos devem ter:
+
 - **Versão:** X.Y.Z (semântica)
 - **Data:** YYYY-MM-DD
 - **Última Atualização:** YYYY-MM-DD
@@ -49,6 +51,7 @@ Todos os arquivos devem ter:
 ### 4. Validação de Contexto
 
 Antes de operar, validar:
+
 - Arquivo existe?
 - Versão atual?
 - Data atualizada?
@@ -105,13 +108,13 @@ check_file_version() {
 
 ## 📊 MATRIZ DE VALIDAÇÃO
 
-| Validação | Quando Aplicar | Ação se Falhar |
-|-----------|----------------|----------------|
-| Path existe | Antes de ler/escrever | Criar ou reportar erro |
-| Versão atual | Antes de usar | Atualizar ou alertar |
-| Data atualizada | Antes de operar | Verificar contexto |
-| Permissões | Antes de modificar | Solicitar ou alertar |
-| Contexto completo | Antes de decisão | Coletar contexto |
+| Validação         | Quando Aplicar        | Ação se Falhar         |
+| ----------------- | --------------------- | ---------------------- |
+| Path existe       | Antes de ler/escrever | Criar ou reportar erro |
+| Versão atual      | Antes de usar         | Atualizar ou alertar   |
+| Data atualizada   | Antes de operar       | Verificar contexto     |
+| Permissões        | Antes de modificar    | Solicitar ou alertar   |
+| Contexto completo | Antes de decisão      | Coletar contexto       |
 
 ---
 
@@ -150,4 +153,3 @@ check_file_version() {
 
 **Versão:** 2.0.0
 **Última Atualização:** 2025-11-28
-

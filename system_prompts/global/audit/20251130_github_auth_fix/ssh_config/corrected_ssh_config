@@ -1,0 +1,99 @@
+Include /Users/luiz.sena88/.colima/ssh_config
+
+# --- VPS OVH (Root) ---
+
+Host vps
+HostName 147.79.81.59
+User root
+IdentityFile ~/.ssh/id_ed25519_universal
+IdentitiesOnly yes
+ForwardAgent yes
+ServerAliveInterval 60
+ServerAliveCountMax 3
+ControlMaster auto
+ControlPath ~/.ssh/control-%h-%p-%r
+ControlPersist 10m
+Compression yes
+StrictHostKeyChecking accept-new
+
+# --- VPS Admin User ---
+
+Host admin-vps
+HostName senamfo.com.br
+User admin
+IdentityFile ~/.ssh/id_ed25519_universal
+IdentitiesOnly yes
+ForwardAgent yes
+ServerAliveInterval 60
+ServerAliveCountMax 3
+ControlMaster auto
+ControlPath ~/.ssh/control-%h-%p-%r
+ControlPersist 10m
+Compression yes
+StrictHostKeyChecking accept-new
+
+# --- GitHub (conta: senal88) ---
+
+Host github.com
+HostName github.com
+User git
+ForwardAgent yes
+ServerAliveInterval 60
+ServerAliveCountMax 3
+ControlMaster auto
+ControlPath ~/.ssh/control-%h-%p-%r
+ControlPersist 10m
+Compression yes
+StrictHostKeyChecking accept-new
+
+# --- GitHub alias (short) ---
+
+Host github
+HostName github.com
+User git
+IdentitiesOnly yes
+ForwardAgent yes
+ServerAliveInterval 60
+ServerAliveCountMax 3
+ControlMaster auto
+ControlPath ~/.ssh/control-%h-%p-%r
+ControlPersist 10m
+Compression yes
+StrictHostKeyChecking accept-new
+
+# --- Hugging Face ---
+
+Host hf.co
+HostName hf.co
+User git
+IdentityFile ~/.ssh/id_ed25519_universal
+IdentitiesOnly yes
+ForwardAgent yes
+ServerAliveInterval 60
+ServerAliveCountMax 3
+ControlMaster auto
+ControlPath ~/.ssh/control-%h-%p-%r
+ControlPersist 10m
+Compression yes
+StrictHostKeyChecking accept-new
+
+# --- macOS local (loopback) ---
+
+Host macos-local
+HostName localhost
+User luiz.sena88
+Port 22
+IdentityFile ~/.ssh/id_ed25519_universal
+IdentitiesOnly yes
+
+# --- macOS via reverse tunnel ---
+
+Host macos-rt
+HostName local-macos
+User luiz.sena88
+Port 22
+IdentityFile ~/.ssh/id_ed25519_universal
+IdentitiesOnly yes
+
+Host *
+IdentityAgent "~/Library/Group Containers/2BUA8C4S2C.com.1password/t/agent.sock"
