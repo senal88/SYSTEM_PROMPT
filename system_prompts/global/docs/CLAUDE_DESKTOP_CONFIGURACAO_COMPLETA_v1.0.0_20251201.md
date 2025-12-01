@@ -1,7 +1,7 @@
 # 🔧 Configuração Completa Claude Desktop
 
-**Data:** 2025-12-01  
-**Versão:** 1.0.0  
+**Data:** 2025-12-01
+**Versão:** 1.0.0
 **Status:** ✅ **CONFIGURADO E TESTADO**
 
 ---
@@ -209,7 +209,6 @@ export ANTHROPIC_API_KEY=$(op read "op://1p_macos/Anthropic/api_key")
 
 ---
 
-**Última Atualização:** 2025-12-01  
-**Versão:** 1.0.0  
+**Última Atualização:** 2025-12-01
+**Versão:** 1.0.0
 **Status:** ✅ **CONFIGURAÇÃO COMPLETA E TESTADA**
-
