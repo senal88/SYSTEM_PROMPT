@@ -3,11 +3,12 @@
 # 🔑 Load AI Keys - Carrega chaves de API via 1Password CLI
 #
 # PROPÓSITO: Exportar variáveis de ambiente com API keys de forma segura
-# VERSÃO: 1.0.0
+# VERSÃO: 1.0.1
 # DATA: 2025-12-01
 ################################################################################
 
-set -euo pipefail
+# Não usar set -e quando sourced para não matar o shell
+# set -euo pipefail
 
 # Cores para output
 RED='\033[0;31m'
@@ -23,26 +24,19 @@ err() { echo -e "${RED}❌${NC} $*"; }
 
 # Verificar se 1Password CLI está instalado
 if ! command -v op &> /dev/null; then
-  err "1Password CLI não encontrado"
+  warn "1Password CLI não encontrado - pulando carregamento de keys"
   warn "Instale via: brew install --cask 1password-cli"
-  return 1
+  return 0 2>/dev/null || true
 fi
 
 # Verificar autenticação do 1Password
 if ! op account list &> /dev/null 2>&1; then
-  warn "1Password CLI não está autenticado"
-  info "Autenticando..."
-
-  # Tentar autenticação interativa
-  if ! eval $(op signin); then
-    err "Falha ao autenticar no 1Password"
-    return 1
-  fi
+  warn "1Password CLI não está autenticado - pulando carregamento de keys"
+  warn "Execute manualmente: eval \$(op signin)"
+  return 0 2>/dev/null || true
 fi
 
-info "Carregando chaves de API via 1Password..."
-
-# ============================================================================
+info "Carregando chaves de API via 1Password..."# ============================================================================
 # ANTHROPIC (Claude)
 # ============================================================================
 ANTHROPIC_KEY=$(op read "op://Development/Anthropic API Key (Claude)/credential" 2>/dev/null || echo "")
