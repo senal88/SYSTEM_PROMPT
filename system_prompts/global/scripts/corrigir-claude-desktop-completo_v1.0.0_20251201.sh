@@ -93,7 +93,7 @@ log_section "CORRIGINDO CLAUDE_DESKTOP_CONFIG.JSON"
 if command -v jq &> /dev/null; then
     # Ler configuração atual
     CURRENT_CONFIG=$(cat "${CONFIG_FILE}" 2>/dev/null || echo "{}")
-    
+
     # Corrigir API Key
     FIXED_CONFIG=$(echo "${CURRENT_CONFIG}" | jq --arg api_key "${API_KEY}" \
         '.anthropic_api_key = $api_key |
@@ -101,12 +101,12 @@ if command -v jq &> /dev/null; then
          .theme = (.theme // "auto") |
          .editor_font_size = (.editor_font_size // 14) |
          .editor_font_family = (.editor_font_family // "Monaco, Menlo, monospace")')
-    
+
     echo "${FIXED_CONFIG}" > "${CONFIG_FILE}"
     log_success "Configuração corrigida"
 else
     log_warning "jq não encontrado, usando método alternativo"
-    
+
     # Método alternativo sem jq
     cat > "${CONFIG_FILE}" << EOF
 {
@@ -117,7 +117,7 @@ else
   "editor_font_family": "Monaco, Menlo, monospace"
 }
 EOF
-    
+
     log_success "Configuração criada (método alternativo)"
 fi
 
@@ -126,15 +126,15 @@ log_section "CORRIGINDO MCP SERVERS"
 
 if [[ -f "${MCP_CONFIG}" ]] && command -v jq &> /dev/null; then
     log_info "Corrigindo secrets em texto plano nos MCP servers..."
-    
+
     # Obter tokens do 1Password
     GITHUB_TOKEN=$(op read "op://${VAULT}/GIT_PAT |Nov-2025/credential" 2>/dev/null || \
                    op read "op://${VAULT}/github.com/password" 2>/dev/null || \
                    echo "")
-    
+
     # Ler configuração MCP atual
     MCP_CURRENT=$(cat "${MCP_CONFIG}")
-    
+
     # Corrigir GitHub token
     if [[ -n "${GITHUB_TOKEN}" ]]; then
         MCP_CURRENT=$(echo "${MCP_CURRENT}" | jq --arg token "${GITHUB_TOKEN}" \
@@ -145,15 +145,15 @@ if [[ -f "${MCP_CONFIG}" ]] && command -v jq &> /dev/null; then
     else
         log_warning "GitHub token não encontrado no 1Password"
     fi
-    
+
     # Remover placeholders
     MCP_CURRENT=$(echo "${MCP_CURRENT}" | jq '
-        walk(if type == "string" and (. == "your-obsidian-api-key-here" or 
-                                       . == "your-brave-api-key-here" or 
+        walk(if type == "string" and (. == "your-obsidian-api-key-here" or
+                                       . == "your-brave-api-key-here" or
                                        . == "ghp_your_github_token_here") then
             empty
         else . end)')
-    
+
     echo "${MCP_CURRENT}" > "${MCP_CONFIG}"
     log_success "MCP Servers corrigidos"
 else
@@ -166,7 +166,7 @@ log_section "VALIDANDO CONFIGURAÇÕES"
 if command -v jq &> /dev/null; then
     if jq empty "${CONFIG_FILE}" 2>/dev/null; then
         log_success "claude_desktop_config.json válido"
-        
+
         # Verificar API Key
         CONFIG_API_KEY=$(jq -r '.anthropic_api_key' "${CONFIG_FILE}")
         if [[ "${CONFIG_API_KEY}" == "sk-ant-"* ]]; then
@@ -177,7 +177,7 @@ if command -v jq &> /dev/null; then
     else
         log_error "claude_desktop_config.json inválido"
     fi
-    
+
     if [[ -f "${MCP_CONFIG}" ]]; then
         if jq empty "${MCP_CONFIG}" 2>/dev/null; then
             log_success "config.json (MCP) válido"
@@ -197,4 +197,3 @@ log_info "Próximos passos:"
 log_info "1. Reinicie o Claude Desktop"
 log_info "2. Execute testes: ./testar-claude-desktop_v1.0.0_20251201.sh"
 echo ""
-
