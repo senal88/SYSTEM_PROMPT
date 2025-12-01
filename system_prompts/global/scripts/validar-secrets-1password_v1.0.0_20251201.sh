@@ -141,11 +141,11 @@ validar_vault() {
 validar_secrets_necessarios() {
     local vault_name="$1"
     local array_type="$2"
-    
+
     log_info "Validando secrets necessários do vault ${vault_name}..."
-    
+
     MISSING_SECRETS=()
-    
+
     if [[ "${array_type}" == "VPS" ]]; then
         local -A secrets_array
         secrets_array["yhqdcrihdk5c6sk7x7fwcqazqu"]="Service Account Auth Token: admin-vps conta de servico"
@@ -162,10 +162,10 @@ validar_secrets_necessarios() {
         log_warning "Tipo de array desconhecido: ${array_type}"
         return 1
     fi
-    
+
     for item_id in "${!secrets_array[@]}"; do
         item_name="${secrets_array[${item_id}]}"
-        
+
         if op item get "${item_id}" --vault "${vault_name}" &> /dev/null; then
             log_success "Secret necessário encontrado: ${item_name} (${item_id})"
         else
