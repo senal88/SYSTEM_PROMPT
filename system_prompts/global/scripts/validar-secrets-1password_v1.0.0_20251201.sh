@@ -152,18 +152,34 @@ validar_vault() {
 
 validar_secrets_necessarios() {
     local vault_name="$1"
-    local array_name="$2"
-
+    local array_type="$2"
+    
     log_info "Validando secrets necessários do vault ${vault_name}..."
-
-    # Criar referência ao array associativo
-    local -n secrets_array="${array_name}"
-
+    
     MISSING_SECRETS=()
-
+    
+    if [[ "${array_type}" == "REQUIRED_SECRETS_1P_VPS" ]]; then
+        declare -A secrets_array=(
+            ["yhqdcrihdk5c6sk7x7fwcqazqu"]="Service Account Auth Token: admin-vps conta de servico"
+            ["3ztgpgona7iy2htavjmtdccss4"]="GIT_PERSONAL"
+            ["6d3sildbgptpqp3lvyjt2gsjhy"]="github.com"
+            ["k6x3ye34k6p6rkz7b6e2qhjeci"]="GIT_TOKEN"
+        )
+    elif [[ "${array_type}" == "REQUIRED_SECRETS_1P_MACOS" ]]; then
+        declare -A secrets_array=(
+            ["kvhqgsi3ndrz4n65ptiuryrifa"]="service_1p_macos_dev_localhost"
+            ["3xpytbcndxqapydpz27lxoegwm"]="GIT_PAT |Nov-2025"
+            ["q36qe2k5ppapzhxdr2q24jtwta"]="SYSTEM_PROMPT | GIT_PERSONAL_KEY"
+            ["4ge66znk4qefkypev54t5ivebe"]="id_ed25519_universal"
+        )
+    else
+        log_warning "Tipo de array desconhecido: ${array_type}"
+        return 1
+    fi
+    
     for item_id in "${!secrets_array[@]}"; do
         item_name="${secrets_array[${item_id}]}"
-
+        
         if op item get "${item_id}" --vault "${vault_name}" &> /dev/null; then
             log_success "Secret necessário encontrado: ${item_name} (${item_id})"
         else
