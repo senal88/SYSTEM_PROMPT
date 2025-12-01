@@ -77,6 +77,12 @@ Eles devem estar **SOMENTE** em:
 │       ├── COMANDOS_FINAIS_EXECUTAVEIS.sh
 │       └── COMANDOS_FINAIS_NORMALIZADOS.txt
 │
+├── ~/Dotfiles/scripts/ (scripts auxiliares compartilhados)
+│   ├── load_ai_keys.sh ⭐ (carrega todas as API keys via 1Password)
+│   ├── inject_secrets_to_container.sh ⭐ (injeta secrets em DevContainers)
+│   ├── auto_config_shells_macos.sh (config automática de shells)
+│   └── verify_shells_macos.sh (verificação de shells)
+│
 ├── audit/ (auditorias históricas)
 │   └── YYYYMMDD_HHMMSS/ (timestamp da auditoria)
 │       ├── macos/ (dados coletados do macOS)
@@ -165,8 +171,18 @@ cd ~/Dotfiles/system_prompts/global/scripts
 
 ### Scripts de Auditoria e Segurança
 
-- **`scripts/auditar-1password-secrets.sh`** - Auditoria completa de secrets e variáveis de ambiente para 1Password
+- **`scripts/auditar-1password-secrets_v1.0.0_20251130.sh`** - Auditoria completa de secrets e variáveis de ambiente para 1Password
+- **`~/Dotfiles/scripts/load_ai_keys.sh`** ⭐ **NOVO** - Carrega automaticamente todas as API keys via 1Password CLI
+- **`~/Dotfiles/scripts/inject_secrets_to_container.sh`** ⭐ **NOVO** - Injeta secrets do host em DevContainers ativos
 - **`docs/checklists/CHECKLIST_1PASSWORD_ATUALIZACAO.md`** - Checklist completo para atualização no 1Password
+
+### Setup de IDEs e Plataformas de IA
+
+- **`docs/CLAUDE_SETUP_v1.0.0_20251130.md`** ⭐ **ATUALIZADO** - Setup completo do Claude com integração 1Password (633 linhas)
+- **`docs/COPILOT_SETUP_v1.0.0_20251130.md`** ⭐ **ATUALIZADO** - Setup do GitHub Copilot com autenticação segura
+- **`docs/GEMINI_SETUP_v1.0.0_20251130.md`** ⭐ **ATUALIZADO** - Setup do Gemini CLI com 1Password
+- **`docs/OPENAI_API_SETUP_v1.0.0_20251130.md`** ⭐ **ATUALIZADO** - Setup da OpenAI API com gerenciamento seguro de keys
+- **`.cursorrules`** ⭐ **NOVO** - System prompt do repositório com diretrizes completas
 
 ### Scripts de Governança e Validação
 

@@ -59,7 +59,7 @@ op signin
      --tags="api-key,claude,anthropic,ai" \
      credential="sk-ant-..." \
      --generate-password=off
-   
+
    # Ou via interface gráfica do 1Password:
    # - Tipo: "API Credential" ou "Login"
    # - Nome: "Anthropic API Key (Claude)"
@@ -74,7 +74,7 @@ op signin
    ```bash
    # Listar item para confirmar
    op item list --tags claude
-   
+
    # Testar leitura da chave (sem exibir no terminal)
    op read "op://Development/Anthropic API Key (Claude)/credential" > /dev/null && \
      echo "✅ Chave acessível via 1Password CLI"
@@ -318,6 +318,316 @@ claude "Explique este código" < arquivo.py
 
 ## 5. Boas Práticas e Fluxo de Trabalho
 
-- **Use o `auditar-1password-secrets...sh`:** Antes de iniciar uma sessão de desenvolvimento, execute este script para garantir que todas as chaves de API, incluindo a do Claude, estão corretamente exportadas como variáveis de ambiente.
-- **Contexto é Rei:** Ao usar o Claude para tarefas complexas, sempre forneça o máximo de contexto relevante. Utilize os prompts do repositório como base.
-- **Verificação de Segurança:** Periodicamente, verifique se a chave da API não foi vazada para arquivos de log, configurações de IDE não versionadas ou outros locais inseguros. O ambiente configurado neste repositório minimiza esse risco ao centralizar tudo no 1Password.
+### 5.1. Workflow Diário
+
+```bash
+# 1. Autenticar no 1Password (se necessário)
+eval $(op signin)
+
+# 2. Carregar todas as chaves de API
+source ~/Dotfiles/scripts/load_ai_keys.sh
+
+# 3. Verificar que as chaves foram carregadas
+env | grep -E "ANTHROPIC|OPENAI|GEMINI"
+
+# 4. Iniciar sua IDE
+cursor .
+# ou
+code .
+```
+
+### 5.2. Script de Auditoria Periódica
+
+Execute o script de auditoria regularmente para garantir que tudo está configurado:
+
+```bash
+# Executar auditoria completa
+cd ~/Dotfiles/system_prompts/global
+./scripts/auditar-1password-secrets_v1.0.0_20251130.sh
+
+# Verificar relatório gerado
+ls -la audit/*/1password/relatorio_*.md
+
+# Abrir último relatório
+open "$(find audit -name 'relatorio_*.md' | sort -r | head -1)"
+```
+
+### 5.3. Contexto e System Prompts
+
+Ao usar o Claude para tarefas complexas, sempre forneça contexto máximo:
+
+1. **Usar prompts do repositório:**
+
+   ```bash
+   # Listar prompts disponíveis
+   ls -la global/prompts/system/
+
+   # Exemplo de uso em script
+   SYSTEM_PROMPT=$(cat global/prompts/system/PROMPT_GEMINI_REPO_GITHUB.md)
+   ```
+
+2. **Configurar .cursorrules por projeto:**
+   - Cada repositório pode ter seu próprio `.cursorrules`
+   - Referências aos prompts globais do sistema
+   - Diretrizes de segurança específicas
+
+3. **Template de .cursorrules:**
+
+   ```markdown
+   # System Prompt - [Nome do Projeto]
+
+   ## Contexto
+   - Tipo: [web/cli/api/etc]
+   - Stack: [tecnologias]
+   - Secrets: Via 1Password (referências op://)
+
+   ## Diretrizes de Segurança
+   - ❌ NUNCA: Hard-code de API keys
+   - ✅ SEMPRE: Usar variáveis de ambiente
+   - ✅ SEMPRE: Referências op:// em docs
+   - ✅ SEMPRE: Validar inputs
+
+   ## Padrões de Código
+   - Shell: zsh (macOS), bash (Linux)
+   - Documentação: Markdown com exemplos
+   - Testes: [framework de testes]
+   ```
+
+### 5.4. Verificação de Segurança
+
+Periodicamente, execute verificações para garantir que nenhum secret vazou:
+
+```bash
+# Verificar secrets em arquivos do repositório
+cd ~/Dotfiles/system_prompts/global
+./scripts/verificar_secrets_restantes.sh
+
+# Verificar histórico git (caso necessário)
+git log -p | grep -i "sk-ant-" && echo "⚠️ POSSÍVEL VAZAMENTO!" || echo "✅ Nenhum secret encontrado"
+
+# Verificar arquivos de configuração locais (não versionados)
+grep -r "sk-ant-" ~/.config/ ~/.cursor/ ~/.vscode/ 2>/dev/null || echo "✅ Configs limpas"
+```
+
+### 5.5. Rotação de Chaves
+
+Recomenda-se rotacionar as API keys periodicamente:
+
+```bash
+# 1. Gerar nova chave no console da Anthropic
+# 2. Atualizar no 1Password
+op item edit "Anthropic API Key (Claude)" credential="sk-ant-NOVA_CHAVE"
+
+# 3. Recarregar variáveis de ambiente
+source ~/Dotfiles/scripts/load_ai_keys.sh
+
+# 4. Testar nova chave
+curl https://api.anthropic.com/v1/messages \
+  -H "x-api-key: $ANTHROPIC_API_KEY" \
+  -H "anthropic-version: 2023-06-01" \
+  -H "content-type: application/json" \
+  -d '{
+    "model": "claude-3-5-sonnet-20241022",
+    "max_tokens": 10,
+    "messages": [{"role": "user", "content": "Hello"}]
+  }'
+
+# 5. Revogar chave antiga no console da Anthropic
+```
+
+### 5.6. Troubleshooting
+
+#### Problema: "API key not found"
+
+```bash
+# Verificar se 1Password CLI está autenticado
+op account list
+
+# Re-autenticar se necessário
+eval $(op signin)
+
+# Verificar se o item existe
+op item get "Anthropic API Key (Claude)"
+
+# Testar leitura da chave
+op read "op://Development/Anthropic API Key (Claude)/credential"
+```
+
+#### Problema: Cursor/VS Code não reconhece a chave
+
+```bash
+# Verificar se a variável está exportada
+echo $ANTHROPIC_API_KEY
+
+# Se vazio, carregar novamente
+source ~/Dotfiles/scripts/load_ai_keys.sh
+
+# Reiniciar a IDE APÓS carregar as variáveis
+killall Cursor && open -a Cursor
+# ou
+killall Code && code .
+```
+
+#### Problema: "Permission denied" no 1Password CLI
+
+```bash
+# Verificar permissões do op
+ls -la $(which op)
+
+# Reinstalar se necessário
+brew reinstall --cask 1password-cli
+
+# Garantir que o 1Password app está rodando
+open -a "1Password"
+```
+
+---
+
+## 6. Integração com DevContainers
+
+Para ambientes de desenvolvimento em containers (`.devcontainer`), a estratégia de secrets precisa ser adaptada:
+
+### 6.1. Método Seguro: Mount de Secrets
+
+No `devcontainer.json`:
+
+```json
+{
+  "name": "system_prompts_dev",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "remoteEnv": {
+    "ANTHROPIC_API_KEY": "${localEnv:ANTHROPIC_API_KEY}"
+  },
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash"
+  },
+  "mounts": [
+    "source=${localEnv:HOME}/.config/op,target=/home/vscode/.config/op,type=bind,consistency=cached"
+  ],
+  "postCreateCommand": "echo '✅ DevContainer pronto com secrets do host'"
+}
+```
+
+### 6.2. Alternativa: Secret Injection via Script
+
+Criar `~/Dotfiles/scripts/inject_secrets_to_container.sh`:
+
+```bash
+#!/usr/bin/env bash
+# Injeta secrets do 1Password no container ativo
+
+CONTAINER_ID=$(docker ps -q --filter "label=devcontainer.local_folder=${PWD}")
+
+if [ -z "$CONTAINER_ID" ]; then
+  echo "❌ Nenhum DevContainer ativo encontrado"
+  exit 1
+fi
+
+# Carregar chave do 1Password
+ANTHROPIC_KEY=$(op read "op://Development/Anthropic API Key (Claude)/credential")
+
+# Injetar no container
+docker exec -it "$CONTAINER_ID" bash -c "echo 'export ANTHROPIC_API_KEY=${ANTHROPIC_KEY}' >> ~/.bashrc"
+
+echo "✅ Secrets injetados no container $CONTAINER_ID"
+```
+
+---
+
+## 7. Checklist de Configuração Completa
+
+Use este checklist para validar que tudo está configurado corretamente:
+
+- [ ] **1Password CLI instalado e configurado**
+
+  ```bash
+  op --version && op account list
+  ```
+
+- [ ] **API Key da Anthropic salva no 1Password**
+
+  ```bash
+  op item get "Anthropic API Key (Claude)"
+  ```
+
+- [ ] **Script de carregamento criado e funcional**
+
+  ```bash
+  source ~/Dotfiles/scripts/load_ai_keys.sh
+  echo $ANTHROPIC_API_KEY | grep -q "sk-ant-" && echo "✅" || echo "❌"
+  ```
+
+- [ ] **~/.zshrc configurado para carregar chaves automaticamente**
+
+  ```bash
+  grep -q "load_ai_keys" ~/.zshrc && echo "✅" || echo "❌"
+  ```
+
+- [ ] **Cursor configurado com modelo Claude**
+  - Abrir Cursor > Settings > Models
+  - Verificar: `claude-3-5-sonnet-20241022` selecionado
+
+- [ ] **VS Code (se usado) com extensão instalada**
+
+  ```bash
+  code --list-extensions | grep -q "anthropic" && echo "✅" || echo "❌"
+  ```
+
+- [ ] **.cursorrules criado no repositório**
+
+  ```bash
+  test -f .cursorrules && echo "✅" || echo "❌"
+  ```
+
+- [ ] **Script de auditoria executado sem erros**
+
+  ```bash
+  ./scripts/auditar-1password-secrets_v1.0.0_20251130.sh
+  ```
+
+- [ ] **Verificação de segurança: nenhum secret em plain text**
+
+  ```bash
+  ./scripts/verificar_secrets_restantes.sh
+  ```
+
+- [ ] **Teste de API funcional**
+
+  ```bash
+  curl -s https://api.anthropic.com/v1/messages \
+    -H "x-api-key: $ANTHROPIC_API_KEY" \
+    -H "anthropic-version: 2023-06-01" \
+    -H "content-type: application/json" \
+    -d '{"model":"claude-3-5-sonnet-20241022","max_tokens":10,"messages":[{"role":"user","content":"Hi"}]}' \
+    | jq -r '.content[0].text' && echo "✅ API funcionando"
+  ```
+
+---
+
+## 8. Referências e Recursos
+
+- **Documentação Oficial:**
+  - [Anthropic API Docs](https://docs.anthropic.com/)
+  - [Claude Models Overview](https://docs.anthropic.com/claude/docs/models-overview)
+  - [1Password CLI Documentation](https://developer.1password.com/docs/cli)
+
+- **Scripts do Repositório:**
+  - `scripts/auditar-1password-secrets_v1.0.0_20251130.sh` - Auditoria completa
+  - `scripts/verificar_secrets_restantes.sh` - Verificação de segurança
+  - `scripts/load_ai_keys.sh` - Carregamento de chaves (criar conforme seção 4.1.2)
+
+- **System Prompts:**
+  - `global/prompts/system/` - Prompts globais do sistema
+  - `.cursorrules` - Regras específicas por projeto
+
+- **Configurações:**
+  - `.vscode/settings.json` - Settings do VS Code no workspace
+  - `.devcontainer/devcontainer.json` - Configuração de DevContainer
+
+---
+
+**Fim do Documento**
+
+*Versão 1.0.0 - Última atualização: 2025-12-01*
+
+*Integração completa com 1Password CLI implementada*
