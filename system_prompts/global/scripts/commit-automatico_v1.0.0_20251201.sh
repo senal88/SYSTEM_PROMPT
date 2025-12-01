@@ -80,10 +80,10 @@ while IFS= read -r file; do
     if [[ -z "${file}" ]]; then
         continue
     fi
-    
+
     status="${file:0:2}"
     filepath="${file:3}"
-    
+
     # Classificar por tipo
     if [[ "${filepath}" =~ \.(sh|py|js|ts)$ ]] || [[ "${filepath}" =~ /scripts/ ]]; then
         if [[ "${filepath}" =~ fix|corrigir|correcao ]]; then
@@ -212,4 +212,3 @@ log_success "Commits concluídos: ${COMMIT_COUNT}"
 if [[ "${DRY_RUN}" == "true" ]]; then
     log_warning "MODO DRY-RUN - Nenhum commit foi realizado"
 fi
-
