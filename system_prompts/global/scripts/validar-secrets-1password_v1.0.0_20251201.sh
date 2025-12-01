@@ -138,9 +138,9 @@ validar_vault() {
 
     # Validar secrets necessários específicos
     if [[ "${vault_name}" == "1p_vps" ]]; then
-        validar_secrets_necessarios "1p_vps" "REQUIRED_SECRETS_1P_VPS"
+        validar_secrets_necessarios "1p_vps" "VPS"
     elif [[ "${vault_name}" == "1p_macos" ]]; then
-        validar_secrets_necessarios "1p_macos" "REQUIRED_SECRETS_1P_MACOS"
+        validar_secrets_necessarios "1p_macos" "MACOS"
     fi
 
     return 0
@@ -158,20 +158,18 @@ validar_secrets_necessarios() {
     
     MISSING_SECRETS=()
     
-    if [[ "${array_type}" == "REQUIRED_SECRETS_1P_VPS" ]]; then
-        declare -A secrets_array=(
-            ["yhqdcrihdk5c6sk7x7fwcqazqu"]="Service Account Auth Token: admin-vps conta de servico"
-            ["3ztgpgona7iy2htavjmtdccss4"]="GIT_PERSONAL"
-            ["6d3sildbgptpqp3lvyjt2gsjhy"]="github.com"
-            ["k6x3ye34k6p6rkz7b6e2qhjeci"]="GIT_TOKEN"
-        )
-    elif [[ "${array_type}" == "REQUIRED_SECRETS_1P_MACOS" ]]; then
-        declare -A secrets_array=(
-            ["kvhqgsi3ndrz4n65ptiuryrifa"]="service_1p_macos_dev_localhost"
-            ["3xpytbcndxqapydpz27lxoegwm"]="GIT_PAT |Nov-2025"
-            ["q36qe2k5ppapzhxdr2q24jtwta"]="SYSTEM_PROMPT | GIT_PERSONAL_KEY"
-            ["4ge66znk4qefkypev54t5ivebe"]="id_ed25519_universal"
-        )
+    if [[ "${array_type}" == "VPS" ]]; then
+        local -A secrets_array
+        secrets_array["yhqdcrihdk5c6sk7x7fwcqazqu"]="Service Account Auth Token: admin-vps conta de servico"
+        secrets_array["3ztgpgona7iy2htavjmtdccss4"]="GIT_PERSONAL"
+        secrets_array["6d3sildbgptpqp3lvyjt2gsjhy"]="github.com"
+        secrets_array["k6x3ye34k6p6rkz7b6e2qhjeci"]="GIT_TOKEN"
+    elif [[ "${array_type}" == "MACOS" ]]; then
+        local -A secrets_array
+        secrets_array["kvhqgsi3ndrz4n65ptiuryrifa"]="service_1p_macos_dev_localhost"
+        secrets_array["3xpytbcndxqapydpz27lxoegwm"]="GIT_PAT |Nov-2025"
+        secrets_array["q36qe2k5ppapzhxdr2q24jtwta"]="SYSTEM_PROMPT | GIT_PERSONAL_KEY"
+        secrets_array["4ge66znk4qefkypev54t5ivebe"]="id_ed25519_universal"
     else
         log_warning "Tipo de array desconhecido: ${array_type}"
         return 1
