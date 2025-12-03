@@ -1,0 +1,197 @@
+{
+    "name": "YouTube to Obsidian Mind Map",
+    "nodes": [
+        {
+            "parameters": {
+                "url": "={{ $json.youtube_url }}",
+                "options": {}
+            },
+            "type": "@kimtaeyoon83/youtube-transcript",
+            "typeVersion": 1,
+            "position": [
+                420,
+                300
+            ],
+            "id": "youtube-transcript-node",
+            "name": "Get YouTube Transcript"
+        },
+        {
+            "parameters": {
+                "model": "gpt-4-turbo-preview",
+                "messages": {
+                    "values": [
+                        {
+                            "role": "system",
+                            "content": "Você é um especialista em criar mapas mentais estruturados para Obsidian usando o formato Mind Maps NextGen. Siga TODAS as diretrizes do prompt de sistema para mapas mentais."
+                        },
+                        {
+                            "role": "user",
+                            "content": "Transcrição do vídeo:\n\n={{ $json.transcript }}\n\nCrie um mapa mental completo marcando ABUNDANTEMENTE conceitos com [[double brackets]]. Mínimo 30% de palavras marcadas."
+                        }
+                    ]
+                },
+                "options": {
+                    "temperature": 0.3,
+                    "maxTokens": 4000
+                }
+            },
+            "type": "n8n-nodes-base.openAi",
+            "typeVersion": 1.8,
+            "position": [
+                640,
+                300
+            ],
+            "id": "create-mindmap-node",
+            "name": "Create Mind Map with GPT-4",
+            "credentials": {
+                "openAiApi": {}
+            }
+        },
+        {
+            "parameters": {
+                "operation": "create",
+                "path": "={{ $('Webhook').item.json.body.output_path || 'mapas-mentais/' + $now.format('YYYYMMDD-HHmmss') + '.md' }}",
+                "content": "={{ $json.choices[0].message.content }}",
+                "options": {}
+            },
+            "type": "@fazer-ai/obsidian-file",
+            "typeVersion": 1,
+            "position": [
+                860,
+                300
+            ],
+            "id": "save-obsidian-node",
+            "name": "Save to Obsidian",
+            "credentials": {
+                "obsidianApi": {}
+            }
+        },
+        {
+            "parameters": {
+                "operation": "open",
+                "path": "={{ $('Save to Obsidian').item.json.path }}"
+            },
+            "type": "@fazer-ai/obsidian-file",
+            "typeVersion": 1,
+            "position": [
+                1080,
+                300
+            ],
+            "id": "open-obsidian-node",
+            "name": "Open in Obsidian"
+        },
+        {
+            "parameters": {
+                "operation": "execute",
+                "command": "mind-maps-nextgen:visualize"
+            },
+            "type": "@fazer-ai/obsidian-command",
+            "typeVersion": 1,
+            "position": [
+                1300,
+                300
+            ],
+            "id": "visualize-mindmap-node",
+            "name": "Visualize Mind Map"
+        },
+        {
+            "parameters": {
+                "path": "youtube-to-mindmap",
+                "responseMode": "responseNode"
+            },
+            "type": "n8n-nodes-base.webhook",
+            "typeVersion": 1,
+            "position": [
+                200,
+                300
+            ],
+            "id": "webhook-node",
+            "name": "Webhook"
+        },
+        {
+            "parameters": {
+                "respondWith": "json",
+                "responseBody": "={{ { success: true, mindmap_path: $('Save to Obsidian').item.json.path, graph_url: 'obsidian://open?vault=' + encodeURIComponent('segundo-cerebro-ia') + '&file=' + encodeURIComponent($('Save to Obsidian').item.json.path) } }}"
+            },
+            "type": "n8n-nodes-base.respondToWebhook",
+            "typeVersion": 1,
+            "position": [
+                1520,
+                300
+            ],
+            "id": "respond-node",
+            "name": "Respond"
+        }
+    ],
+    "connections": {
+        "Webhook": {
+            "main": [
+                [
+                    {
+                        "node": "Get YouTube Transcript",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Get YouTube Transcript": {
+            "main": [
+                [
+                    {
+                        "node": "Create Mind Map with GPT-4",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Create Mind Map with GPT-4": {
+            "main": [
+                [
+                    {
+                        "node": "Save to Obsidian",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Save to Obsidian": {
+            "main": [
+                [
+                    {
+                        "node": "Open in Obsidian",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Open in Obsidian": {
+            "main": [
+                [
+                    {
+                        "node": "Visualize Mind Map",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        },
+        "Visualize Mind Map": {
+            "main": [
+                [
+                    {
+                        "node": "Respond",
+                        "type": "main",
+                        "index": 0
+                    }
+                ]
+            ]
+        }
+    },
+    "settings": {
+        "executionOrder": "v1"
+    }
+}

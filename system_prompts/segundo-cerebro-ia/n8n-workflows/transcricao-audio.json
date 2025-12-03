@@ -1,0 +1,315 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "triggerOn": "specificFolder",
+        "folderToWatch": {
+          "__rl": true,
+          "mode": "list"
+        },
+        "event": "fileCreated",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDriveTrigger",
+      "typeVersion": 1,
+      "position": [
+        420,
+        460
+      ],
+      "id": "8fc9b379-8c71-4d34-b55e-b70d7ed4eb8e",
+      "name": "Arquivo adicionado",
+      "credentials": {
+        "googleDriveOAuth2Api": {}
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "801b8d7f-4c73-41b7-a630-9a8ace958dd8",
+              "leftValue": "={{ $json.mimeType }}",
+              "rightValue": "audio/",
+              "operator": {
+                "type": "string",
+                "operation": "startsWith"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        640,
+        460
+      ],
+      "id": "6559fdc1-64f5-48e3-93bd-3b75bd7bd180",
+      "name": "É áudio?"
+    },
+    {
+      "parameters": {
+        "resource": "audio",
+        "operation": "transcribe",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        1520,
+        460
+      ],
+      "id": "3d920439-8861-48f3-8c82-1a25434605a0",
+      "name": "Transcrever",
+      "credentials": {
+        "openAiApi": {}
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "options": {
+          "__rl": true,
+          "mode": "list"
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        860,
+        460
+      ],
+      "id": "3b8078a7-46a5-4e53-ab38-3a687755cc27",
+      "name": "Download original",
+      "credentials": {
+        "googleDriveOAuth2Api": {}
+      }
+    },
+    {
+      "parameters": {
+        "operation": "createFromText",
+        "content": "={{ $json.text }}",
+        "name": "={{ $('Upload para transcode').item.json.public_id }} - Transcrição",
+        "driveId": {
+          "__rl": true,
+          "mode": "list"
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list"
+        },
+        "options": {
+          "convertToGoogleDocument": true
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1740,
+        460
+      ],
+      "id": "3dae81dc-5415-40c8-9b08-e7b9bdbfbb80",
+      "name": "Upload transcrição",
+      "credentials": {
+        "googleDriveOAuth2Api": {}
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Como configurar Cloudinary\n## [Criar conta Cloudinary](https://cloudinary.com/invites/lpov9zyyucivvxsnalc5/fqkod3fognpn2x5iqyor?t=default)\n\n\n### Chaves de API\n1. Na tela inicial, clicar em View API Keys\n2. Copiar \"Cloud name\", \"API key\" e \"API secret\"\n3. Configurar campos no N8N: \"Cloud name\" nas URLs, \"API key\" e \"API secret\" no corpo das requisições\n\n### Upload preset\n1. Ir nas configurações do Cloudinary (engrenagem canto inferior esquerdo)\n2. Clicar em \"Upload\"\n3. Clicar em \"Add Upload Preset\"\n4. Configurar campos corretamente:\n  a. Nome: **audio-transcode** (Se diferente, alterar no node \"Upload para transcode\" abaixo)\n  b. (IMPORTANTE!!) Signing mode: **Unsigned**\n5. Clicar em \"Save\"\n",
+        "height": 500,
+        "width": 740,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1080,
+        -120
+      ],
+      "id": "fff1f17e-5af6-4f74-8b24-997b9b7f7941",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "[![fazer.ai](https://framerusercontent.com/images/HqY9djLTzyutSKnuLLqBr92KbM.png?scale-down-to=256)](https://fazer.ai?utm_source=n8n&utm_campaign=mindmap)\n\n## Esse é um template faça você mesmo do canal\n## Lucas Moreira\n### Gostou? Quer uma ajuda pra melhorar os processos da sua empresa? Entra lá no fazer.ai e manda uma mensagem pra gente\n\n\n### Inscreva-se no nosso canal no YouTube\n[![YouTube Lucas Moreira](https://img.shields.io/youtube/channel/subscribers/UCtmp6SxzLscu0GRTbgM8FTw?style=flat-square&logo=youtube&label=Inscreva-se&color=f00)](https://youtube.com/@eulucassmoreira?si=0lH7hwX9pukjhmPQ)\n\n### Siga nosso GitHub\n[![GitHub fazer.ai](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white&label)](https://github.com/fazer-ai)\n",
+        "height": 480,
+        "width": 630,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        420,
+        -300
+      ],
+      "id": "c7535cc1-e032-4b2c-b837-6267e9a30c2a",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.cloudinary.com/v1_1/<seu Cloud name>/video/upload",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "data"
+            },
+            {
+              "name": "api_key",
+              "value": "<sua API key>"
+            },
+            {
+              "name": "api_secret",
+              "value": "<sua API secret>"
+            },
+            {
+              "name": "public_id",
+              "value": "={{ $json.name.split('.').first() }}"
+            },
+            {
+              "name": "upload_preset",
+              "value": "audio-transcode"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1080,
+        460
+      ],
+      "id": "dc1ca20c-842b-48bb-975d-b207dcc93e24",
+      "name": "Upload para transcode"
+    },
+    {
+      "parameters": {
+        "content": "## Tutorial de instalação dependências\n\nhttps://gist.github.com/gabrieljablonski/712cecb621b47e2f25342b8088566e80\n\nhttps://github.com/fazer-ai/mcp-obsidian",
+        "height": 180,
+        "width": 640,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        420,
+        200
+      ],
+      "id": "b768f389-8828-48cf-9b73-5668bc9d175f",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "url": "=https://res.cloudinary.com/<seu Cloud name>/video/upload/ac_mp3,br_48k/{{ $json.public_id }}.mp3",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1300,
+        460
+      ],
+      "id": "5031d76d-c492-4c3e-90c0-7c574ed4e3d7",
+      "name": "Download áudio transcodado"
+    }
+  ],
+  "connections": {
+    "Arquivo adicionado": {
+      "main": [
+        [
+          {
+            "node": "É áudio?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "É áudio?": {
+      "main": [
+        [
+          {
+            "node": "Download original",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transcrever": {
+      "main": [
+        [
+          {
+            "node": "Upload transcrição",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download original": {
+      "main": [
+        [
+          {
+            "node": "Upload para transcode",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload transcrição": {
+      "main": [
+        []
+      ]
+    },
+    "Upload para transcode": {
+      "main": [
+        [
+          {
+            "node": "Download áudio transcodado",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download áudio transcodado": {
+      "main": [
+        [
+          {
+            "node": "Transcrever",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

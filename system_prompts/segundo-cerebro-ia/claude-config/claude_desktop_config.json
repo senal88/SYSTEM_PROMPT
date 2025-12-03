@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "@fazer-ai/mcp-obsidian": {
+      "command": "bunx",
+      "args": [
+        "@fazer-ai/mcp-obsidian@latest"
+      ],
+      "env": {
+        "OBSIDIAN_API_KEY": "c5124d06c5ac5d92a7155c66419b154b0019af772605db30eb98def7253a077f",
+        "OBSIDIAN_VAULT_PATH": "/Users/luiz.sena88/Dotfiles/system_prompts/segundo-cerebro-ia/obsidian-vault"
+      }
+    },
+    "youtube-transcript": {
+      "command": "bunx",
+      "args": [
+        "-y",
+        "@kimtaeyoon83/mcp-server-youtube-transcript"
+      ]
+    }
+  }
+}
