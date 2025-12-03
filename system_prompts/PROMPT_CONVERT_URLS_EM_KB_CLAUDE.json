@@ -1,0 +1,470 @@
+[
+  {
+    "https://claude.ai/catalog/artifacts": "http://www.claude.ai/"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://status.anthropic.com/"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://trust.anthropic.com/"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://www.anthropic.com/news/claude-opus-4-5"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://www.anthropic.com/news/claude-sonnet-4-5"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://www.anthropic.com/news/claude-haiku-4-5"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://www.anthropic.com/learn"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://www.anthropic.com/engineering"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://www.anthropic.com/events"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://www.anthropic.com/company"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://www.anthropic.com/careers"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://www.anthropic.com/economic-futures"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://www.anthropic.com/research"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://www.anthropic.com/news"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://www.anthropic.com/news/announcing-our-updated-responsible-scaling-policy"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://www.anthropic.com/transparency"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://www.anthropic.com/supported-countries"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://www.anthropic.com/discord"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://www.anthropic.com/legal/privacy"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://www.anthropic.com/responsible-disclosure-policy"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://www.anthropic.com/legal/commercial-terms"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://www.anthropic.com/legal/consumer-terms"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://www.anthropic.com/legal/aup"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://claude.com/solutions/agents"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://claude.com/solutions/code-modernization"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://claude.com/solutions/coding"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://claude.com/solutions/customer-support"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://claude.com/solutions/education"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://claude.com/solutions/financial-services"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://claude.com/solutions/government"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://claude.com/solutions/life-sciences"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://claude.com/partners/amazon-bedrock"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://claude.com/partners/google-cloud-vertex-ai"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://claude.com/blog"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://claude.com/resources/use-cases"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://claude.com/partners/mcp"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://claude.com/customers"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://claude.com/partners/powered-by-claude"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://claude.com/partners/services"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://claude.com/programs/startups"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/home"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/intro"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/api/overview"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/resources/overview"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/release-notes/overview"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/login?returnTo=%2Fdocs%2Fen%2Fintro"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/get-started"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/about-claude/models/overview"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/about-claude/models/choosing-a-model"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/about-claude/models/whats-new-claude-4-5"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/about-claude/models/migrating-to-claude-4"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/about-claude/model-deprecations"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/about-claude/pricing"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/overview"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/working-with-messages"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/context-windows"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-4-best-practices"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/prompt-caching"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/context-editing"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/extended-thinking"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/effort"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/streaming"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/batch-processing"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/citations"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/multilingual-support"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/token-counting"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/embeddings"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/vision"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/pdf-support"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/files"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/search-results"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/structured-outputs"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agents-and-tools/claude-for-sheets"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/implement-tool-use"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/token-efficient-tool-use"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/fine-grained-tool-streaming"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/bash-tool"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/programmatic-tool-calling"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/computer-use-tool"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/text-editor-tool"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-fetch-tool"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/web-search-tool"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/memory-tool"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agents-and-tools/tool-use/tool-search-tool"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/overview"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/quickstart"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/skills-guide"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agent-sdk/overview"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agent-sdk/typescript"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agent-sdk/python"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agent-sdk/migration-guide"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agent-sdk/streaming-vs-single-mode"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agent-sdk/permissions"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agent-sdk/sessions"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agent-sdk/structured-outputs"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agent-sdk/hosting"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agent-sdk/modifying-system-prompts"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agent-sdk/mcp"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agent-sdk/custom-tools"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agent-sdk/subagents"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agent-sdk/slash-commands"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agent-sdk/skills"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agent-sdk/cost-tracking"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agent-sdk/todo-tracking"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agent-sdk/plugins"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agents-and-tools/mcp-connector"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/agents-and-tools/remote-mcp-servers"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/claude-on-amazon-bedrock"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompt-generator"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompt-templates-and-variables"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompt-improver"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/be-clear-and-direct"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/multishot-prompting"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/chain-of-thought"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/use-xml-tags"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/system-prompts"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prefill-claudes-response"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/chain-prompts"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/long-context-tips"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/extended-thinking-tips"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/test-and-evaluate/define-success"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/test-and-evaluate/develop-tests"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/test-and-evaluate/eval-tool"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-latency"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-hallucinations"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/increase-consistency"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/mitigate-jailbreaks"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/handle-streaming-refusals"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/reduce-prompt-leak"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/test-and-evaluate/strengthen-guardrails/keep-claude-in-character"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/administration-api"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/usage-cost-api"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/claude-code-analytics-api"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/login"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/resources/prompt-library/library"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/build-with-claude/text-generation"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/intro#get-started"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/intro#develop-with-claude"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/intro#key-capabilities"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs/en/intro#support"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://platform.claude.com/docs"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://status.claude.com/"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://support.claude.com/en/"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://support.claude.com/"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://github.com/anthropics/anthropic-cookbook"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://instagram.com/claudeai"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://www.linkedin.com/showcase/claude"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://x.com/claudeai"
+  },
+  {
+    "https://claude.ai/catalog/artifacts": "https://modelcontextprotocol.io/"
+  }
+]
