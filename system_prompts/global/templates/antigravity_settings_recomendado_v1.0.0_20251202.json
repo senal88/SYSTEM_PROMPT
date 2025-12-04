@@ -1,0 +1,303 @@
+{
+    // =====================
+    // Antigravity IDE Settings (Template Recomendado)
+    // Alinhado com repositório SYSTEM_PROMPT
+    // Data: 2025-12-02
+    // =====================
+    // --- Interface & Idioma ---
+    "locale": "pt-BR",
+    "workbench.startupEditor": "none",
+    "workbench.editor.enablePreview": false,
+    "workbench.editor.showTabs": true,
+    "telemetry.enableTelemetry": false,
+    "telemetry.enableCrashReporter": false,
+    // --- Aparência ---
+    "workbench.colorTheme": "Default Dark+",
+    "workbench.iconTheme": "vs-seti",
+    "editor.minimap.enabled": true,
+    "editor.renderWhitespace": "boundary",
+    "editor.guides.indentation": true,
+    "editor.cursorBlinking": "smooth",
+    // --- Arquivos & Encoding ---
+    "files.autoSave": "onFocusChange",
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "files.encoding": "utf8",
+    "files.eol": "\n",
+    // --- Editor & Código ---
+    "editor.tabSize": 2,
+    "editor.detectIndentation": false,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit",
+        "source.fixAll": "explicit"
+    },
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": false,
+        "strings": true
+    },
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.inlineSuggest.enabled": true,
+    // --- Terminal ---
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "terminal.integrated.scrollback": 5000,
+    "terminal.integrated.enableFileLinks": "on",
+    "terminal.integrated.env.osx": {
+        "SYSTEM_PROMPTS_DIR": "${env:HOME}/Dotfiles/system_prompts",
+        "ANTHROPIC_API_KEY": "${env:ANTHROPIC_API_KEY}",
+        "OPENAI_API_KEY": "${env:OPENAI_API_KEY}",
+        "GEMINI_API_KEY": "${env:GEMINI_API_KEY}",
+        "GITHUB_TOKEN": "${env:GITHUB_TOKEN}"
+    },
+    "terminal.integrated.env.linux": {
+        "SYSTEM_PROMPTS_DIR": "${env:HOME}/Dotfiles/system_prompts"
+    },
+    // --- Segurança & Privacidade ---
+    "security.workspace.trust.enabled": true,
+    "security.workspace.trust.startupPrompt": "never",
+    "workbench.enableExperiments": false,
+    "extensions.autoUpdate": true,
+    "extensions.autoCheckUpdates": true,
+    "extensions.ignoreRecommendations": false,
+    // ⚠️ RESTRIÇÕES DE SEGURANÇA
+    "security.disallowedFilePatterns": [
+        "**/.env",
+        "**/secrets.json",
+        "**/credentials.json",
+        "**/*_rsa",
+        "**/*_dsa",
+        "**/*.pem",
+        "**/*.key",
+        "**/*.p12",
+        "**/*.pfx"
+    ],
+    "security.workspace.trust.untrustedFiles": "prompt",
+    "security.allowedUnsignedExtensions": [],
+    // --- Git & Versionamento ---
+    "git.enableSmartCommit": true,
+    "git.confirmSync": false,
+    "git.autofetch": true,
+    "git.pruneOnFetch": true,
+    "git.rebaseWhenSync": true,
+    // --- Busca & Navegação ---
+    "search.useIgnoreFiles": true,
+    "search.useGlobalIgnoreFiles": true,
+    "search.smartCase": true,
+    // --- Lint & Qualidade ---
+    "eslint.enable": true,
+    "eslint.format.enable": true,
+    "eslint.run": "onType",
+    "eslint.codeActionsOnSave.mode": "problems",
+    "eslint.codeActionsOnSave.rules": [
+        "*"
+    ],
+    // --- Prettier ---
+    "prettier.printWidth": 100,
+    "prettier.singleQuote": true,
+    "prettier.trailingComma": "all",
+    "prettier.arrowParens": "avoid",
+    "prettier.useTabs": false,
+    "prettier.semi": true,
+    // --- Prompts & IA (Integrações) ---
+    "ai.systemPrompts.root": "${env:HOME}/Dotfiles/system_prompts/global/prompts/system",
+    "ai.prompts.universalFile": "${env:HOME}/Dotfiles/system_prompts/global/SYSTEM_PROMPT_UNIVERSAL_v1.0.0_20251130.md",
+    "ai.prompts.rulesFile": "${env:HOME}/Dotfiles/system_prompts/.cursorrules",
+    "ai.context.maxFiles": 25,
+    "ai.context.maxCharsPerFile": 60000,
+    "ai.context.excludeGlobs": [
+        "**/node_modules/**",
+        "**/.git/**",
+        "**/dist/**",
+        "**/.cache/**",
+        "**/.env*",
+        "**/secrets/**",
+        "**/credentials/**",
+        "**/*.key",
+        "**/*.pem",
+        "**/id_rsa*",
+        "**/id_dsa*",
+        "**/.ssh/**"
+    ],
+    // ⚠️ RESTRIÇÕES DE IA
+    "ai.restrictions.noExecuteCommands": true,
+    "ai.restrictions.noFileSystemWrite": false,
+    "ai.restrictions.noNetworkAccess": false,
+    "ai.restrictions.maxTokensPerRequest": 8000,
+    "ai.restrictions.requireApprovalFor": [
+        "file_delete",
+        "git_push",
+        "npm_install",
+        "terminal_execute",
+        "database_query"
+    ],
+    "ai.restrictions.blockedOperations": [
+        "rm -rf /",
+        "sudo rm",
+        "format",
+        "mkfs",
+        "dd if=/dev/zero",
+        ":(){ :|:& };:",
+        "eval",
+        "exec",
+        "chmod 777"
+    ],
+    // --- Claude / Anthropic ---
+    "anthropic.enabled": true,
+    "anthropic.model": "claude-3-5-sonnet-20241022",
+    "anthropic.maxOutputTokens": 4000,
+    "anthropic.temperature": 0.2,
+    "anthropic.useSystemPrompt": true,
+    "anthropic.systemPromptPath": "${env:HOME}/Dotfiles/system_prompts/global/docs/CLAUDE_SETUP_v1.0.0_20251130.md",
+    // ⚠️ RESTRIÇÕES CLAUDE
+    "anthropic.restrictions.noCodeExecution": true,
+    "anthropic.restrictions.noShellCommands": true,
+    "anthropic.restrictions.requireConfirmation": [
+        "file_write",
+        "file_delete",
+        "git_operations"
+    ],
+    "anthropic.safety.contentFiltering": true,
+    "anthropic.safety.blockMaliciousPrompts": true,
+    // --- OpenAI ---
+    "openai.enabled": true,
+    "openai.model": "gpt-4-turbo",
+    "openai.temperature": 0.2,
+    "openai.maxTokens": 3000,
+    "openai.systemPromptSource": "${env:HOME}/Dotfiles/system_prompts/global/prompts/system/universal.md",
+    // --- Gemini ---
+    "gemini.enabled": true,
+    "gemini.model": "gemini-1.5-pro",
+    "gemini.maxOutputTokens": 3000,
+    "gemini.temperature": 0.2,
+    "gemini.systemPromptSource": "${env:HOME}/Dotfiles/system_prompts/global/docs/GEMINI_SETUP_v1.0.0_20251130.md",
+    // --- Copilot ---
+    "github.copilot.inlineSuggest.enable": true,
+    "github.copilot.enable": {
+        "*": true,
+        "markdown": true,
+        "plaintext": false
+    },
+    "github.copilot.advanced": {
+        "model": "gpt-4",
+        "logLevel": "warn"
+    },
+    // --- Testes & Cobertura ---
+    "testing.autoRun.delay": 1500,
+    "testing.autoRun.mode": "onSave",
+    // --- Explorador ---
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.expand": false,
+    "explorer.fileNesting.patterns": {
+        "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml",
+        "tsconfig.json": "tsconfig.*.json"
+    },
+    // --- Telemetria & Experimentos ---
+    "workbench.settings.enableNaturalLanguageSearch": false,
+    "update.mode": "manual",
+    // --- Diversos ---
+    "breadcrumbs.enabled": true,
+    "outline.icons": true,
+    "problems.autoReveal": true,
+    "debug.openDebug": "openOnSessionStart",
+    "extensions.showRecommendationsOnlyOnDemand": true,
+    // --- Governança de Códigos (Custom) ---
+    "governance.scripts.root": "${env:HOME}/Dotfiles/system_prompts/global/scripts",
+    "governance.audit.enabled": true,
+    "governance.audit.frequencyHours": 24,
+    "governance.audit.exclusions": [
+        "**/node_modules/**",
+        "**/.git/**",
+        "**/*.log"
+    ],
+    // ⚠️ RESTRIÇÕES DE GOVERNANÇA
+    "governance.restrictions.prohibitedPatterns": [
+        "eval\\(",
+        "exec\\(",
+        "__import__",
+        "os.system",
+        "subprocess.call",
+        "dangerouslySetInnerHTML",
+        "v-html",
+        "innerHTML",
+        "document.write",
+        "new Function\\(",
+        "setTimeout\\(.*string",
+        "setInterval\\(.*string"
+    ],
+    "governance.restrictions.prohibitedPackages": [
+        "eval-js",
+        "node-eval",
+        "unsafe-eval",
+        "remote-exec"
+    ],
+    "governance.restrictions.prohibitedCommands": [
+        "rm -rf /",
+        "sudo su",
+        "chmod 777",
+        "chown -R root",
+        "mkfs",
+        "dd if=/dev/zero",
+        ":(){ :|:& };:"
+    ],
+    "governance.restrictions.requireCodeReview": [
+        "database/**",
+        "security/**",
+        "auth/**",
+        "payment/**"
+    ],
+    "governance.validation.enforceTests": true,
+    "governance.validation.minCoverage": 80,
+    "governance.validation.requireDocs": true,
+    // --- Perfil de Desempenho ---
+    "performance.lazyLoadExtensions": true,
+    "performance.maxMemoryMB": 4096,
+    // =====================
+    // ⚠️ RESUMO DE RESTRIÇÕES CRÍTICAS
+    // =====================
+    // 🚫 NUNCA PERMITIDO:
+    // - Executar comandos destrutivos (rm -rf /, format, mkfs)
+    // - Alterar permissões root (sudo, chmod 777)
+    // - Executar código não validado (eval, exec)
+    // - Acessar arquivos de credenciais (.env, *.key, *.pem)
+    // - Instalar pacotes não auditados sem revisão
+    // - Fazer push direto sem validação de testes
+    // - Modificar configurações de segurança
+    // - Desabilitar proteções de workspace trust
+    // - Exportar credenciais em logs ou commits
+    // - Executar fork bombs ou DoS
+    //
+    // ✅ REQUER APROVAÇÃO MANUAL:
+    // - Deletar arquivos (file_delete)
+    // - Git push (git_push)
+    // - Instalar dependências (npm_install)
+    // - Executar comandos terminal (terminal_execute)
+    // - Queries de banco de dados (database_query)
+    // - Modificar arquivos em: database/, security/, auth/, payment/
+    //
+    // 📋 VALIDAÇÕES OBRIGATÓRIAS:
+    // - Cobertura de testes >= 80%
+    // - Documentação de código
+    // - Code review em áreas críticas
+    // - Auditoria de segurança a cada 24h
+    // - Filtro de conteúdo malicioso em prompts
+    //
+    // 🔐 ARQUIVOS PROTEGIDOS:
+    // - .env, secrets.json, credentials.json
+    // - *.key, *.pem, *.p12, *.pfx
+    // - id_rsa*, id_dsa*, ~/.ssh/*
+    // - API keys, tokens, senhas
+    //
+    // 🛡️ OPERAÇÕES SEGURAS:
+    // - Usar 1Password CLI para credenciais
+    // - Scripts devem ter proteção anti-source
+    // - Logs não devem conter secrets
+    // - Commits devem passar por lint + tests
+    // - Backups automáticos antes de operações destrutivas
+    // =====================
+}

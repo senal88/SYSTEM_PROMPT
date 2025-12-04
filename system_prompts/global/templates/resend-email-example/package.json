@@ -1,0 +1,26 @@
+{
+    "name": "resend-email-example",
+    "version": "1.0.0",
+    "description": "Exemplo de integração Resend com 1Password",
+    "type": "module",
+    "main": "src/index.js",
+    "scripts": {
+        "dev": "node --env-file=.env.local src/index.js",
+        "send": "node src/send-email.js",
+        "send:template": "node src/send-template.js",
+        "test": "node src/test-connection.js"
+    },
+    "keywords": [
+        "resend",
+        "email",
+        "1password"
+    ],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "resend": "^3.0.0"
+    },
+    "devDependencies": {
+        "dotenv": "^16.3.1"
+    }
+}

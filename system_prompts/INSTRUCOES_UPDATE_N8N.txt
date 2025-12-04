@@ -1,0 +1,80 @@
+████████████████████████████████████████████████████████████████
+  GUIA RÁPIDO: EXECUTAR UPDATE N8N v1.122.4 COM MCP
+████████████████████████████████████████████████████████████████
+
+📋 O QUE SERÁ FEITO:
+  ✅ Backup completo (docker-compose + volumes + database)
+  ✅ Upload do novo docker-compose.yml para VPS
+  ✅ Carregamento de API keys via 1Password
+  ✅ Update para n8n v1.122.4
+  ✅ Habilitação de MCP (Model Context Protocol)
+  ✅ Configuração de AI Safeguards
+  ✅ Validação e healthcheck
+
+════════════════════════════════════════════════════════════════
+
+🚀 EXECUTAR AGORA:
+
+Copie e cole no seu terminal (Terminal.app ou iTerm2):
+
+cd ~/Dotfiles/system_prompts && \
+chmod +x scripts/update_n8n_vps.sh && \
+chmod +x EXECUTAR_UPDATE_N8N.sh && \
+bash EXECUTAR_UPDATE_N8N.sh
+
+════════════════════════════════════════════════════════════════
+
+📊 OPÇÕES ALTERNATIVAS:
+
+1️⃣  DRY-RUN (simular sem executar):
+    bash scripts/update_n8n_vps.sh --dry-run
+
+2️⃣  APENAS BACKUP (sem update):
+    bash scripts/update_n8n_vps.sh --backup-only
+
+3️⃣  UPDATE DIRETO (sem confirmação):
+    bash scripts/update_n8n_vps.sh
+
+════════════════════════════════════════════════════════════════
+
+⚠️  PRÉ-REQUISITOS VERIFICADOS:
+  ✅ docker-compose.n8n.yml atualizado para v1.122.4
+  ✅ Script update_n8n_vps.sh criado
+  ✅ Documentação completa em global/docs/N8N_SETUP_MCP_v1.0.0_20251202.md
+  ✅ Configuração SSH para VPS disponível
+  ✅ 1Password CLI configurado (para carregar API keys)
+
+════════════════════════════════════════════════════════════════
+
+📝 APÓS A EXECUÇÃO:
+
+1. Verifique logs:
+   ssh vps
+   docker logs -f n8n
+
+2. Acesse a interface:
+   https://n8n.senamfo.com (ou seu domínio)
+
+3. Teste MCP:
+   docker exec n8n env | grep N8N_MCP
+
+4. Veja documentação completa:
+   cat global/docs/N8N_SETUP_MCP_v1.0.0_20251202.md
+
+════════════════════════════════════════════════════════════════
+
+🆘 EM CASO DE PROBLEMAS:
+
+ROLLBACK:
+  cd ~/Dotfiles/system_prompts
+  ssh vps
+  cd /root/backups/n8n/YYYYMMDD_HHMMSS  # usar última pasta
+  docker-compose -f /root/docker-compose.n8n.yml down
+  cp docker-compose.n8n.yml.bak /root/docker-compose.n8n.yml
+  docker-compose -f /root/docker-compose.n8n.yml up -d
+
+SUPORTE:
+  Veja seção 9 (Troubleshooting) da documentação:
+  ~/Dotfiles/system_prompts/global/docs/N8N_SETUP_MCP_v1.0.0_20251202.md
+
+════════════════════════════════════════════════════════════════

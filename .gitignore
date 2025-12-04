@@ -283,3 +283,4 @@ system_prompts/.vscode/
 system_prompts/scripts/
 system_prompts/terminal/
 system_prompts/PROMPT_GEMINI_DEPLOY_ANTIGRAVITY_MACOS.md
+temp_env_n8n

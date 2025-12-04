@@ -10,6 +10,29 @@ Eles devem estar **SOMENTE** em:
 
 - `~/Dotfiles/system_prompts/global/` ← **ESTE DIRETÓRIO**
 
+## 🔐 SEGURANÇA E RESTRIÇÕES
+
+**📖 LEITURA OBRIGATÓRIA:**
+
+- [Restrições e Operações Proibidas](docs/RESTRICOES_E_OPERACOES_PROIBIDAS_v1.0.0_20251202.md)
+
+**🚫 Resumo de Operações NUNCA Permitidas:**
+
+- Comandos destrutivos: `rm -rf /`, `format`, `mkfs`
+- Elevação de privilégios: `sudo su`, `chmod 777`
+- Execução de código não validado: `eval()`, `exec()`
+- Exposição de credenciais em logs ou commits
+- Desabilitação de proteções de segurança
+- Instalação de pacotes não auditados
+
+**✅ Operações que Requerem Aprovação:**
+
+- Deletar arquivos (`file_delete`)
+- Git push (`git_push`)
+- Instalar dependências (`npm_install`)
+- Executar comandos terminal (`terminal_execute`)
+- Queries de banco de dados (`database_query`)
+
 ## 📁 Estrutura
 
 ```text
@@ -81,7 +104,8 @@ Eles devem estar **SOMENTE** em:
 │   ├── load_ai_keys.sh ⭐ (carrega todas as API keys via 1Password)
 │   ├── inject_secrets_to_container.sh ⭐ (injeta secrets em DevContainers)
 │   ├── auto_config_shells_macos.sh (config automática de shells)
-│   └── verify_shells_macos.sh (verificação de shells)
+│   ├── verify_shells_macos.sh (verificação de shells)
+│   └── update_n8n_vps.sh ⭐ (atualiza n8n no VPS com MCP v1.122.4)
 │
 ├── audit/ (auditorias históricas)
 │   └── YYYYMMDD_HHMMSS/ (timestamp da auditoria)

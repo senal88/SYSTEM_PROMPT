@@ -1,0 +1,152 @@
+{
+  "abacus": {
+    "platform": "Abacus AI",
+    "version": "1.0.0",
+    "last_updated": "2025-12-02",
+    "components": {
+      "chatllm": {
+        "name": "ChatLLM AI Super Assistant",
+        "description": "Plataforma agregadora de LLMs com roteamento inteligente",
+        "pricing": {
+          "monthly": 10,
+          "currency": "USD",
+          "credits": 2000000,
+          "credits_unit": "computational_points"
+        },
+        "llms_available": [
+          "GPT-4.1",
+          "Grok 4",
+          "Gemini 2.5 Pro",
+          "Claude Pro",
+          "Perplexity Pro",
+          "Deepseek"
+        ],
+        "total_llms": 22,
+        "routing": {
+          "enabled": true,
+          "method": "Houter (LLM Router)",
+          "description": "Seleciona automaticamente o LLM mais adequado para cada tarefa"
+        },
+        "features": {
+          "multi_llm_access": true,
+          "intelligent_routing": true,
+          "credit_monitoring": true,
+          "video_generation": true,
+          "image_generation": true
+        }
+      },
+      "deep_agent": {
+        "name": "Deep Agent",
+        "description": "Agente autônomo para tarefas complexas e automação avançada",
+        "status": "premium",
+        "features": {
+          "website_generation": {
+            "enabled": true,
+            "description": "Geração completa de sites e aplicativos",
+            "stack": ["Prisma", "Connect GS", "PostgreSQL"],
+            "capabilities": ["Full SaaS", "Backend funcional", "Database nativo"]
+          },
+          "workflow_automation": {
+            "enabled": true,
+            "description": "Automatização de processos de negócios",
+            "examples": [
+              "Previsão de tendências de vendas",
+              "Chatbots personalizados",
+              "Tarefas repetitivas programadas"
+            ]
+          },
+          "deep_research": {
+            "enabled": true,
+            "description": "Pesquisa profunda e navegação web ao vivo",
+            "capabilities": [
+              "Web scraping",
+              "Análise de dados",
+              "Análise de vídeos",
+              "Análise de reuniões"
+            ]
+          },
+          "media_creation": {
+            "enabled": true,
+            "description": "Criação de mídia e documentos",
+            "capabilities": [
+              "Geração de vídeos",
+              "Geração de imagens (Dalle, Flux)",
+              "Apresentações PowerPoint",
+              "Relatórios",
+              "Humanização de texto"
+            ]
+          },
+          "code_generation": {
+            "enabled": true,
+            "description": "Geração de código e sistemas completos",
+            "related_product": "CodeLLM",
+            "note": "Substituição para Cursor, mais barato"
+          }
+        }
+      },
+      "developer_platform": {
+        "name": "Developer Platform",
+        "description": "Plataforma para desenvolvedores com SDK e API",
+        "sdk": {
+          "python": {
+            "available": true,
+            "version": "latest",
+            "documentation": "https://docs.abacus.ai/developer-platform/python-sdk"
+          }
+        },
+        "api": {
+          "available": true,
+          "pricing": {
+            "input_tokens": "per_million",
+            "output_tokens": "per_million",
+            "note": "Taxas adicionais além da assinatura mensal"
+          },
+          "documentation": "https://docs.abacus.ai/api"
+        }
+      }
+    },
+    "credentials": {
+      "api_key": {
+        "source": "1password",
+        "vault": "1p_macos",
+        "item": "Abacus-AI-API-Key",
+        "field": "credential",
+        "env_var": "ABACUS_API_KEY"
+      },
+      "account_email": {
+        "source": "1password",
+        "vault": "1p_macos",
+        "item": "Abacus-AI-Account",
+        "field": "email"
+      }
+    },
+    "configuration": {
+      "default_llm": "auto",
+      "credit_alert_threshold": 100000,
+      "auto_routing": true,
+      "deep_agent_enabled": true
+    },
+    "documentation": {
+      "user_guide": "https://docs.abacus.ai/user-guide",
+      "developer_guide": "https://docs.abacus.ai/developer-platform",
+      "prompting_tips": "https://docs.abacus.ai/prompting-tips",
+      "faq": "https://docs.abacus.ai/faq"
+    },
+    "domains": {
+      "web_platform": "https://abacus.ai",
+      "api_endpoint": "https://api.abacus.ai",
+      "custom_domain": "abacus.senamfo.com.br"
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+

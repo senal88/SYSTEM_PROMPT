@@ -1,0 +1,236 @@
+# ========================================
+# .gitignore Global - SYSTEM_PROMPT
+# Versão: 1.0.0
+# Data: 2025-12-02
+# ========================================
+# 🔐 ARQUIVOS DE CREDENCIAIS (NUNCA COMMITAR)
+# ========================================
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+.env.development
+.env.test
+.env.production
+.envrc
+.envs
+
+# Secrets & Credentials
+secrets.json
+credentials.json
+config/secrets.yml
+config/credentials.yml
+**/*secret*
+**/*credential*
+**/*password*
+
+# SSH Keys
+*.pem
+*.key
+*.ppk
+id_rsa
+id_dsa
+id_ecdsa
+id_ed25519
+known_hosts
+authorized_keys
+
+# SSL Certificates
+*.p12
+*.pfx
+*.keystore
+*.jks
+*.crt
+*.cert
+*.ca-bundle
+
+# Cloud Credentials
+.aws/credentials
+.aws/config
+.gcp/credentials.json
+.gcp/key.json
+.azure/credentials
+gcloud-service-key.json
+
+# Database
+*.sqlite
+*.sqlite3
+*.db
+database.json
+
+# API Keys files
+api_keys.json
+api_keys.yml
+token.txt
+access_token.txt
+
+# ========================================
+# 🗑️ ARQUIVOS TEMPORÁRIOS E CACHE
+# ========================================
+
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+*.iml
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+.pnp.*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+env/
+.venv
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Ruby
+*.gem
+*.rbc
+.bundle
+vendor/bundle
+
+# Go
+*.exe
+*.test
+*.out
+vendor/
+
+# Rust
+target/
+Cargo.lock
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# ========================================
+# 📦 BUILD E DIST
+# ========================================
+
+# Build outputs
+dist/
+build/
+out/
+*.o
+*.a
+*.lib
+*.dll
+*.so
+*.dylib
+
+# Compiled
+*.com
+*.exe
+*.out
+*.app
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+lerna-debug.log*
+pnpm-debug.log*
+
+# ========================================
+# 🧪 TESTES E COBERTURA
+# ========================================
+
+# Coverage
+coverage/
+.nyc_output/
+.coverage
+htmlcov/
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Test outputs
+test-results/
+junit.xml
+
+# ========================================
+# 🔧 FERRAMENTAS DE DESENVOLVIMENTO
+# ========================================
+
+# Docker
+.docker/
+docker-compose.override.yml
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+
+# Ansible
+*.retry
+
+# ========================================
+# 🚫 ARQUIVOS PERIGOSOS (PROTEÇÃO EXTRA)
+# ========================================
+
+# Backup files
+*.bak
+*.backup
+*.old
+*.orig
+*.tmp
+
+# Lock files sensíveis
+package-lock.json.lock
+yarn.lock.lock
+
+# ========================================
+# ✅ EXCEÇÕES (PERMITIR ESPECÍFICOS)
+# ========================================
+
+# Forçar inclusão de arquivos importantes
+!.gitkeep
+!.gitignore
+!.cursorrules
+
+# ========================================
+# 📝 NOTAS
+# ========================================
+# Este .gitignore protege contra commit acidental de:
+# - Credenciais e secrets
+# - Chaves SSH e certificados
+# - Arquivos temporários e cache
+# - Builds e artefatos compilados
+# - Configurações locais de IDE
+#
+# Sempre revise antes de commitar com: git status
+# Use git secrets para scan automático: git secrets --scan
+# ========================================

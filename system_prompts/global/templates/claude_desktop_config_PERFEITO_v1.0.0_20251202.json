@@ -1,0 +1,183 @@
+{
+    "mcpServers": {
+        "filesystem": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-filesystem",
+                "/Users/luiz.sena88/Dotfiles",
+                "/Users/luiz.sena88/Documents",
+                "/Users/luiz.sena88/Projects"
+            ],
+            "env": {
+                "NODE_ENV": "production",
+                "LOG_LEVEL": "error"
+            }
+        },
+        "github": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-github"
+            ],
+            "env": {
+                "GITHUB_PERSONAL_ACCESS_TOKEN": "${GITHUB_TOKEN}",
+                "NODE_ENV": "production",
+                "LOG_LEVEL": "error"
+            }
+        },
+        "git": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-git",
+                "--repository",
+                "/Users/luiz.sena88/Dotfiles"
+            ],
+            "env": {
+                "NODE_ENV": "production",
+                "LOG_LEVEL": "error"
+            }
+        },
+        "brave-search": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-brave-search"
+            ],
+            "env": {
+                "BRAVE_API_KEY": "${BRAVE_API_KEY}",
+                "NODE_ENV": "production",
+                "LOG_LEVEL": "error"
+            }
+        },
+        "postgres": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-postgres",
+                "postgresql://localhost/dbname"
+            ],
+            "env": {
+                "NODE_ENV": "production",
+                "LOG_LEVEL": "error",
+                "PGSSLMODE": "prefer"
+            }
+        },
+        "memory": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-memory"
+            ],
+            "env": {
+                "NODE_ENV": "production",
+                "LOG_LEVEL": "error"
+            }
+        },
+        "obsidian": {
+            "command": "bunx",
+            "args": [
+                "@fazer-ai/mcp-obsidian@latest"
+            ],
+            "env": {
+                "OBSIDIAN_API_KEY": "${OBSIDIAN_API_KEY}",
+                "OBSIDIAN_VAULT_PATH": "/Users/luiz.sena88/Dotfiles/system_prompts/segundo-cerebro-ia/obsidian-vault",
+                "NODE_ENV": "production",
+                "LOG_LEVEL": "error",
+                "OBSIDIAN_AUTO_SYNC": "true"
+            }
+        },
+        "youtube-transcript": {
+            "command": "bunx",
+            "args": [
+                "-y",
+                "@kimtaeyoon83/mcp-server-youtube-transcript"
+            ],
+            "env": {
+                "NODE_ENV": "production",
+                "LOG_LEVEL": "error",
+                "YOUTUBE_TRANSCRIPT_LANG": "pt"
+            }
+        },
+        "web-search": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-google-search"
+            ],
+            "env": {
+                "GOOGLE_API_KEY": "${GOOGLE_API_KEY}",
+                "GOOGLE_CSE_ID": "${GOOGLE_CSE_ID}",
+                "NODE_ENV": "production",
+                "LOG_LEVEL": "error"
+            }
+        },
+        "slack": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-slack"
+            ],
+            "env": {
+                "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}",
+                "NODE_ENV": "production",
+                "LOG_LEVEL": "error"
+            }
+        },
+        "puppeteer": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-puppeteer"
+            ],
+            "env": {
+                "NODE_ENV": "production",
+                "LOG_LEVEL": "error",
+                "PUPPETEER_HEADLESS": "true",
+                "PUPPETEER_TIMEOUT": "30000"
+            }
+        },
+        "sequential-thinking": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-sequential-thinking"
+            ],
+            "env": {
+                "NODE_ENV": "production",
+                "LOG_LEVEL": "error"
+            }
+        }
+    },
+    "globalShortcut": "CommandOrControl+Shift+Space",
+    "allowedAuthenticationDomains": [
+        "github.com",
+        "1password.com"
+    ],
+    "mcpServerSettings": {
+        "timeout": 60000,
+        "maxRetries": 3,
+        "retryDelay": 2000,
+        "enableLogs": false,
+        "logLevel": "error",
+        "autoRestart": true,
+        "healthCheck": {
+            "enabled": true,
+            "interval": 300000
+        }
+    },
+    "performance": {
+        "enableCache": true,
+        "cacheSize": 1024,
+        "maxConcurrentRequests": 10,
+        "requestTimeout": 30000,
+        "enableCompression": true
+    },
+    "security": {
+        "allowUnsignedServers": false,
+        "requireSecureConnections": true,
+        "enableSandbox": true,
+        "validateServerCertificates": true
+    }
+}

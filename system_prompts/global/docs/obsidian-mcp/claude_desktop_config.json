@@ -1,0 +1,20 @@
+{
+  "mcpServers": {
+    "@fazer-ai/mcp-obsidian": {
+      "command": "bunx",
+      "args": [
+        "@fazer-ai/mcp-obsidian@latest"
+      ],
+      "env": {
+        "OBSIDIAN_API_KEY": "5a93561013a05003cb941e505d725242af273b52b7eb730e9dda04b58a613ad6"
+      }
+    },
+    "youtube-transcript": {
+      "command": "bunx",
+      "args": [
+        "-y",
+        "@kimtaeyoon83/mcp-server-youtube-transcript"
+      ]
+    }
+  }
+}
